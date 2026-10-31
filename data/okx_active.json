@@ -4,10 +4,10 @@
   "pairs": {
     "SOL-USDT_15m_okx_grid_sma_13": {
       "symbol": "SOL-USDT",
-      "tf": "15m",
+      "tf": "4h",
       "strategy": "okx_grid_sma_13",
-      "tp": 0.005,
-      "sl": 0.003,
+      "tp": 0.02,
+      "sl": 0.01,
       "timeout": 3,
       "trade": true,
       "backtest_2d_pnl": "+0.0047",
@@ -19,10 +19,10 @@
     },
     "DOGE-USDT_15m_okx_grid_sma_13": {
       "symbol": "DOGE-USDT",
-      "tf": "15m",
+      "tf": "4h",
       "strategy": "okx_grid_sma_13",
-      "tp": 0.005,
-      "sl": 0.003,
+      "tp": 0.02,
+      "sl": 0.01,
       "timeout": 3,
       "trade": true,
       "backtest_2d_pnl": "+0.0039",

@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-11-01T04:41:50.385589",
+  "files": [
+    {
+      "file": "agents/data_agent.py",
+      "size": 1489,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА API 400: {\"success\":false,\"error\":{\"message\":\"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.\",\"code\":\"output_token_limit_exceeded\",\"timestamp\":\"2026-10-31T23:43:34.848Z\",\"details\":{\"name\":\"UpstreamError\",\"upstreamHost\":\"portkey.myceli.ai\"}},\"status\":400}"
+      ],
+      "checked_at": "2026-11-01T04:43:10.325030",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА API 400: {\"success\":false,\"error\":{\"message\":\"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.\",\"code\":\"output_token_limit_exceeded\",\"timestamp\":\"2026-10-31T23:43:34.848Z\",\"details\":{\"name\":\"UpstreamError\",\"upstreamHost\":\"portkey.myceli.ai\"}},\"status\":400}"
+    }
+  ],
+  "finished_at": "2026-11-01T04:41:50.534204",
+  "summary": {
+    "total": 1,
+    "ok": 0,
+    "issues": 1,
+    "critical": 0,
+    "skipped": 0
+  }
+}

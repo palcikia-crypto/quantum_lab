@@ -3,6 +3,6 @@
     "enabled": true,
     "adx_threshold": 40
   },
-  "updated_at": "2026-11-01T03:39:09",
-  "source": "brain_filter_adjust"
+  "updated_at": "2026-11-01T04:38:33.325638",
+  "source": "auto_filter"
 }

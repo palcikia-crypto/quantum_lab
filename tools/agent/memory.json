@@ -1,5 +1,5 @@
 {
-  "runs": 219,
+  "runs": 228,
   "actions": [
     {
       "ts": 1793365852,
@@ -308,10 +308,18 @@
     {
       "ts": 1793484301,
       "rule": "v4_dead"
+    },
+    {
+      "ts": 1793488500,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793489401,
+      "rule": "market_stale"
     }
   ],
   "patterns": {
-    "age_market.db": 181,
+    "age_market.db": 187,
     "age_oracle.db": 14,
     "age_orderbook.db": 11
   }

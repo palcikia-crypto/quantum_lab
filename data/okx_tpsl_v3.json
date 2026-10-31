@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-01T03:35:27.182196",
+  "updated_at": "2026-11-01T04:55:44.579374",
   "source": "auto_apply_regime",
   "params": {
     "tp": 0.006,
@@ -9,7 +9,7 @@
   "per_pair": {
     "XRP-USDT": {
       "flat": {
-        "strategy": "okx_vwap_rev_30",
+        "strategy": "okx_vwap_rev_20",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
@@ -29,7 +29,7 @@
     },
     "SOL-USDT": {
       "flat": {
-        "strategy": "okx_vwap_rev_20",
+        "strategy": "okx_grid_sma_20",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
