@@ -1,0 +1,94 @@
+{
+  "updated_at": "2026-10-31T19:20:00",
+  "source": "optimized_losers",
+  "pairs": {
+    "SOLUSDT_15m_okx_vwap_rev_13": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 89.99563128003496,
+      "n": 2289,
+      "trade": true
+    },
+    "DOGEUSDT_15m_okx_vwap_rev_13": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 87.7930476960388,
+      "n": 2474,
+      "trade": true
+    },
+    "DOGEUSDT_15m_okx_vwap_rev_15": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 86.45206933144676,
+      "n": 2827,
+      "trade": true
+    },
+    "SOLUSDT_15m_okx_vwap_rev_15": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 88.3801462100808,
+      "n": 2599,
+      "trade": true
+    },
+    "XRPUSDT_15m_okx_vwap_rev_13": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 88.59404096834264,
+      "n": 2148,
+      "trade": true
+    },
+    "XRPUSDT_15m_okx_vwap_rev_15": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 87.22881702824397,
+      "n": 2443,
+      "trade": true
+    },
+    "ETHUSDT_15m_okx_vwap_rev_13": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 89.75308641975309,
+      "n": 1620,
+      "trade": true
+    },
+    "DOGEUSDT_15m_okx_grid_sma_13": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "wr": 92.46861924686192,
+      "n": 1195,
+      "trade": true
+    }
+  }
+}

@@ -1,0 +1,71 @@
+===== 1. ЧТО ЖИВО? =====
+  ❌ okx_bot_paper_v2
+  ❌ okx_bot_paper_v3
+  ✅ okx_bot_paper_v4 — 5041
+  ✅ brain_loop — 5038
+  ✅ oracle.py — 5029
+  ✅ orderbook_oracle — 5032
+  ✅ strategy_bot — 5044
+  ✅ dashboard.py — 5069
+  ✅ strategy_panel — 5073
+  ❌ grail_optimizer_full
+
+===== 2. UPTIME =====
+ 05:58:28 up 5 min,  0 users,  load average: 19.08, 9.27, 3.81
+
+===== 3. ОПТИМИЗАТОР ЗАКОНЧИЛ? =====
+[05:43:08] [full]     режимы: bull=95.2%, bear=89.8%, flat=89.6%
+[05:43:08] [full] 🔍 BTCUSDT okx_grid_sma_20 (base WR=70.7%)
+[05:45:29] [full]   ⚠️ нет walk-forward (WR>=55)
+[05:45:29] [full] 🔍 ETHUSDT okx_grid_sma_20 (base WR=69.3%)
+[05:47:38] [full]   ✅ TREND OK: regime=flat LONG=6 SHORT=9
+[05:47:39] [full]   ✅ OOS OK: WR=88.9% PnL=+0.10 n=153
+[05:47:49] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=0.8%, min WR=88.4%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:48:16] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=2.0%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:48:16] [full]   ✅ BEST: okx_grid_sma_17 tp=0.008 sl=0.005 timeout=3
+[05:48:16] [full]     train WR=89.1%, test WR=91.0%, test PnL=0.28%, n=301
+[05:48:16] [full]     режимы: bull=86.4%, bear=91.8%, flat=88.8%
+[05:48:16] [full] 🔍 XRPUSDT okx_grid_sma_20 (base WR=67.5%)
+[05:50:28] [full]   ✅ TREND OK: regime=flat LONG=10 SHORT=4
+[05:50:28] [full]   ✅ OOS OK: WR=92.7% PnL=+0.24 n=150
+[05:50:37] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=1.8%, min WR=85.4%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:51:00] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=2.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:51:01] [full]   ✅ BEST: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3
+[05:51:01] [full]     train WR=88.5%, test WR=89.2%, test PnL=0.59%, n=409
+[05:51:01] [full]     режимы: bull=89.1%, bear=88.2%, flat=92.8%
+[05:51:01] [full] 🔍 BTCUSDT okx_grid_sma_30 (base WR=66.7%)
+
+===== 4. okx_active.json =====
+  пар: 10, обновлён: 05:09:24
+    ETH-USDT okx_vwap_rev_7: WR=97.2%
+    SOL-USDT okx_vwap_rev_13: WR=85.0%
+    DOGE-USDT okx_vwap_rev_13: WR=84.1%
+    BTC-USDT okx_vwap_rev_15: WR=86.8%
+    ETH-USDT okx_vwap_rev_15: WR=82.6%
+    BTC-USDT okx_vwap_rev_25: WR=79.3%
+    SOL-USDT okx_grid_sma_13: WR=93.8%
+    ETH-USDT okx_grid_sma_15: WR=90.5%
+    XRP-USDT okx_grid_sma_15: WR=91.0%
+    BTC-USDT okx_grid_sma_25: WR=82.1%
+
+===== 5. ВОССТАНОВЛЕНИЕ =====
+  🔧 okx_bot_paper_v2.py
+  🔧 okx_bot_paper_v3.py
+  🔧 grail_optimizer_full.py (перезапуск)
+
+===== 6. ПОСЛЕ ВОССТАНОВЛЕНИЯ =====
+  ✅ okx_bot_paper_v2 — 5725
+  ✅ okx_bot_paper_v3 — 5729
+  ✅ okx_bot_paper_v4 — 5041
+  ✅ brain_loop — 5038
+  ✅ oracle.py — 5892
+  ✅ orderbook_oracle — 6012
+  ✅ strategy_bot — 5044
+  ✅ dashboard.py — 5069
+  ✅ strategy_panel — 5073
+  ✅ grail_optimizer_full — 5746
+
+===== 7. PnL =====
+  v2: 151 сделок, PnL=-174.16
+  v3: 135 сделок, PnL=-188.5
+  v4: 767 сделок, PnL=7.91

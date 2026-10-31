@@ -1,0 +1,15 @@
+{
+  "strategy_name": "okx_vwap_rev_30",
+  "pairs": [
+    "XRP-USDT",
+    "ETH-USDT"
+  ],
+  "tp_pct": 0.006,
+  "sl_pct": 0.004,
+  "timeout_bars": 2,
+  "cooldown_sec": 600,
+  "bet_size_usd": 100.0,
+  "fee": 0.0015,
+  "slip": 0.0002,
+  "note": "\u0417\u043e\u043b\u043e\u0442\u0430\u044f \u0441\u0432\u044f\u0437\u043a\u0430: 81.8% WR \u043d\u0430 XRP + ETH. \u0411\u044d\u043a\u0442\u0435\u0441\u0442 2d/7d/30d \u043f\u0440\u043e\u0439\u0434\u0435\u043d."
+}

@@ -1,0 +1,258 @@
+{
+  "updated_at": "2026-10-28T18:41:03.024052",
+  "params": {
+    "min_expectancy": 0.0003,
+    "min_n": 20,
+    "max_dd": 30.0,
+    "min_sharpe": 0.5
+  },
+  "candidates_total": 7,
+  "grails_found": 7,
+  "grails": [
+    {
+      "pair": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "bb_20_2.0",
+      "expectancy_avg": 0.00333,
+      "sharpe_avg": 8.11,
+      "max_dd_max": 1.51,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 235,
+          "wr": 72.3,
+          "expectancy": 0.00321,
+          "sharpe": 9.45,
+          "max_dd": 1.04
+        },
+        {
+          "window": "test_50-74%",
+          "n": 200,
+          "wr": 71.0,
+          "expectancy": 0.00366,
+          "sharpe": 6.72,
+          "max_dd": 1.51
+        },
+        {
+          "window": "test_25-49%",
+          "n": 260,
+          "wr": 71.9,
+          "expectancy": 0.00313,
+          "sharpe": 8.16,
+          "max_dd": 1.38
+        }
+      ]
+    },
+    {
+      "pair": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "bb_20_1.5",
+      "expectancy_avg": 0.00226,
+      "sharpe_avg": 6.78,
+      "max_dd_max": 2.08,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 473,
+          "wr": 65.3,
+          "expectancy": 0.00214,
+          "sharpe": 7.43,
+          "max_dd": 1.52
+        },
+        {
+          "window": "test_50-74%",
+          "n": 477,
+          "wr": 61.0,
+          "expectancy": 0.00222,
+          "sharpe": 5.34,
+          "max_dd": 2.08
+        },
+        {
+          "window": "test_25-49%",
+          "n": 506,
+          "wr": 68.4,
+          "expectancy": 0.00242,
+          "sharpe": 7.58,
+          "max_dd": 0.91
+        }
+      ]
+    },
+    {
+      "pair": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_20_1.5",
+      "expectancy_avg": 0.00226,
+      "sharpe_avg": 6.78,
+      "max_dd_max": 2.08,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 473,
+          "wr": 65.3,
+          "expectancy": 0.00214,
+          "sharpe": 7.43,
+          "max_dd": 1.52
+        },
+        {
+          "window": "test_50-74%",
+          "n": 477,
+          "wr": 61.0,
+          "expectancy": 0.00222,
+          "sharpe": 5.34,
+          "max_dd": 2.08
+        },
+        {
+          "window": "test_25-49%",
+          "n": 506,
+          "wr": 68.4,
+          "expectancy": 0.00242,
+          "sharpe": 7.58,
+          "max_dd": 0.91
+        }
+      ]
+    },
+    {
+      "pair": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_30",
+      "expectancy_avg": 0.00168,
+      "sharpe_avg": 4.0,
+      "max_dd_max": 8.26,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 1228,
+          "wr": 55.9,
+          "expectancy": 0.00152,
+          "sharpe": 3.89,
+          "max_dd": 3.6
+        },
+        {
+          "window": "test_50-74%",
+          "n": 1021,
+          "wr": 63.3,
+          "expectancy": 0.0025,
+          "sharpe": 4.55,
+          "max_dd": 6.14
+        },
+        {
+          "window": "test_25-49%",
+          "n": 928,
+          "wr": 56.2,
+          "expectancy": 0.00103,
+          "sharpe": 3.56,
+          "max_dd": 8.26
+        }
+      ]
+    },
+    {
+      "pair": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_15_1.5",
+      "expectancy_avg": 0.00149,
+      "sharpe_avg": 6.44,
+      "max_dd_max": 3.6,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 489,
+          "wr": 62.6,
+          "expectancy": 0.00154,
+          "sharpe": 7.1,
+          "max_dd": 2.37
+        },
+        {
+          "window": "test_50-74%",
+          "n": 468,
+          "wr": 59.2,
+          "expectancy": 0.00133,
+          "sharpe": 5.63,
+          "max_dd": 3.6
+        },
+        {
+          "window": "test_25-49%",
+          "n": 500,
+          "wr": 63.8,
+          "expectancy": 0.00161,
+          "sharpe": 6.6,
+          "max_dd": 1.08
+        }
+      ]
+    },
+    {
+      "pair": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_30",
+      "expectancy_avg": 0.00136,
+      "sharpe_avg": 3.84,
+      "max_dd_max": 8.95,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 810,
+          "wr": 52.2,
+          "expectancy": 0.00098,
+          "sharpe": 3.29,
+          "max_dd": 8.95
+        },
+        {
+          "window": "test_50-74%",
+          "n": 715,
+          "wr": 57.5,
+          "expectancy": 0.00182,
+          "sharpe": 4.45,
+          "max_dd": 2.52
+        },
+        {
+          "window": "test_25-49%",
+          "n": 1034,
+          "wr": 54.4,
+          "expectancy": 0.00127,
+          "sharpe": 3.79,
+          "max_dd": 3.12
+        }
+      ]
+    },
+    {
+      "pair": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "okx_ema_5_20",
+      "expectancy_avg": 0.00116,
+      "sharpe_avg": 4.13,
+      "max_dd_max": 7.87,
+      "is_grail": true,
+      "windows": [
+        {
+          "window": "test_75-100%",
+          "n": 551,
+          "wr": 55.9,
+          "expectancy": 0.00106,
+          "sharpe": 4.11,
+          "max_dd": 3.68
+        },
+        {
+          "window": "test_50-74%",
+          "n": 543,
+          "wr": 52.1,
+          "expectancy": 0.00101,
+          "sharpe": 3.65,
+          "max_dd": 7.87
+        },
+        {
+          "window": "test_25-49%",
+          "n": 550,
+          "wr": 57.1,
+          "expectancy": 0.00141,
+          "sharpe": 4.63,
+          "max_dd": 1.89
+        }
+      ]
+    }
+  ]
+}

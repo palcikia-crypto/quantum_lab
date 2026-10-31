@@ -1,0 +1,102 @@
+{
+  "updated_at": "2026-10-27T21:42:05.579882",
+  "source": "gate+evolution",
+  "pairs": {
+    "XRPUSDT_15m": {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 53.1,
+      "n": 4091,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "BTCUSDT_15m": {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 57.4,
+      "n": 770,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "ETHUSDT_15m": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 54.1,
+      "n": 991,
+      "p": 0.01,
+      "verdict": "WATCH",
+      "score": 5.41,
+      "model": "current",
+      "trade": false
+    },
+    "SOLUSDT_15m": {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 54.4,
+      "n": 933,
+      "p": 0.01,
+      "verdict": "WATCH",
+      "score": 5.4399999999999995,
+      "model": "current",
+      "trade": false
+    },
+    "XRPUSDT_15m_stoch_20": {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 59.6,
+      "n": 715,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "XRPUSDT_15m_stoch_30": {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 55.3,
+      "n": 944,
+      "p": 0.0006,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "BTCUSDT_15m_stoch_30": {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 55.6,
+      "n": 982,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "evolution",
+      "trade": true
+    },
+    "BTCUSDT_15m_mean_rev_2": {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_2",
+      "wr": 53.6,
+      "n": 4449,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "evolution",
+      "trade": true
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "updated_at": "2026-10-31T23:15:00",
+  "source": "trend_following",
+  "pairs": {
+    "XRP-USDT": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "ema_breakout",
+      "tp": 0.01,
+      "sl": 0.005,
+      "timeout": 4
+    },
+    "SOL-USDT": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "ema_breakout",
+      "tp": 0.01,
+      "sl": 0.005,
+      "timeout": 4
+    },
+    "DOGE-USDT": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "ema_breakout",
+      "tp": 0.01,
+      "sl": 0.005,
+      "timeout": 4
+    },
+    "ETH-USDT": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "ema_breakout",
+      "tp": 0.01,
+      "sl": 0.005,
+      "timeout": 4
+    }
+  }
+}

@@ -1,0 +1,34 @@
+===== 1. ОТКАТ: вернуть OOS-10 =====
+  ✅ OOS-10 восстановлен
+
+===== 2. ОГРАНИЧИТЬ regime_switcher: только проверенные =====
+  ✅ regime_switcher: WHITELIST добавлен
+
+===== 3. ПРОВЕРКА: OOS-10 восстановлен =====
+  пар: 10
+  ETH-USDT okx_vwap_rev_7
+  SOL-USDT okx_vwap_rev_13
+  DOGE-USDT okx_vwap_rev_13
+  BTC-USDT okx_vwap_rev_15
+  ETH-USDT okx_vwap_rev_15
+  BTC-USDT okx_vwap_rev_25
+  SOL-USDT okx_grid_sma_13
+  ETH-USDT okx_grid_sma_15
+  XRP-USDT okx_grid_sma_15
+  BTC-USDT okx_grid_sma_25
+
+===== 4. ПЕРЕЗАПУСК v2/v3 =====
+  v2 PID: 28663
+  v3 PID: 28664
+
+[04:43:57] === OKX PAPER BOT v2 STARTED ===
+[04:43:57] active: 10 пар
+---
+[04:43:57] === OKX PAPER BOT v3 STARTED ===
+[04:43:57] active: 10 пар
+
+===== 5. ИТОГ =====
+  ✅ OOS-10 восстановлен
+  ✅ regime_switcher ограничен WHITELIST
+  ✅ v2/v3 перезапущены
+  ⏳ grail_optimizer_full: PID 24525

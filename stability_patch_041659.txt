@@ -1,0 +1,20 @@
+===== ВСТРОЙКА 4 ТЕСТОВ УСТОЙЧИВОСТИ В ОПТИМИЗАТОР =====
+✅ изменения: stability_functions
+✅ синтаксис OK
+
+===== ПРОВЕРКА: stability-функции =====
+74:def wf_5fold(data, fn, tp, sl, timeout):
+87:def monte_carlo(data, fn, tp, sl, timeout, n_iter=30):
+102:def multi_oos_check(data, fn, tp, sl, timeout, periods=[30,60,90]):
+115:def tp_sl_sensitivity(data, fn, tp, sl, timeout, delta=0.2):
+125:def stability_check(data, fn, tp, sl, timeout, log_fn=None):
+
+===== ПЕРЕЗАПУСК ОПТИМИЗАТОРА =====
+  optimizer PID: 15889
+[04:17:05] [full] === GRAIL OPTIMIZER FULL ===
+[04:17:05] [full] Граалей: 16
+[04:17:05] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== ИТОГ =====
+  ✅ stability_check: WF 5-fold + MC + Multi-OOS + TP/SL sens
+  ⏳ optimizer работает с полной проверкой

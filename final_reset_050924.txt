@@ -1,0 +1,35 @@
+===== 1. ВЕРНУТЬ OOS-10 =====
+  ✅ OOS-10 восстановлен
+
+===== 2. ОТКЛЮЧИТЬ regime_switcher ИЗ CRON =====
+Backup of u0_a119's previous crontab saved to /data/data/com.termux/files/home/.cache/crontab/crontab.bak
+  ✅ regime_switcher убран из cron
+
+===== 3. ПРОВЕРКА: OOS-10 =====
+  пар: 10
+  ETH-USDT okx_vwap_rev_7
+  SOL-USDT okx_vwap_rev_13
+  DOGE-USDT okx_vwap_rev_13
+  BTC-USDT okx_vwap_rev_15
+  ETH-USDT okx_vwap_rev_15
+  BTC-USDT okx_vwap_rev_25
+  SOL-USDT okx_grid_sma_13
+  ETH-USDT okx_grid_sma_15
+  XRP-USDT okx_grid_sma_15
+  BTC-USDT okx_grid_sma_25
+
+===== 4. ПЕРЕЗАПУСК v2/v3 =====
+  v2 PID: 7616
+  v3 PID: 7617
+
+[05:09:30] === OKX PAPER BOT v2 STARTED ===
+[05:09:31]   ✅ XRP-USDT SHORT CLOSED @ 1.248762 PnL=$+4.30 (TP)
+[05:09:31] active: 10 пар
+---
+[05:09:30] === OKX PAPER BOT v3 STARTED ===
+[05:09:30] active: 10 пар
+
+===== 5. ИТОГ =====
+  ✅ OOS-10 восстановлен
+  ✅ regime_switcher отключён
+  ✅ v2/v3 работают на OOS-10

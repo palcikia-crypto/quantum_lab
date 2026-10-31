@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-11-01T03:46:44.974355",
+  "results": [
+    {
+      "key": "ETHUSDT_15m_bb_20_1.5",
+      "symbol": "ETHUSDT",
+      "strategy": "bb_20_1.5",
+      "bot": "V7",
+      "backtest_wr": 64.6,
+      "live_wr": 38.4,
+      "delta": -26.2,
+      "n": 86,
+      "pnl": -69.8,
+      "status": "QUARANTINE"
+    },
+    {
+      "key": "ETHUSDT_15m_bb_20_2.0",
+      "symbol": "ETHUSDT",
+      "strategy": "bb_20_2.0",
+      "bot": "V7",
+      "backtest_wr": 71.3,
+      "live_wr": 39.1,
+      "delta": -32.2,
+      "n": 23,
+      "pnl": -23.68,
+      "status": "QUARANTINE"
+    },
+    {
+      "key": "ETHUSDT_15m_mean_rev_20_1.5",
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "bot": "V7",
+      "backtest_wr": 64.6,
+      "live_wr": 33.3,
+      "delta": -31.3,
+      "n": 12,
+      "pnl": -14.96,
+      "status": "waiting"
+    },
+    {
+      "key": "BTCUSDT_15m_mean_rev_15_1.5",
+      "symbol": "BTCUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "bot": "V7",
+      "backtest_wr": 62.6,
+      "live_wr": 35.7,
+      "delta": -26.9,
+      "n": 129,
+      "pnl": -129.11,
+      "status": "QUARANTINE"
+    }
+  ]
+}

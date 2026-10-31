@@ -1,0 +1,233 @@
+#!/usr/bin/env python3
+"""okx_bot_paper_v2.py — чистый OKX paper-бот.
+- get_candles: rows[::-1] (c[-1] = свежая)
+- get_candles_fresh: только c[-1] > 0 (без get_price rate-limit)
+- check_signal: numpy, возвращает (side, entry_price)
+- close_open_trades: TP/SL по h/l свечей, timeout из by_regime
+- exists: cooldown 30 мин (не открывать повторно)
+- auto-подхват by_regime (кэш по mtime)
+"""
+import os, sys, json, time, sqlite3, urllib.request
+from datetime import datetime
+import numpy as np
+
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE, 'core'))
+from okx_mutator import generate_mutants
+
+ACTIVE = os.path.join(BASE, 'data/okx_active.json')
+TPSL_REG = os.path.join(BASE, 'data/okx_tpsl_by_regime.json')
+POLICY = os.path.join(BASE, 'data/okx_policy.json')
+ORACLE_DB = os.path.join(BASE, 'data/oracle.db')
+DB = os.path.join(BASE, 'data/okx_paper.db')
+LOG = os.path.join(BASE, 'logs/okx_bot_paper.log')
+
+BET = 500.0
+LEVERAGE = 2.0
+FEE = 0.0015
+SLIP = 0.0002
+COOLDOWN_SEC = 600  # 10 мин
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f: f.write(line + '\n')
+
+def init_db():
+    c = sqlite3.connect(DB)
+    c.execute('''CREATE TABLE IF NOT EXISTS trades (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        symbol TEXT, side TEXT, strategy TEXT,
+        entry_price REAL, exit_price REAL, pnl REAL,
+        entry_ts INTEGER, exit_ts INTEGER,
+        status TEXT DEFAULT 'OPEN', win_flag INTEGER DEFAULT 0,
+        tp REAL, sl REAL, timeout_bars INTEGER DEFAULT 2)''')
+    for col in ('tp', 'sl', 'timeout_bars'):
+        try:
+            c.execute(f"ALTER TABLE trades ADD COLUMN {col} REAL")
+        except sqlite3.OperationalError:
+            pass
+    c.commit(); c.close()
+
+# ═══ ЦЕНА (ticker) ═══
+def get_price(symbol):
+    url = f'https://www.okx.com/api/v5/market/ticker?instId={symbol}'
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        d = json.loads(urllib.request.urlopen(req, timeout=5).read())
+        if d.get('code') == '0' and d.get('data'):
+            return float(d['data'][0]['last'])
+    except: pass
+    return None
+
+# ═══ СВЕЧИ (rows[::-1] -> c[-1] свежая) ═══
+def get_candles(symbol, bar='15m', limit=100):
+    url = f'https://www.okx.com/api/v5/market/candles?instId={symbol}&bar={bar}&limit={limit}'
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        d = json.loads(urllib.request.urlopen(req, timeout=10).read())
+        if d.get('code') != '0': return None
+        rows = d.get('data', [])
+        if not rows: return None
+        rows = rows[::-1]  # старые первыми
+        return {'o': np.array([float(r[1]) for r in rows]),
+                'h': np.array([float(r[2]) for r in rows]),
+                'l': np.array([float(r[3]) for r in rows]),
+                'c': np.array([float(r[4]) for r in rows]),
+                'v': np.array([float(r[5]) for r in rows])}
+    except: return None
+
+def get_candles_fresh(symbol, bar='15m', limit=100):
+    data = get_candles(symbol, bar=bar, limit=limit)
+    if not data: return None
+    if len(data['c']) < 2: return None
+    if data['c'][-1] <= 0: return None
+    return data
+
+# ═══ РЕЖИМ (oracle.db) ═══
+_REGIME_CACHE = {'mtime': 0, 'data': {}}
+def get_regime(sym):
+    try:
+        mt = os.path.getmtime(ORACLE_DB)
+    except OSError:
+        return None
+    if mt != _REGIME_CACHE['mtime']:
+        try:
+            c = sqlite3.connect(ORACLE_DB)
+            rows = c.execute("SELECT symbol, regime, adx FROM regime WHERE ts=(SELECT MAX(ts) FROM regime)").fetchall()
+            c.close()
+            _REGIME_CACHE['data'] = {r[0]: {'regime': r[1], 'adx': r[2]} for r in rows}
+            _REGIME_CACHE['mtime'] = mt
+        except: return None
+    return _REGIME_CACHE['data'].get(sym.replace('-', ''))
+
+# ═══ by_regime (кэш по mtime) ═══
+_TPSL_CACHE = {'mtime': 0, 'data': None}
+def load_tpsl_by_regime(sym, regime):
+    try:
+        mt = os.path.getmtime(TPSL_REG)
+    except OSError:
+        return None
+    if mt != _TPSL_CACHE['mtime']:
+        try:
+            _TPSL_CACHE['data'] = json.load(open(TPSL_REG))
+            _TPSL_CACHE['mtime'] = mt
+        except: return None
+    d = _TPSL_CACHE['data'] or {}
+    item = d.get('per_pair', {}).get(sym, {}).get(regime)
+    if not item: return None
+    return {'strategy': item['strategy'],
+            'tp': float(item.get('tp', 0.006)),
+            'sl': float(item.get('sl', 0.004)),
+            'timeout_bars': int(item.get('timeout_bars', 2))}
+
+# ═══ policy ═══
+_POL_CACHE = {'mtime': 0, 'data': None}
+def load_policy():
+    try:
+        mt = os.path.getmtime(POLICY)
+    except OSError:
+        return {'filter': {'enabled': False, 'adx_threshold': 50}}
+    if mt != _POL_CACHE['mtime']:
+        try:
+            _POL_CACHE['data'] = json.load(open(POLICY))
+            _POL_CACHE['mtime'] = mt
+        except: pass
+    return _POL_CACHE['data'] or {'filter': {'enabled': False, 'adx_threshold': 50}}
+
+# ═══ СИГНАЛ ═══
+def check_signal(strat, sym):
+    data = get_candles_fresh(sym)
+    if not data: return None
+    muts = generate_mutants()
+    if strat not in muts: return None
+    try:
+        up, dn = muts[strat](data['o'], data['h'], data['l'], data['c'], data['v'], {})
+        entry = float(data['c'][-2]) if len(data['c']) >= 2 else None
+        if up[-1]: return ('LONG', entry)
+        if dn[-1]: return ('SHORT', entry)
+    except Exception as e:
+        log(f'  ⚠️ check_signal {strat} {sym}: {e}')
+    return None
+
+# ═══ ЗАКРЫТИЕ (TP/SL по h/l, timeout) ═══
+def close_open_trades():
+    c = sqlite3.connect(DB)
+    rows = c.execute("SELECT id, symbol, side, entry_price, entry_ts, strategy, tp, sl, timeout_bars FROM trades WHERE status='OPEN'").fetchall()
+    now = int(time.time())
+    for t_id, sym, side, ep, ets, strat, tp, sl, tb in rows:
+        tp = tp or 0.006; sl = sl or 0.004; tb = int(tb or 2)
+        data = get_candles(sym, limit=50)
+        exit_p = None; reason = None
+        if data:
+            for j in range(len(data['h'])):
+                hi, lo = data['h'][j], data['l'][j]
+                if side == 'LONG':
+                    if lo <= ep * (1 - sl): exit_p = ep * (1 - sl); reason = 'SL'; break
+                    if hi >= ep * (1 + tp): exit_p = ep * (1 + tp); reason = 'TP'; break
+                else:
+                    if hi >= ep * (1 + sl): exit_p = ep * (1 + sl); reason = 'SL'; break
+                    if lo <= ep * (1 - tp): exit_p = ep * (1 - tp); reason = 'TP'; break
+        if exit_p is None:
+            if (now - ets) >= 900 * tb:
+                cur = get_price(sym)
+                if not cur: continue
+                exit_p = cur; reason = f'timeout_{tb}b'
+            else: continue
+        move = (exit_p - ep)/ep if side == 'LONG' else (ep - exit_p)/ep
+        pnl = (move - FEE - SLIP) * BET * LEVERAGE
+        win = 1 if pnl > 0 else 0
+        c.execute("UPDATE trades SET exit_price=?, pnl=?, exit_ts=?, status='CLOSED', win_flag=? WHERE id=?",
+                  (round(exit_p, 6), round(pnl, 4), now, win, t_id))
+        log(f'  {"✅" if win else "❌"} {sym} {side} CLOSED @ {exit_p:.6f} PnL=${pnl:+.2f} ({reason})')
+    c.commit(); c.close()
+
+# ═══ ГЛАВНЫЙ ЦИКЛ ═══
+def main():
+    init_db()
+    log('=== OKX PAPER BOT v2 STARTED ===')
+    while True:
+        try:
+            close_open_trades()
+            active = json.load(open(ACTIVE)).get('pairs', {})
+            log(f'active: {len(active)} пар')
+            for key, cfg in active.items():
+                sym = cfg.get('symbol', key.split('_')[0])
+                r = get_regime(sym) or {}
+                reg = r.get('regime')
+                if not reg: continue
+                tcfg = load_tpsl_by_regime(sym, reg)
+                if not tcfg: continue
+                strat = tcfg['strategy']
+                sig = check_signal(strat, sym)
+                if not sig: continue
+                side, entry = sig
+                if not entry: continue
+                # cooldown 10 мин
+                c = sqlite3.connect(DB)
+                exists = c.execute("SELECT 1 FROM trades WHERE symbol=? AND strategy=? AND entry_ts > ? LIMIT 1",
+                                   (sym, strat, int(time.time()) - COOLDOWN_SEC)).fetchone()
+                if exists: c.close(); continue
+                c.close()
+                # фильтр
+                pol = load_policy()
+                f = pol.get('filter', {})
+                if f.get('enabled', False):
+                    adx = r.get('adx', 0) or 0
+                    thr = float(f.get('adx_threshold', 50))
+                    if adx >= thr:
+                        if (reg == 'trend_up' and side == 'SHORT') or (reg == 'trend_down' and side == 'LONG'):
+                            log(f'  ⏭️ {sym} {side} пропущен (фильтр: {reg} adx={adx})')
+                            continue
+                # открыть
+                c = sqlite3.connect(DB)
+                c.execute("INSERT INTO trades (symbol, side, strategy, entry_price, entry_ts, tp, sl, timeout_bars) VALUES (?,?,?,?,?,?,?,?)",
+                          (sym, side, strat, entry, int(time.time()), tcfg['tp'], tcfg['sl'], tcfg['timeout_bars']))
+                c.commit(); c.close()
+                log(f'  🎯 {sym} {side} @ {entry:.6f} ({strat} TP={tcfg["tp"]*100:.2f}% SL={tcfg["sl"]*100:.2f}% timeout={tcfg["timeout_bars"]}b)')
+        except Exception as e:
+            log(f'⚠️ {e}')
+        time.sleep(15)  # 15 сек (было 60)
+
+if __name__ == '__main__':
+    main()

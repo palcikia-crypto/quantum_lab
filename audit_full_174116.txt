@@ -1,0 +1,397 @@
+============================================================
+##### АУДИТ ВСЕЙ ЭКОСИСТЕМЫ OKX #####
+============================================================
+
+===== 1. ВСЕ ФАЙЛЫ (core, agents, tools, web) =====
+agents/data_agent.py
+agents/evolve_agent.py
+agents/gate_agent.py
+agents/live_agent.py
+agents/okx_agent.py
+agents/report_agent.py
+agents/risk_agent.py
+core/ai_generator.py
+core/ai_generator_old.py
+core/alerts.py
+core/analytics_old.py
+core/auto_DOGEUSDT.py
+core/auto_XRPUSDT.py
+core/auto_adapt_realtime.py
+core/auto_add.py
+core/auto_apply_filters.py
+core/auto_apply_graals.py
+core/auto_apply_regime.py
+core/auto_compare.py
+core/auto_data.py
+core/auto_evolve.py
+core/auto_evolve_by_regime.py
+core/auto_filter.py
+core/auto_filter_optimizer.py
+core/auto_obi_tuner.py
+core/auto_stop_losers.py
+core/auto_tpsl_tuner.py
+core/brain.py
+core/brain_api.py
+core/brain_loop.py
+core/brain_v1_backup.py
+core/data_manager.py
+core/debug_multi.py
+core/debug_multi_mini.py
+core/debug_pnl.py
+core/debug_sim_tpsl.py
+core/debug_simulate.py
+core/evolution.py
+core/evolution_old.py
+core/filter_optimizer_mini.py
+core/filter_test_raw.py
+core/full_access.py
+core/gate.py
+core/gate_v2.py
+core/gate_v3.py
+core/genetic.py
+core/history_downloader.py
+core/history_manager.py
+core/live_feedback.py
+core/live_monitor.py
+core/market_regime.py
+core/ml_filter.py
+core/ml_health_check.py
+core/ml_online.py
+core/ml_online_simple.py
+core/ml_predict.py
+core/ml_predict_online.py
+core/ml_predictor.py
+core/ml_predictor_scalp.py
+core/ml_predictor_scalp_v2.py
+core/ml_predictor_scalp_v3.py
+core/ml_predictor_simple.py
+core/okx_bot.py
+core/okx_bot_paper.py
+core/okx_bot_paper_v2.py
+core/okx_bot_paper_v3.py
+core/okx_bot_paper_v4.py
+core/okx_collector.py
+core/okx_downloader.py
+core/okx_funding_arb.py
+core/okx_gate.py
+core/okx_grid.py
+core/okx_mtf_trend.py
+core/okx_mutator.py
+core/okx_new_strategies.py
+core/okx_orchestrator.py
+core/okx_scalp_strategies.py
+core/okx_scalper.py
+core/okx_sim.py
+core/okx_strategies.py
+core/okx_strategies_power.py
+core/oracle.py
+core/orchestrator.py
+core/orchestrator_old.py
+core/orchestrator_v2.py
+core/orderbook_collector.py
+core/orderbook_oracle.py
+core/scalp_backtest.py
+core/scalp_backtest_fast.py
+core/scalp_backtest_v2.py
+core/scalp_strategies_v2.py
+core/self_organizer.py
+core/strategy_bot.py
+core/strategy_combinator.py
+core/strategy_mutations.py
+core/strategy_mutator.py
+core/strategy_pool.py
+core/strategy_pool_advanced.py
+core/test_grid_flat.py
+core/validation.py
+tools/agent/agent.py
+tools/agent/agent_v2.py
+tools/agent/agent_v3.py
+tools/agent/agent_v5.py
+tools/agent/agent_v6.py
+tools/agent/analyst.py
+tools/agent/analyst_tpsl.py
+tools/agent/analytics.py
+tools/agent/analytics_v2.py
+tools/agent/auto_orchestrator.py
+tools/agent/autopilot.py
+tools/agent/bot_generator.py
+tools/agent/config_manager.py
+tools/agent/dashboard.py
+tools/agent/grail_optimizer.py
+tools/agent/grail_optimizer_full.py
+tools/agent/history_agent.py
+tools/agent/kill_switch.py
+tools/agent/knowledge_agent.py
+tools/agent/knowledge_use.py
+tools/agent/memory.py
+tools/agent/online_learning.py
+tools/agent/orchestrator.py
+tools/agent/project_map.py
+tools/agent/project_rag.py
+tools/agent/recovery.py
+tools/agent/regime_switcher.py
+tools/agent/rules_cleaner.py
+tools/agent/sanity_check.py
+tools/agent/self_heal.py
+tools/agent/strategy_tuner.py
+tools/agent/tpsl_optimizer.py
+tools/agent/tpsl_test.py
+web/app.py
+web/dashboard.py
+web/okx_panel.py
+web/okx_panel_v3.py
+web/okx_panel_v4.py
+web/strategy_panel.py
+
+===== 2. КТО ЧТО ДЕЛАЕТ (первые 3 строки каждого) =====
+--- agents/data_agent.py ---
+--- agents/evolve_agent.py ---
+--- agents/gate_agent.py ---
+--- agents/live_agent.py ---
+--- agents/okx_agent.py ---
+--- agents/report_agent.py ---
+--- agents/risk_agent.py ---
+--- core/ai_generator.py ---
+--- core/ai_generator_old.py ---
+--- core/alerts.py ---
+--- core/analytics_old.py ---
+--- core/auto_DOGEUSDT.py ---
+--- core/auto_XRPUSDT.py ---
+--- core/auto_adapt_realtime.py ---
+--- core/auto_add.py ---
+--- core/auto_apply_filters.py ---
+--- core/auto_apply_graals.py ---
+--- core/auto_apply_regime.py ---
+--- core/auto_compare.py ---
+--- core/auto_data.py ---
+--- core/auto_evolve.py ---
+--- core/auto_evolve_by_regime.py ---
+--- core/auto_filter.py ---
+--- core/auto_filter_optimizer.py ---
+--- core/auto_obi_tuner.py ---
+--- core/auto_stop_losers.py ---
+--- core/auto_tpsl_tuner.py ---
+--- core/brain.py ---
+--- core/brain_api.py ---
+--- core/brain_loop.py ---
+--- core/brain_v1_backup.py ---
+--- core/data_manager.py ---
+--- core/debug_multi.py ---
+--- core/debug_multi_mini.py ---
+--- core/debug_pnl.py ---
+--- core/debug_sim_tpsl.py ---
+--- core/debug_simulate.py ---
+--- core/evolution.py ---
+--- core/evolution_old.py ---
+--- core/filter_optimizer_mini.py ---
+--- core/filter_test_raw.py ---
+--- core/full_access.py ---
+--- core/gate.py ---
+--- core/gate_v2.py ---
+--- core/gate_v3.py ---
+--- core/genetic.py ---
+--- core/history_downloader.py ---
+--- core/history_manager.py ---
+--- core/live_feedback.py ---
+--- core/live_monitor.py ---
+--- core/market_regime.py ---
+--- core/ml_filter.py ---
+--- core/ml_health_check.py ---
+--- core/ml_online.py ---
+--- core/ml_online_simple.py ---
+--- core/ml_predict.py ---
+--- core/ml_predict_online.py ---
+--- core/ml_predictor.py ---
+--- core/ml_predictor_scalp.py ---
+--- core/ml_predictor_scalp_v2.py ---
+--- core/ml_predictor_scalp_v3.py ---
+--- core/ml_predictor_simple.py ---
+--- core/okx_bot.py ---
+--- core/okx_bot_paper.py ---
+--- core/okx_bot_paper_v2.py ---
+--- core/okx_bot_paper_v3.py ---
+--- core/okx_bot_paper_v4.py ---
+--- core/okx_collector.py ---
+--- core/okx_downloader.py ---
+--- core/okx_funding_arb.py ---
+--- core/okx_gate.py ---
+--- core/okx_grid.py ---
+--- core/okx_mtf_trend.py ---
+--- core/okx_mutator.py ---
+--- core/okx_new_strategies.py ---
+--- core/okx_orchestrator.py ---
+--- core/okx_scalp_strategies.py ---
+--- core/okx_scalper.py ---
+--- core/okx_sim.py ---
+--- core/okx_strategies.py ---
+--- core/okx_strategies_power.py ---
+--- core/oracle.py ---
+--- core/orchestrator.py ---
+--- core/orchestrator_old.py ---
+--- core/orchestrator_v2.py ---
+--- core/orderbook_collector.py ---
+--- core/orderbook_oracle.py ---
+--- core/scalp_backtest.py ---
+--- core/scalp_backtest_fast.py ---
+--- core/scalp_backtest_v2.py ---
+--- core/scalp_strategies_v2.py ---
+--- core/self_organizer.py ---
+--- core/strategy_bot.py ---
+--- core/strategy_combinator.py ---
+--- core/strategy_mutations.py ---
+--- core/strategy_mutator.py ---
+--- core/strategy_pool.py ---
+--- core/strategy_pool_advanced.py ---
+--- core/test_grid_flat.py ---
+--- core/validation.py ---
+--- tools/agent/agent.py ---
+--- tools/agent/agent_v2.py ---
+--- tools/agent/agent_v3.py ---
+--- tools/agent/agent_v5.py ---
+--- tools/agent/agent_v6.py ---
+--- tools/agent/analyst.py ---
+--- tools/agent/analyst_tpsl.py ---
+--- tools/agent/analytics.py ---
+--- tools/agent/analytics_v2.py ---
+--- tools/agent/auto_orchestrator.py ---
+--- tools/agent/autopilot.py ---
+--- tools/agent/bot_generator.py ---
+--- tools/agent/config_manager.py ---
+--- tools/agent/dashboard.py ---
+--- tools/agent/grail_optimizer.py ---
+--- tools/agent/grail_optimizer_full.py ---
+--- tools/agent/history_agent.py ---
+--- tools/agent/kill_switch.py ---
+--- tools/agent/knowledge_agent.py ---
+--- tools/agent/knowledge_use.py ---
+--- tools/agent/memory.py ---
+--- tools/agent/online_learning.py ---
+--- tools/agent/orchestrator.py ---
+--- tools/agent/project_map.py ---
+--- tools/agent/project_rag.py ---
+--- tools/agent/recovery.py ---
+--- tools/agent/regime_switcher.py ---
+--- tools/agent/rules_cleaner.py ---
+--- tools/agent/sanity_check.py ---
+--- tools/agent/self_heal.py ---
+--- tools/agent/strategy_tuner.py ---
+--- tools/agent/tpsl_optimizer.py ---
+--- tools/agent/tpsl_test.py ---
+--- web/app.py ---
+--- web/dashboard.py ---
+--- web/okx_panel.py ---
+--- web/okx_panel_v3.py ---
+--- web/okx_panel_v4.py ---
+--- web/strategy_panel.py ---
+
+===== 3. КОНФИГИ (что где) =====
+  data/okx_active.json: 5 пар
+  data/okx_active_v3.json: 5 пар
+  data/okx_active_regime.json: 5 пар
+  data/okx_tpsl_v3.json: 3 пар
+  data/strategy_tpsl.json: 0 пар
+  data/evolution.json: 0 пар
+
+===== 4. БД (что где) =====
+  data/okx_paper.db: 2 таблиц
+  data/okx_paper_v3.db: 2 таблиц
+  data/okx_paper_v4.db: 2 таблиц
+  data/strategy_paper.db: 2 таблиц
+  data/market.db: 2 таблиц
+  data/oracle.db: 3 таблиц
+  data/orderbook.db: 4 таблиц
+  tools/agent/memory.db: 6 таблиц
+
+===== 5. ПРОЦЕССЫ OKX (все) =====
+5832 python3 -u core/brain_loop.py
+5835 python3 -u core/okx_bot_paper_v4.py
+5841 python3 -u core/strategy_bot.py
+5862 python3 -u web/dashboard.py
+6746 python3 -u core/oracle.py loop
+6747 python3 -u core/oracle.py loop
+6748 python3 -u core/oracle.py loop
+7233 python3 -u core/orderbook_oracle.py
+22830 python3 -u core/okx_bot_paper_v4.py
+27777 python3 -u tools/agent/grail_optimizer_full.py
+32216 python3 -u core/okx_bot_paper_v2.py
+32218 python3 -u core/okx_bot_paper_v3.py
+
+===== 6. CRON (что по расписанию) =====
+*/5 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/agent.py >> logs/agent.log 2>&1
+*/30 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/knowledge_agent.py >> logs/knowledge_agent.log 2>&1
+*/5 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/agent_v2.py >> logs/agent.log 2>&1
+*/10 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/recovery.py >> logs/agent.log 2>&1
+*/15 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/dashboard.py >> logs/agent.log 2>&1
+0 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/project_rag.py >> logs/agent.log 2>&1
+*/5 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/agent_v6.py >> logs/agent.log 2>&1
+0 */6 * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/bot_generator.py >> logs/agent.log 2>&1
+0 */12 * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/tpsl_optimizer.py >> logs/agent.log 2>&1
+0 3 * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/rules_cleaner.py >> logs/agent.log 2>&1
+0 4 * * 0 cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/history_agent.py >> logs/agent.log 2>&1
+0 2 * * * cd /data/data/com.termux/files/home/quantum_lab && python3 core/auto_tpsl_tuner.py >> logs/agent.log 2>&1
+0 3 * * * cd /data/data/com.termux/files/home/quantum_lab && python3 core/auto_obi_tuner.py >> logs/agent.log 2>&1
+*/30 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/strategy_tuner.py >> logs/strategy_tuner.log 2>&1
+*/5 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 core/data_manager.py >> logs/data_manager.log 2>&1
+*/5 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/autopilot.py >> logs/autopilot.log 2>&1
+0 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/online_learning.py >> logs/online_learning.log 2>&1
+15 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/kill_switch.py >> logs/kill_switch.log 2>&1
+*/30 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/sanity_check.py >> logs/sanity_check.log 2>&1
+*/15 * * * * cd /data/data/com.termux/files/home/quantum_lab && python3 tools/agent/orchestrator.py >> logs/orchestrator.log 2>&1
+
+===== 7. СВЯЗИ (кто что пишет/читает) =====
+--- ПИШУТ okx_active.json ---
+core/okx_orchestrator.py
+core/okx_bot.py
+core/okx_bot_paper.py
+core/okx_bot_paper_v2.py
+tools/agent/grail_optimizer.py
+tools/agent/grail_optimizer_full.py
+tools/agent/kill_switch.py
+tools/agent/online_learning.py
+tools/agent/regime_switcher.py
+tools/agent/sanity_check.py
+tools/agent/orchestrator.py
+--- ЧИТАЮТ okx_active.json ---
+core/okx_orchestrator.py
+core/okx_bot.py
+core/okx_bot_paper.py
+core/okx_bot_paper_v2.py
+--- ПИШУТ okx_active_v3.json ---
+core/okx_bot_paper_v3.py
+tools/agent/grail_optimizer.py
+tools/agent/grail_optimizer_full.py
+tools/agent/kill_switch.py
+tools/agent/sanity_check.py
+tools/agent/orchestrator.py
+--- ЧИТАЮТ okx_active_v3.json ---
+core/okx_bot_paper_v3.py
+
+===== 8. PnL (все OKX) =====
+  v2: 111 сделок, PnL=-155.79
+  v3: 144 сделок, PnL=-220.11
+  v4: 917 сделок, PnL=8.88
+  strategy: 59 сделок, PnL=-0.26
+
+===== 9. ОТКРЫТЫЕ (все OKX) =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+ symbol   side      strategy        ep            dt
+--------  -----  ---------------  ------  -------------------
+XRP-USDT  SHORT  okx_grid_sma_13  1.2492  2026-10-31 17:30:44
+XRP-USDT  SHORT  okx_grid_sma_13  1.2492  2026-10-31 17:40:55
+--- v4 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+BTC-USDT  SHORT  scalp_obi_short  77617.2  2026-10-31 17:41:15
+XRP-USDT  SHORT  scalp_obi_short   1.2511  2026-10-31 17:41:15
+
+===== 10. SANITY CHECK =====
+[17:41:23]   📊 data/okx_paper.db: 111 сделок, PnL=-155.79
+[17:41:23]   📊 data/okx_paper_v3.db: 144 сделок, PnL=-220.11
+[17:41:23]   📊 data/okx_paper_v4.db: 917 сделок, PnL=8.88
+[17:41:23]   📊 v3 открытых: 2
+
+[17:41:23] ✅ ОШИБОК НЕТ
+[17:41:23] === ИТОГ: 0 ошибок, 0 предупреждений ===

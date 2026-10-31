@@ -1,0 +1,297 @@
+########## BRAIN FULL AUDIT 2026-10-28 14:09:57 ##########
+
+===== 1. ФАЙЛЫ МОЗГА =====
+-rw-------. 1 u0_a119 u0_a119 18648 Oct 27 22:52 core/brain.py
+-rw-------. 1 u0_a119 u0_a119  1778 Oct 27 17:45 core/brain_api.py
+-rw-------. 1 u0_a119 u0_a119  1455 Oct 27 18:12 core/brain_loop.py
+-rw-------. 1 u0_a119 u0_a119  8723 Oct 27 18:12 core/brain_v1_backup.py
+-rw-------. 1 u0_a119 u0_a119  2469 Oct 27 22:12 core/evolution.py
+-rw-------. 1 u0_a119 u0_a119 15758 Oct 27 17:34 core/evolution_old.py
+-rw-------. 1 u0_a119 u0_a119  7348 Oct 28 00:43 core/gate.py
+-rw-------. 1 u0_a119 u0_a119  6399 Oct 27 17:36 core/gate_v2.py
+-rw-------. 1 u0_a119 u0_a119  7732 Oct 28 00:18 core/gate_v3.py
+-rw-------. 1 u0_a119 u0_a119  1370 Oct 27 23:40 core/ml_filter.py
+-rw-------. 1 u0_a119 u0_a119  5542 Oct 27 17:54 core/oracle.py
+-rw-------. 1 u0_a119 u0_a119  1354 Oct 27 18:35 core/self_organizer.py
+-rw-------. 1 u0_a119 u0_a119  8841 Oct 28 01:20 core/strategy_pool.py
+-rw-------. 1 u0_a119 u0_a119  7122 Oct 28 06:45 core/strategy_pool_advanced.py
+
+===== 2. БД МОЗГА: brain.db / oracle.db / market.db =====
+--- data/brain.db (4.1M) ---
+  action_history: 209
+  decisions: 209
+  events: 8
+  state_history: 1001
+--- data/oracle.db (16M) ---
+  prices: 2167
+  regime: 25973
+  regime_history: 190100
+--- data/market.db (134M) ---
+  candles: 1126658
+  state: 0
+
+===== 3. EVOLUTION.JSON — ЧТО НАШЁЛ =====
+keys: ['timestamp', 'L1', 'L2', 'L3', 'top']
+{
+  "timestamp": "2026-10-28T07:16:38.467276",
+  "L1": 268,
+  "L2": 20,
+  "L3": 20,
+  "top": [
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 58.8,
+      "n": 949,
+      "score": 558.0
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 58.8,
+      "n": 949,
+      "score": 558.0
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 55.4,
+      "n": 969,
+      "score": 537.0
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 55.4,
+      "n": 969,
+      "score": 537.0
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 58.1,
+      "n": 908,
+      "score": 528.0
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 58.1,
+      "n": 908,
+      "score": 528.0
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 49.6,
+      "n": 1044,
+      "score": 496.17
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 49.6,
+      "n": 1044,
+      "score": 496.17
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 56.8,
+      "n": 797,
+      "score": 453.0
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_20_1.5",
+      "wr": 56.8,
+      "n": 797,
+      "score": 453.0
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 53.8,
+      "n": 832,
+      "score": 448.0
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "bb_20_1.5",
+      "wr": 53.8,
+      "n": 832,
+      "score": 448.0
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "ema_5_20",
+      "wr": 43.7,
+      "n": 1208,
+      "score": 437.09
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "ema_5_20",
+      "wr": 43.2,
+      "n": 1221,
+      "score": 432.43
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 48.0,
+      
+
+===== 4. ACTIVE_STRATEGIES.JSON — ЧТО ПРОШЛО ГЕЙТ =====
+updated_at: 2026-10-28T08:41:58.779341 | source: gate_all
+всего записей: 4
+
+key                                               wr      n verdict     score
+-------------------------------------------------------------------------------------
+ETHUSDT_15m_bb_20_1.5                           64.6   1970 GOLDEN       10.0
+ETHUSDT_15m_bb_20_2.0                           71.3    944 GOLDEN       10.0
+ETHUSDT_15m_mean_rev_20_1.5                     64.6   1970 GOLDEN       10.0
+BTCUSDT_15m_mean_rev_15_1.5                     62.6   1927 GOLDEN       10.0
+
+===== 5. FINDINGS (старые находки) =====
+--- data/findings_old.json ---
+  keys: ['timestamp', 'pairs', 'findings']
+  BTCUSDT: 6 находок
+    rsi_25_up                 wr=53.6 n=554 verdict=❌
+    rsi_35_up                 wr=53.5 n=1747 verdict=🟡 Possible
+    stoch_20                  wr=53.4 n=4404 verdict=⚠️ Likely
+  ETHUSDT: 5 находок
+    stoch_20                  wr=54.6 n=4049 verdict=✅ Confirmed
+    stoch_30                  wr=53.3 n=6150 verdict=⚠️ Likely
+    mean_rev_3                wr=52.7 n=2409 verdict=🟡 Possible
+  DOGEUSDT: 9 находок
+    rsi_25_up                 wr=54.9 n=537 verdict=🟡 Possible
+    stoch_20                  wr=54.3 n=4123 verdict=⚠️ Likely
+    mean_rev_3                wr=54.2 n=2247 verdict=⚠️ Likely
+
+===== 6. REGIME_HISTORY — СКОЛЬКО РЕЖИМОВ =====
+ symbol   flat   up   down  total
+--------  ----  ----  ----  -----
+ADAUSDT   5573  5276  6435  17284
+ARBUSDT   5201  5431  6622  17254
+AVAXUSDT  5713  5368  6203  17284
+BNBUSDT   4977  6221  6087  17285
+BTCUSDT   5399  5960  5926  17285
+DOGEUSDT  5426  5592  6267  17285
+DOTUSDT   5519  5470  6295  17284
+ETHUSDT   5056  6138  6091  17285
+LINKUSDT  5778  5707  5799  17284
+SOLUSDT   5456  5785  6044  17285
+XRPUSDT   5538  5584  6163  17285
+
+===== 7. OKX_ACTIVE_REGIME.JSON — ЧТО МОЗГ ВЫБРАЛ ПОД РЕЖИМЫ =====
+updated_at: 2026-10-28T07:52:57
+
+BTC-USDT:
+
+ETH-USDT:
+  trend_up   okx_vwap_rev_10           n= 506 wr=56.1% pnl=$46.52
+  trend_up   okx_grid_sma_10           n= 299 wr=58.2% pnl=$30.84
+  trend_down okx_grid_sma_10           n= 284 wr=56.0% pnl=$19.24
+
+XRP-USDT:
+  flat       okx_grid_sma_10           n= 342 wr=59.9% pnl=$31.63
+  trend_up   okx_grid_sma_10           n= 396 wr=58.6% pnl=$36.42
+  trend_down okx_vwap_rev_10           n= 640 wr=57.2% pnl=$39.03
+
+SOL-USDT:
+  flat       okx_vwap_rev_10           n= 667 wr=55.8% pnl=$37.70
+  flat       okx_grid_sma_10           n= 340 wr=57.4% pnl=$29.95
+  trend_up   okx_vwap_rev_10           n= 654 wr=57.5% pnl=$49.88
+  trend_up   okx_grid_sma_10           n= 371 wr=56.6% pnl=$26.51
+  trend_down okx_vwap_rev_10           n= 658 wr=60.2% pnl=$55.77
+  trend_down okx_grid_sma_10           n= 351 wr=58.1% pnl=$28.38
+
+DOGE-USDT:
+  flat       okx_grid_sma_10           n= 353 wr=60.3% pnl=$34.80
+  trend_down okx_grid_sma_10           n= 409 wr=58.9% pnl=$36.49
+
+===== 8. OKX_TPSL_BY_REGIME.JSON — ОПТИМАЛЬНЫЕ TP/SL =====
+updated_at: 2026-10-28T14:08:43
+
+ETH-USDT:
+  trend_up   okx_vwap_rev_10      TP=0.6% SL=0.4% wr=56.1% n=506 pnl=$46.52
+  flat       okx_vwap_rev_10      TP=0.6% SL=0.4% wr=54.8% n=500 pnl=$25.26
+  trend_down okx_grid_sma_10      TP=0.6% SL=0.4% wr=56.0% n=284 pnl=$19.24
+
+XRP-USDT:
+  trend_up   okx_grid_sma_10      TP=0.6% SL=0.4% wr=58.6% n=396 pnl=$36.42
+  flat       okx_grid_sma_10      TP=0.6% SL=0.4% wr=59.9% n=342 pnl=$31.63
+  trend_down okx_vwap_rev_10      TP=0.6% SL=0.4% wr=57.2% n=640 pnl=$39.03
+
+SOL-USDT:
+  trend_up   okx_vwap_rev_10      TP=0.6% SL=0.4% wr=57.5% n=654 pnl=$49.88
+  flat       okx_vwap_rev_10      TP=0.6% SL=0.4% wr=55.8% n=667 pnl=$37.70
+  trend_down okx_vwap_rev_10      TP=0.6% SL=0.4% wr=60.2% n=658 pnl=$55.77
+
+DOGE-USDT:
+  trend_up   okx_vwap_rev_10      TP=0.6% SL=0.4% wr=54.0% n=707 pnl=$34.30
+  flat       okx_vwap_rev_10      TP=0.6% SL=0.4% wr=54.7% n=682 pnl=$45.00
+  trend_down okx_grid_sma_10      TP=0.6% SL=0.4% wr=58.9% n=409 pnl=$36.49
+
+Суммарный PnL на истории: $457.24
+
+===== 9. ЛОГИ МОЗГА (последние 20 каждого) =====
+--- logs/brain_loop.log (664 строк) ---
+[08:38:51] всё ок, действий не нужно
+[08:39:53] решений: 1
+[08:39:53]   -> run_agents (прошло 5 мин)
+[08:40:56] всё ок, действий не нужно
+[08:41:59] всё ок, действий не нужно
+[08:43:01] всё ок, действий не нужно
+�, действий не нужно
+[08:43:01] всё ок, действий не нужно
+--- logs/oracle.log (100 строк) ---
+error: database is locked
+error: database is locked
+error: database is locked
+error: database is locked
+error: database is locked
+error: database is locked
+error: database is locked
+error: database is locked
+--- logs/evolution.log (16 строк) ---
+  XRPUSDT    mean_rev_15_1.5 WR=55.4% n=969
+  XRPUSDT    bb_15_1.5       WR=55.4% n=969
+  SOLUSDT    mean_rev_15_1.5 WR=58.1% n=908
+  SOLUSDT    bb_15_1.5       WR=58.1% n=908
+  ETHUSDT    mean_rev_15_1.5 WR=49.6% n=1044
+  ETHUSDT    bb_15_1.5       WR=49.6% n=1044
+  DOGEUSDT   mean_rev_20_1.5 WR=56.8% n=797
+  DOGEUSDT   bb_20_1.5       WR=56.8% n=797
+--- logs/gate_full.log (121 строк) ---
+  XRPUSDT: 177 прошло
+Advanced: 10 стратегий
+Стратегий: 82
+--- 15m ---
+  BTCUSDT: 57 прошло
+  ETHUSDT: 115 прошло
+  SOLUSDT: 172 прошло
+  XRPUSDT: 229 прошло
+--- logs/gate_agent.log (491 строк) ---
+[08:34:36] === GATE AGENT ===
+[08:34:36] === GATE AGENT ===
+[08:34:36] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 8.2, 'need': True}
+[08:34:36] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 8.2, 'need': True}
+[08:39:54] === GATE AGENT ===
+[08:39:54] === GATE AGENT ===
+[08:39:54] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 8.3, 'need': True}
+[08:39:54] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 8.3, 'need': True}
+--- logs/self_evolution.log (24 строк) ---
+  ✅ ETHUSDT bb_20_2.0: GOLDEN WR=71.3% score=10.0
+Прошло гейт: 8
+  ➕ в active: BTCUSDT_15m_mean_rev_15_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_15_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_20_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_20_2.0
+  ➕ в active: BTCUSDT_15m_bb_15_1.5
+✅ добавлено 5 в active_strategies.json
+
+===== 10. ЖИВЫЕ ПРОЦЕССЫ =====
+
+########## END ##########

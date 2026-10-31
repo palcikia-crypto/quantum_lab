@@ -1,0 +1,8 @@
+{
+  "pairs": {
+    "SOL-USDT_15m_scalp_obi_short": {"symbol": "SOL-USDT", "tf": "15m", "strategy": "scalp_obi_short", "trade": true},
+    "BTC-USDT_15m_scalp_obi_short": {"symbol": "BTC-USDT", "tf": "15m", "strategy": "scalp_obi_short", "trade": true},
+    "XRP-USDT_15m_scalp_obi_short": {"symbol": "XRP-USDT", "tf": "15m", "strategy": "scalp_obi_short", "trade": true}
+  },
+  "updated_at": "2026-10-28T23:30:00"
+}

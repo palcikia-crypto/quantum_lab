@@ -1,0 +1,70 @@
+===== 1. ЧТО ЖИВО? =====
+  ✅ okx_bot_paper_v2 — 7616
+  ✅ okx_bot_paper_v3 — 7617
+  ✅ okx_bot_paper_v4 — 3755
+  ✅ brain_loop — 3031
+  ✅ oracle.py — 3782
+  ✅ orderbook_oracle — 3831
+  ✅ strategy_bot — 3038
+  ✅ dashboard.py — 3061
+  ✅ strategy_panel — 3066
+
+===== 2. POLYMARKET =====
+  ❌ Polymarket не запущен
+
+===== 3. ЗАПУСК ВСЕГО (кроме Polymarket) =====
+
+===== 4. ПОСЛЕ ЗАПУСКА =====
+  ✅ okx_bot_paper_v2 — 7616
+  ✅ okx_bot_paper_v3 — 7617
+  ✅ okx_bot_paper_v4 — 3755
+  ✅ brain_loop — 3031
+  ✅ oracle.py — 3782
+  ✅ orderbook_oracle — 3831
+  ✅ strategy_bot — 3038
+  ✅ dashboard.py — 3061
+  ✅ strategy_panel — 3066
+
+===== 5. HTTP-ПРОВЕРКА ВЕБ =====
+  5000: HTTP 200
+  5001: HTTP 200
+
+===== 6. ЛОГИ v2/v3/v4 (6 строк) =====
+--- v2 ---
+[05:16:47] active: 10 пар
+[05:17:09] active: 10 пар
+[05:17:32] active: 10 пар
+[05:17:55] active: 10 пар
+[05:18:19] active: 10 пар
+[05:18:42] active: 10 пар
+--- v3 ---
+[05:16:53] active: 10 пар
+[05:17:15] active: 10 пар
+[05:17:38] active: 10 пар
+[05:18:02] active: 10 пар
+[05:18:26] active: 10 пар
+[05:18:49] active: 10 пар
+--- v4 ---
+[05:18:33]   🎯 OPEN BTC-USDT SHORT @ 77379.3000 OBI=-0.628 TP=0.15% SL=0.07%
+[05:18:33]   🎯 OPEN BTC-USDT SHORT @ 77379.3000 OBI=-0.628 TP=0.15% SL=0.07%
+[05:18:48]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[05:18:48]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[05:18:48]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[05:18:48]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+
+===== 7. ОПТИМИЗАТОР =====
+8969 python3 -u tools/agent/grail_optimizer_full.py
+[05:15:34] [full]     режимы: bull=92.9%, bear=87.8%, flat=87.1%
+[05:15:34] [full] 🔍 SOLUSDT okx_vwap_rev_10 (base WR=69.2%)
+[05:17:40] [full]   ✅ TREND OK: regime=flat LONG=5 SHORT=16
+[05:17:41] [full]   ✅ OOS OK: WR=84.9% PnL=+0.43 n=337
+[05:17:54] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=3.8%, min WR=86.0%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:18:18] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:18:18] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:18:18] [full]     train WR=90.8%, test WR=87.7%, test PnL=1.0%, n=634
+[05:18:18] [full]     режимы: bull=88.5%, bear=94.6%, flat=86.2%
+[05:18:18] [full] 🔍 DOGEUSDT okx_vwap_rev_10 (base WR=68.5%)
+
+===== ИТОГ =====
+  Polymarket — не трогаем (работает)
+  Всё остальное — должно быть запущено

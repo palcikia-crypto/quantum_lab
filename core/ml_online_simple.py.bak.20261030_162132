@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""ml_online_simple.py — online learning на numpy (SGD, без river)."""
+import os, sys, json, sqlite3, time, pickle
+import numpy as np
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE, 'core'))
+
+MARKET_DB = os.path.join(BASE, 'data/market.db')
+OB_DB = os.path.join(BASE, 'data/orderbook.db')
+MODEL_PATH = os.path.join(BASE, 'data/ml_online.pkl')
+LOG = os.path.join(BASE, 'logs/ml_online.log')
+
+PAIRS = ['BTCUSDT', 'ETHUSDT', 'XRPUSDT', 'SOLUSDT', 'DOGEUSDT']
+TP = 0.003
+SL = 0.0015
+FEE = 0.0005
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+def load_candles(sym, start_ts, end_ts, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts,o,h,l,c,v FROM candles
+                        WHERE symbol=? AND tf=? AND ts>=? AND ts<? ORDER BY ts""",
+                     (sym, tf, start_ts, end_ts)).fetchall()
+    c.close()
+    if not rows: return None
+    return {k: np.array([r[i] for r in rows]) for i, k in enumerate(['ts','o','h','l','c','v'])}
+
+def load_obi(sym, start_ts, end_ts):
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    c = sqlite3.connect(OB_DB, timeout=30)
+    obs = c.execute("""SELECT ts, imbalance FROM orderbooks
+                       WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                    (sym_dash, start_ts, end_ts)).fetchall()
+    c.close()
+    return {ts: obi for ts, obi in obs if obi is not None}
+
+def calc_rsi_at(c, idx, period=14):
+    if idx < period + 1: return 50
+    deltas = np.diff(c[:idx+1])
+    gains = np.where(deltas > 0, deltas, 0)
+    losses = np.where(deltas < 0, -deltas, 0)
+    avg_gain = np.mean(gains[-period:])
+    avg_loss = np.mean(losses[-period:])
+    if avg_loss == 0: return 100
+    return 100 - (100 / (1 + avg_gain / avg_loss))
+
+def calc_atr_at(h, l, c, idx):
+    if idx < 50: return 0
+    hh, ll, cc = h[:idx+1], l[:idx+1], c[:idx+1]
+    tr = np.maximum(hh[1:] - ll[1:], np.maximum(np.abs(hh[1:] - cc[:-1]), np.abs(ll[1:] - cc[:-1])))
+    return np.mean(tr[-14:])
+
+def calc_vwap_at(o, h, l, c, v, idx, period=20):
+    if idx < period: return c[idx]
+    tp = (h[idx-period+1:idx+1] + l[idx-period+1:idx+1] + c[idx-period+1:idx+1]) / 3
+    vv = v[idx-period+1:idx+1]
+    total = np.sum(vv)
+    if total == 0: return c[idx]
+    return np.sum(tp * vv) / total
+
+def build_examples(data, obi_by_ts):
+    examples = []
+    for idx in range(60, len(data['c']) - 2):
+        ts = int(data['ts'][idx])
+        price = data['c'][idx]
+
+        obi_val = None
+        for ots in sorted(obi_by_ts.keys(), reverse=True):
+            if ots <= ts: obi_val = obi_by_ts[ots]; break
+
+        rsi = calc_rsi_at(data['c'], idx)
+        atr = calc_atr_at(data['h'], data['l'], data['c'], idx)
+        vwap = calc_vwap_at(data['o'], data['h'], data['l'], data['c'], data['v'], idx)
+        vwap_diff = (price - vwap) / vwap if vwap > 0 else 0
+
+        future = data['c'][min(idx+2, len(data['c'])-1)]
+        move = (future - price) / price
+        if move >= TP: target = 1
+        elif move <= -SL: target = 0
+        else: continue
+
+        examples.append(([obi_val if obi_val is not None else 0, rsi, atr, vwap_diff], target))
+    return examples
+
+def sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
+
+def main():
+    log('=== ONLINE LEARNING (numpy, SGD) ===')
+    now = int(time.time())
+    start = now - 7*86400
+
+    # Модель: веса (online SGD)
+    w = np.zeros(5)  # bias + 4 features
+    metric_acc = []
+    drift_window = []
+    drift_detected = False
+
+    total = 0
+    for sym in PAIRS:
+        data = load_candles(sym, start, now)
+        if not data: continue
+        obi_by_ts = load_obi(sym, start, now)
+        examples = build_examples(data, obi_by_ts)
+        log(f'{sym}: {len(examples)} примеров')
+
+        for x_raw, y in examples:
+            # Нормализация (приблизительная)
+            x = np.array(x_raw, dtype=float)
+            # Online SGD
+            xb = np.hstack([1.0, x])
+            p = sigmoid(xb @ w)
+            grad = (p - y) * xb
+            w -= 0.01 * grad
+            total += 1
+
+            # Drift detection (простая: окно accuracy)
+            drift_window.append(int(p > 0.5) == int(y))
+            if len(drift_window) > 100:
+                drift_window.pop(0)
+                acc = np.mean(drift_window)
+                if acc < 0.4 and not drift_detected:
+                    log(f'⚠️ DRIFT: accuracy={acc:.3f} < 0.4')
+                    drift_detected = True
+
+    # Финальная accuracy
+    acc_total = np.mean(drift_window) if drift_window else 0.5
+    log(f'✅ Online-обучение: {total} примеров')
+    log(f'   Accuracy (последние 100): {acc_total:.3f}')
+    log(f'   Drift detected: {drift_detected}')
+
+    with open(MODEL_PATH, 'wb') as f:
+        pickle.dump({'type': 'online_sgd', 'w': w, 'accuracy': acc_total, 'drift': drift_detected}, f)
+    log(f'✅ Модель сохранена: {MODEL_PATH}')
+    log('=== DONE ===')
+
+if __name__ == '__main__':
+    main()

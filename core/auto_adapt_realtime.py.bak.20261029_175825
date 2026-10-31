@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+"""auto_adapt_realtime.py — адаптация v3/v4 под рынок в реальном времени."""
+import os, json, sqlite3, shutil, time, stat, subprocess
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+ORACLE_DB = os.path.join(BASE, 'data/oracle.db')
+V3_CFG = os.path.join(BASE, 'data/okx_tpsl_v3.json')
+V4_CFG = os.path.join(BASE, 'data/okx_tpsl_v4.json')
+REGIME = os.path.join(BASE, 'data/holy_grail_regime.json')
+DB_V3 = os.path.join(BASE, 'data/okx_paper_v3.db')
+DB_V4 = os.path.join(BASE, 'data/okx_paper_v4.db')
+LOG = os.path.join(BASE, 'logs/auto_adapt_realtime.log')
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+def backup(path):
+    if os.path.exists(path):
+        shutil.copy(path, f'{path}.bak.{int(time.time())}')
+
+def get_regimes():
+    """Текущие режимы из oracle."""
+    try:
+        c = sqlite3.connect(ORACLE_DB, timeout=5)
+        rows = c.execute("""SELECT symbol, regime, adx FROM regime
+                            WHERE ts=(SELECT MAX(ts) FROM regime)""").fetchall()
+        c.close()
+        return {r[0]: {'regime': r[1], 'adx': r[2]} for r in rows}
+    except:
+        return {}
+
+def get_wr(db, last_n=10):
+    """WR за последние N сделок."""
+    try:
+        c = sqlite3.connect(db, timeout=5)
+        rows = c.execute("""SELECT pnl FROM trades WHERE status='CLOSED'
+                            ORDER BY exit_ts DESC LIMIT ?""", (last_n,)).fetchall()
+        c.close()
+        if not rows: return None, 0
+        wins = sum(1 for r in rows if r[0] and r[0] > 0)
+        return 100.0 * wins / len(rows), len(rows)
+    except:
+        return None, 0
+
+def adapt_v3(regimes, grail_regime):
+    """Адаптирует v3 под текущий режим."""
+    if not grail_regime or 'pairs' not in grail_regime:
+        return
+    try:
+        cur = json.load(open(V3_CFG))
+        st = os.stat(V3_CFG)
+        need_restore = False
+        if st.st_mode & stat.S_IWUSR == 0:
+            os.chmod(V3_CFG, 0o644)
+            need_restore = True
+
+        changed = 0
+        for pair, cfg in cur.get('per_pair', {}).items():
+            sym = pair.replace('-', '')
+            if sym not in regimes: continue
+            current_regime = regimes[sym]['regime']
+            # Маппинг: flat/trend_up/trend_down → flat/trend
+            if current_regime == 'flat':
+                key = 'flat'
+            else:
+                key = 'trend'
+            # Есть ли стратегия для этого режима?
+            if pair in grail_regime['pairs'] and key in grail_regime['pairs'][pair]:
+                new_strat = grail_regime['pairs'][pair][key]['strategy']
+                # Обновляем все 3 режима (flat/trend_up/trend_down)
+                for reg in ['flat', 'trend_up', 'trend_down']:
+                    if cfg.get(reg, {}).get('strategy') != new_strat:
+                        cfg[reg]['strategy'] = new_strat
+                        changed += 1
+
+        if changed > 0:
+            backup(V3_CFG)
+            json.dump(cur, open(V3_CFG, 'w'), indent=2, ensure_ascii=False)
+            log(f'✅ v3: обновлено {changed} стратегий (по режимам)')
+        if need_restore:
+            os.chmod(V3_CFG, 0o444)
+    except Exception as e:
+        log(f'⚠️ v3: {e}')
+
+def main():
+    log('=== AUTO ADAPT REALTIME ===')
+
+    regimes = get_regimes()
+    if not regimes:
+        log('⚠️ нет данных из oracle')
+        return
+
+    # Загружаем граали по режимам
+    grail_regime = None
+    if os.path.exists(REGIME):
+        try:
+            grail_regime = json.load(open(REGIME))
+        except: pass
+
+    # Проверяем WR v3
+    wr_v3, n_v3 = get_wr(DB_V3, 10)
+    log(f'v3: WR={wr_v3:.1f}% ({n_v3} сделок)' if wr_v3 else 'v3: нет данных')
+
+    # Если WR < 40% — запускаем auto_evolve_by_regime немедленно
+    if wr_v3 is not None and wr_v3 < 40 and n_v3 >= 10:
+        log('❌ v3 WR < 40% → запускаем auto_evolve_by_regime')
+        try:
+            subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE,'core/auto_evolve_by_regime.py')],
+                            stdout=open(os.path.join(BASE,'logs/auto_evolve_by_regime.log'),'a'),
+                            stderr=subprocess.STDOUT, start_new_session=True)
+        except Exception as e:
+            log(f'⚠️ запуск: {e}')
+
+    # Адаптируем v3 под режимы (если есть граали)
+    if grail_regime:
+        adapt_v3(regimes, grail_regime)
+
+    # v4 — OBI (не зависит от режима)
+    wr_v4, n_v4 = get_wr(DB_V4, 10)
+    log(f'v4: WR={wr_v4:.1f}% ({n_v4} сделок)' if wr_v4 else 'v4: нет данных')
+
+    log('=== DONE ===')
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,57 @@
+===== 1. ВСЕ СЛУШАЮЩИЕ ПОРТЫ =====
+
+===== 2. ВСЕ ПРОЦЕССЫ PYTHON =====
+3031   python3 -u core/brain_loop.py
+3038   python3 -u core/strategy_bot.py
+3045   python3 -u pm_bot.py
+3048   python3 -u pm_bot_v4.py
+3051   python3 -u pm_bot_v5.py
+3057   python3 -u pm_bot_v6.py
+3162   python3 -u /data/data/com.termux/files/home/rsbot/pm_bot_v7.py
+3755   python3 -u core/okx_bot_paper_v4.py
+3761   python3 -u core/okx_bot_paper_v4.py
+3782   python3 -u core/oracle.py loop
+3785   python3 -u core/oracle.py loop
+3831   python3 -u core/orderbook_oracle.py
+7616   python3 -u core/okx_bot_paper_v2.py
+8969   python3 -u tools/agent/grail_optimizer_full.py
+13552  python3 /data/data/com.termux/files/home/quantum_lab/core/auto_evolve_by_regime.py
+15560  python3 -u web/dashboard.py
+15561  python3 -u web/strategy_panel.py
+16417  python3 -u core/evolution.py
+16674  python3 -u core/okx_bot_paper_v3.py
+16675  python3 -u agents/evolve_agent.py
+16691  python3 /data/data/com.termux/files/home/quantum_lab/core/evolution.py
+17545  [python3] <defunct>
+17553  [python3] <defunct>
+17556  [python3] <defunct>
+17559  [python3] <defunct>
+17563  [python3] <defunct>
+
+===== 3. ВСЕ БОТЫ И ИХ PnL =====
+--- OKX v2 ---
+150 сделок, PnL=-178.46
+--- OKX v3 ---
+135 сделок, PnL=-188.5
+--- OKX v4 ---
+751 сделок, PnL=8.37
+--- Strategy ---
+35 сделок, PnL=-0.16
+--- Polymarket ---
+  pm_bot.db: 68 сделок, PnL=350.0
+  pm_v4.db: 130 сделок, PnL=223.31
+  pm_v5.db: 63 сделок, PnL=146.01
+  pm_v6.db: 113 сделок, PnL=693.11
+
+===== 4. ЧТО НА ПОРТУ 8102 =====
+  ❌ 8102 не слушается
+
+===== 5. ВСЕ .py С 'web' ИЛИ 'panel' В ИМЕНИ =====
+./web/app.py
+./web/okx_panel.py
+./web/okx_panel_v3.py
+./web/okx_panel_v4.py
+./web/dashboard.py
+./web/strategy_panel.py
+./backup_full_20261027_233515/web/app.py
+./tools/agent/dashboard.py

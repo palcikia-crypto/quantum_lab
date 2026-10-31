@@ -1,0 +1,182 @@
+{
+  "updated_at": "2026-10-31T02:31:39.347452",
+  "source": "grail_optimizer_full",
+  "pairs": {
+    "BTC-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_7",
+      "wr": 97.7,
+      "n": 86,
+      "tp": 0.008,
+      "sl": 0.003,
+      "timeout": 2,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_7",
+      "wr": 97.4,
+      "n": 194,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 2,
+      "trade": true
+    },
+    "SOL-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "wr": 87.7,
+      "n": 635,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "DOGE-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "wr": 86.8,
+      "n": 825,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "wr": 87.3,
+      "n": 259,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "wr": 85.1,
+      "n": 490,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_vwap_rev_30": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_25",
+      "wr": 80.7,
+      "n": 513,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_grid_sma_10": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_7",
+      "wr": 97.1,
+      "n": 35,
+      "tp": 0.008,
+      "sl": 0.004,
+      "timeout": 3,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_grid_sma_10": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_5",
+      "wr": 100.0,
+      "n": 44,
+      "tp": 0.008,
+      "sl": 0.003,
+      "timeout": 2,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_grid_sma_10": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_7",
+      "wr": 97.1,
+      "n": 137,
+      "tp": 0.008,
+      "sl": 0.002,
+      "timeout": 2,
+      "trade": true
+    },
+    "SOL-USDT_15m_okx_grid_sma_10": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "wr": 93.4,
+      "n": 304,
+      "tp": 0.008,
+      "sl": 0.004,
+      "timeout": 3,
+      "trade": true
+    },
+    "DOGE-USDT_15m_okx_grid_sma_10": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_7",
+      "wr": 97.1,
+      "n": 171,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_grid_sma_20": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "wr": 92.1,
+      "n": 140,
+      "tp": 0.008,
+      "sl": 0.004,
+      "timeout": 3,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_grid_sma_20": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "wr": 92.8,
+      "n": 265,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_grid_sma_20": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "wr": 88.8,
+      "n": 410,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_grid_sma_30": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_25",
+      "wr": 86.1,
+      "n": 287,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    }
+  }
+}

@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""strategy_bot.py — торгует по лучшему граалю из evolution.json."""
+import os, sys, json, sqlite3, time
+from datetime import datetime
+sys.path.insert(0, os.path.join(os.path.expanduser('~/quantum_lab'), 'core'))
+
+BASE = os.path.expanduser('~/quantum_lab')
+DB = os.path.join(BASE, 'data/strategy_paper.db')
+EVO = os.path.join(BASE, 'data/evolution.json')
+MARKET = os.path.join(BASE, 'data/market.db')
+LOG = os.path.join(BASE, 'logs/strategy_bot.log')
+
+BET = 5.0  # размер ставки ($)
+TP = 0.003  # 0.3%
+SL = 0.0015  # 0.15%
+TIMEOUT = 60 * 60  # 1 час
+FEE = 0.001  # 0.1% за круг (2 стороны по 0.05%)
+
+def log(m):
+    line = f'[{datetime.now():%H:%M:%S}] {m}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f: f.write(line + '\n')
+
+def init_db():
+    c = sqlite3.connect(DB)
+    c.execute("""CREATE TABLE IF NOT EXISTS trades (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts INTEGER, symbol TEXT, strategy TEXT, side TEXT,
+        entry_price REAL, exit_price REAL, pnl REAL, status TEXT,
+        entry_ts INTEGER, exit_ts INTEGER, tp REAL, sl REAL)""")
+    c.commit(); c.close()
+
+def get_best_gold():
+    if not os.path.exists(EVO): return None
+    try:
+        d = json.load(open(EVO))
+        top = d.get('top', [])
+        gold = [s for s in top if s.get('wr', 0) >= 55 and s.get('n', 0) >= 100]
+        return max(gold, key=lambda x: x.get('wr', 0)) if gold else None
+    except: return None
+
+def get_strategy_func(name, symbol):
+    """Возвращает функцию стратегии. Если нет в pool — генерирует через mutator."""
+    import strategy_pool
+    # 1. Пробуем найти в strategy_pool (sig_bb_15_2_5, sig_mean_rev_15_1_5 и т.д.)
+    name_variants = [
+        name,
+        f'sig_{name}',
+        name.replace('.', '_'),
+        f'sig_{name.replace(".", "_")}',
+    ]
+    for n in name_variants:
+        if hasattr(strategy_pool, n):
+            return getattr(strategy_pool, n)
+    # 2. Генерируем через mutator
+    try:
+        import strategy_mutator
+        import re
+        nums = [float(x) for x in re.findall(r'\d+\.?\d*', name)]
+        if 'bb' in name and len(nums) >= 2:
+            period, k = int(nums[0]), nums[1]
+            return strategy_mutator.mutate_bb(period, k)
+        elif 'mean_rev' in name and len(nums) >= 2:
+            period, th = int(nums[0]), nums[1]
+            return strategy_mutator.mutate_mean_rev(period, th)
+        elif 'stoch' in name and len(nums) >= 3:
+            p, lo, hi = int(nums[0]), nums[1], nums[2]
+            return strategy_mutator.mutate_stoch(p, lo, hi)
+        elif 'ema' in name and len(nums) >= 2:
+            fast, slow = int(nums[0]), int(nums[1])
+            return strategy_mutator.mutate_ema(fast, slow)
+    except Exception as e:
+        log(f'⚠️ mutator: {e}')
+    return None
+
+def get_candles(symbol, limit=100):
+    c = sqlite3.connect(MARKET, timeout=10)
+    rows = c.execute("""SELECT ts,o,h,l,c,v FROM candles
+                        WHERE symbol=? AND tf='15m' ORDER BY ts DESC LIMIT ?""",
+                     (symbol, limit)).fetchall()
+    c.close()
+    if not rows: return None
+    rows = rows[::-1]
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts','o','h','l','c','v'])}
+
+def get_last_price(symbol):
+    c = sqlite3.connect(MARKET, timeout=10)
+    r = c.execute("SELECT c FROM candles WHERE symbol=? AND tf='15m' ORDER BY ts DESC LIMIT 1", (symbol,)).fetchone()
+    c.close()
+    return r[0] if r else None
+
+def close_open_trades():
+    """Закрывает открытые сделки по TP/SL/таймауту."""
+    c = sqlite3.connect(DB, timeout=10)
+    opens = c.execute("SELECT id, symbol, side, entry_price, tp, sl, entry_ts FROM trades WHERE status='OPEN'").fetchall()
+    now = int(time.time())
+    for tid, sym, side, ep, tp, sl, ets in opens:
+        cur = get_last_price(sym)
+        if not cur: continue
+        move = (cur - ep) / ep if side == 'LONG' else (ep - cur) / ep
+        pnl = None
+        reason = None
+        if move >= tp:
+            pnl = BET * (tp - FEE)
+            reason = 'TP'
+        elif move <= -sl:
+            pnl = -BET * (sl + FEE)
+            reason = 'SL'
+        elif now - ets > TIMEOUT:
+            pnl = BET * (move - FEE)
+            reason = 'TIMEOUT'
+        if pnl is not None:
+            c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                      (cur, round(pnl, 2), now, tid))
+            log(f'✅ CLOSED {sym} {side} {reason}: ${pnl:+.2f}')
+    c.commit(); c.close()
+
+def open_new_trades(gold):
+    """Открывает новые сделки по сигналу стратегии."""
+    sym = gold['symbol']
+    strat_name = gold['strategy']
+    # Проверяем: нет ли уже открытой по этому символу
+    c = sqlite3.connect(DB, timeout=10)
+    exists = c.execute("SELECT 1 FROM trades WHERE symbol=? AND status='OPEN'", (sym,)).fetchone()
+    if exists:
+        c.close(); return
+    c.close()
+    
+    data = get_candles(sym, 100)
+    if not data or len(data['c']) < 20:
+        return
+    
+    # Получаем функцию стратегии
+    func = get_strategy_func(strat_name, sym)
+    if not func:
+        log(f'⚠️ стратегия {strat_name} не найдена')
+        return
+    
+    # Вычисляем сигналы
+    try:
+        ind = {}
+        up, dn = func(data['o'], data['h'], data['l'], data['c'], data['v'], ind)
+        if len(up) == 0 or len(dn) == 0: return
+        last_up = up[-1] if hasattr(up, '__len__') else False
+        last_dn = dn[-1] if hasattr(dn, '__len__') else False
+    except Exception as e:
+        log(f'⚠️ signal error: {e}')
+        return
+    
+    price = data['c'][-1]
+    now = int(time.time())
+    c = sqlite3.connect(DB, timeout=10)
+    if last_up:
+        c.execute("""INSERT INTO trades (ts, symbol, strategy, side, entry_price, status, entry_ts, tp, sl)
+                     VALUES (?, ?, ?, 'LONG', ?, 'OPEN', ?, ?, ?)""",
+                  (now, sym, strat_name, price, now, TP, SL))
+        log(f'🎯 OPEN {sym} LONG @ {price:.2f} ({strat_name})')
+    elif last_dn:
+        c.execute("""INSERT INTO trades (ts, symbol, strategy, side, entry_price, status, entry_ts, tp, sl)
+                     VALUES (?, ?, ?, 'SHORT', ?, 'OPEN', ?, ?, ?)""",
+                  (now, sym, strat_name, price, now, TP, SL))
+        log(f'🎯 OPEN {sym} SHORT @ {price:.2f} ({strat_name})')
+    c.commit(); c.close()
+
+def main():
+    log('=== STRATEGY BOT RUN ===')
+    init_db()
+    gold = get_best_gold()
+    if not gold:
+        log('❌ нет граалей в evolution.json'); return
+    log(f"🎯 грааль: {gold['symbol']} {gold['strategy']} (WR={gold['wr']}%)")
+    close_open_trades()
+    open_new_trades(gold)
+    # статистика
+    c = sqlite3.connect(DB)
+    n, pnl, wr = c.execute("SELECT COUNT(*), ROUND(COALESCE(SUM(pnl),0),2), ROUND(100.0*SUM(CASE WHEN pnl>0 THEN 1 ELSE 0 END)/COUNT(*),1) FROM trades WHERE status='CLOSED'").fetchone()
+    c.close()
+    log(f'📊 PnL: {pnl} ({n} сделок, WR={wr}%)')
+    log('=== DONE ===')
+
+if __name__ == '__main__':
+    import time as _t
+    while True:
+        try:
+            main()
+        except Exception as e:
+            log(f'❌ ERROR: {e}')
+        _t.sleep(15)  # каждые 15 сек

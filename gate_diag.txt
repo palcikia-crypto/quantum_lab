@@ -1,0 +1,365 @@
+########## GATE/EVOLUTION DEEP DIVE 2026-10-28 14:25:39 ##########
+
+===== 1. GATE.PY: ОСНОВНАЯ ЛОГИКА (1-100) =====
+     1	#!/usr/bin/env python3
+     2	"""gate.py — 7 уровней проверки стратегии.
+     3	Копия rslab2_gate.py + Sharpe/DD/Sortino/Calmar + месячная стабильность."""
+     4	import os, json, sqlite3
+     5	import numpy as np
+     6	from datetime import datetime
+     7	
+     8	BASE = os.path.expanduser('~/quantum_lab')
+     9	FEE = 0.0015  # 0.1% вход + 0.1% выход + 0.05% слиппедж
+    10	DB = os.path.join(BASE, 'data/market.db')
+    11	OUT = os.path.join(BASE, 'data/gate_results.json')
+    12	
+    13	def load_candles(symbol, tf):
+    14	    c = sqlite3.connect(DB)
+    15	    rows = c.execute("SELECT ts,o,h,l,c,v FROM candles WHERE symbol=? AND tf=? ORDER BY ts", (symbol, tf)).fetchall()
+    16	    c.close()
+    17	    if not rows: return None
+    18	    return {k: np.array([r[i] for r in rows]) for i, k in enumerate(['ts','o','h','l','c','v'])}
+    19	
+    20	def simulate(up, dn, o, c, start=50, model='open'):
+    21	    """model='open': entry=o[i+1], exit=c[i+2] (честно)."""
+    22	    trades = []
+    23	    hi = min(len(c)-2, len(c)) if model == 'open' else len(c)-1
+    24	    for i in range(start, hi):
+    25	        if up[i]:
+    26	            entry = o[i+1]; exit_p = c[i+2] if model == 'open' else c[i+1]
+    27	            trades.append((exit_p - entry) / entry - FEE)
+    28	        elif dn[i]:
+    29	            entry = o[i+1]; exit_p = c[i+2] if model == 'open' else c[i+1]
+    30	            trades.append((entry - exit_p) / entry - FEE)
+    31	    return trades
+    32	
+    33	def sharpe(pnls):
+    34	    if len(pnls) < 2: return 0
+    35	    a = np.array(pnls)
+    36	    return float(a.mean()/a.std()*np.sqrt(252)) if a.std() > 0 else 0
+    37	
+    38	def sortino(pnls):
+    39	    if len(pnls) < 2: return 0
+    40	    a = np.array(pnls); neg = a[a < 0]
+    41	    return float(a.mean()/(neg.std() if len(neg) > 0 else 1) * np.sqrt(252))
+    42	
+    43	def max_dd(pnls):
+    44	    if not pnls: return 0
+    45	    cum = np.cumsum(pnls); peak = np.maximum.accumulate(cum)
+    46	    return float(abs((cum-peak).min())/max(abs(peak.max()),1)*100)
+    47	
+    48	def monte_carlo(pnls, n=1000, nt=100):
+    49	    if len(pnls) < 10: return {'p95': 0, 'sharpe': 0, 'max_dd': 0}
+    50	    a = np.array(pnls); sims = [np.random.choice(a, min(nt,len(a))).sum() for _ in range(n)]
+    51	    return {'p95': float(np.percentile(sims,95)), 'p5': float(np.percentile(sims,5)),
+    52	            'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls)}
+    53	
+    54	def walk_forward(up, dn, o, c, split=0.7):
+    55	    n = len(c); cut = int(n*split)
+    56	    tr = simulate(up[:cut], dn[:cut], o[:cut], c[:cut])
+    57	    te = simulate(up[cut:], dn[cut:], o[cut:], c[cut:])
+    58	    return tr, te
+    59	
+    60	def monthly_wr(pnls, ts, entry_ts):
+    61	    """Группирует PnL по месяцам, возвращает WR и PnL по месяцам."""
+    62	    if not pnls or not entry_ts: return []
+    63	    by_month = {}
+    64	    for pnl, t in zip(pnls, entry_ts):
+    65	        m = datetime.fromtimestamp(int(t)).strftime('%Y-%m')
+    66	        by_month.setdefault(m, []).append(pnl)
+    67	    out = []
+    68	    for m, ps in sorted(by_month.items()):
+    69	        wins = sum(1 for p in ps if p > 0)
+    70	        out.append({'month': m, 'wr': round(100*wins/len(ps),1), 'n': len(ps), 'pnl': round(sum(ps),4)})
+    71	    return out
+    72	
+    73	def check_L1(pnls):
+    74	    n = len(pnls)
+    75	    if n == 0: return {'wr':0,'n':0,'p':1,'ci_lo':0,'pass':False}
+    76	    wins = sum(1 for p in pnls if p > 0); wr = 100*wins/n
+    77	    from math import sqrt, erf
+    78	    p = 0.5; se = sqrt(p*(1-p)/n) if n > 0 else 1
+    79	    z = (wins/n - p)/se if se > 0 else 0
+    80	    pval = 1 - 0.5*(1 + erf(abs(z)/sqrt(2)))
+    81	    ci_lo = wr - 1.96*sqrt(wr*(100-wr)/n) if n > 0 else 0
+    82	    return {'wr':round(wr,1),'n':n,'p':round(pval,4),'ci_lo':round(ci_lo,1),'pass': wr>=54 and n>=500 and pval<0.05 and ci_lo>50}
+    83	
+    84	def check_L2(tr, te):
+    85	    if len(tr) < 10 or len(te) < 10: return {'train_wr':0,'test_wr':0,'delta':0,'pass':False}
+    86	    tr_wr = 100*sum(1 for x in tr if x>0)/len(tr)
+    87	    te_wr = 100*sum(1 for x in te if x>0)/len(te)
+    88	    delta = tr_wr - te_wr
+    89	    return {'train_wr':round(tr_wr,1),'test_wr':round(te_wr,1),'delta':round(delta,1),
+    90	            'pass': delta<3 and te_wr>=52 and len(te)>=100}
+    91	
+    92	def check_L3(monthly):
+    93	    if not monthly: return {'trend_wr':0,'flat_wr':0,'pass':False}
+    94	    wrs = [m['wr'] for m in monthly]
+    95	    return {'trend_wr': round(max(wrs),1) if wrs else 0, 'flat_wr': round(min(wrs),1) if wrs else 0,
+    96	            'pass': all(w >= 52 for w in wrs)}
+    97	
+    98	def check_L4(pnls):
+    99	    mc = monte_carlo(pnls)
+   100	    return {**mc, 'pass': mc['p95']>0 and mc['max_dd']<20 and mc['sharpe']>1.0}
+
+===== 2. GATE.PY: КАК СЧИТАЕТ SCORE / WR / VERDICT =====
+33:def sharpe(pnls):
+34:    if len(pnls) < 2: return 0
+35:    a = np.array(pnls)
+38:def sortino(pnls):
+39:    if len(pnls) < 2: return 0
+40:    a = np.array(pnls); neg = a[a < 0]
+43:def max_dd(pnls):
+44:    if not pnls: return 0
+45:    cum = np.cumsum(pnls); peak = np.maximum.accumulate(cum)
+48:def monte_carlo(pnls, n=1000, nt=100):
+49:    if len(pnls) < 10: return {'p95': 0, 'sharpe': 0, 'max_dd': 0}
+50:    a = np.array(pnls); sims = [np.random.choice(a, min(nt,len(a))).sum() for _ in range(n)]
+52:            'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls)}
+54:def walk_forward(up, dn, o, c, split=0.7):
+60:def monthly_wr(pnls, ts, entry_ts):
+62:    if not pnls or not entry_ts: return []
+64:    for pnl, t in zip(pnls, entry_ts):
+66:        by_month.setdefault(m, []).append(pnl)
+70:        out.append({'month': m, 'wr': round(100*wins/len(ps),1), 'n': len(ps), 'pnl': round(sum(ps),4)})
+73:def check_L1(pnls):
+74:    n = len(pnls)
+75:    if n == 0: return {'wr':0,'n':0,'p':1,'ci_lo':0,'pass':False}
+76:    wins = sum(1 for p in pnls if p > 0); wr = 100*wins/n
+81:    ci_lo = wr - 1.96*sqrt(wr*(100-wr)/n) if n > 0 else 0
+82:    return {'wr':round(wr,1),'n':n,'p':round(pval,4),'ci_lo':round(ci_lo,1),'pass': wr>=54 and n>=500 and pval<0.05 and ci_lo>50}
+85:    if len(tr) < 10 or len(te) < 10: return {'train_wr':0,'test_wr':0,'delta':0,'pass':False}
+86:    tr_wr = 100*sum(1 for x in tr if x>0)/len(tr)
+87:    te_wr = 100*sum(1 for x in te if x>0)/len(te)
+88:    delta = tr_wr - te_wr
+89:    return {'train_wr':round(tr_wr,1),'test_wr':round(te_wr,1),'delta':round(delta,1),
+90:            'pass': delta<3 and te_wr>=52 and len(te)>=100}
+93:    if not monthly: return {'trend_wr':0,'flat_wr':0,'pass':False}
+94:    wrs = [m['wr'] for m in monthly]
+95:    return {'trend_wr': round(max(wrs),1) if wrs else 0, 'flat_wr': round(min(wrs),1) if wrs else 0,
+96:            'pass': all(w >= 52 for w in wrs)}
+98:def check_L4(pnls):
+99:    mc = monte_carlo(pnls)
+100:    return {**mc, 'pass': mc['p95']>0 and mc['max_dd']<20 and mc['sharpe']>1.0}
+103:    if not monthly: return {'min_month_wr':0,'all_pos':False,'pass':False}
+104:    return {'min_month_wr': min(m['wr'] for m in monthly),
+105:            'all_pos': all(m['pnl']>0 for m in monthly),
+106:            'pass': all(m['wr']>=52 for m in monthly) and all(m['pnl']>0 for m in monthly)}
+114:    pnls = simulate(up, dn, o, c, model='open')
+115:    tr, te = walk_forward(up, dn, o, c)
+117:    monthly = monthly_wr(pnls, data['ts'], entry_ts)
+118:    L1 = check_L1(pnls); L2 = check_L2(tr, te); L3 = check_L3(monthly); L4 = check_L4(pnls); L7 = check_L7(monthly)
+121:    verdict = 'GOLDEN' if all(passes) else ('TRADE_NOW' if all(passes[:4]) else ('WATCH' if passes[0] and passes[1] else 'SKIP'))
+122:    return {'symbol':symbol,'tf':tf,'strategy':strat_name,'verdict':verdict,
+123:            'score': round(sum(passes)/6*10,1),
+137:                if r: results.append(r); print(f"  {pair} {tf} {name:15} -> {r['verdict']} score={r['score']} WR={r['L1']['wr']} n={r['L1']['n']}")
+138:    results.sort(key=lambda x: (-x['score'], -x['L1']['wr']))
+139:    summary = {v: sum(1 for r in results if r['verdict']==v) for v in ['GOLDEN','TRADE_NOW','WATCH','SKIP']}
+
+===== 3. GATE_V3.PY: ЧЕМ ОТЛИЧАЕТСЯ =====
+11:def load_candles(symbol, tf):
+18:def h1_trend(c, p=20):
+24:def apply_h1_filter(up, dn, symbol, ts):
+46:def simulate_okx(up, dn, o, c, start=50, model='open', use_maker=False):
+65:def simulate(up, dn, o, c, start=50, model='open'):
+77:def sharpe(pnls):
+81:def max_dd(pnls):
+86:def monthly_stats(pnls, ts):
+95:        out.append({'month': m, 'wr': round(100*wins/len(ps),1), 'n': len(ps), 'pnl': round(sum(ps),4)})
+98:def run_gate(symbol, tf, strat_name, strat_fn, model='open', use_h1=False):
+107:    n = len(pnls); wins = sum(1 for p in pnls if p > 0); wr = 100*wins/n
+111:    ci_lo = wr - 1.96*sqrt(wr*(100-wr)/n) if n > 0 else 0
+112:    min_wr = 53.0 if model == 'current' else 54.0
+113:    L1 = {'wr': round(wr,1), 'n': n, 'p': round(pval,4), 'ci_lo': round(ci_lo,1),
+114:          'pass': wr>=min_wr and n>=500 and pval<0.05 and ci_lo>50}
+119:        tr_wr = 100*sum(1 for x in tr if x>0)/len(tr); te_wr = 100*sum(1 for x in te if x>0)/len(te)
+120:        L2 = {'train_wr': round(tr_wr,1), 'test_wr': round(te_wr,1), 'delta': round(tr_wr-te_wr,1),
+121:              'pass': tr_wr-te_wr<3 and te_wr>=min_wr-1 and len(te)>=100}
+125:    L3 = {'trend_wr': round(max(m['wr'] for m in monthly),1) if monthly else 0,
+126:          'flat_wr': round(min(m['wr'] for m in monthly),1) if monthly else 0,
+127:          'pass': all(m['wr'] >= 52 for m in monthly) if monthly else False}
+132:    L4 = {'p95': p95, 'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls),
+133:          'pass': p95>0 and max_dd(pnls)<20 and sharpe(pnls)>1.0}
+134:    L7 = {'min_month_wr': min(m['wr'] for m in monthly) if monthly else 0,
+136:          'pass': all(m['wr']>=52 for m in monthly) and all(m['pnl']>0 for m in monthly) if monthly else False}
+138:    verdict = 'GOLDEN' if all(passes) else ('TRADE_NOW' if all(passes[:4]) else ('WATCH' if passes[0] and passes[1] else 'SKIP'))
+140:            'score': round(sum(passes)/5*10,1), 'L1':L1,'L2':L2,'L3':L3,'L4':L4,'L7':L7}
+153:    results.sort(key=lambda x: (-x['score'], -x['L1']['wr']))
+154:    summary = {v: sum(1 for r in results if r['verdict']==v) for v in ['GOLDEN','TRADE_NOW','WATCH','SKIP']}
+160:        print('  ' + r['symbol'].ljust(10) + ' ' + r['tf'].ljust(3) + ' ' + r['strategy'].ljust(15) + ' ' + r['model'].ljust(8) + ' h1=' + str(r['h1']).ljust(5) + ' ' + r['verdict'].ljust(10) + ' WR=' + str(r['L1']['wr']) + '% n=' + str(r['L1']['n']))
+
+===== 4. EVOLUTION.PY: КАК СЧИТАЕТ SCORE =====
+     1	#!/usr/bin/env python3
+     2	"""evolution.py — эволюция: L1 grid -> L2 features -> L3 mutations. Работает на market.db."""
+     3	import os, sys, json, sqlite3
+     4	import numpy as np
+     5	from datetime import datetime
+     6	BASE = os.path.expanduser('~/quantum_lab')
+     7	sys.path.insert(0, os.path.join(BASE, 'core'))
+     8	from strategy_pool import STRATEGIES
+     9	from gate_v3 import load_candles, apply_h1_filter, simulate
+    10	
+    11	PAIRS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','DOGEUSDT']
+    12	TF = '15m'; MODEL = 'current'
+    13	
+    14	def evaluate(symbol, name, fn):
+    15	    data = load_candles(symbol, TF)
+    16	    if not data or len(data['c']) < 100: return None
+    17	    up, dn = fn(data['o'],data['h'],data['l'],data['c'],data['v'],{})
+    18	    up, dn = apply_h1_filter(up, dn, symbol, data['ts'])
+    19	    pnls = simulate(up, dn, data['o'], data['c'], model=MODEL)
+    20	    if len(pnls) < 100: return None
+    21	    wins = sum(1 for p in pnls if p > 0)
+    22	    return {'symbol': symbol, 'strategy': name, 'wr': round(100*wins/len(pnls),1),
+    23	            'n': len(pnls), 'score': round(100*wins/len(pnls) * min(len(pnls),1000)/100,2)}
+    24	
+    25	def L1_grid():
+    26	    results = []
+    27	    for pair in PAIRS:
+    28	        for name, fn in STRATEGIES.items():
+    29	            r = evaluate(pair, name, fn)
+    30	            if r: results.append(r)
+    31	    return results
+    32	
+    33	def L2_features(base):
+    34	    return sorted(base, key=lambda x: -x['score'])[:20]
+    35	
+    36	def L3_mutations(top):
+    37	    # мутации: top-20 без изменений (реальные мутации требуют переопределения)
+    38	    return top
+    39	
+    40	def main():
+    41	    import os as _os
+    42	    try:
+    43	        load = float(open('/proc/loadavg').read().split()[0])
+    44	    except:
+    45	        load = 0
+    46	    if load > 6:
+    47	        print(f'load {load:.1f} > 6, пропускаю (не перегружать)'); return
+    48	    print('=== EVOLUTION START ===', flush=True)
+    49	    l1 = L1_grid(); print(f'L1: {len(l1)} результатов', flush=True)
+    50	    l2 = L2_features(l1); print(f'L2: {len(l2)} топ', flush=True)
+    51	    l3 = L3_mutations(l2); print(f'L3: {len(l3)} финальных', flush=True)
+    52	    out = {'timestamp': datetime.now().isoformat(), 'L1': len(l1), 'L2': len(l2), 'L3': len(l3), 'top': l3}
+    53	    with open(os.path.join(BASE, 'data/evolution.json'), 'w') as f:
+    54	        json.dump(out, f, indent=2, ensure_ascii=False)
+    55	    print('Сохранено: evolution.json', flush=True)
+    56	    for r in l3[:10]: print(f'  {r["symbol"]:10} {r["strategy"]:15} WR={r["wr"]}% n={r["n"]}', flush=True)
+    57	
+    58	if __name__ == '__main__': main()
+
+===== 5. RUN_GATE_FULL: КАК ЗАПУСКАЕТ =====
+     1	#!/usr/bin/env python3
+     2	"""run_gate_full.py — gate L1-L13. Использует full_access для 34 стратегий."""
+     3	import sys, os, json
+     4	sys.path.insert(0, os.path.expanduser('~/quantum_lab/core'))
+     5	from full_access import load_all_strategies, full_gate
+     6	from datetime import datetime
+     7	BASE = os.path.expanduser('~/quantum_lab')
+     8	PAIRS = ['BTCUSDT','ETHUSDT','SOLUSDT','XRPUSDT','DOGEUSDT']
+     9	TFS = [('15m','current'), ('4h','open')]
+    10	strategies = load_all_strategies()
+    11	print(f'Стратегий: {len(strategies)}', flush=True)
+    12	results = []
+    13	for tf, model in TFS:
+    14	    print(f'--- {tf} ---', flush=True)
+    15	    for pair in PAIRS:
+    16	        for name, fn in strategies.items():
+    17	            try:
+    18	                r = full_gate(pair, tf, name, fn, model=model)
+    19	                if r and r['L1']['n'] >= 100:
+    20	                    results.append(r)
+    21	            except: pass
+    22	        print(f'  {pair}: {len(results)} прошло', flush=True)
+    23	results.sort(key=lambda x: (-x.get('L8-L13_pass', 0), -x['score'], -x['L1']['wr']))
+    24	summary = {v: sum(1 for r in results if r['verdict']==v) for v in ['GOLDEN','TRADE_NOW','WATCH','SKIP']}
+    25	with open(os.path.join(BASE, 'data/gate_all.json'), 'w') as f:
+    26	    json.dump({'timestamp': datetime.now().isoformat(), 'summary': summary, 'results': results}, f, indent=2, ensure_ascii=False)
+    27	print(f'\nGATE FULL: {summary}, прогонов: {len(results)}', flush=True)
+    28	for r in results[:10]:
+    29	    l813 = r.get('L8-L13_pass', '-')
+    30	    print(f'  {r["symbol"]:10} {r["tf"]:3} {r["strategy"]:15} {r["verdict"]:10} WR={r["L1"]["wr"]}% L8-13={l813}/6', flush=True)
+
+===== 6. ACTIVE_STRATEGIES.JSON: ВСЕ ПОЛЯ (пример) =====
+updated_at: 2026-10-28T08:41:58.779341 | source: gate_all
+всего: 4
+
+--- ETHUSDT_15m_bb_20_1.5 ---
+{
+  "symbol": "ETHUSDT",
+  "tf": "15m",
+  "strategy": "bb_20_1.5",
+  "wr": 64.6,
+  "n": 1970,
+  "p": 0.0,
+  "verdict": "GOLDEN",
+  "score": 10.0,
+  "model": "auto_add",
+  "trade": true
+}
+
+--- ETHUSDT_15m_bb_20_2.0 ---
+{
+  "symbol": "ETHUSDT",
+  "tf": "15m",
+  "strategy": "bb_20_2.0",
+  "wr": 71.3,
+  "n": 944,
+  "p": 0.0,
+  "verdict": "GOLDEN",
+  "score": 10.0,
+  "model": "auto_add",
+  "trade": true
+}
+
+--- ETHUSDT_15m_mean_rev_20_1.5 ---
+{
+  "symbol": "ETHUSDT",
+  "tf": "15m",
+  "strategy": "mean_rev_20_1.5",
+  "wr": 64.6,
+  "n": 1970,
+  "p": 0.0,
+  "verdict": "GOLDEN",
+  "score": 10.0,
+  "model": "auto_add",
+  "trade": true
+}
+
+
+===== 7. EVOLUTION.JSON: СТРУКТУРА =====
+keys: ['timestamp', 'L1', 'L2', 'L3', 'top']
+L1: 268 | L2: 20 | L3: 20
+top (first 3):
+  {"symbol": "DOGEUSDT", "strategy": "mean_rev_15_1.5", "wr": 58.8, "n": 949, "score": 558.0}
+  {"symbol": "DOGEUSDT", "strategy": "bb_15_1.5", "wr": 58.8, "n": 949, "score": 558.0}
+  {"symbol": "XRPUSDT", "strategy": "mean_rev_15_1.5", "wr": 55.4, "n": 969, "score": 537.0}
+
+===== 8. СТРАТЕГИИ В GATE (какие использует) =====
+core/gate.py:129:    from strategy_pool import STRATEGIES
+core/gate.py:135:            for name, fn in STRATEGIES.items():
+core/gate_v3.py:9:from strategy_pool import STRATEGIES
+core/gate_v3.py:148:            for name, fn in STRATEGIES.items():
+
+===== 9. ЕСТЬ ЛИ УЖЕ EXPECTANCY/SHARPE ГДЕ-ТО =====
+core/gate.py:33:def sharpe(pnls):
+core/gate.py:49:    if len(pnls) < 10: return {'p95': 0, 'sharpe': 0, 'max_dd': 0}
+core/gate.py:52:            'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls)}
+core/gate.py:54:def walk_forward(up, dn, o, c, split=0.7):
+core/gate.py:100:    return {**mc, 'pass': mc['p95']>0 and mc['max_dd']<20 and mc['sharpe']>1.0}
+core/gate.py:115:    tr, te = walk_forward(up, dn, o, c)
+core/gate_v2.py:31:def sharpe(pnls):
+core/gate_v2.py:42:    if len(pnls) < 10: return {'p95': 0, 'sharpe': 0, 'max_dd': 0}
+core/gate_v2.py:44:    return {'p95': float(np.percentile(sims,95)), 'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls)}
+core/gate_v2.py:46:def walk_forward(up, dn, o, c, split=0.7, model='open'):
+core/gate_v2.py:84:    return {**mc, 'pass': mc['p95']>0 and mc['max_dd']<20 and mc['sharpe']>1.0}
+core/gate_v2.py:99:    tr, te = walk_forward(up, dn, o, c, model=model)
+core/gate_v3.py:77:def sharpe(pnls):
+core/gate_v3.py:132:    L4 = {'p95': p95, 'sharpe': sharpe(pnls), 'max_dd': max_dd(pnls),
+core/gate_v3.py:133:          'pass': p95>0 and max_dd(pnls)<20 and sharpe(pnls)>1.0}
+core/validation.py:40:def L10_deflated_sharpe(pnls, n_trials=100):
+core/validation.py:49:    return {'sharpe': round(sr,2), 'deflated': round(deflated,2), 'pass': deflated > 0}
+core/validation.py:102:        'L10': L10_deflated_sharpe(pnls),
+core/full_access.py:114:                    'L10': v.L10_deflated_sharpe(g.simulate(up, dn, data['o'], data['c'], model=model)),
+
+########## END ##########

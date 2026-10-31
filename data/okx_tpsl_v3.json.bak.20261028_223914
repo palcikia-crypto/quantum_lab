@@ -1,0 +1,22 @@
+{
+  "updated_at": "2026-10-28T22:20:00",
+  "source": "multi_backtest_A_graals",
+  "params": {"tp": 0.006, "sl": 0.004, "timeout_bars": 2},
+  "per_pair": {
+    "LINK-USDT": {
+      "flat":       {"strategy": "okx_vwap_rev_20", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 4.28},
+      "trend_up":   {"strategy": "okx_vwap_rev_20", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 4.28},
+      "trend_down": {"strategy": "okx_vwap_rev_20", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 4.28}
+    },
+    "ARB-USDT": {
+      "flat":       {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.58},
+      "trend_up":   {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.58},
+      "trend_down": {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.58}
+    },
+    "AVAX-USDT": {
+      "flat":       {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.30},
+      "trend_up":   {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.30},
+      "trend_down": {"strategy": "okx_vwap_rev_10", "tp": 0.006, "sl": 0.004, "timeout_bars": 2, "min_pnl": 3.30}
+    }
+  }
+}

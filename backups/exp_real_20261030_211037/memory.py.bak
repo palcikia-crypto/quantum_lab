@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""Память агента: копит факты, действия, опыт."""
+import os, json, sqlite3, time
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+DB = os.path.join(BASE, 'tools/agent/memory.db')
+
+def init():
+    c = sqlite3.connect(DB)
+    c.execute("""CREATE TABLE IF NOT EXISTS facts (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts INTEGER, key TEXT, value TEXT)""")
+    c.execute("""CREATE TABLE IF NOT EXISTS actions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts INTEGER, action TEXT, target TEXT, result TEXT, success INTEGER)""")
+    c.execute("""CREATE TABLE IF NOT EXISTS experience (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ts INTEGER, action TEXT, context TEXT, outcome TEXT, score REAL)""")
+    c.execute("""CREATE TABLE IF NOT EXISTS weights (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        rule TEXT UNIQUE, weight REAL DEFAULT 1.0, fires INTEGER DEFAULT 0, success INTEGER DEFAULT 0)""")
+    c.commit(); c.close()
+
+def save_fact(key, value):
+    c = sqlite3.connect(DB)
+    c.execute("INSERT INTO facts (ts, key, value) VALUES (?,?,?)", (int(time.time()), key, str(value)))
+    c.commit(); c.close()
+
+def save_action(action, target, result, success):
+    c = sqlite3.connect(DB)
+    c.execute("INSERT INTO actions (ts, action, target, result, success) VALUES (?,?,?,?,?)",
+              (int(time.time()), action, target, str(result)[:500], int(success)))
+    c.commit(); c.close()
+
+def save_experience(action, context, outcome, score):
+    c = sqlite3.connect(DB)
+    c.execute("INSERT INTO experience (ts, action, context, outcome, score) VALUES (?,?,?,?,?)",
+              (int(time.time()), action, str(context)[:500], str(outcome)[:500], float(score)))
+    c.commit(); c.close()
+
+def get_rule_weight(rule):
+    c = sqlite3.connect(DB)
+    r = c.execute("SELECT weight, fires, success FROM weights WHERE rule=?", (rule,)).fetchone()
+    c.close()
+    return r if r else (1.0, 0, 0)
+
+def update_rule_weight(rule, success):
+    c = sqlite3.connect(DB)
+    cur = c.execute("SELECT weight, fires, success FROM weights WHERE rule=?", (rule,)).fetchone()
+    if cur:
+        w, f, s = cur
+        new_f = f + 1
+        new_s = s + (1 if success else 0)
+        # вес растёт при успехе, падает при неудаче
+        new_w = max(0.1, min(2.0, w + (0.1 if success else -0.1)))
+        c.execute("UPDATE weights SET weight=?, fires=?, success=? WHERE rule=?", (new_w, new_f, new_s, rule))
+    else:
+        c.execute("INSERT INTO weights (rule, weight, fires, success) VALUES (?,?,?,?)",
+                  (rule, 1.1 if success else 0.9, 1, 1 if success else 0))
+    c.commit(); c.close()
+
+def stats():
+    c = sqlite3.connect(DB)
+    facts = c.execute("SELECT COUNT(*) FROM facts").fetchone()[0]
+    actions = c.execute("SELECT COUNT(*) FROM actions").fetchone()[0]
+    exp = c.execute("SELECT COUNT(*) FROM experience").fetchone()[0]
+    weights = c.execute("SELECT COUNT(*) FROM weights").fetchone()[0]
+    c.close()
+    return {'facts': facts, 'actions': actions, 'experience': exp, 'weights': weights}
+
+if __name__ == '__main__':
+    init()
+    print(stats())

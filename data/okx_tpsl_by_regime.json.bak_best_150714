@@ -1,0 +1,115 @@
+{
+  "updated_at": "2026-10-28T14:41:51",
+  "params": {
+    "fee": 0.001,
+    "slip": 0.0002,
+    "timeout": 1
+  },
+  "per_pair": {
+    "ETH-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 506,
+        "wr": 0.56126,
+        "pnl": 46.5155
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 500,
+        "wr": 0.548,
+        "pnl": 25.25679
+      },
+      "trend_down": {
+        "strategy": "okx_grid_sma_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 284,
+        "wr": 0.55986,
+        "pnl": 19.24017
+      }
+    },
+    "XRP-USDT": {
+      "trend_up": {
+        "strategy": "okx_grid_sma_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 396,
+        "wr": 0.58586,
+        "pnl": 36.41613
+      },
+      "flat": {
+        "strategy": "okx_grid_sma_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 342,
+        "wr": 0.59942,
+        "pnl": 31.63457
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 640,
+        "wr": 0.57188,
+        "pnl": 39.02606
+      }
+    },
+    "SOL-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 654,
+        "wr": 0.57492,
+        "pnl": 49.88208
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 667,
+        "wr": 0.55772,
+        "pnl": 37.7025
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 658,
+        "wr": 0.60182,
+        "pnl": 55.77415
+      }
+    },
+    "DOGE-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 707,
+        "wr": 0.54031,
+        "pnl": 34.30149
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 682,
+        "wr": 0.54692,
+        "pnl": 44.99571
+      },
+      "trend_down": {
+        "strategy": "okx_grid_sma_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 409,
+        "wr": 0.58924,
+        "pnl": 36.49233
+      }
+    }
+  },
+  "source": "holy_grail_sync"
+}

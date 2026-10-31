@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""orchestrator_v2.py — единый организм с атомарной записью."""
+import os, sys, json, time, shutil
+from datetime import datetime
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'core'))
+
+BASE = os.path.expanduser('~/quantum_lab')
+ACTIVE = os.path.join(BASE, 'data/active_strategies.json')
+LOG = os.path.join(BASE, 'logs/orchestrator_v2.log')
+CYCLE_SEC = 3600
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f: f.write(line + '\n')
+
+def atomic_write(path, data):
+    tmp = path + '.tmp'
+    with open(tmp, 'w') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+    os.replace(tmp, path)
+
+def safe_load(path):
+    try:
+        with open(path) as f: return json.load(f)
+    except Exception as e:
+        log(f'⚠️ ошибка загрузки {path}: {e}')
+        return None
+
+def backup_active():
+    if os.path.exists(ACTIVE):
+        shutil.copy(ACTIVE, ACTIVE + '.bak_orch')
+
+def run_cycle():
+    log('=== CYCLE START ===')
+    # Сбор стаканов Polymarket
+    try:
+        from orderbook_collector import collect_once
+        n = collect_once()
+        log(f'✅ orderbooks: {n} стаканов')
+    except Exception as e:
+        log(f'⚠️ orderbooks: {e}')
+
+    backup_active()
+    d = safe_load(ACTIVE)
+    if d is None:
+        log('❌ active битый — восстанавливаю')
+        if os.path.exists(ACTIVE + '.bak_orch'):
+            shutil.copy(ACTIVE + '.bak_orch', ACTIVE)
+            d = safe_load(ACTIVE)
+        if d is None: return
+    before = len(d.get('pairs', {}))
+    log(f'пар до: {before}')
+    try:
+        from live_feedback import run_feedback
+        run_feedback(min_live_n=5, min_live_wr=45, max_delta=15)
+        log('✅ feedback')
+    except Exception as e: log(f'⚠️ feedback: {e}')
+    try:
+        from genetic import generate_hybrids
+        from gate import run_gate
+        d = safe_load(ACTIVE)
+        best = [v['strategy'] for v in d['pairs'].values() if v.get('model') in ('self_evolution','evolution','genetic')]
+        if not best: best = ['mean_rev_20_1.5', 'stoch_20_30_70']
+        hybrids = generate_hybrids(best, max_hybrids=10)
+        log(f'гибридов: {len(hybrids)}')
+        for name, fn in hybrids.items():
+            for pair in ['BTCUSDT','ETHUSDT']:
+                try:
+                    r = run_gate(pair, '15m', name, fn)
+                    if r and r['verdict']=='GOLDEN' and r['L1']['wr']>=60 and r['L1']['n']>=500:
+                        key = f"{pair}_15m_{name}"
+                        if key not in d['pairs']:
+                            d['pairs'][key] = {'symbol':pair,'tf':'15m','strategy':name,
+                                'wr':r['L1']['wr'],'n':r['L1']['n'],'p':0.0,
+                                'verdict':'GOLDEN','score':r['score'],'model':'genetic','trade':True}
+                            log(f'  ➕ genetic: {key} WR={r["L1"]["wr"]}%')
+                except: pass
+        d['updated_at'] = datetime.now().isoformat()
+        atomic_write(ACTIVE, d)
+        log('✅ genetic')
+    except Exception as e: log(f'⚠️ genetic: {e}')
+    try:
+        from auto_add import run_auto_add
+        run_auto_add()
+        log('✅ auto_add')
+    except Exception as e: log(f'⚠️ auto_add: {e}')
+    try:
+        from live_feedback import run_feedback
+        run_feedback(min_live_n=5, min_live_wr=45, max_delta=15)
+        log('✅ feedback (2)')
+    except Exception as e: log(f'⚠️ feedback (2): {e}')
+    d = safe_load(ACTIVE)
+    after = len(d.get('pairs', {})) if d else 0
+    log(f'пар после: {after} (было {before})')
+    log('=== CYCLE DONE ===')
+
+def main():
+    log('=== ORCHESTRATOR V2 STARTED ===')
+    while True:
+        try: run_cycle()
+        except Exception as e: log(f'❌ CYCLE ERROR: {e}')
+        log(f'сплю {CYCLE_SEC} сек...')
+        time.sleep(CYCLE_SEC)
+
+if __name__ == '__main__': main()

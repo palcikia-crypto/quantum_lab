@@ -1,0 +1,65 @@
+########## BACKUP GOLD HUNT 2026-10-28 06:26:05 ##########
+===== 1. ВСЕ ПАПКИ БЭКАПОВ =====
+drwx------. 3 u0_a119 u0_a119 3488 Oct 28 06:21 backup_20261027
+drwx------. 3 u0_a119 u0_a119 3488 Oct 28 06:21 backup_L8_20261028_003752
+drwx------. 3 u0_a119 u0_a119 3488 Oct 28 06:21 backup_evo_20261027_234053
+drwx------. 7 u0_a119 u0_a119 3488 Oct 28 06:21 backup_full_20261027_233515
+drwx------. 3 u0_a119 u0_a119 3488 Oct 28 06:21 backup_okx_golden_20261028_035731
+
+===== 2. ВСЕ БД В ПРОЕКТЕ =====
+DB: ./backup_full_20261027_233515/data/brain.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./backup_full_20261027_233515/data/market.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./backup_full_20261027_233515/data/oracle.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./backup_okx_golden_20261028_035731/okx.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/brain.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/market.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/market_polymarket.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/okx.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/okx_paper.db | trades=0 | closed=0 | wins=0 | SUM_PNL=
+DB: ./data/oracle.db | trades= | closed= | wins= | SUM_PNL=
+DB: ./data/orderbooks.db | trades= | closed= | wins= | SUM_PNL=
+
+===== 3. ТОП СТРАТЕГИЙ ПО PNL (текущая БД) =====
+strategy  n  wins  total_pnl
+--------  -  ----  ---------
+
+===== 4. СТРАТЕГИИ В backup_okx_golden_*/okx_mutator.py =====
+5:def ema_cross(fast, slow):
+6:    def f(o,h,l,c,v, ind):
+16:def donchian(p):
+17:    def f(o,h,l,c,v, ind):
+27:def rsi_vol(p, lo, hi):
+28:    def f(o,h,l,c,v, ind):
+41:def vol_break(mult):
+42:    def f(o,h,l,c,v, ind):
+53:def macd(fast, slow, sig):
+54:    def f(o,h,l,c,v, ind):
+68:def okx_obi_proxy(threshold=0.5):
+69:    def f(o,h,l,c,v, ind):
+81:def okx_vwap_rev(period=20):
+82:    def f(o,h,l,c,v, ind):
+94:def okx_funding_proxy(period=20):
+95:    def f(o,h,l,c,v, ind):
+111:def okx_obi_signal(obi_long=0.6, obi_short=-0.6):
+113:    def f(o,h,l,c,v, ind):
+127:def generate_mutants():
+
+===== 5. СВЕРКА active.json vs бэкапы =====
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+FileNotFoundError: [Errno 2] No such file or directory: 'data/active.json'
+
+===== 6. ЛОГИ ИЗ БЭКАПОВ =====
+--- ./backup_okx_golden_20261028_035731/okx_orchestrator.log ---
+[03:57:32]   BTC-USDT OBI=0.775 spread=0.0000 → LONG
+[03:57:32]   BTC-USDT OBI=0.843 spread=0.0000 → LONG
+[03:57:32]   BTC-USDT OBI=0.818 spread=0.0000 → LONG
+[03:57:32]   BTC-USDT OBI=0.845 spread=0.0000 → LONG
+[03:57:32]   BTC-USDT OBI=0.729 spread=0.0000 → LONG
+--- ./backup_okx_golden_20261028_035731/okx_bot.log ---
+[03:55:24]   BTC-USDT okx_grid_sma_30
+grid_sma_20
+[03:55:24]   ETH-USDT okx_grid_sma_20
+[03:55:24]   XRP-USDT okx_grid_sma_20
+[03:55:24]   BTC-USDT okx_grid_sma_30
+########## END ##########

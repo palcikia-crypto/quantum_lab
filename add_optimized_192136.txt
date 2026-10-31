@@ -1,0 +1,113 @@
+============================================================
+##### ОПТИМИЗАЦИЯ УБЫТОЧНЫХ + ДОБАВЛЕНИЕ #####
+============================================================
+
+===== 1. ПРОГОН УБЫТОЧНЫХ (как оптимизатор) =====
+Убыточных: 10
+  okx_vwap_rev_30: 81 сделок, PnL=-171.7
+  okx_grid_sma_10: 15 сделок, PnL=-53.5
+  okx_grid_sma_13: 10 сделок, PnL=-18.34
+  okx_grid_sma_15: 2 сделок, PnL=-13.4
+  okx_grid_sma_17: 3 сделок, PnL=-4.81
+  okx_grid_sma_20: 5 сделок, PnL=-18.5
+  okx_grid_sma_30: 34 сделок, PnL=-18.8
+  okx_macd_5_35_5: 11 сделок, PnL=-51.7
+  okx_vwap_rev_10: 33 сделок, PnL=-18.1
+  okx_vwap_rev_20: 22 сделок, PnL=-22.4
+
+🔍 okx_vwap_rev_30 (было 81, PnL=-171.7)
+  ✅ BTCUSDT: okx_vwap_rev_25 tp=0.008 sl=0.005 timeout=3 WR=82.0% n=1952 PnL=-0.39
+  ✅ ETHUSDT: okx_vwap_rev_25 tp=0.008 sl=0.005 timeout=3 WR=79.4% n=3216 PnL=-0.81
+  ✅ SOLUSDT: okx_vwap_rev_25 tp=0.008 sl=0.005 timeout=3 WR=80.1% n=4191 PnL=+0.47
+  ✅ XRPUSDT: okx_vwap_rev_25 tp=0.008 sl=0.005 timeout=3 WR=79.2% n=3851 PnL=+0.04
+  ✅ DOGEUSDT: okx_vwap_rev_25 tp=0.008 sl=0.005 timeout=3 WR=78.5% n=4370 PnL=-0.03
+
+🔍 okx_grid_sma_10 (было 15, PnL=-53.5)
+  ✅ BTCUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=91.7% n=444 PnL=+0.74
+  ✅ ETHUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.2% n=835 PnL=+1.54
+  ✅ SOLUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.3% n=1093 PnL=+2.31
+  ✅ XRPUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=89.6% n=1099 PnL=+1.98
+  ✅ DOGEUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=92.5% n=1195 PnL=+2.49
+
+🔍 okx_grid_sma_13 (было 10, PnL=-18.34)
+  ✅ BTCUSDT: okx_grid_sma_11 tp=0.008 sl=0.005 timeout=3 WR=93.4% n=348 PnL=+0.75
+  ✅ ETHUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.3% n=835 PnL=+1.54
+  ✅ SOLUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.3% n=1093 PnL=+2.31
+  ✅ XRPUSDT: okx_grid_sma_11 tp=0.008 sl=0.005 timeout=3 WR=93.1% n=886 PnL=+2.12
+  ✅ DOGEUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=92.5% n=1195 PnL=+2.49
+
+🔍 okx_grid_sma_15 (было 2, PnL=-13.4)
+  ✅ BTCUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=91.9% n=444 PnL=+0.74
+  ✅ ETHUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.3% n=835 PnL=+1.54
+  ✅ SOLUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=93.3% n=1093 PnL=+2.31
+  ✅ XRPUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=89.7% n=1099 PnL=+1.98
+  ✅ DOGEUSDT: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3 WR=92.5% n=1195 PnL=+2.49
+
+🔍 okx_grid_sma_17 (было 3, PnL=-4.81)
+  ✅ BTCUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=88.5% n=567 PnL=+0.61
+  ✅ ETHUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=91.0% n=1003 PnL=+1.31
+  ✅ SOLUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=91.3% n=1306 PnL=+2.13
+  ✅ XRPUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=88.9% n=1283 PnL=+1.90
+  ✅ DOGEUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=89.7% n=1419 PnL=+2.17
+
+🔍 okx_grid_sma_20 (было 5, PnL=-18.5)
+  ✅ BTCUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=88.5% n=567 PnL=+0.61
+  ✅ ETHUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=91.0% n=1002 PnL=+1.32
+  ✅ SOLUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=91.1% n=1305 PnL=+2.13
+  ✅ XRPUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=88.8% n=1282 PnL=+1.90
+  ✅ DOGEUSDT: okx_grid_sma_15 tp=0.008 sl=0.005 timeout=3 WR=89.6% n=1418 PnL=+2.17
+
+🔍 okx_grid_sma_30 (было 34, PnL=-18.8)
+  ✅ BTCUSDT: okx_grid_sma_25 tp=0.008 sl=0.005 timeout=3 WR=82.2% n=1152 PnL=-0.43
+  ✅ ETHUSDT: okx_grid_sma_25 tp=0.008 sl=0.005 timeout=3 WR=82.7% n=1852 PnL=-0.39
+  ✅ SOLUSDT: okx_grid_sma_25 tp=0.008 sl=0.005 timeout=3 WR=80.5% n=2261 PnL=-0.01
+  ✅ XRPUSDT: okx_grid_sma_25 tp=0.008 sl=0.005 timeout=3 WR=80.9% n=2126 PnL=+0.04
+  ✅ DOGEUSDT: okx_grid_sma_25 tp=0.008 sl=0.005 timeout=3 WR=79.9% n=2311 PnL=-0.24
+
+🔍 okx_vwap_rev_10 (было 33, PnL=-18.1)
+  ✅ BTCUSDT: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3 WR=90.5% n=852 PnL=+1.46
+  ✅ ETHUSDT: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3 WR=89.8% n=1620 PnL=+2.65
+  ✅ SOLUSDT: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3 WR=90.0% n=2289 PnL=+4.15
+  ✅ XRPUSDT: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3 WR=88.6% n=2148 PnL=+3.73
+  ✅ DOGEUSDT: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3 WR=87.8% n=2474 PnL=+4.08
+
+🔍 okx_vwap_rev_20 (было 22, PnL=-22.4)
+  ✅ BTCUSDT: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3 WR=89.0% n=1044 PnL=+1.30
+  ✅ ETHUSDT: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3 WR=88.1% n=1908 PnL=+2.25
+  ✅ SOLUSDT: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3 WR=88.4% n=2599 PnL=+3.75
+  ✅ XRPUSDT: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3 WR=87.2% n=2443 PnL=+3.36
+  ✅ DOGEUSDT: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3 WR=86.5% n=2827 PnL=+3.80
+
+✅ → data/okx_active_optimized.json (8 пар)
+
+===== 2. ДОБАВИТЬ В НОВЫЙ БОТ =====
+  Текущих: 5
+  Оптимизированных: 8
+  Добавлено: 0
+
+  ✅ okx_active_new.json: 5 пар
+    ETH-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    SOL-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    DOGE-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    BTC-USDT okx_vwap_rev_17: WR=?% tp=0.5% sl=0.3% timeout=1b
+    XRP-USDT okx_grid_sma_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+
+===== 3. ПЕРЕЗАПУСК БОТА =====
+  бот PID: 22316
+
+===== 4. ЛОГ =====
+[20:17:23] === OKX BOT NEW STARTED ===
+[20:17:23] active: 5 пар
+TARTED ===
+[20:17:23] active: 5 пар
+
+===== 5. КОНФИГ =====
+  пар: 5
+    ETH-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    SOL-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    DOGE-USDT okx_vwap_rev_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+    BTC-USDT okx_vwap_rev_17: WR=?% tp=0.5% sl=0.3% timeout=1b
+    XRP-USDT okx_grid_sma_13: WR=?% tp=0.5% sl=0.3% timeout=1b
+
+===== 6. ПАНЕЛЬ =====
+  http://:8102

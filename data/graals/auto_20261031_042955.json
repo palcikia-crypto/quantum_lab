@@ -1,0 +1,91 @@
+{
+  "updated_at": "2026-10-31T04:29:55.707862",
+  "source": "auto_evolve",
+  "stable_count": 14,
+  "stable": [
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 4.574685222001368,
+      "avg_wr": 86.34518651327257
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 3.7182524937309043,
+      "avg_wr": 79.42846183352513
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.387019769375241,
+      "avg_wr": 78.14729130518604
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.0869301717451183,
+      "avg_wr": 67.15868697292846
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 2.9080898429735598,
+      "avg_wr": 80.12820512820512
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 2.3372225103449518,
+      "avg_wr": 68.92764857881137
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 2.277890613445232,
+      "avg_wr": 80.98765432098766
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 2.170406833067928,
+      "avg_wr": 64.19881500987492
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 2.0380143112701314,
+      "avg_wr": 78.11355311355311
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 1.9975813974150591,
+      "avg_wr": 60.883292793437306
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 1.8684924457000933,
+      "avg_wr": 64.36170212765957
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 0.9670513523190721,
+      "avg_wr": 57.56903586483623
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 0.6798436232283139,
+      "avg_wr": 62.380447406958545
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 0.10344510098411465,
+      "avg_wr": 58.118139105520065
+    }
+  ]
+}

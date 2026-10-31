@@ -1,0 +1,11 @@
+pair,strategy_A,min_pnl_A,alt_strategy_A,strategy_B,min_pnl_B
+ADA-USDT,okx_vwap_rev_10,1.94,okx_vwap_rev_20,,
+ARB-USDT,okx_vwap_rev_10,3.58,okx_grid_sma_10,,
+AVAX-USDT,okx_vwap_rev_10,3.3,okx_vwap_rev_30,,
+BNB-USDT,okx_vwap_rev_30,0.66,,,
+DOGE-USDT,okx_ema_8_24,2.16,okx_ema_5_20,okx_ema_8_24,2.16
+DOT-USDT,okx_ema_6_18,3.25,okx_vwap_rev_10,,
+ETH-USDT,okx_ema_5_20,1.42,okx_vwap_rev_30,okx_ema_5_20,1.42
+LINK-USDT,okx_vwap_rev_20,4.28,okx_vwap_rev_10,,
+SOL-USDT,okx_ema_5_20,2.16,okx_vwap_rev_30,okx_ema_5_20,2.16
+XRP-USDT,okx_ema_7_25,2.0,okx_vwap_rev_30,okx_ema_7_25,2.0

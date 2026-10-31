@@ -1,0 +1,62 @@
+===== 1. СВЕЖЕСТЬ ДАННЫХ (market.db) =====
+  15m: 493 сек
+  1h: 2294 сек
+  4h: 5894 сек
+
+===== 2. ДАННЫЕ ПО 8 ПАРАМ (15m, свежесть) =====
+  BTCUSDT: 29980 свечей, последняя: 494 сек
+  ETHUSDT: 29980 свечей, последняя: 494 сек
+  SOLUSDT: 29979 свечей, последняя: 494 сек
+  DOGEUSDT: 29979 свечей, последняя: 495 сек
+  XRPUSDT: 29979 свечей, последняя: 495 сек
+
+===== 3. СИГНАЛЫ ПО 8 ПАРАМ (check_signal) =====
+symbol       strategy                свечей  last_up  last_dn сигнал    
+---------------------------------------------------------------------------
+ETHUSDT      okx_vwap_rev_13            200    False    False —         
+SOLUSDT      okx_vwap_rev_13            200    False    False —         
+DOGEUSDT     okx_vwap_rev_13            200    False    False —         
+BTCUSDT      okx_vwap_rev_17            200    False    False —         
+ETHUSDT      okx_vwap_rev_15            200    False    False —         
+XRPUSDT      okx_grid_sma_13            200    False     True SHORT     
+ETHUSDT      okx_grid_sma_17            200    False     True SHORT     
+XRPUSDT      okx_grid_sma_15            200    False     True SHORT     
+
+===== 4. ПРОВЕРКА: ВСЕ ЛИ СТРАТЕГИИ ИЗ 8 ПАР ЕСТЬ В КОДЕ =====
+  okx_grid_sma_13
+  okx_grid_sma_15
+  okx_grid_sma_17
+  okx_vwap_rev_13
+  okx_vwap_rev_15
+  okx_vwap_rev_17
+
+===== 5. ОТКРЫТЫЕ СДЕЛКИ (v2/v3) =====
+--- v2 ---
+symbol  side  strategy  ep
+------  ----  --------  --
+--- v3 ---
+symbol  side  strategy  ep
+------  ----  --------  --
+
+===== 6. ЛОГИ v2/v3 (последние 10) =====
+[06:33:43] active: 8 пар
+[06:34:16] active: 8 пар
+[06:34:53] active: 8 пар
+[06:35:14] active: 8 пар
+[06:35:35] active: 8 пар
+[06:35:57] active: 8 пар
+[06:36:18] active: 8 пар
+[06:36:40] active: 8 пар
+[06:37:01] active: 8 пар
+[06:37:35] active: 8 пар
+---
+[06:32:53] active: 8 пар
+[06:33:26] active: 8 пар
+[06:34:04] active: 8 пар
+[06:35:40] === OKX PAPER BOT v3 STARTED ===
+[06:35:40] active: 8 пар
+[06:36:02] active: 8 пар
+[06:36:23] active: 8 пар
+[06:36:44] active: 8 пар
+[06:37:06] active: 8 пар
+[06:37:38] active: 8 пар

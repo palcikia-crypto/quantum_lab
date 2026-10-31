@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Аналитика v2: RAG + ML + адаптивность."""
+import os, sqlite3, json, time
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+MEM = os.path.join(BASE, 'tools/agent/memory.db')
+LOG = os.path.join(BASE, 'logs/agent.log')
+
+def log(m):
+    with open(LOG, 'a') as f:
+        f.write(f'[{datetime.now():%H:%M:%S}] [analytics] {m}\n')
+
+def search_rag(query, limit=3):
+    """Ищет в RAG базе."""
+    try:
+        import sys
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from project_rag import search
+        return search(query, limit=limit)
+    except: return []
+
+def get_ml_state():
+    """Читает ML-предсказания."""
+    p = os.path.join(BASE, 'data/ml_predictions_online.json')
+    if not os.path.exists(p): return None
+    try:
+        d = json.load(open(p))
+        return d.get('predictions', {})
+    except: return None
+
+def analyze_trend(key, n=5):
+    c = sqlite3.connect(MEM)
+    rows = c.execute("SELECT ts, value FROM facts WHERE key=? ORDER BY ts DESC LIMIT ?", (key, n)).fetchall()
+    c.close()
+    if len(rows) < 2: return None
+    vals = []
+    for ts, v in rows:
+        try: vals.append(float(v))
+        except: pass
+    if len(vals) < 2: return None
+    if vals[0] < vals[-1] * 0.8: return 'falling'
+    elif vals[0] > vals[-1] * 1.2: return 'rising'
+    return 'stable'
+
+def check_adaptive(facts):
+    """Адаптивные решения на основе памяти + RAG + ML."""
+    decisions = []
+    # 1. PnL падает 3 цикла → остановить v4
+    pnl_trend = analyze_trend('pnl_24h', 3)
+    if pnl_trend == 'falling':
+        decisions.append({'action': 'stop_v4', 'reason': 'PnL_24h падает 3 цикла'})
+    elif pnl_trend == 'rising':
+        decisions.append({'action': 'log', 'reason': 'PnL_24h растёт — всё ок'})
+    # 2. ML насыщена → переобучить
+    ml = get_ml_state()
+    if ml:
+        bad = [s for s, v in ml.items() if v.get('proba_long', 0.5) < 0.05 or v.get('proba_long', 0.5) > 0.95]
+        if bad:
+            decisions.append({'action': 'retrain_ml', 'reason': f'ML насыщена: {bad}'})
+    # 3. RAG: если v4 ERROR → искать в базе, была ли такая ошибка
+    if facts.get('v4_errors_recent', 0) > 0:
+        results = search_rag('ERROR', limit=3)
+        if results:
+            decisions.append({'action': 'log', 'reason': f'RAG: {len(results)} упоминаний ERROR в базе'})
+    # 4. RAG: если market stale → искать, как чинили раньше
+    if facts.get('age_market.db', 0) and facts['age_market.db'] > 600:
+        results = search_rag('market.db stale', limit=2)
+        if results:
+            decisions.append({'action': 'log', 'reason': f'RAG: market stale чинили раньше ({len(results)} раз)'})
+    # 5. EXPERIENCE: не делать stop_v4, если он не помогал
+    try:
+        import memory
+        exp = memory.get_experience('stop_v4', limit=10)
+        if exp['total'] >= 3 and exp['fail'] >= 3 and exp['avg_score'] < 0:
+            decisions.append({'action': 'log', 'reason': f'stop_v4 не помогает ({exp["fail"]}/{exp["total"]} fail) — пропуск'})
+            # отменяем stop_v4, если бы он был
+            decisions = [d for d in decisions if d.get('action') != 'stop_v4']
+    except Exception as e:
+        pass
+    return decisions
+
+if __name__ == '__main__':
+    print(json.dumps(check_adaptive({}), indent=2))

@@ -1,0 +1,42 @@
+===== 1. ЧТО РЕАЛЬНО ТОРГУЮТ v2/v3 (из БД) =====
+--- v2 ---
+ symbol      strategy
+--------  ---------------
+XRP-USDT  okx_vwap_rev_30
+BTC-USDT  okx_vwap_rev_30
+--- v3 ---
+symbol  strategy
+------  --------
+--- v4 ---
+ symbol      strategy
+--------  ---------------
+BTC-USDT  scalp_obi_short
+
+===== 2. РУЧНАЯ ПРОВЕРКА: 4/4 (как оптимизатор) =====
+
+symbol       strategy                score причина             
+-----------------------------------------------------------------
+ETHUSDT      okx_vwap_rev_7           4/4 OK                  
+SOLUSDT      okx_vwap_rev_13          4/4 OK                  
+DOGEUSDT     okx_vwap_rev_13          4/4 OK                  
+BTCUSDT      okx_vwap_rev_15          4/4 OK                  
+ETHUSDT      okx_vwap_rev_15          4/4 OK                  
+SOLUSDT      okx_grid_sma_13          4/4 OK                  
+ETHUSDT      okx_grid_sma_15          4/4 OK                  
+XRPUSDT      okx_grid_sma_15          4/4 OK                  
+BTCUSDT      okx_vwap_rev_25          1/4 MC,OOS,Sens         
+BTCUSDT      okx_grid_sma_25          1/4 MC,OOS,Sens         
+
+✅ ПРОШЛИ 4/4: 8
+  ETHUSDT okx_vwap_rev_7
+  SOLUSDT okx_vwap_rev_13
+  DOGEUSDT okx_vwap_rev_13
+  BTCUSDT okx_vwap_rev_15
+  ETHUSDT okx_vwap_rev_15
+  SOLUSDT okx_grid_sma_13
+  ETHUSDT okx_grid_sma_15
+  XRPUSDT okx_grid_sma_15
+
+❌ ОТСЕЯНЫ: 2
+  BTCUSDT okx_vwap_rev_25: 1/4 (MC,OOS,Sens)
+  BTCUSDT okx_grid_sma_25: 1/4 (MC,OOS,Sens)

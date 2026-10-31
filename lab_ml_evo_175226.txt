@@ -1,0 +1,85 @@
+===== 1. ОПТИМИЗАТОР: ЖИВ? ЗАКОНЧИЛ? =====
+27777 python3 -u tools/agent/grail_optimizer_full.py
+
+===== 2. ЛОГ ОПТИМИЗАТОРА (последние 80) =====
+nohup: ignoring input
+[17:20:19] [full] === GRAIL OPTIMIZER FULL ===
+[17:20:19] [full] Граалей: 16
+[17:20:19] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 3. СКОЛЬКО ПАР ПРОШЛО ВСЕ 8 ПРОВЕРОК =====
+0
+0
+
+===== 4. ВСЕ ✅ BEST (золото) =====
+
+===== 5. НОВЫЕ СЕМЕЙСТВА И АНСАМБЛИ (нашлись?) =====
+--- RSI ---
+--- Bollinger ---
+--- Ichimoku ---
+--- Breakout ---
+--- Ансамбли ---
+
+===== 6. ОТСЕЯНО =====
+  STABILITY1: 0
+  STABILITY2: 0
+  OOS: 0
+  TREND: 0
+  нет walk-forward: 0
+
+===== 7. ML: ЧТО ДЕЛАЕТ =====
+--- accuracy (последние 5) ---
+{"ts": 1793446734, "accuracy": 0.735, "drift": false}
+{"ts": 1793447695, "accuracy": 0.735, "drift": false}
+{"ts": 1793448635, "accuracy": 0.735, "drift": false}
+{"ts": 1793449579, "accuracy": 0.735, "drift": false}
+{"ts": 1793450522, "accuracy": 0.735, "drift": false}
+--- предсказания (последние 3) ---
+    }
+  }
+}--- модель ---
+-rw-------. 1 u0_a119 u0_a119 354 Oct 31 03:04 data/ml_online.pkl
+
+===== 8. ЭВОЛЮЦИЯ: ЧТО НАШЛА =====
+  timestamp: 2026-10-30T23:45:44.795075
+  L1: 184, L2: 20, L3: 20
+  top: 20 стратегий
+    vwap_reversion: WR=41.4% n=133
+    mean_rev_15_1.5: WR=53.0% n=164
+    bb_15_1.5: WR=53.0% n=164
+    vwap_reversion: WR=48.4% n=126
+    mean_rev_15_2.0: WR=43.0% n=372
+
+===== 9. МОЗГ: ЧТО ДЕЛАЕТ =====
+--- brain_loop ---
+5832 python3 -u core/brain_loop.py
+  evolve_agent уже работает, skip
+[17:48:38] решений: 2
+[17:48:38]   -> quarantine (карантин: 2)
+[17:48:38]   -> run_auto_compare (сравнение (2ч))
+[17:49:53] решений: 2
+[17:51:06] решений: 2
+[17:52:17] решений: 2
+2
+[17:51:06] решений: 2
+[17:52:17] решений: 2
+
+===== 10. СТРАТЕГИИ В КОНФИГЕ =====
+  пар: 5
+    ETH-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    SOL-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    DOGE-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    BTC-USDT okx_vwap_rev_17: WR=?% n=? tf=15m
+    XRP-USDT okx_grid_sma_13: WR=?% n=? tf=15m
+
+===== 11. PnL =====
+  v2: 111 сделок, PnL=-155.79, WR=45.0%
+  v3: 145 сделок, PnL=-220.11, WR=37.9%
+  v4: 932 сделок, PnL=9.17, WR=50.6%
+
+===== 12. SANITY CHECK =====
+[17:52:30]   📊 data/okx_paper_v4.db: 932 сделок, PnL=9.17
+[17:52:30]   📊 v3 открытых: 2
+
+[17:52:30] ✅ ОШИБОК НЕТ
+[17:52:30] === ИТОГ: 0 ошибок, 0 предупреждений ===

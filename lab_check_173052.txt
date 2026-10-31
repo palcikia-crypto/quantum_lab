@@ -1,0 +1,82 @@
+===== 1. ОПТИМИЗАТОР: ЖИВ? =====
+27777 python3 -u tools/agent/grail_optimizer_full.py
+
+===== 2. ЛОГ ОПТИМИЗАТОРА (последние 60) =====
+nohup: ignoring input
+[17:20:19] [full] === GRAIL OPTIMIZER FULL ===
+[17:20:19] [full] Граалей: 16
+[17:20:19] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 3. СКОЛЬКО ПАР ПРОШЛО ВСЕ 8 ПРОВЕРОК =====
+0
+0
+
+===== 4. ВСЕ ✅ BEST (новые граали) =====
+
+===== 5. МУТАНТЫ: НОВЫЕ СЕМЕЙСТВА И АНСАМБЛИ =====
+--- новые семейства ---
+--- ансамбли ---
+
+===== 6. ОТСЕЯНО =====
+  STABILITY1 reject: 0
+  STABILITY2 reject: 0
+  OOS reject: 0
+  TREND reject: 0
+  нет walk-forward: 0
+
+===== 7. okx_active.json (ОБНОВИЛСЯ?) =====
+  пар: 5, обновлён: 17:00:07
+    ETH-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    SOL-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    DOGE-USDT okx_vwap_rev_13: WR=?% n=? tf=15m
+    BTC-USDT okx_vwap_rev_17: WR=?% n=? tf=15m
+    XRP-USDT okx_grid_sma_13: WR=?% n=? tf=15m
+
+===== 8. SANITY CHECK =====
+[17:30:56]   📊 data/okx_paper_v4.db: 902 сделок, PnL=9.02
+[17:30:56]   📊 v3 открытых: 3
+
+[17:30:56] ✅ ОШИБОК НЕТ
+[17:30:56] === ИТОГ: 0 ошибок, 0 предупреждений ===
+
+===== 9. ПРОЦЕССЫ =====
+  ✅ okx_bot_paper_v2 — 32216
+  ✅ okx_bot_paper_v3 — 32218
+  ✅ okx_bot_paper_v4 — 5835
+  ✅ grail_optimizer_full — 27777
+  ✅ oracle.py — 6746
+  ✅ orderbook_oracle — 7233
+  ✅ brain_loop — 5832
+  ✅ strategy_bot — 5841
+  ✅ dashboard.py — 5862
+  ✅ strategy_panel — 5868
+
+===== 10. PnL =====
+  v2: 111 сделок, PnL=-155.79, WR=45.0%
+  v3: 142 сделок, PnL=-217.09, WR=38.7%
+  v4: 902 сделок, PnL=9.02, WR=50.8%
+
+===== 11. НОВЫЕ СДЕЛКИ (после 17:20) =====
+--- v2 ---
+symbol  strategy  pnl  status  dt
+------  --------  ---  ------  --
+--- v3 ---
+ symbol      strategy      pnl  status          dt
+--------  ---------------  ---  ------  -------------------
+XRP-USDT  okx_grid_sma_13       OPEN    2026-10-31 17:30:44
+XRP-USDT  okx_grid_sma_13       OPEN    2026-10-31 17:05:43
+
+===== 12. ОТКРЫТЫЕ =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+ETH-USDT  SHORT  okx_grid_sma_17  2250.26  2026-10-31 16:55:26
+XRP-USDT  SHORT  okx_grid_sma_13    1.249  2026-10-31 17:05:43
+XRP-USDT  SHORT  okx_grid_sma_13   1.2492  2026-10-31 17:30:44
+--- v4 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+BTC-USDT  SHORT  scalp_obi_short  77547.5  2026-10-31 17:29:58

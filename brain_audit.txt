@@ -1,0 +1,294 @@
+############ BRAIN AUDIT 2026-10-28 06:39:42 ############
+
+===== 1. ФАЙЛЫ МОЗГА =====
+-rw-------. 1 u0_a119 u0_a119 18648 Oct 27 22:52 core/brain.py
+-rw-------. 1 u0_a119 u0_a119  1778 Oct 27 17:45 core/brain_api.py
+-rw-------. 1 u0_a119 u0_a119  1455 Oct 27 18:12 core/brain_loop.py
+-rw-------. 1 u0_a119 u0_a119  8723 Oct 27 18:12 core/brain_v1_backup.py
+-rw-------. 1 u0_a119 u0_a119  2469 Oct 27 22:12 core/evolution.py
+-rw-------. 1 u0_a119 u0_a119 15758 Oct 27 17:34 core/evolution_old.py
+-rw-------. 1 u0_a119 u0_a119  7348 Oct 28 00:43 core/gate.py
+-rw-------. 1 u0_a119 u0_a119  6399 Oct 27 17:36 core/gate_v2.py
+-rw-------. 1 u0_a119 u0_a119  7732 Oct 28 00:18 core/gate_v3.py
+-rw-------. 1 u0_a119 u0_a119   794 Oct 27 17:52 core/market_regime.py
+-rw-------. 1 u0_a119 u0_a119  1370 Oct 27 23:40 core/ml_filter.py
+-rw-------. 1 u0_a119 u0_a119  5542 Oct 27 17:54 core/oracle.py
+-rw-------. 1 u0_a119 u0_a119  1354 Oct 27 18:35 core/self_organizer.py
+-rw-------. 1 u0_a119 u0_a119  8841 Oct 28 01:20 core/strategy_pool.py
+-rw-------. 1 u0_a119 u0_a119  7120 Oct 27 23:26 core/strategy_pool_advanced.py
+-rw-------. 1 u0_a119 u0_a119  6449 Oct 27 17:52 core/validation.py
+
+===== 2. ВСЕ БД И ИХ ТАБЛИЦЫ =====
+--- data/brain.db (size: 4.1M) ---
+action_history     decisions     events     state_history
+    action_history: 180 строк
+    decisions: 180 строк
+    events: 2 строк
+    state_history: 1001 строк
+--- data/oracle.db (size: 1.9M) ---
+prices     regime
+    prices: 1750 строк
+    regime: 21975 строк
+--- data/market.db (size: 133M) ---
+candles     state
+    candles: 1120855 строк
+    state: 0 строк
+--- data/market_polymarket.db (size: 12M) ---
+poly_prices
+    poly_prices: 54493 строк
+--- data/orderbooks.db (size: 812K) ---
+orderbooks
+    orderbooks: 4545 строк
+
+===== 3. BRAIN.DB: СХЕМА И ДАННЫЕ =====
+CREATE TABLE events (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, type TEXT, component TEXT,
+        message TEXT, data TEXT);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE decisions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, decision TEXT, reason TEXT, result TEXT);
+CREATE TABLE state_history (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, state_json TEXT);
+CREATE TABLE action_history (id INTEGER PRIMARY KEY AUTOINCREMENT, ts TEXT, action TEXT, success INTEGER, duration REAL);
+--- последние 10 записей (какая бы ни была таблица) ---
+### action_history ###
+id               ts                action    success        duration
+---  --------------------------  ----------  -------  --------------------
+180  2026-10-28T06:38:06.926822  run_agents        1  0.027635812759399414
+179  2026-10-28T06:32:30.792054  run_agents        1   0.32032537460327148
+178  2026-10-28T06:26:59.594537  run_agents        1   0.63831377029418945
+177  2026-10-28T06:21:02.047603  run_agents        1    0.2761530876159668
+176  2026-10-28T06:15:32.874288  run_agents        1  0.088563442230224609
+175  2026-10-28T06:09:55.325631  run_agents        1  0.068900823593139648
+174  2026-10-28T06:04:30.372024  run_agents        1  0.094935178756713867
+173  2026-10-28T05:58:53.984651  run_agents        1   0.33086729049682617
+172  2026-10-28T05:53:10.294482  run_agents        1   0.22920703887939453
+171  2026-10-28T05:47:16.748574  run_agents        1   0.38842844963073731
+### decisions ###
+id               ts               decision      reason     result
+---  --------------------------  ----------  ------------  ------
+180  2026-10-28T06:38:06.933540  run_agents  прошло 5 мин  ok
+179  2026-10-28T06:32:30.802388  run_agents  прошло 5 мин  ok
+178  2026-10-28T06:26:59.605355  run_agents  прошло 5 мин  ok
+177  2026-10-28T06:21:02.055905  run_agents  прошло 5 мин  ok
+176  2026-10-28T06:15:32.881834  run_agents  прошло 5 мин  ok
+175  2026-10-28T06:09:55.333255  run_agents  прошло 5 мин  ok
+174  2026-10-28T06:04:30.388209  run_agents  прошло 5 мин  ok
+173  2026-10-28T05:58:54.126860  run_agents  прошло 5 мин  ok
+172  2026-10-28T05:53:10.302629  run_agents  прошло 5 мин  ok
+171  2026-10-28T05:47:16.761840  run_agents  прошло 5 мин  ok
+### events ###
+id              ts                 type     component         message         data
+--  --------------------------  ----------  ---------  ---------------------  ----
+ 2  2026-10-27T23:15:28.735317  quarantine  brain      карантин: карантин: 1
+ 1  2026-10-27T23:10:05.077920  quarantine  brain      карантин: карантин: 1
+### state_history ###
+ id               ts                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       state_json
+----  --------------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1018  2026-10-28T06:39:26.946464  {"timestamp": "2026-10-28T06:39:26.946464", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80932.0, "regime": "trend_up", "atr": 356.4364, "adx": 61.4, "vol_z": 0.9}, {"symbol": "ETHUSDT", "price": 2355.84, "regime": "trend_up", "atr": 14.7436, "adx": 65.8, "vol_z": 0.9}, {"symbol": "SOLUSDT", "price": 101.66, "regime": "trend_up", "atr": 0.63, "adx": 67.3, "vol_z": 0.84}, {"symbol": "XRPUSDT", "price": 1.3352, "regime": "trend_up", "atr": 0.0094, "adx": 65.0, "vol_z": 0.91}, {"symbol": "DOGEUSDT", "price": 0.07923, "regime": "trend_up", "atr": 0.0005, "adx": 76.6, "vol_z": 0.94}, {"symbol": "BNBUSDT", "price": 745.82, "regime": "flat", "atr": 3.64, "adx": 24.4, "vol_z": 0.93}, {"symbol": "ADAUSDT", "price": 0.2067, "regime": "trend_up", "atr": 0.0017, "adx": 52.1, "vol_z": 0.87}, {"symbol": "AVAXUSDT", "price": 9.019, "regime": "trend_up", "atr": 0.0749, "adx": 77.3, "vol_z": 0.89}, {"symbol": "DOTUSDT", "price": 1.004, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.632, "regime": "trend_up", "atr": 0.0901, "adx": 66.8, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V3": {"pid": null, "alive": false, "trades": 62, "pnl": -32.21, "open": 2}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 241}}
+1017  2026-10-28T06:39:06.943869  {"timestamp": "2026-10-28T06:39:06.943869", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80934.02, "regime": "trend_up", "atr": 356.4364, "adx": 61.4, "vol_z": 0.9}, {"symbol": "ETHUSDT", "price": 2355.62, "regime": "trend_up", "atr": 14.7414, "adx": 65.7, "vol_z": 0.9}, {"symbol": "SOLUSDT", "price": 101.66, "regime": "trend_up", "atr": 0.63, "adx": 67.3, "vol_z": 0.84}, {"symbol": "XRPUSDT", "price": 1.3348, "regime": "trend_up", "atr": 0.0094, "adx": 64.9, "vol_z": 0.9}, {"symbol": "DOGEUSDT", "price": 0.07926, "regime": "trend_up", "atr": 0.0005, "adx": 76.6, "vol_z": 0.94}, {"symbol": "BNBUSDT", "price": 745.8, "regime": "flat", "atr": 3.6393, "adx": 24.4, "vol_z": 0.93}, {"symbol": "ADAUSDT", "price": 0.2067, "regime": "trend_up", "atr": 0.0017, "adx": 52.1, "vol_z": 0.87}, {"symbol": "AVAXUSDT", "price": 9.021, "regime": "trend_up", "atr": 0.0749, "adx": 77.3, "vol_z": 0.89}, {"symbol": "DOTUSDT", "price": 1.004, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.63, "regime": "trend_up", "atr": 0.0901, "adx": 66.8, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 216}}
+1016  2026-10-28T06:38:01.726899  {"timestamp": "2026-10-28T06:38:01.726899", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80909.09, "regime": "trend_up", "atr": 354.1807, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2354.71, "regime": "trend_up", "atr": 14.7036, "adx": 65.5, "vol_z": 0.9}, {"symbol": "SOLUSDT", "price": 101.6, "regime": "trend_up", "atr": 0.6257, "adx": 66.7, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3339, "regime": "trend_up", "atr": 0.0094, "adx": 64.4, "vol_z": 0.9}, {"symbol": "DOGEUSDT", "price": 0.0792, "regime": "trend_up", "atr": 0.0005, "adx": 76.6, "vol_z": 0.94}, {"symbol": "BNBUSDT", "price": 745.63, "regime": "flat", "atr": 3.63, "adx": 23.9, "vol_z": 0.93}, {"symbol": "ADAUSDT", "price": 0.2066, "regime": "trend_up", "atr": 0.0017, "adx": 51.4, "vol_z": 0.87}, {"symbol": "AVAXUSDT", "price": 9.011, "regime": "trend_up", "atr": 0.0744, "adx": 76.7, "vol_z": 0.89}, {"symbol": "DOTUSDT", "price": 1.004, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.623, "regime": "trend_up", "atr": 0.0896, "adx": 66.2, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 214}}
+1015  2026-10-28T06:37:24.379059  {"timestamp": "2026-10-28T06:37:24.379059", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80872.95, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2353.9, "regime": "trend_up", "atr": 14.5964, "adx": 64.9, "vol_z": 0.9}, {"symbol": "SOLUSDT", "price": 101.58, "regime": "trend_up", "atr": 0.6236, "adx": 66.3, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3335, "regime": "trend_up", "atr": 0.0093, "adx": 64.0, "vol_z": 0.9}, {"symbol": "DOGEUSDT", "price": 0.07927, "regime": "trend_up", "atr": 0.0005, "adx": 76.6, "vol_z": 0.94}, {"symbol": "BNBUSDT", "price": 745.62, "regime": "flat", "atr": 3.6264, "adx": 23.8, "vol_z": 0.93}, {"symbol": "ADAUSDT", "price": 0.2066, "regime": "trend_up", "atr": 0.0017, "adx": 51.4, "vol_z": 0.87}, {"symbol": "AVAXUSDT", "price": 9.008, "regime": "trend_up", "atr": 0.0741, "adx": 76.4, "vol_z": 0.89}, {"symbol": "DOTUSDT", "price": 1.004, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.62, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V3": {"pid": null, "alive": false, "trades": 62, "pnl": -32.21, "open": 2}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 304}}
+1014  2026-10-28T06:36:57.160210  {"timestamp": "2026-10-28T06:36:57.160210", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80845.73, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2352.44, "regime": "trend_up", "atr": 14.5207, "adx": 64.4, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.5, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3324, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.0792, "regime": "trend_up", "atr": 0.0005, "adx": 76.1, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 745.42, "regime": "flat", "atr": 3.6121, "adx": 23.1, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2065, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 9.006, "regime": "trend_up", "atr": 0.0738, "adx": 76.0, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.003, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.615, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 296}}
+1013  2026-10-28T06:35:51.996618  {"timestamp": "2026-10-28T06:35:51.996618", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80787.2, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2349.6, "regime": "trend_up", "atr": 14.4886, "adx": 64.2, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.37, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3301, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.079, "regime": "trend_up", "atr": 0.0005, "adx": 75.9, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 744.81, "regime": "flat", "atr": 3.5864, "adx": 21.9, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2061, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 8.991, "regime": "trend_up", "atr": 0.0732, "adx": 75.4, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.001, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.606, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 259}}
+1012  2026-10-28T06:35:19.973034  {"timestamp": "2026-10-28T06:35:19.973034", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80814.28, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2349.65, "regime": "trend_up", "atr": 14.4886, "adx": 64.2, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.4, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3308, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.07903, "regime": "trend_up", "atr": 0.0005, "adx": 75.9, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 744.93, "regime": "flat", "atr": 3.5864, "adx": 21.9, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2061, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 8.994, "regime": "trend_up", "atr": 0.0732, "adx": 75.4, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.002, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.608, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V3": {"pid": null, "alive": false, "trades": 62, "pnl": -32.21, "open": 2}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 288}}
+1011  2026-10-28T06:34:33.298428  {"timestamp": "2026-10-28T06:34:33.298428", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80834.01, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2350.16, "regime": "trend_up", "atr": 14.4886, "adx": 64.2, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.44, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3317, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.07905, "regime": "trend_up", "atr": 0.0005, "adx": 75.9, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 745.01, "regime": "flat", "atr": 3.5864, "adx": 21.9, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2064, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 8.997, "regime": "trend_up", "atr": 0.0732, "adx": 75.4, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.003, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.616, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 172}}
+1010  2026-10-28T06:33:30.810876  {"timestamp": "2026-10-28T06:33:30.810876", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80796.97, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2349.34, "regime": "trend_up", "atr": 14.4886, "adx": 64.2, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.39, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.331, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.07906, "regime": "trend_up", "atr": 0.0005, "adx": 75.9, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 744.68, "regime": "flat", "atr": 3.5814, "adx": 21.9, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2063, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 8.995, "regime": "trend_up", "atr": 0.0732, "adx": 75.4, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.003, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.613, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 214}}
+1009  2026-10-28T06:33:14.150120  {"timestamp": "2026-10-28T06:33:14.150120", "data": {"pairs": 12, "candles": 1120855, "fresh": true, "missing_tfs": ["MATICUSDT"], "last_update": "2026-10-28T01:26:17.230055"}, "oracle": [{"symbol": "BTCUSDT", "price": 80786.04, "regime": "trend_up", "atr": 351.5993, "adx": 60.7, "vol_z": 0.89}, {"symbol": "ETHUSDT", "price": 2349.01, "regime": "trend_up", "atr": 14.4886, "adx": 64.2, "vol_z": 0.89}, {"symbol": "SOLUSDT", "price": 101.38, "regime": "trend_up", "atr": 0.6186, "adx": 65.5, "vol_z": 0.83}, {"symbol": "XRPUSDT", "price": 1.3301, "regime": "trend_up", "atr": 0.0093, "adx": 63.1, "vol_z": 0.89}, {"symbol": "DOGEUSDT", "price": 0.07903, "regime": "trend_up", "atr": 0.0005, "adx": 75.9, "vol_z": 0.93}, {"symbol": "BNBUSDT", "price": 744.35, "regime": "flat", "atr": 3.5814, "adx": 21.9, "vol_z": 0.92}, {"symbol": "ADAUSDT", "price": 0.2062, "regime": "trend_up", "atr": 0.0017, "adx": 50.7, "vol_z": 0.86}, {"symbol": "AVAXUSDT", "price": 8.99, "regime": "trend_up", "atr": 0.0732, "adx": 75.4, "vol_z": 0.88}, {"symbol": "DOTUSDT", "price": 1.003, "regime": "trend_down", "atr": 0.0111, "adx": 53.5, "vol_z": 0.96}, {"symbol": "LINKUSDT", "price": 11.605, "regime": "trend_up", "atr": 0.0895, "adx": 66.1, "vol_z": 0.87}], "gate": {"summary": {"GOLDEN": 0, "TRADE_NOW": 0, "WATCH": 0, "SKIP": 0}, "last_run": "2026-10-28T00:23:08.330058", "best": null}, "active": {"pairs": 6, "trades": 6, "updated": "2026-10-28T06:24:59.551505"}, "bots": {"V1": {"pid": 30623, "alive": true, "trades": 38, "pnl": 450.0, "open": 0}, "V3": {"pid": null, "alive": false, "trades": 62, "pnl": -32.21, "open": 2}, "V4": {"pid": 3890, "alive": true, "trades": 63, "pnl": 59.83, "open": 0}, "V5": {"pid": 30615, "alive": true, "trades": 30, "pnl": 90.97, "open": 0}, "V6.1": {"pid": 30614, "alive": true, "trades": 52, "pnl": 372.0, "open": 0}, "V7": {"pid": 18398, "alive": true, "trades": 53, "pnl": 34.95, "open": 2}}, "live": {"summary": {"waiting": 5, "STRENGTHEN": 1}, "results": [{"key": "ETHUSDT_15m_mean_rev_20_2.0", "symbol": "ETHUSDT", "strategy": "mean_rev_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 57.1, "delta": -14.2, "n": 7, "pnl": 13.19, "status": "waiting"}, {"key": "ETHUSDT_15m_bb_20_1.5", "symbol": "ETHUSDT", "strategy": "bb_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 100.0, "delta": 35.4, "n": 1, "pnl": 9.16, "status": "STRENGTHEN"}, {"key": "ETHUSDT_15m_bb_20_2.0", "symbol": "ETHUSDT", "strategy": "bb_20_2.0", "bot": "V7", "backtest_wr": 71.3, "live_wr": 0.0, "delta": -71.3, "n": 1, "pnl": -5.0, "status": "waiting"}, {"key": "BTCUSDT_15m_mean_rev_15_1.5", "symbol": "BTCUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 62.7, "live_wr": 57.1, "delta": -5.6, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_15_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_15_1.5", "bot": "V7", "backtest_wr": 70.6, "live_wr": 57.1, "delta": -13.5, "n": 14, "pnl": 17.62, "status": "waiting"}, {"key": "ETHUSDT_15m_mean_rev_20_1.5", "symbol": "ETHUSDT", "strategy": "mean_rev_20_1.5", "bot": "V7", "backtest_wr": 64.6, "live_wr": 0.0, "delta": -64.6, "n": 2, "pnl": -10.0, "status": "waiting"}]}, "lab": {"brain_loop": {"pid": 27972, "running": true}, "oracle": {"pid": 13883, "running": true}, "data_manager": {"pid": null, "running": false}, "gate": {"pid": null, "running": false}, "brain_api": {"pid": null, "running": false}}, "system": {"load": 0, "mem_free_mb": 217}}
+
+===== 4. ORACLE.DB: СХЕМА И ДАННЫЕ =====
+CREATE TABLE prices (
+        ts INTEGER, symbol TEXT, price REAL, volume REAL, bid REAL, ask REAL, spread REAL,
+        PRIMARY KEY (symbol, ts));
+CREATE TABLE regime (
+        ts INTEGER, symbol TEXT, regime TEXT, atr REAL, adx REAL, vol_z REAL,
+        PRIMARY KEY (symbol, ts));
+### prices ###
+    ts       symbol    price      volume       bid      ask             spread
+----------  --------  --------  -----------  -------  --------  ----------------------
+1793151561  LINKUSDT    11.628   1217718.85   11.627    11.628  0.00099999999999944578
+1793151561  DOTUSDT      1.004   4756327.96    1.003     1.004   0.0010000000000001119
+1793151561  AVAXUSDT     9.023   1126840.62    9.023     9.024  0.00099999999999944578
+1793151561  ADAUSDT     0.2067   50147887.7   0.2066    0.2067  9.9999999999988987e-05
+1793151561  BNBUSDT     745.95   109109.001   745.94    745.95   0.0099999999999909051
+1793151561  DOGEUSDT   0.07921  335323404.0  0.07921   0.07922  9.9999999999961231e-06
+1793151561  XRPUSDT      1.335   67213492.1   1.3349     1.335  9.9999999999988987e-05
+1793151561  SOLUSDT     101.66  1311245.459   101.65    101.66   0.0099999999999909051
+1793151561  ETHUSDT    2355.61  206702.1938   2355.6   2355.61    0.010000000000218279
+1793151561  BTCUSDT   80932.01   13183.8608  80932.0  80932.01   0.0099999999947613105
+### regime ###
+    ts       symbol     regime      atr     adx   vol_z
+----------  --------  ----------  --------  ----  -----
+1793151561  LINKUSDT  trend_up      0.0901  66.8   0.87
+1793151561  DOTUSDT   trend_down    0.0111  53.5   0.96
+1793151561  AVAXUSDT  trend_up      0.0751  77.5    0.9
+1793151561  ADAUSDT   trend_up      0.0017  52.1   0.87
+1793151561  BNBUSDT   flat          3.6514  24.9   0.93
+1793151561  DOGEUSDT  trend_up      0.0005  76.6   0.94
+1793151561  XRPUSDT   trend_up      0.0094  65.0   0.91
+1793151561  SOLUSDT   trend_up        0.63  67.3   0.84
+1793151561  ETHUSDT   trend_up     14.7436  65.8    0.9
+1793151561  BTCUSDT   trend_up    356.4364  61.4    0.9
+
+===== 5. НАХОДКИ (findings) В JSON =====
+--- data/findings_old.json ---
+  dict, ключи: ['timestamp', 'pairs', 'findings']
+   timestamp: 2026-10-27T11:42:54.566716+00:00
+   pairs: ['BTCUSDT', 'ETHUSDT', 'DOGEUSDT', 'SOLUSDT', 'XRPUSDT', 'BNBUSDT']
+   findings: {'BTCUSDT': [{'strategy': 'rsi_25_up', 'wr': 53.6, 'n': 554, 'p': 0.237, 'ci_lo': 49.1, 'pnl': 181.66, 'verdict': '❌', 'wr_trend': 51.1, 'wr_flat': 51.4}, {'strategy': 'rsi_35_up',
+--- data/data_report.json ---
+  dict, ключи: ['timestamp', 'result']
+   timestamp: 2026-10-28T06:38:08.358941
+   result: {'pairs': 12, 'candles': 1120855, 'age_hours': 5.2, 'need': False}
+--- data/active_strategies.json ---
+  dict, ключи: ['updated_at', 'source', 'pairs']
+   updated_at: 2026-10-28T06:24:59.551505
+   source: gate_all
+   pairs: {'ETHUSDT_15m_mean_rev_20_2.0': {'symbol': 'ETHUSDT', 'tf': '15m', 'strategy': 'mean_rev_20_2.0', 'wr': 71.3, 'n': 944, 'p': 0.0, 'verdict': 'GOLDEN', 'score': 10.0, 'model': 'auto
+
+===== 6. ЛОГИ МОЗГА (последние строки каждого) =====
+--- logs/brain_api.log (52 строк) ---
+    ~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/http/server.py", line 598, in end_headers
+    self.flush_headers()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/http/server.py", line 602, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/usr/lib/python3.14/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+--- logs/brain_loop.log (522 строк) ---
+[06:30:19] всё ок, действий не нужно
+[06:31:21] всё ок, действий не нужно
+[06:32:30] решений: 1
+[06:32:30]   -> run_agents (прошло 5 мин)
+[06:33:33] всё ок, действий не нужно
+[06:34:51] всё ок, действий не нужно
+[06:35:57] всё ок, действий не нужно
+[06:37:01] всё ок, действий не нужно
+[06:38:06] решений: 1
+[06:38:06]   -> run_agents (прошло 5 мин)
+[06:39:13] всё ок, действий не нужно
+[06:39:13] всё ок, действий не нужно
+--- logs/oracle.log (16 строк) ---
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+python3: can't open file '/data/data/com.termux/files/home/quantum_lab/core/oracle.py loop': [Errno 2] No such file or directory
+Oracle loop started
+--- logs/evolution.log (2890 строк) ---
+                               ~~~~^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/evolution.py", line 49, in main
+    l1 = L1_grid(); print(f'L1: {len(l1)} результатов', flush=True)
+  File "/data/data/com.termux/files/home/quantum_lab/core/evolution.py", line 29, in L1_grid
+    r = evaluate(pair, name, fn)
+  File "/data/data/com.termux/files/home/quantum_lab/core/evolution.py", line 17, in evaluate
+    up, dn = fn(data['o'],data['h'],data['l'],data['c'],data['v'],{})
+             ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/strategy_pool_advanced.py", line 164, in sig_atr_breakout
+    if c[i] > h[i-1] + atr[i]: up[i] = True
+                       ~~~^^^
+IndexError: index 17304 is out of bounds for axis 0 with size 17304
+--- logs/evolution_debug.log (20 строк) ---
+  File "/data/data/com.termux/files/home/quantum_lab/core/evolution.py", line 29, in L1_grid
+    r = evaluate(pair, name, fn)
+  File "/data/data/com.termux/files/home/quantum_lab/core/evolution.py", line 17, in evaluate
+    up, dn = fn(data['o'],data['h'],data['l'],data['c'],data['v'],{})
+             ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/strategy_pool_advanced.py", line 86, in sig_funding_extreme
+    if 'fund' not in ind: ind['fund'] = calc_funding_proxy(o,h,l,c,v)
+                                        ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/strategy_pool_advanced.py", line 27, in calc_funding_proxy
+    if atr[i] > 0: out[i] = (c[i] - sma[i]) / atr[i]
+       ~~~^^^
+IndexError: index 17279 is out of bounds for axis 0 with size 17279
+--- logs/gate_agent.log (403 строк) ---
+[06:26:59] === GATE AGENT ===
+[06:26:59] === GATE AGENT ===
+[06:26:59] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.1, 'need': True}
+[06:26:59] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.1, 'need': True}
+[06:32:31] === GATE AGENT ===
+[06:32:31] === GATE AGENT ===
+[06:32:31] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.2, 'need': True}
+[06:32:31] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.2, 'need': True}
+[06:38:07] === GATE AGENT ===
+[06:38:07] === GATE AGENT ===
+[06:38:07] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.2, 'need': True}
+[06:38:07] check: {'summary': {'GOLDEN': 0, 'TRADE_NOW': 0, 'WATCH': 0, 'SKIP': 0}, 'age_hours': 6.2, 'need': True}
+--- logs/gate_all.log (1 строк) ---
+GATE ALL: {'GOLDEN': 4, 'TRADE_NOW': 0, 'WATCH': 5, 'SKIP': 76}, прогонов: 85
+--- logs/gate_full.log (120 строк) ---
+  DOGEUSDT: 108 прошло
+--- 4h ---
+  BTCUSDT: 125 прошло
+  ETHUSDT: 142 прошло
+  SOLUSDT: 159 прошло
+  XRPUSDT: 177 прошло
+Advanced: 10 стратегий
+Стратегий: 82
+--- 15m ---
+  BTCUSDT: 57 прошло
+  ETHUSDT: 115 прошло
+  SOLUSDT: 172 прошло
+--- logs/gate_v3.log (0 строк) ---
+--- logs/self_evolution.log (24 строк) ---
+  ✅ BTCUSDT bb_15_1.5: GOLDEN WR=62.7% score=10.0
+  ✅ ETHUSDT bb_15_1.5: GOLDEN WR=70.6% score=10.0
+  ... прогресс 60/67
+  ✅ ETHUSDT bb_20_1.5: GOLDEN WR=64.6% score=10.0
+  ✅ ETHUSDT bb_20_2.0: GOLDEN WR=71.3% score=10.0
+Прошло гейт: 8
+  ➕ в active: BTCUSDT_15m_mean_rev_15_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_15_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_20_1.5
+  ➕ в active: ETHUSDT_15m_mean_rev_20_2.0
+  ➕ в active: BTCUSDT_15m_bb_15_1.5
+✅ добавлено 5 в active_strategies.json
+
+===== 7. ЭВОЛЮЦИЯ: ПОСЛЕДНИЕ ПОКОЛЕНИЯ =====
+--- data/evolution.json ---
+      "n": 3697,
+      "score": 498.24
+    }
+  ]
+}--- data/evolution_report.json ---
+    "sig_vol_z_spike",
+    "sig_volume_spike"
+  ],
+  "evolution_loaded": true
+}--- logs/evolution.log ---
+             ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/strategy_pool_advanced.py", line 164, in sig_atr_breakout
+    if c[i] > h[i-1] + atr[i]: up[i] = True
+                       ~~~^^^
+IndexError: index 17304 is out of bounds for axis 0 with size 17304
+--- logs/evolution_debug.log ---
+                                        ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/data/data/com.termux/files/home/quantum_lab/core/strategy_pool_advanced.py", line 27, in calc_funding_proxy
+    if atr[i] > 0: out[i] = (c[i] - sma[i]) / atr[i]
+       ~~~^^^
+IndexError: index 17279 is out of bounds for axis 0 with size 17279
+
+===== 8. ПЕРЕСЕЧЕНИЕ: НАХОДКИ МОЗГА vs 16 ЗОЛОТЫХ =====
+Золотые (6 уникальных): ['okx_grid_sma_10', 'okx_grid_sma_20', 'okx_grid_sma_30', 'okx_vwap_rev_10', 'okx_vwap_rev_20', 'okx_vwap_rev_30']
+
+Найдено стратегий в JSON мозга: 19
+Примеры: ['bb_20_1.5', 'bb_20_2.0', 'bb_squeeze_adv', 'mean_rev_15_1.5', 'mean_rev_2', 'mean_rev_20_1.5', 'mean_rev_20_2.0', 'mean_rev_3', 'openclose_bias', 'rsi_25_up', 'rsi_30_up', 'rsi_35_up', 'rsi_65_down', 'rsi_70_down', 'rsi_75_down', 'sma_cross', 'stoch_20', 'stoch_30', 'vwap_rev']
+
+Пересечение с золотыми: 0/6
+  ❌ нет в находках мозга: ['okx_grid_sma_10', 'okx_grid_sma_20', 'okx_grid_sma_30', 'okx_vwap_rev_10', 'okx_vwap_rev_20', 'okx_vwap_rev_30']
+
+===== 9. ЧТО МОЗГ ЗНАЕТ ПРО OKX =====
+
+
+############ END BRAIN AUDIT ############

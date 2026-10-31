@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-01T03:46:43.344963",
+  "result": {
+    "summary": {
+      "GOLDEN": 0,
+      "TRADE_NOW": 0,
+      "WATCH": 0,
+      "SKIP": 0
+    },
+    "age_hours": 99.4,
+    "need": true
+  }
+}

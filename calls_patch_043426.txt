@@ -1,0 +1,25 @@
+===== ВСТРОЙКА ВЫЗОВОВ stability_check + stability_check_2 =====
+✅ изменения: stability_check + stability_check_2 calls
+✅ синтаксис OK
+
+===== ПРОВЕРКА: ВЫЗОВЫ ЕСТЬ? =====
+412:        passed, details = stability_check(data, get_strategy_func(best['name']), best['tp'], best['sl'], best['timeout'])
+422:        passed2, details2 = stability_check_2(data, get_strategy_func(best['name']), best['tp'], best['sl'], best['timeout'])
+
+===== ЧЕК-ЛИСТ 8/8 =====
+  1. n >= 300                              ✅
+  2. walk_forward 70/30                    ✅
+  3. trend_filter (oracle.db)              ✅
+  4. final_oos_check                       ✅
+  5. by_regime                             ✅
+  6. stability_check ВЫЗОВ                 ✅
+  7. stability_check_2 ВЫЗОВ               ✅
+  8. score = pnl                           ✅
+
+  ИТОГО: 8/8
+
+===== ПЕРЕЗАПУСК =====
+  новый PID: 24525
+[04:34:32] [full] === GRAIL OPTIMIZER FULL ===
+[04:34:32] [full] Граалей: 16
+[04:34:32] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)

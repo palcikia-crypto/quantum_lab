@@ -1,0 +1,54 @@
+{
+  "updated_at": "2026-10-27T20:44:54.025491",
+  "source": "merge",
+  "pairs": {
+    "XRPUSDT_15m": {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 53.1,
+      "n": 4091,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "BTCUSDT_15m": {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 57.4,
+      "n": 770,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "current",
+      "trade": true
+    },
+    "ETHUSDT_15m": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 52.3,
+      "n": 4321,
+      "p": 0.01,
+      "verdict": "WATCH",
+      "score": 5.2299999999999995,
+      "model": "current",
+      "trade": false
+    },
+    "SOLUSDT_15m": {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 54.4,
+      "n": 933,
+      "p": 0.01,
+      "verdict": "WATCH",
+      "score": 5.4399999999999995,
+      "model": "current",
+      "trade": false
+    }
+  }
+}

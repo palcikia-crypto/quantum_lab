@@ -1,0 +1,11 @@
+============================================================
+##### БЭКАП + ЧИСТКА + АУДИТ TERMUX #####
+============================================================
+
+===== 1. БЭКАП TERMUX (на /sdcard) =====
+
+It appears that directory '~/storage' already exists.
+This script is going to rebuild its structure from
+scratch, wiping all dangling files. The actual storage
+content IS NOT going to be deleted.
+

@@ -1,0 +1,82 @@
+===== 1. ЧТО ЖИВО? =====
+--- OKX боты ---
+  ❌ ни один не запущен
+--- Оптимизатор ---
+  ❌ не запущен
+--- Оракулы ---
+3025 python3 -u core/orderbook_oracle.py
+3286 python3 /data/data/com.termux/files/home/quantum_lab/core/oracle.py loop
+--- Brain ---
+3031 python3 -u core/brain_loop.py
+--- Strategy ---
+3038 python3 -u core/strategy_bot.py
+
+===== 2. КОГДА УПАЛ? (uptime) =====
+ 05:05:04 up 2 min,  0 users,  load average: 17.55, 6.18, 2.25
+
+===== 3. ЛОГ ОПТИМИЗАТОРА (последние 20) =====
+[04:40:54] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[04:40:54] [full]     train WR=90.8%, test WR=87.7%, test PnL=1.32%, n=634
+[04:40:54] [full]     режимы: bull=88.5%, bear=94.6%, flat=86.2%
+[04:40:54] [full] 🔍 DOGEUSDT okx_vwap_rev_10 (base WR=68.5%)
+[04:42:52] [full]   ✅ TREND OK: regime=flat LONG=3 SHORT=18
+[04:42:52] [full]   ✅ OOS OK: WR=84.0% PnL=+0.57 n=350
+[04:43:02] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=1.8%, min WR=85.3%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[04:43:25] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[04:43:26] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[04:43:26] [full]     train WR=88.2%, test WR=87.0%, test PnL=1.73%, n=820
+[04:43:26] [full]     режимы: bull=89.8%, bear=86.4%, flat=83.9%
+[04:43:26] [full] 🔍 BTCUSDT okx_vwap_rev_20 (base WR=70.8%)
+[04:45:23] [full]   ✅ TREND OK: regime=flat LONG=5 SHORT=7
+[04:45:24] [full]   ✅ OOS OK: WR=84.7% PnL=+0.16 n=177
+[04:45:34] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=2.8%, min WR=85.2%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[04:45:55] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.6%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[04:45:55] [full]   ✅ BEST: okx_vwap_rev_17 tp=0.008 sl=0.004 timeout=3
+[04:45:55] [full]     train WR=86.9%, test WR=85.8%, test PnL=0.32%, n=310
+[04:45:55] [full]     режимы: bull=85.5%, bear=87.1%, flat=83.8%
+[04:45:55] [full] 🔍 ETHUSDT okx_vwap_rev_20 (base WR=67.6%)
+
+===== 4. ОПТИМИЗАТОР ЗАКОНЧИЛ? (okx_active.json) =====
+  пар: 10, обновлён: 05:05:01
+    ETH-USDT okx_vwap_rev_7: WR=97.2%
+    SOL-USDT okx_grid_sma_13: WR=85.0%
+    DOGE-USDT okx_grid_sma_13: WR=84.1%
+    BTC-USDT okx_grid_sma_13: WR=86.8%
+    ETH-USDT okx_vwap_rev_7: WR=82.6%
+    BTC-USDT okx_grid_sma_13: WR=79.3%
+    SOL-USDT okx_grid_sma_13: WR=93.8%
+    ETH-USDT okx_vwap_rev_7: WR=90.5%
+    XRP-USDT okx_grid_sma_13: WR=91.0%
+    BTC-USDT okx_grid_sma_13: WR=82.1%
+
+===== 5. ВОССТАНОВЛЕНИЕ =====
+  🔧 запускаю v2
+  🔧 запускаю v3
+  🔧 запускаю v4
+
+===== 6. ПОСЛЕ ВОССТАНОВЛЕНИЯ =====
+  ✅ okx_bot_paper_v2 — 3698
+  ✅ okx_bot_paper_v3 — 3702
+  ✅ okx_bot_paper_v4 — 3755
+  ✅ brain_loop — 3031
+  ✅ oracle.py — 3782
+  ✅ orderbook_oracle — 3831
+  ✅ strategy_bot — 3038
+  ✅ dashboard.py — 3061
+  ✅ strategy_panel — 3066
+
+===== 7. ЛОГИ v2/v3 (10 строк) =====
+[05:05:10] === OKX PAPER BOT v2 STARTED ===
+[05:05:10] active: 10 пар
+---
+[05:05:10] === OKX PAPER BOT v3 STARTED ===
+[05:05:10] active: 10 пар
+
+===== 8. PnL =====
+  v2: 148 сделок, PnL=-187.06
+  v3: 135 сделок, PnL=-188.5
+  v4: 728 сделок, PnL=8.26
+
+===== 9. ИТОГ =====
+  ✅ восстановлено
+  ⏳ оптимизатор: 

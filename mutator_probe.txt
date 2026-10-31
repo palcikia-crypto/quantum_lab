@@ -1,0 +1,119 @@
+########## MUTATOR PROBE 2026-10-28 06:29:31 ##########
+
+===== 1. КЛЮЧИ generate_mutants() (текущий core) =====
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+    from okx_mutator import generate_mutants
+ModuleNotFoundError: No module named 'okx_mutator'
+
+===== 2. КОНЕЦ generate_mutants() (core/okx_mutator.py) =====
+   120	            vol_ratio=v[i]/max(vol_ma[i],1e-9)
+   121	            # Сильный объём + бычья/медвежья свеча = OBI-сигнал
+   122	            if body>0.002 and vol_ratio>2.0: up[i]=True
+   123	            elif body<-0.002 and vol_ratio>2.0: dn[i]=True
+   124	        return up,dn
+   125	    f.__name__=f'okx_obi_signal_{obi_long}'; return f
+   126	
+   127	def generate_mutants():
+   128	    muts={}
+   129	    for fast,slow in [(5,20),(9,21),(10,30),(12,26),(8,24),(15,35),(7,25),(6,18),(11,33),(4,16),(14,40),(20,50)]:
+   130	        m=ema_cross(fast,slow); muts[m.__name__]=m
+   131	    for p in [5,10,15,20,25,30,35,40,50,60,80,100]:
+   132	        m=donchian(p); muts[m.__name__]=m
+   133	    for p in [7,14,21,30]:
+   134	        for lo,hi in [(20,80),(30,70),(25,75),(15,85),(10,90),(35,65)]:
+   135	            m=rsi_vol(p,lo,hi); muts[m.__name__]=m
+   136	    for mult in [0.3,0.5,0.7,1.0,1.5,2.0,2.5,3.0]:
+   137	        m=vol_break(mult); muts[m.__name__]=m
+   138	    for fast,slow,sig in [(12,26,9),(5,35,5),(8,21,5),(10,30,10),(3,10,3)]:
+   139	        m=macd(fast,slow,sig); muts[m.__name__]=m
+   140	    # Мощные стратегии
+   141	    muts.update(OKX_POWER_STRATEGIES)
+   142	    for th in [0.3,0.5,0.7]:
+   143	        m=okx_obi_proxy(th); muts[m.__name__]=m
+   144	    for p in [10,20,30]:
+   145	        m=okx_vwap_rev(p); muts[m.__name__]=m
+   146	    for p in [10,20,30]:
+   147	        m=okx_funding_proxy(p); muts[m.__name__]=m
+   148	    # Grid
+   149	    for p in [10, 20, 30]:
+   150	        m=okx_grid_sma(p); muts[m.__name__]=m
+   151	    # Funding
+   152	    for th in [0.0001, 0.0003, 0.0005]:
+   153	        m=okx_funding_signal(th); muts[m.__name__]=m
+   154	    # MTF
+   155	    m=okx_mtf_trend(); muts[m.__name__]=m
+   156	    # OBI-сигналы
+   157	    for th in [0.5, 0.6, 0.7, 0.8]:
+   158	        m=okx_obi_signal(th, -th); muts[m.__name__]=m
+   159	    return muts
+   160	
+   161	if __name__=='__main__':
+   162	    m=generate_mutants()
+   163	    print(f'✅ Мутантов: {len(m)}')
+
+===== 3. ЕСТЬ ЛИ core/okx_grid.py =====
+-rw-------. 1 u0_a119 u0_a119 949 Oct 28 03:34 core/okx_grid.py
+
+===== 4. DIFF core/okx_grid.py vs golden =====
+
+===== 5. ПОЛНЫЙ golden okx_grid.py (первые 60 строк) =====
+     1	#!/usr/bin/env python3
+     2	"""okx_grid.py — сеточная стратегия OKX (из документации)."""
+     3	import numpy as np
+     4	
+     5	def okx_grid_sma(period=20, step=0.003, tp=0.004):
+     6	    """Сетка от SMA: вбоковик, каждый ордер с TP 0.4%."""
+     7	    def f(o,h,l,c,v, ind):
+     8	        n=len(c); up=np.zeros(n,dtype=bool); dn=np.zeros(n,dtype=bool)
+     9	        if n<period: return up,dn
+    10	        sma=np.convolve(c,np.ones(period)/period,'same')
+    11	        for i in range(period,n):
+    12	            # Если цена ниже SMA и отскочила — лонг (сетап)
+    13	            if c[i] < sma[i] and c[i] > c[i-1] and (sma[i]-c[i])/sma[i] > step:
+    14	                up[i]=True
+    15	            # Если цена выше SMA и упала — шорт
+    16	            elif c[i] > sma[i] and c[i] < c[i-1] and (c[i]-sma[i])/sma[i] > step:
+    17	                dn[i]=True
+    18	        return up,dn
+    19	    f.__name__=f'okx_grid_sma_{period}'; return f
+
+===== 6. КАК GOLDEN okx_bot.py ГРУЗИТ СТРАТЕГИИ (grep) =====
+
+===== 7. КАК ТЕКУЩИЙ okx_bot_paper.py ИМПОРТИРУЕТ СТРАТЕГИИ (top 30) =====
+     1	#!/usr/bin/env python3
+     2	"""okx_bot_paper.py — бумажная торговля OKX (без API, по реальным ценам)."""
+     3	import os, sys, json, time, sqlite3, urllib.request
+     4	from datetime import datetime
+     5	sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+     6	sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+     7	
+     8	BASE = os.path.expanduser('~/quantum_lab')
+     9	ACTIVE = os.path.join(BASE, 'data/okx_active.json')
+    10	DB = os.path.join(BASE, 'data/okx_paper.db')
+    11	LOG = os.path.join(BASE, 'logs/okx_bot_paper.log')
+    12	BET = 100.0
+    13	FEE = 0.001
+    14	SLIP = 0.0002  # виртуальная ставка
+    15	
+    16	def log(msg):
+    17	    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    18	    print(line, flush=True)
+    19	    with open(LOG, 'a') as f: f.write(line + '\n')
+    20	
+    21	def init_db():
+    22	    c = sqlite3.connect(DB)
+    23	    c.execute('''CREATE TABLE IF NOT EXISTS trades (
+    24	        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    25	        symbol TEXT, side TEXT, strategy TEXT,
+    26	        entry_price REAL, exit_price REAL, pnl REAL,
+    27	        entry_ts INTEGER, exit_ts INTEGER,
+    28	        status TEXT DEFAULT 'OPEN', win_flag INTEGER DEFAULT 0)''')
+    29	    c.commit(); c.close()
+    30	
+
+===== 8. БЭКАП active (на всякий) =====
+✅ data/okx_active.json.bak_* создан
+✅ data/okx_active_16golden.json скопирован
+
+########## END ##########

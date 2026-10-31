@@ -1,0 +1,24 @@
+===== РУЧНАЯ ПРОВЕРКА 8 ПАР (КАК ОПТИМИЗАТОР) =====
+
+symbol       strategy                score причина                       
+---------------------------------------------------------------------------
+ETHUSDT      okx_vwap_rev_13          8/8 OK                            
+SOLUSDT      okx_vwap_rev_13          8/8 OK                            
+DOGEUSDT     okx_vwap_rev_13          8/8 OK                            
+ETHUSDT      okx_vwap_rev_15          8/8 OK                            
+XRPUSDT      okx_grid_sma_13          8/8 OK                            
+ETHUSDT      okx_grid_sma_17          8/8 OK                            
+XRPUSDT      okx_grid_sma_15          8/8 OK                            
+BTCUSDT      okx_vwap_rev_17          7/8 Sens30                        
+
+✅ ПРОШЛИ 8/8: 7
+  ETHUSDT okx_vwap_rev_13
+  SOLUSDT okx_vwap_rev_13
+  DOGEUSDT okx_vwap_rev_13
+  ETHUSDT okx_vwap_rev_15
+  XRPUSDT okx_grid_sma_13
+  ETHUSDT okx_grid_sma_17
+  XRPUSDT okx_grid_sma_15
+
+❌ ОТСЕЯНЫ: 1
+  BTCUSDT okx_vwap_rev_17: 7/8 (Sens30)

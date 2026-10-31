@@ -1,0 +1,21 @@
+===== 1. ЕСТЬ ЛИ oracle_regime? =====
+--- oracle.db ---
+regime
+regime_history
+--- market.db ---
+  (нет)
+
+===== 2. ФИКС: oracle_regime → regime (если нужно) =====
+  oracle_regime существует: False
+  regime существует: True
+  ✅ исправлено: oracle_regime → regime
+  ✅ синтаксис OK
+
+===== 3. ПРОВЕРКА ФИЛЬТРА НА BTC (реальный вызов) =====
+  get_regime("BTC-USDT") = {'regime': 'trend_down', 'adx': 34.2}
+
+===== 4. ПЕРЕЗАПУСК ОПТИМИЗАТОРА (если исправляли) =====
+  optimizer PID: 9747
+[04:04:24] [full] === GRAIL OPTIMIZER FULL ===
+[04:04:24] [full] Граалей: 16
+[04:04:24] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)

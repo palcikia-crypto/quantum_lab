@@ -1,0 +1,172 @@
+============================================================
+##### АУДИТ: СТАКАН, ПЛОТНОСТЬ, OBI — ЧТО ЕСТЬ #####
+============================================================
+
+===== 1. orderbook.db — СХЕМА =====
+---
+CREATE TABLE orderbooks (
+        ts INTEGER, symbol TEXT,
+        best_bid REAL, best_ask REAL, spread REAL,
+        bid_depth REAL, ask_depth REAL, imbalance REAL,
+        PRIMARY KEY (ts, symbol)
+    );
+CREATE TABLE trades (
+        ts INTEGER, symbol TEXT, side TEXT, price REAL, volume REAL,
+        PRIMARY KEY (ts, symbol, side, price)
+    );
+CREATE TABLE funding (
+        ts INTEGER, symbol TEXT, funding_rate REAL, next_funding_ts INTEGER,
+        PRIMARY KEY (ts, symbol)
+    );
+CREATE TABLE vwap (
+        ts INTEGER, symbol TEXT, vwap_1m REAL, vwap_5m REAL,
+        PRIMARY KEY (ts, symbol)
+    );
+CREATE INDEX idx_ob_sym_ts ON orderbooks(symbol, ts);
+CREATE INDEX idx_tr_sym_ts ON trades(symbol, ts);
+---
+Таблиц: 4
+
+===== 2. orderbook.db — ЧТО ВНУТРИ =====
+--- orderbooks ---
+  строк: 754373
+  колонки: ts symbol best_bid best_ask spread bid_depth ask_depth imbalance 
+  пример:
+    ts       symbol    best_bid  best_ask   spread       bid_depth         ask_depth    imbalance
+----------  ---------  --------  --------  --------  ------------------  -------------  ---------
+1793210372  AVAX-USDT     8.851     8.854  0.000339  593.21445399999993    1143.448875    -0.3168
+1793210372  ADA-USDT     0.2023    0.2024  0.000494          227362.692    151718.5037     0.1995
+1793210372  DOGE-USDT   0.07918   0.07919  0.000126  437496.85271999997  624921.662857    -0.1764
+--- trades ---
+  строк: 411467
+  колонки: ts symbol side price volume 
+  пример:
+    ts       symbol    side  price     volume
+----------  ---------  ----  ------  ----------
+1793210371  LINK-USDT  buy   11.532        10.0
+1793210372  XRP-USDT   sell  1.3166       453.0
+1793210372  XRP-USDT   sell  1.3165  176.544719
+--- funding ---
+  строк: 
+  колонки: ts symbol funding_rate next_funding_ts 
+  пример:
+--- vwap ---
+  строк: 631960
+  колонки: ts symbol vwap_1m vwap_5m 
+  пример:
+    ts       symbol    vwap_1m  vwap_5m
+----------  ---------  -------  -------
+1793210372  LINK-USDT   11.532   11.532
+1793210373  ETH-USDT   2343.34  2343.34
+1793210373  LINK-USDT   11.532   11.532
+
+===== 3. orderbook.db — СВЕЖЕСТЬ =====
+  orderbooks (ts): 2026-10-31 23:38:27 (0 сек)
+  trades (ts): 2026-10-31 23:38:27 (0 сек)
+  funding (ts): 2026-10-31 23:38:12 (15 сек)
+
+===== 4. orderbook_oracle.py — ЧТО ДЕЛАЕТ =====
+#!/usr/bin/env python3
+"""orderbook_oracle.py — сбор стаканов, тиков, funding, VWAP с OKX WebSocket.
+Пишет в data/orderbook.db. НЕ трогает oracle.db, НЕ трогает v2/v3."""
+import asyncio, json, sqlite3, os, time, sys
+from datetime import datetime
+try:
+    import websockets
+except ImportError:
+    print('❌ websockets не установлен. Установи: pip install websockets')
+    sys.exit(1)
+
+BASE = os.path.expanduser('~/quantum_lab')
+DB = os.path.join(BASE, 'data/orderbook.db')
+LOG = os.path.join(BASE, 'logs/orderbook_oracle.log')
+
+# Пары: 7 из v3 + BTC/ETH/SOL для v2 (всего 10)
+SYMBOLS = [
+    'BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'XRP-USDT',
+    'DOGE-USDT', 'LINK-USDT', 'ARB-USDT', 'AVAX-USDT',
+    'ADA-USDT', 'DOT-USDT',
+]
+
+SWAP_SYMBOLS = [
+    'BTC-USDT-SWAP', 'ETH-USDT-SWAP', 'SOL-USDT-SWAP',
+    'XRP-USDT-SWAP', 'DOGE-USDT-SWAP', 'LINK-USDT-SWAP',
+]
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    os.makedirs(os.path.dirname(LOG), exist_ok=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+def init_db():
+    os.makedirs(os.path.dirname(DB), exist_ok=True)
+    c = sqlite3.connect(DB)
+    c.executescript('''
+    CREATE TABLE IF NOT EXISTS orderbooks (
+        ts INTEGER, symbol TEXT,
+
+===== 5. oracle.db — СХЕМА =====
+prices     regime     regime_history
+---
+--- prices ---
+  строк: 2034
+  колонки: ts symbol price volume bid ask spread 
+    ts      symbol    price      volume      bid      ask            spread
+----------  -------  --------  ----------  -------  --------  ---------------------
+1793468288  BTCUSDT  77620.01  8154.21875  77620.0  77620.01  0.0099999999947613105
+1793468288  ETHUSDT   2252.25   94336.898  2252.25   2252.26   0.010000000000218279
+--- regime ---
+  строк: 20538
+  колонки: ts symbol regime atr adx vol_z 
+    ts      symbol     regime      atr     adx   vol_z
+----------  -------  ----------  --------  ----  -----
+1793385478  BTCUSDT  trend_down  537.6964  33.6   0.88
+1793385478  ETHUSDT  flat         21.6864  10.7   0.89
+--- regime_history ---
+  строк: 190100
+  колонки: symbol ts regime adx atr 
+symbol       ts      regime         adx                   atr
+-------  ----------  ------  ------------------  ----------------------
+ADAUSDT  1777599000  flat    12.664571359393081  0.00072516017685679015
+ADAUSDT  1777599900  flat     12.97069380837276  0.00072336302136701979
+
+===== 6. v4 (scalp_obi_short) — КАК ИСПОЛЬЗУЕТ СТАКАН =====
+2:"""okx_bot_paper_v4.py — скальпинг по OBI (SHORT only)."""
+34:OB_DB = os.path.join(BASE, 'data/orderbook.db')
+66:    """Свежий funding rate из orderbook.db (для SWAP-пары)."""
+79:def get_obi(symbol, ts_back=5):
+80:    """Свежий OBI из orderbook.db (за последние ts_back сек)."""
+84:        r = c.execute("""SELECT imbalance, best_bid, best_ask FROM orderbooks
+88:        if r: return {'obi': r[0], 'bid': r[1], 'ask': r[2]}
+93:    """Закрывает сделки по TP/SL (по orderbook.db: best_bid/ask)."""
+98:        ob = get_obi(sym, ts_back=10)
+116:            ob2 = get_obi(sym, ts_back=5)
+126:    """Открывает SHORT по OBI < -0.4."""
+134:        ob = get_obi(sym, ts_back=10)
+136:        obi = ob['obi']
+137:        if obi >= tcfg.get('obi_threshold', -0.4): continue
+160:        log(f'  🎯 OPEN {sym} SHORT @ {entry:.4f} OBI={obi:.3f} TP={tp*100:.2f}% SL={sl*100:.2f}%')
+165:    log('=== OKX SCALPER v4 STARTED (OBI SHORT) ===')
+
+===== 7. ЧТО В orderbook_oracle (OBI live) =====
+  таблицы: ['orderbooks', 'trades', 'funding', 'vwap']
+  orderbooks: ['ts', 'symbol', 'best_bid', 'best_ask', 'spread', 'bid_depth', 'ask_depth', 'imbalance']
+    (1793471910, 'ARB-USDT', 0.16459, 0.16463, 0.000243, 2730.2428, 3155.4751, -0.0722)
+    (1793471910, 'XRP-USDT', 1.254, 1.2541, 8e-05, 91813.169305, 61070.809863, 0.2011)
+  trades: ['ts', 'symbol', 'side', 'price', 'volume']
+    (1793471910, 'BTC-USDT', 'sell', 77644.7, 0.00129014)
+    (1793471907, 'ARB-USDT', 'buy', 0.16462, 2126.2565)
+  funding: ['ts', 'symbol', 'funding_rate', 'next_funding_ts']
+    (1793471892, 'XRP-USDT-SWAP', -1.34067735852e-05, 1793520000)
+    (1793471891, 'SOL-USDT-SWAP', 8.37688790235e-05, 1793520000)
+  vwap: ['ts', 'symbol', 'vwap_1m', 'vwap_5m']
+    (1793471910, 'ARB-USDT', 0.164649, 0.164657)
+    (1793471910, 'XRP-USDT', 1.254052, 1.254293)
+
+===== 8. ИТОГ =====
+  orderbook.db: 203M
+  oracle.db: 16M
+  orderbook_oracle PID: 13780
+  oracle PID: 13777

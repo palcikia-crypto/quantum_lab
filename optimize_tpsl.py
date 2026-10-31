@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""optimize_tpsl.py — подбор TP/SL под каждую золотую стратегию по истории market.db."""
+import os, sys, json, sqlite3, time
+import numpy as np
+
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE,'core'))
+from okx_mutator import generate_mutants
+
+DB_MARKET = os.path.join(BASE, 'data/market.db')
+DB_PAPER  = os.path.join(BASE, 'data/okx_paper.db')
+ACTIVE    = os.path.join(BASE, 'data/okx_active.json')
+OUT       = os.path.join(BASE, 'data/okx_tpsl.json')
+
+FEE = 0.001
+SLIP = 0.0002
+BET = 100.0
+TIMEOUT_SEC = 900  # 15 мин
+TIMEOUT_BARS = 1    # для 15m свечей: 1 бар = 15 мин
+
+TP_GRID = [0.003, 0.004, 0.005, 0.006]
+SL_GRID = [0.002, 0.003, 0.004]
+MIN_TRADES = 20       # минимум сделок для оценки
+MIN_WINRATE = 0.50    # ниже — отбрасываем
+MAX_DRAWDOWN = 50.0   # $
+
+
+def load_candles(sym_pair):
+    """sym_pair: 'BTC-USDT' -> 'BTCUSDT' в market.db."""
+    sym = sym_pair.replace('-', '')
+    c = sqlite3.connect(DB_MARKET)
+    rows = c.execute(
+        "SELECT ts,o,h,l,c,v FROM candles WHERE symbol=? AND tf='15m' ORDER BY ts ASC",
+        (sym,)).fetchall()
+    c.close()
+    if not rows:
+        return None
+    ts = np.array([r[0] for r in rows], dtype=np.int64)
+    o  = np.array([r[1] for r in rows], dtype=float)
+    h  = np.array([r[2] for r in rows], dtype=float)
+    l  = np.array([r[3] for r in rows], dtype=float)
+    cl = np.array([r[4] for r in rows], dtype=float)
+    v  = np.array([r[5] for r in rows], dtype=float)
+    return {'ts':ts,'o':o,'h':h,'l':l,'c':cl,'v':v}
+
+
+def simulate(data, up, dn, tp, sl, timeout_bars=TIMEOUT_BARS):
+    """Векторизованная симуляция.
+    На каждом up[i]=True -> LONG на close[i], выход по TP/SL/timeout.
+    На каждом dn[i]=True -> SHORT. Возвращает (n, wins, total_pnl)."""
+    c = data['c']; h = data['h']; l = data['l']
+    n = len(c)
+    if n < 2: return 0,0,0.0
+    ent_idx = np.where(up | dn)[0]
+    ent_idx = ent_idx[(ent_idx >= 1) & (ent_idx < n-1)]
+    if len(ent_idx) == 0: return 0,0,0.0
+    sides = np.where(up[ent_idx], 1, -1)  # +1 LONG, -1 SHORT
+    entries = c[ent_idx]
+    trades = 0; wins = 0; total = 0.0
+    last_i = -1
+    for k, i in enumerate(ent_idx):
+        if i <= last_i:  # перекрытие — пропускаем
+            continue
+        side = sides[k]; entry = entries[k]
+        if side == 1:
+            tp_price = entry*(1+tp); sl_price = entry*(1-sl)
+        else:
+            tp_price = entry*(1-tp); sl_price = entry*(1+sl)
+        end = min(i+1+timeout_bars, n)
+        exit_price = None
+        for j in range(i+1, end):
+            if side == 1:
+                if l[j] <= sl_price:
+                    exit_price = sl_price; break
+                if h[j] >= tp_price:
+                    exit_price = tp_price; break
+            else:
+                if h[j] >= sl_price:
+                    exit_price = sl_price; break
+                if l[j] <= tp_price:
+                    exit_price = tp_price; break
+        if exit_price is None:
+            jj = min(i+timeout_bars, n-1)
+            exit_price = c[jj]
+        else:
+            jj = i
+        move = (exit_price - entry)/entry if side==1 else (entry - exit_price)/entry
+        pnl = (move - FEE - SLIP) * BET
+        total += pnl
+        trades += 1
+        if pnl > 0: wins += 1
+        last_i = jj
+    return trades, wins, total
+
+
+def main():
+    active = json.load(open(ACTIVE))['pairs']
+    muts = generate_mutants()
+    print(f"Золотых стратегий: {len(active)}")
+    print(f"Стратегий в mutator: {len(muts)}")
+    print()
+
+    result = {'updated_at': time.strftime('%Y-%m-%dT%H:%M:%S'),
+              'fee':FEE, 'slip':SLIP, 'bet':BET,
+              'timeout_sec':TIMEOUT_SEC,
+              'default': {'tp':0.003,'sl':0.002},
+              'per_pair_strategy': {}}
+
+    print(f"{'пара+стратегия':45s} {'n_sig':>6s} {'TP':>5s} {'SL':>5s} {'n':>4s} {'wr':>5s} {'pnl':>8s}")
+    print("-"*95)
+
+    for key, cfg in active.items():
+        sym_pair = cfg.get('symbol', key.split('_')[0])
+        strat = cfg['strategy']
+        if strat not in muts:
+            print(f"{key:45s} ❌ нет стратегии в mutator")
+            continue
+        data = load_candles(sym_pair)
+        if data is None:
+            print(f"{key:45s} ❌ нет свечей в market.db")
+            continue
+
+        fn = muts[strat]
+        try:
+            up, dn = fn(data['o'], data['h'], data['l'], data['c'], data['v'], {})
+        except Exception as e:
+            print(f"{key:45s} ❌ стратегия упала: {e}")
+            continue
+        n_sig = int(up.sum() + dn.sum())
+        if n_sig == 0:
+            print(f"{key:45s} ⚠️ 0 сигналов на истории")
+            continue
+
+        best = None
+        for tp in TP_GRID:
+            for sl in SL_GRID:
+                n, wins, pnl = simulate(data, up, dn, tp, sl)
+                if n < MIN_TRADES: continue
+                wr = wins/n
+                if wr < MIN_WINRATE: continue
+                score = pnl  # можно усложнить: pnl * wr
+                if best is None or score > best['score']:
+                    best = {'tp':tp,'sl':sl,'n':n,'wins':wins,'wr':wr,'pnl':pnl,'score':score}
+
+        if best is None:
+            print(f"{key:45s} {n_sig:>6d} ❌ не найдено выгодных TP/SL")
+            continue
+
+        print(f"{key:45s} {n_sig:>6d} {best['tp']*100:>4.1f}% {best['sl']*100:>4.1f}% "
+              f"{best['n']:>4d} {best['wr']*100:>4.1f}% ${best['pnl']:>7.2f}")
+        result['per_pair_strategy'][f"{sym_pair}_{strat}"] = {
+            'tp': round(best['tp'],5),
+            'sl': round(best['sl'],5),
+            'n': best['n'],
+            'winrate': round(best['wr'],4),
+            'pnl_bt': round(best['pnl'],2),
+        }
+
+    # средние tp/sl по всем стратегиям как default (если найдём)
+    if result['per_pair_strategy']:
+        tps = [v['tp'] for v in result['per_pair_strategy'].values()]
+        sls = [v['sl'] for v in result['per_pair_strategy'].values()]
+        result['default'] = {'tp': round(float(np.median(tps)),5),
+                             'sl': round(float(np.median(sls)),5)}
+    json.dump(result, open(OUT,'w'), indent=2, ensure_ascii=False)
+    print()
+    print(f"✅ Записано: {OUT}")
+    print(f"   default tp={result['default']['tp']*100:.2f}% sl={result['default']['sl']*100:.2f}%")
+    print(f"   стратегий с оптимальными TP/SL: {len(result['per_pair_strategy'])}")
+
+
+if __name__ == '__main__':
+    main()

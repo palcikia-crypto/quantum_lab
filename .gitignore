@@ -1,0 +1,9 @@
+*.db
+*.db-journal
+*.log
+__pycache__/
+*.pyc
+.agent_backups/
+*.db-shm
+*.db-wal
+*.db-journal

@@ -1,0 +1,66 @@
+============================================================
+##### ПОЛНЫЙ АПГРЕЙД СИСТЕМЫ #####
+============================================================
+Бэкап: data/UPGRADE_BACKUP_20261031_044215
+
+===== 1. НОВЫЕ СТРАТЕГИИ =====
+  ✅ core/okx_new_strategies.py
+
+===== 2. ПАТЧ grail_optimizer_full.py =====
+✅ изменения: SLIPPAGE, new_strategies_in_get_fn, new_candidates, tf_comment
+
+===== 3. KILL-SWITCH =====
+  ✅ tools/agent/kill_switch.py
+
+===== 4. ONLINE-LEARNING =====
+  ✅ tools/agent/online_learning.py
+
+===== 5. REGIME DETECTION =====
+  ✅ tools/agent/regime_switcher.py
+
+===== 6. CRON =====
+Backup of u0_a119's previous crontab saved to /data/data/com.termux/files/home/.cache/crontab/crontab.bak
+  ✅ cron: online (0 * * * *), kill (15 * * * *), regime (5 * * * *)
+
+===== 7. ПЕРВЫЙ ЗАПУСК =====
+[04:42:22] === ONLINE LEARNING ===
+[04:42:23]   ⚠️ BTCUSDT okx_vwap_rev_25: online PnL=-0.14 (WR=79.1%)
+[04:42:24]   ⚠️ BTCUSDT okx_grid_sma_25: online PnL=-0.09 (WR=80.8%)
+[04:42:24]   ✅ обновлено 10 пар (online WR/PnL)
+[04:42:24] === DONE ===
+
+[04:42:25] === KILL SWITCH RUN ===
+[04:42:25]   ✅ нет стратегий для kill
+[04:42:25] === DONE ===
+
+[04:42:26]   🔄 SOL-USDT: okx_vwap_rev_13 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   🔄 DOGE-USDT: okx_vwap_rev_13 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   🔄 BTC-USDT: okx_vwap_rev_15 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   🔄 ETH-USDT: okx_vwap_rev_15 → okx_vwap_rev_7 (regime=flat)
+[04:42:26]   🔄 BTC-USDT: okx_vwap_rev_25 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   🔄 ETH-USDT: okx_grid_sma_15 → okx_vwap_rev_7 (regime=flat)
+[04:42:26]   🔄 XRP-USDT: okx_grid_sma_15 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   🔄 BTC-USDT: okx_grid_sma_25 → okx_grid_sma_13 (regime=flat)
+[04:42:26]   ✅ переключено 8 пар по режиму
+[04:42:26] === DONE ===
+
+============================================================
+##### ИТОГ АПГРЕЙДА #####
+============================================================
+  ✅ core/okx_new_strategies.py (RSI, Bollinger, Ichimoku, breakout, ансамбль)
+  ✅ grail_optimizer_full.py (+новые стратегии, +SLIPPAGE, +TF)
+  ✅ tools/agent/kill_switch.py (каждый час :15)
+  ✅ tools/agent/online_learning.py (каждый час :00)
+  ✅ tools/agent/regime_switcher.py (каждый час :05)
+  ✅ cron обновлён
+
+  📊 Теперь система:
+    1. Новые стратегии: RSI, Bollinger, Ichimoku, breakout, ансамбли
+    2. Online-learning: каждый час
+    3. Kill-switch: каждый час
+    4. Regime-switcher: каждый час
+    5. SLIPPAGE +0.05% в бэктесте
+
+  ⏳ grail_optimizer_full ещё работает (PID 24525)
+  📊 через 60-80 минут — новый okx_active.json
+============================================================

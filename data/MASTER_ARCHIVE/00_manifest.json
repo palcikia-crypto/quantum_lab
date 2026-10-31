@@ -1,0 +1,32 @@
+{
+  "updated_at": "2026-10-29 01:40:28",
+  "stamp": "20261029_014026",
+  "version": "2.0 (Бог-автомат)",
+  "structure": {
+    "01_code": "Весь код (боты, мозг, auto_*, strategy_mutations, панели)",
+    "02_configs": "Конфиги (by_regime, v3, v4, active, policy, lab)",
+    "03_reports": "Бэктесты (graals + scalp_graals)",
+    "04_databases": "Схемы БД",
+    "05_strategies": "Стратегии (okx_mutator, grid, scalp, mutations)",
+    "06_restore.sh": "Скрипт восстановления"
+  },
+  "auto_system": {
+    "P18": "auto_evolve (6ч) — саморазвитие",
+    "P19": "auto_filter (2ч) — автонастройка фильтров",
+    "P20": "auto_compare (1ч) — сравнение ботов",
+    "P21": "auto_data (1ч) — автодокачка данных",
+    "P22": "auto_apply_graals (6ч) — автоподключение граалей",
+    "P23": "auto_stop_losers (1ч) — автоостановка убыточных",
+    "P24": "auto_compare2 (2ч) — сравнение + переключение"
+  },
+  "bots": {
+    "v2": "XRP/ETH → vwap_rev_30, SOL → ema_5_20, DOGE → ema_8_24 (by_regime 444, manual_optimize)",
+    "v3": "7 пар (ema + vwap) — paper",
+    "v4": "OBI SHORT (BTC/SOL/XRP) + funding — paper"
+  },
+  "protection": {
+    "by_regime": "444, manual_optimize — auto_apply_graals НЕ трогает",
+    "strategy_mutations": "109 мутантов (EMA/VWAP/SMA)",
+    "auto_stop_losers": "останавливает при WR < 40% (v2/v3), < 35% (v4)"
+  }
+}

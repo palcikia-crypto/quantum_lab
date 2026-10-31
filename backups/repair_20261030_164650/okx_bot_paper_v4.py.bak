@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""okx_bot_paper_v4.py — скальпинг по OBI (SHORT only)."""
+import os, sys, json, sqlite3, time, urllib.request
+from datetime import datetime
+
+
+# ===== ML VETO (A) =====
+_ML_CACHE = {'ts': 0, 'data': {}}
+def ml_veto(symbol, side, t_long=0.65, t_short=0.35):
+    import json, os, time
+    path = os.path.join(BASE, 'data/ml_predictions_online.json')
+    if not os.path.exists(path): return False
+    try:
+        if time.time() - _ML_CACHE['ts'] < 30:
+            preds = _ML_CACHE['data']
+        else:
+            d = json.load(open(path)); preds = d.get('predictions', {})
+            _ML_CACHE['ts'] = time.time(); _ML_CACHE['data'] = preds
+    except Exception:
+        return False
+    p = preds.get(symbol)
+    if not p: return False
+    proba = float(p.get('proba_long', 0.5))
+    if side == 'LONG'  and proba < t_short: return True
+    if side == 'SHORT' and proba > t_long:  return True
+    return False
+
+BASE = os.path.expanduser('~/quantum_lab')
+OB_DB = os.path.join(BASE, 'data/orderbook.db')
+V4_DB = os.path.join(BASE, 'data/okx_paper_v4.db')
+TPSL = os.path.join(BASE, 'data/okx_tpsl_v4.json')
+ACTIVE = os.path.join(BASE, 'data/okx_active_v4.json')
+LOG = os.path.join(BASE, 'logs/okx_bot_paper_v4.log')
+
+BET = 100.0  # меньшая ставка для скальпинга
+
+def log(m):
+    line = f'[{datetime.now():%H:%M:%S}] {m}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f: f.write(line+'\n')
+
+def init_db():
+    c = sqlite3.connect(V4_DB)
+    c.execute('''CREATE TABLE IF NOT EXISTS trades (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        symbol TEXT, side TEXT, strategy TEXT,
+        entry_price REAL, exit_price REAL, pnl REAL,
+        status TEXT, entry_ts INTEGER, exit_ts INTEGER,
+        tp REAL, sl REAL)''')
+    c.commit(); c.close()
+
+def load_active():
+    try: return json.load(open(ACTIVE)).get('pairs', {})
+    except: return {}
+
+def load_tpsl():
+    try: return json.load(open(TPSL)).get('per_pair', {})
+    except: return {}
+
+def get_funding(symbol_spot, ts_back=600):
+    """Свежий funding rate из orderbook.db (для SWAP-пары)."""
+    swap = symbol_spot + '-SWAP'  # BTC-USDT -> BTC-USDT-SWAP
+    try:
+        now = int(time.time())
+        c = sqlite3.connect(OB_DB, timeout=5)
+        r = c.execute("""SELECT funding_rate FROM funding
+                         WHERE symbol=? AND ts > ? ORDER BY ts DESC LIMIT 1""",
+                      (swap, now - ts_back)).fetchone()
+        c.close()
+        if r: return r[0]
+    except: pass
+    return None
+
+def get_obi(symbol, ts_back=5):
+    """Свежий OBI из orderbook.db (за последние ts_back сек)."""
+    try:
+        now = int(time.time())
+        c = sqlite3.connect(OB_DB, timeout=5)
+        r = c.execute("""SELECT imbalance, best_bid, best_ask FROM orderbooks
+                         WHERE symbol=? AND ts > ? ORDER BY ts DESC LIMIT 1""",
+                      (symbol, now - ts_back)).fetchone()
+        c.close()
+        if r: return {'obi': r[0], 'bid': r[1], 'ask': r[2]}
+    except: pass
+    return None
+
+def close_open_trades():
+    """Закрывает сделки по TP/SL (по orderbook.db: best_bid/ask)."""
+    c = sqlite3.connect(V4_DB, timeout=10)
+    opens = c.execute("SELECT id, symbol, side, entry_price, tp, sl, entry_ts FROM trades WHERE status='OPEN'").fetchall()
+    now = int(time.time())
+    for tid, sym, side, ep, tp, sl, ets in opens:
+        ob = get_obi(sym, ts_back=10)
+        if not ob: continue
+        if side == 'SHORT':
+            cur = ob['ask']  # для закрытия SHORT — покупаем по ask
+            tp_p = ep * (1 - tp) if tp else 0
+            sl_p = ep * (1 + sl) if sl else 0
+            if cur <= tp_p:
+                pnl = (ep - cur) / ep * BET
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
+                log(f'  ✅ CLOSED {sym} SHORT TP: {ep:.4f}→{cur:.4f} +${pnl:.2f}')
+            elif cur >= sl_p:
+                pnl = (ep - cur) / ep * BET
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
+                log(f'  ❌ CLOSED {sym} SHORT SL: {ep:.4f}→{cur:.4f} ${pnl:.2f}')
+        # timeout
+        if now - ets > 60:
+            ob2 = get_obi(sym, ts_back=5)
+            if ob2:
+                cur = ob2['ask']
+                pnl = (ep - cur) / ep * BET
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
+                log(f'  ⏱️ TIMEOUT {sym} SHORT: {ep:.4f}→{cur:.4f} ${pnl:.2f}')
+    c.commit(); c.close()
+
+def open_new_trades():
+    """Открывает SHORT по OBI < -0.4."""
+    active = load_active()
+    tpsl = load_tpsl()
+    c = sqlite3.connect(V4_DB, timeout=10)
+    for key, cfg in active.items():
+        sym = cfg['symbol']
+        if sym not in tpsl: continue
+        tcfg = tpsl[sym]
+        ob = get_obi(sym, ts_back=10)
+        if not ob: continue
+        obi = ob['obi']
+        if obi >= tcfg.get('obi_threshold', -0.4): continue
+        # FUNDING-ФИЛЬТР: SHORT разрешён только если funding > funding_min
+        funding_min = tcfg.get('funding_min', 0.00005)
+        fr = get_funding(sym, ts_back=600)
+        if fr is not None and fr < funding_min:
+            log(f'  ⏸️ SKIP {sym} SHORT: funding={fr:.6f} < {funding_min} (шорты переплачивают)')
+            continue
+        if fr is not None:
+            log(f'  ✅ funding OK {sym}: {fr:.6f} >= {funding_min}')
+        # Антидубль: не открывать, если уже есть OPEN по этой паре
+        exists = c.execute("SELECT 1 FROM trades WHERE symbol=? AND status='OPEN'", (sym,)).fetchone()
+        if exists: continue
+        entry = ob['ask']
+        tp = tcfg.get('tp', 0.001)
+        sl = tcfg.get('sl', 0.0005)
+        ts = int(time.time())
+        c.execute("""INSERT INTO trades (symbol, side, strategy, entry_price, status, entry_ts, tp, sl)
+                     VALUES (?, 'SHORT', ?, ?, 'OPEN', ?, ?, ?)""",
+                  (sym, tcfg['strategy'], entry, ts, tp, sl))
+        _veto = ml_veto(sym, side)
+        if _veto:
+            log(f"⏸️ SKIP {sym} {side}: ML veto (proba против)")
+
+        log(f'  🎯 OPEN {sym} SHORT @ {entry:.4f} OBI={obi:.3f} TP={tp*100:.2f}% SL={sl*100:.2f}%')
+    c.commit(); c.close()
+
+def main():
+    init_db()
+    log('=== OKX SCALPER v4 STARTED (OBI SHORT) ===')
+    while True:
+        try:
+            close_open_trades()
+            open_new_trades()
+        except Exception as e:
+            log(f'ERROR: {e}')
+        time.sleep(15)
+
+if __name__ == '__main__':
+    main()

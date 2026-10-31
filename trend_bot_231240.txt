@@ -1,0 +1,49 @@
+============================================================
+##### TREND-FOLLOWING (вместо mean-reversion) #####
+============================================================
+
+===== 1. УБРАТЬ ТРЕНД-ФИЛЬТР (восстановить из бэкапа) =====
+  ✅ восстановлено из core/okx_bot_new.py.bak_trend_230937 (без тренд-фильтра)
+  ✅ синтаксис OK
+
+===== 2. СОЗДАТЬ TREND-FOLLOWING БОТ =====
+  ✅ core/okx_bot_trend.py
+
+===== 3. КОНФИГ (4 пары) =====
+  ✅ okx_active_trend.json: 4 пар
+    XRP-USDT ema_breakout: TP=1.0% SL=0.5% timeout=4b
+    SOL-USDT ema_breakout: TP=1.0% SL=0.5% timeout=4b
+    DOGE-USDT ema_breakout: TP=1.0% SL=0.5% timeout=4b
+    ETH-USDT ema_breakout: TP=1.0% SL=0.5% timeout=4b
+
+===== 4. ПЕРЕЗАПУСК =====
+  new PID: 27879
+  trend PID: 27880
+
+===== 5. ЛОГИ =====
+--- new (mean-reversion, без тренд-фильтра) ---
+[23:12:46] === OKX BOT NEW STARTED ===
+[23:12:47] active: 4 пар
+[23:13:06] active: 4 пар
+: 4 пар
+[23:13:06] active: 4 пар
+--- trend (trend-following) ---
+[23:12:47] === OKX BOT TREND STARTED ===
+[23:12:47] active: 4 пар
+[23:13:06] active: 4 пар
+ve: 4 пар
+[23:13:06] active: 4 пар
+
+===== 6. СИГНАЛЫ =====
+  XRP-USDT: None
+  SOL-USDT: None
+  DOGE-USDT: None
+  ETH-USDT: None
+
+============================================================
+##### ИТОГ #####
+============================================================
+  ✅ new — mean-reversion (без тренд-фильтра)
+  ✅ trend — trend-following (EMA 20/50 + breakout)
+  ✅ 4 пары (XRP, SOL, DOGE, ETH)
+  ✅ TP=1.0%, SL=0.5%, timeout=60 мин

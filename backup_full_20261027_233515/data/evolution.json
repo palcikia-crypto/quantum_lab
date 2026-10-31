@@ -1,0 +1,148 @@
+{
+  "timestamp": "2026-10-27T23:21:40.269057",
+  "L1": 68,
+  "L2": 20,
+  "L3": 20,
+  "top": [
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "stoch_30",
+      "wr": 55.6,
+      "n": 982,
+      "score": 546.0
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "stoch_30",
+      "wr": 54.1,
+      "n": 991,
+      "score": 536.0
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "mean_rev_2",
+      "wr": 53.6,
+      "n": 4449,
+      "score": 535.63
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "mean_rev_3",
+      "wr": 53.1,
+      "n": 4091,
+      "score": 530.92
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "mean_rev_3",
+      "wr": 52.8,
+      "n": 4273,
+      "score": 528.2
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "mean_rev_2",
+      "wr": 52.7,
+      "n": 4195,
+      "score": 526.58
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_2",
+      "wr": 52.3,
+      "n": 4438,
+      "score": 522.98
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_3",
+      "wr": 52.3,
+      "n": 4321,
+      "score": 522.56
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "stoch_30",
+      "wr": 55.3,
+      "n": 944,
+      "score": 522.0
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_3",
+      "wr": 51.3,
+      "n": 4072,
+      "score": 512.77
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_2",
+      "wr": 51.1,
+      "n": 4233,
+      "score": 511.46
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "vwap_rev",
+      "wr": 51.1,
+      "n": 4197,
+      "score": 511.32
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "stoch_30",
+      "wr": 54.4,
+      "n": 933,
+      "score": 508.0
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "vwap_rev",
+      "wr": 50.8,
+      "n": 3558,
+      "score": 507.59
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_2",
+      "wr": 50.7,
+      "n": 4296,
+      "score": 507.22
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_3",
+      "wr": 50.7,
+      "n": 4196,
+      "score": 506.91
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "vwap_rev",
+      "wr": 50.2,
+      "n": 3259,
+      "score": 501.69
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "bb_squeeze_adv",
+      "wr": 50.2,
+      "n": 1276,
+      "score": 501.57
+    },
+    {
+      "symbol": "BTCUSDT",
+      "strategy": "bb_squeeze_adv",
+      "wr": 50.0,
+      "n": 1288,
+      "score": 500.0
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "vwap_rev",
+      "wr": 49.8,
+      "n": 3697,
+      "score": 498.24
+    }
+  ]
+}

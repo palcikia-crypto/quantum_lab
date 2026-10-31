@@ -1,0 +1,104 @@
+===== 1. ОПТИМИЗАТОР: ЖИВ? =====
+13370 python3 -u tools/agent/grail_optimizer_full.py
+
+===== 2. ЛОГ ОПТИМИЗАТОРА (последние 60) =====
+nohup: ignoring input
+[18:04:46] [full] === GRAIL OPTIMIZER FULL ===
+[18:04:46] [full] Граалей: 16
+[18:04:46] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+[18:08:13] [full]   ⚠️ нет walk-forward (WR>=55)
+[18:08:13] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 3. ЧТО ИЩЕТ (FAST / FULL / 1H) =====
+  FAST: 0
+  FULL: 0
+  1H: 0
+
+===== 4. ВСЕ ⚡ FAST =====
+
+===== 5. ВСЕ 🔬 FULL =====
+
+===== 6. ВСЕ 🌐 1H =====
+
+===== 7. НОВЫЕ СЕМЕЙСТВА (RSI, Bollinger, Ichimoku, breakout, ансамбли) =====
+--- RSI ---
+--- Bollinger ---
+--- Ichimoku ---
+--- Breakout ---
+--- Ансамбли ---
+
+===== 8. BEST (прошли все 8) =====
+0
+
+===== 9. ОТСЕЯНО =====
+  STABILITY1: 0
+  STABILITY2: 0
+  OOS: 0
+  TREND: 0
+  нет walk-forward: 1
+
+===== 10. ML: ЧТО ДЕЛАЕТ =====
+--- accuracy (последние 5) ---
+{"ts": 1793449579, "accuracy": 0.735, "drift": false}
+{"ts": 1793450522, "accuracy": 0.735, "drift": false}
+{"ts": 1793451426, "accuracy": 0.735, "drift": false}
+{"ts": 1793452328, "accuracy": 0.735, "drift": false}
+{"ts": 1793453248, "accuracy": 0.735, "drift": false}
+--- модель ---
+-rw-------. 1 u0_a119 u0_a119 354 Oct 31 03:04 data/ml_online.pkl
+
+===== 11. ЭВОЛЮЦИЯ: ЧТО НАШЛА =====
+  timestamp: 2026-10-31T18:13:33.960887
+  L1: 269, L2: 20, L3: 20
+  top: 20 стратегий
+    vwap_reversion: WR=58.4% n=932
+    vwap_reversion: WR=54.5% n=1132
+    mean_rev_15_1.5: WR=58.3% n=1684
+    mean_rev_15_2.0: WR=63.2% n=767
+    bb_15_1.5: WR=58.3% n=1684
+    bb_15_2.0: WR=63.2% n=767
+    mean_rev_15_2.0: WR=53.1% n=827
+    bb_15_2.0: WR=53.1% n=827
+    mean_rev_15_1.5: WR=54.9% n=1648
+    mean_rev_15_2.0: WR=61.3% n=711
+
+===== 12. МОЗГ: ЧТО ДЕЛАЕТ =====
+5832 python3 -u core/brain_loop.py
+[18:29:42]   -> quarantine (карантин: 2)
+[18:29:42]   -> run_auto_compare (сравнение (2ч))
+[18:31:03] решений: 4
+[18:31:03]   -> run_multi_backtest (многоуровневый бэктест (4ч))
+[18:31:03]   -> run_holy_grail (поиск граалей (4ч))
+[18:32:22] решений: 3
+[18:32:22]   -> run_agents (прошло 5 мин)
+  evolve_agent уже работает, skip
+[18:33:30] решений: 2
+[18:34:43] решений: 2
+[18:34:43]   -> quarantine (карантин: 2)
+[18:34:44]   -> run_auto_compare (сравнение (2ч))
+[18:35:53] решений: 2
+are (сравнение (2ч))
+[18:35:53] решений: 2
+
+===== 13. НОВЫЙ БОТ: ЧТО ТОРГУЕТ =====
+16470 python3 -u core/okx_bot_new.py
+[18:34:59] active: 5 пар
+[18:35:17] active: 5 пар
+[18:35:36] active: 5 пар
+[18:35:54] active: 5 пар
+[18:36:12] active: 5 пар
+[18:36:30] active: 5 пар
+пар
+[18:35:54] active: 5 пар
+[18:36:12] active: 5 пар
+[18:36:30] active: 5 пар
+
+===== 14. PnL (новый бот) =====
+0 сделок, PnL=0.0
+
+===== 15. SANITY CHECK =====
+[18:36:41]   📊 data/okx_paper_v4.db: 963 сделок, PnL=9.17
+[18:36:41]   📊 v3 открытых: 3
+
+[18:36:41] ✅ ОШИБОК НЕТ
+[18:36:41] === ИТОГ: 0 ошибок, 0 предупреждений ===

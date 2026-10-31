@@ -1,0 +1,50 @@
+{
+  "updated_at": "2026-10-31T23:00:00",
+  "source": "backtest_2days_all_plus",
+  "pairs": {
+    "XRP-USDT_15m_okx_grid_sma_13": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.005,
+      "sl": 0.003,
+      "timeout": 3,
+      "trade": true,
+      "backtest_2d_pnl": "+0.0175",
+      "backtest_2d_wr": 66.7
+    },
+    "SOL-USDT_15m_okx_grid_sma_13": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.005,
+      "sl": 0.003,
+      "timeout": 3,
+      "trade": true,
+      "backtest_2d_pnl": "+0.0047",
+      "backtest_2d_wr": 75.0
+    },
+    "DOGE-USDT_15m_okx_grid_sma_13": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.005,
+      "sl": 0.003,
+      "timeout": 3,
+      "trade": true,
+      "backtest_2d_pnl": "+0.0039",
+      "backtest_2d_wr": 66.7
+    },
+    "ETH-USDT_15m_okx_grid_sma_13": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.005,
+      "sl": 0.003,
+      "timeout": 3,
+      "trade": true,
+      "backtest_2d_pnl": "+0.0097",
+      "backtest_2d_wr": 70.0
+    }
+  }
+}

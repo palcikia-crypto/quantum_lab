@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-10-27T17:52:56.793468",
+  "regimes": [
+    {
+      "symbol": "BTCUSDT",
+      "regime": "flat",
+      "atr": 367.4164,
+      "adx": 1.4,
+      "vol_z": 0.95
+    },
+    {
+      "symbol": "ETHUSDT",
+      "regime": "flat",
+      "atr": 15.2157,
+      "adx": 19.3,
+      "vol_z": 0.92
+    },
+    {
+      "symbol": "SOLUSDT",
+      "regime": "flat",
+      "atr": 0.6671,
+      "adx": 5.1,
+      "vol_z": 0.87
+    },
+    {
+      "symbol": "XRPUSDT",
+      "regime": "flat",
+      "atr": 0.0108,
+      "adx": 23.7,
+      "vol_z": 1.04
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "regime": "flat",
+      "atr": 0.0005,
+      "adx": 0.0,
+      "vol_z": 0.94
+    },
+    {
+      "symbol": "BNBUSDT",
+      "regime": "flat",
+      "atr": 3.3979,
+      "adx": 14.2,
+      "vol_z": 0.86
+    },
+    {
+      "symbol": "ADAUSDT",
+      "regime": "trend_up",
+      "atr": 0.0018,
+      "adx": 30.1,
+      "vol_z": 0.91
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "regime": "trend_down",
+      "atr": 0.0867,
+      "adx": 38.5,
+      "vol_z": 1.04
+    },
+    {
+      "symbol": "DOTUSDT",
+      "regime": "trend_down",
+      "atr": 0.01,
+      "adx": 25.9,
+      "vol_z": 0.88
+    },
+    {
+      "symbol": "LINKUSDT",
+      "regime": "flat",
+      "atr": 0.0999,
+      "adx": 8.3,
+      "vol_z": 0.95
+    }
+  ],
+  "summary": {
+    "flat": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "XRPUSDT",
+      "DOGEUSDT",
+      "BNBUSDT",
+      "LINKUSDT"
+    ],
+    "trend_up": [
+      "ADAUSDT"
+    ],
+    "trend_down": [
+      "AVAXUSDT",
+      "DOTUSDT"
+    ]
+  }
+}

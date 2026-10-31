@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-10-27T23:30:33.884404",
+  "results": [
+    {
+      "key": "XRPUSDT_15m",
+      "wr": 53.1,
+      "kelly": 0.062,
+      "bet": 6.2,
+      "trade": true
+    },
+    {
+      "key": "BTCUSDT_15m",
+      "wr": 57.4,
+      "kelly": 0.148,
+      "bet": 14.8,
+      "trade": true
+    },
+    {
+      "key": "ETHUSDT_15m",
+      "wr": 54.1,
+      "kelly": 0.082,
+      "bet": 8.2,
+      "trade": true
+    },
+    {
+      "key": "SOLUSDT_15m",
+      "wr": 54.4,
+      "kelly": 0.088,
+      "bet": 8.8,
+      "trade": false
+    },
+    {
+      "key": "XRPUSDT_15m_stoch_20",
+      "wr": 59.6,
+      "kelly": 0.192,
+      "bet": 19.2,
+      "trade": true
+    },
+    {
+      "key": "XRPUSDT_15m_stoch_30",
+      "wr": 55.3,
+      "kelly": 0.106,
+      "bet": 10.6,
+      "trade": true
+    },
+    {
+      "key": "BTCUSDT_15m_stoch_30",
+      "wr": 55.6,
+      "kelly": 0.112,
+      "bet": 11.2,
+      "trade": true
+    },
+    {
+      "key": "BTCUSDT_15m_mean_rev_2",
+      "wr": 53.6,
+      "kelly": 0.072,
+      "bet": 7.2,
+      "trade": true
+    }
+  ]
+}

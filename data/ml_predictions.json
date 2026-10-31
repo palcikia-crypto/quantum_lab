@@ -1,0 +1,55 @@
+{
+  "updated_at": "2026-11-01T03:34:23.803747",
+  "predictions": {
+    "BTCUSDT": {
+      "price": 77638.0,
+      "proba_long": 0.464,
+      "side": "WAIT",
+      "obi": 0.909,
+      "funding": 0.0001,
+      "pressure": -0.76966807,
+      "adx": 2.6,
+      "rsi": 49.4
+    },
+    "ETHUSDT": {
+      "price": 2260.19,
+      "proba_long": 0.483,
+      "side": "WAIT",
+      "obi": 0.5871,
+      "funding": 7.3706125952e-06,
+      "pressure": 0.9259659999999998,
+      "adx": 37.4,
+      "rsi": 59.3
+    },
+    "XRPUSDT": {
+      "price": 1.2543,
+      "proba_long": 0.458,
+      "side": "WAIT",
+      "obi": 0.4549,
+      "funding": -2.3273578034e-05,
+      "pressure": 632.7337990000001,
+      "adx": 24.6,
+      "rsi": 41.7
+    },
+    "SOLUSDT": {
+      "price": 95.86,
+      "proba_long": 0.458,
+      "side": "WAIT",
+      "obi": 0.0731,
+      "funding": 7.60366457398e-05,
+      "pressure": -7.4257740000000005,
+      "adx": 11.3,
+      "rsi": 40.6
+    },
+    "DOGEUSDT": {
+      "price": 0.07594,
+      "proba_long": 0.466,
+      "side": "WAIT",
+      "obi": 0.0918,
+      "funding": -1.75981502121e-05,
+      "pressure": 9252.502711,
+      "adx": 11.9,
+      "rsi": 45.8
+    }
+  }
+}

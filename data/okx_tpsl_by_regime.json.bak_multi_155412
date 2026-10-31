@@ -1,0 +1,96 @@
+{
+  "updated_at": "2026-10-28T15:39:34",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2,
+    "backtest_2d": {
+      "pnl": 2.18,
+      "wr": 0.82,
+      "n": 11
+    }
+  },
+  "per_pair": {
+    "ETH-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 506,
+        "wr": 0.56126,
+        "pnl": 46.5155,
+        "timeout_bars": 2
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 500,
+        "wr": 0.548,
+        "pnl": 25.25679,
+        "timeout_bars": 2
+      }
+    },
+    "XRP-USDT": {
+      "trend_down": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 640,
+        "wr": 0.57188,
+        "pnl": 39.02606,
+        "timeout_bars": 2
+      }
+    },
+    "SOL-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 654,
+        "wr": 0.57492,
+        "pnl": 49.88208,
+        "timeout_bars": 2
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 667,
+        "wr": 0.55772,
+        "pnl": 37.7025,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 658,
+        "wr": 0.60182,
+        "pnl": 55.77415,
+        "timeout_bars": 2
+      }
+    },
+    "DOGE-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 707,
+        "wr": 0.54031,
+        "pnl": 34.30149,
+        "timeout_bars": 2
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 682,
+        "wr": 0.54692,
+        "pnl": 44.99571,
+        "timeout_bars": 2
+      }
+    }
+  },
+  "source": "top_only_vwap_rev_10"
+}

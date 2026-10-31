@@ -1,0 +1,386 @@
+#!/usr/bin/env python3
+"""okx_panel_v3.py — мобильная панель для paper-бота v3 (порт 8103)."""
+import os, sys, json, sqlite3
+from datetime import datetime
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+BASE = os.path.expanduser('~/quantum_lab')
+DB = os.path.join(BASE, 'data/okx_paper_v3.db')
+TPSL = os.path.join(BASE, 'data/okx_tpsl_v3.json')
+ORACLE = os.path.join(BASE, 'data/oracle.db')
+PORT = 8103
+
+def q(sql, args=()):
+    try:
+        c = sqlite3.connect(DB, timeout=5)
+        rows = c.execute(sql, args).fetchall()
+        c.close()
+        return rows
+    except Exception:
+        return []
+
+def get_oracle():
+    try:
+        c = sqlite3.connect(ORACLE, timeout=5)
+        rows = c.execute("SELECT symbol, regime, adx FROM regime WHERE ts=(SELECT MAX(ts) FROM regime)").fetchall()
+        c.close()
+        return [{'symbol': r[0], 'regime': r[1], 'adx': round(r[2], 1)} for r in rows]
+    except Exception:
+        return []
+
+def build_data():
+    total = q("SELECT COUNT(*) FROM trades WHERE status='CLOSED'")
+    wins = q("SELECT COUNT(*) FROM trades WHERE status='CLOSED' AND pnl>0")
+    pnl = q("SELECT ROUND(SUM(pnl),2) FROM trades WHERE status='CLOSED'")
+    total_n = total[0][0] if total else 0
+    wins_n = wins[0][0] if wins else 0
+    pnl_v = pnl[0][0] if pnl and pnl[0][0] else 0
+    wr = round(100.0 * wins_n / total_n, 1) if total_n else 0
+
+    by_strat = q("""SELECT strategy, COUNT(*) n,
+                    SUM(CASE WHEN pnl>0 THEN 1 ELSE 0 END) w,
+                    ROUND(SUM(pnl),2) p
+                    FROM trades WHERE status='CLOSED'
+                    GROUP BY strategy ORDER BY p DESC""")
+    strategies = [{'name': r[0], 'n': r[1], 'wins': r[2],
+                   'wr': round(100.0*r[2]/r[1],1) if r[1] else 0,
+                   'pnl': r[3]} for r in by_strat]
+
+    by_pair = q("""SELECT symbol, COUNT(*) n, ROUND(SUM(pnl),2) p
+                   FROM trades WHERE status='CLOSED'
+                   GROUP BY symbol ORDER BY p DESC""")
+    pairs = [{'symbol': r[0], 'n': r[1], 'pnl': r[2]} for r in by_pair]
+
+    opens = q("""SELECT id, symbol, side, strategy, ROUND(entry_price,6) ep,
+                 datetime(entry_ts,'unixepoch','localtime') t
+                 FROM trades WHERE status='OPEN' ORDER BY id DESC""")
+    open_trades = [{'id': r[0], 'symbol': r[1], 'side': r[2],
+                    'strategy': r[3], 'entry': r[4], 'time': r[5]} for r in opens]
+
+    recent = q("""SELECT id, symbol, side, strategy, ROUND(pnl,2) pnl,
+                  datetime(exit_ts,'unixepoch','localtime') t
+                  FROM trades WHERE status='CLOSED'
+                  ORDER BY id DESC LIMIT 20""")
+    recent_trades = [{'id': r[0], 'symbol': r[1], 'side': r[2],
+                      'strategy': r[3], 'pnl': r[4], 'time': r[5]} for r in recent]
+
+    try:
+        cfg = json.load(open(TPSL))
+        regimes = []
+        for pair, regs in cfg.get('per_pair', {}).items():
+            for reg, c in regs.items():
+                regimes.append({'pair': pair, 'regime': reg,
+                                'strategy': c.get('strategy','?'),
+                                'tp': c.get('tp',0)*100, 'sl': c.get('sl',0)*100})
+    except Exception:
+        regimes = []
+
+    pnl_hist = q("""SELECT datetime(exit_ts,'unixepoch','localtime') t, pnl
+                    FROM trades WHERE status='CLOSED'
+                    ORDER BY exit_ts ASC""")
+    cum = 0; chart = []
+    for r in pnl_hist:
+        cum += r[1] if r[1] else 0
+        chart.append({'t': r[0], 'v': round(cum, 2)})
+
+    return {
+        'ts': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'total': total_n, 'wins': wins_n, 'wr': wr, 'pnl': pnl_v,
+        'open_count': len(open_trades),
+        'strategies': strategies, 'pairs': pairs,
+        'open_trades': open_trades, 'recent': recent_trades,
+        'regimes': regimes, 'oracle': get_oracle(),
+        'chart': chart[-100:],
+    }
+
+HTML = r'''<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="theme-color" content="#0a0e1a">
+<title>⚡ OKX Bot v3 — Paper Test</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e1a; --bg2: #121829; --card: #1a2138;
+    --accent: #00d9ff; --accent2: #7c3aed; --green: #10b981;
+    --red: #ef4444; --text: #e5e7eb; --muted: #6b7280;
+    --border: rgba(255,255,255,0.05);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { overflow-x: hidden; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; padding: 10px;
+    font-size: 14px;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--bg2), #1a2138);
+    border: 1px solid rgba(0,217,255,0.2);
+    border-radius: 14px; padding: 14px; margin-bottom: 10px;
+    box-shadow: 0 4px 20px rgba(0,217,255,0.1);
+  }
+  .header h1 { font-size: 18px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 600;
+    background: rgba(0,217,255,0.15); color: var(--accent);
+  }
+  .badge.live { background: rgba(16,185,129,0.15); color: var(--green); }
+  .ts { color: var(--muted); font-size: 11px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .card {
+    background: var(--card); border-radius: 12px; padding: 12px;
+    border: 1px solid var(--border); transition: transform 0.15s;
+  }
+  .card:active { transform: scale(0.98); }
+  .card .label { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .card .value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+  .value.green { color: var(--green); }
+  .value.red { color: var(--red); }
+  .value.accent { color: var(--accent); }
+  .card .sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
+  .section {
+    background: var(--card); border-radius: 12px; margin-bottom: 8px;
+    border: 1px solid var(--border); overflow: hidden;
+  }
+  .section h2 {
+    font-size: 13px; padding: 12px; color: var(--accent);
+    cursor: pointer; user-select: none;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid transparent;
+  }
+  .section.open h2 { border-bottom-color: var(--border); }
+  .section h2::after { content: '▼'; font-size: 10px; color: var(--muted); transition: transform 0.2s; }
+  .section.open h2::after { transform: rotate(180deg); }
+  .section .body { display: none; padding: 0; }
+  .section.open .body { display: block; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; min-width: 320px; }
+  th {
+    text-align: left; padding: 8px 10px; color: var(--muted);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-weight: 600; text-transform: uppercase; font-size: 9px; white-space: nowrap;
+  }
+  td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); white-space: nowrap; }
+  tr:active td { background: rgba(0,217,255,0.08); }
+  .pill { display: inline-block; padding: 2px 7px; border-radius: 6px; font-size: 9px; font-weight: 600; }
+  .pill.long { background: rgba(16,185,129,0.15); color: var(--green); }
+  .pill.short { background: rgba(239,68,68,0.15); color: var(--red); }
+  .pill.flat { background: rgba(107,114,128,0.15); color: var(--muted); }
+  .pill.trend_up { background: rgba(16,185,129,0.15); color: var(--green); }
+  .pill.trend_down { background: rgba(239,68,68,0.15); color: var(--red); }
+  .empty { color: var(--muted); font-style: italic; padding: 14px; text-align: center; font-size: 12px; }
+  .chart-wrap { position: relative; height: 160px; padding: 8px; }
+  .footer { text-align: center; color: var(--muted); font-size: 10px; padding: 12px; }
+  .to-top {
+    position: fixed; bottom: 16px; right: 16px;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border: none; font-size: 20px;
+    display: none; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,217,255,0.4);
+    cursor: pointer; z-index: 100;
+  }
+  .to-top.show { display: flex; }
+  @media (min-width: 640px) {
+    body { padding: 16px; font-size: 14px; }
+    .grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .card .value { font-size: 24px; }
+    .header h1 { font-size: 24px; }
+    .section h2 { font-size: 16px; }
+    table { font-size: 12px; min-width: auto; }
+    .chart-wrap { height: 220px; }
+  }
+  @media (max-width: 380px) {
+    .card .value { font-size: 16px; }
+    .header h1 { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>⚡ OKX Bot v3 <span class="badge live">PAPER</span> <span class="badge">TEST</span></h1>
+  <div class="ts">Автообновление 5 сек · <span id="ts">—</span></div>
+</div>
+
+<div class="grid">
+  <div class="card"><div class="label">Всего</div><div class="value accent" id="total">—</div></div>
+  <div class="card"><div class="label">WR</div><div class="value" id="wr">—</div><div class="sub" id="wins">—</div></div>
+  <div class="card"><div class="label">PnL</div><div class="value" id="pnl">—</div></div>
+  <div class="card"><div class="label">Открыто</div><div class="value accent" id="open">—</div></div>
+</div>
+
+<div class="section open" data-key="chart">
+  <h2>📈 Кумулятивный PnL</h2>
+  <div class="body"><div class="chart-wrap"><canvas id="chart"></canvas></div></div>
+</div>
+
+<div class="section" data-key="opens">
+  <h2>💼 Открытые сделки <span id="opens-count" style="color:var(--muted);font-size:11px;"></span></h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Пара</th><th>Сторона</th><th>Стратегия</th><th>Entry</th><th>Время</th></tr></thead>
+      <tbody id="opens"><tr><td colspan="6" class="empty">нет открытых</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="section" data-key="strategies">
+  <h2>📊 По стратегиям</h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Стратегия</th><th>Сделок</th><th>Побед</th><th>WR</th><th>PnL</th></tr></thead>
+      <tbody id="strategies"><tr><td colspan="5" class="empty">—</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="section" data-key="pairs">
+  <h2>💰 По парам</h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Пара</th><th>Сделок</th><th>PnL</th></tr></thead>
+      <tbody id="pairs"><tr><td colspan="3" class="empty">—</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="section" data-key="recent">
+  <h2>📉 Последние 20 сделок</h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>ID</th><th>Пара</th><th>Сторона</th><th>Стратегия</th><th>PnL</th><th>Время</th></tr></thead>
+      <tbody id="recent"><tr><td colspan="6" class="empty">—</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="section" data-key="regimes">
+  <h2>🎯 by_regime (что торгует)</h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Пара</th><th>Режим</th><th>Стратегия</th><th>TP</th><th>SL</th></tr></thead>
+      <tbody id="regimes"><tr><td colspan="5" class="empty">—</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="section" data-key="oracle">
+  <h2>🌊 Режимы рынка (oracle)</h2>
+  <div class="body"><div class="table-wrap">
+    <table>
+      <thead><tr><th>Пара</th><th>Режим</th><th>ADX</th></tr></thead>
+      <tbody id="oracle"><tr><td colspan="3" class="empty">—</td></tr></tbody>
+    </table>
+  </div></div>
+</div>
+
+<div class="footer">OKX Bot v3 · Paper Test · порт 8103</div>
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+let chart = null;
+document.querySelectorAll('.section h2').forEach(h => {
+  h.addEventListener('click', () => h.parentElement.classList.toggle('open'));
+});
+window.addEventListener('scroll', () => {
+  document.getElementById('toTop').classList.toggle('show', window.scrollY > 300);
+});
+async function load() {
+  try {
+    const r = await fetch('/api');
+    const d = await r.json();
+    document.getElementById('ts').textContent = d.ts;
+    document.getElementById('total').textContent = d.total;
+    document.getElementById('wr').textContent = d.wr + '%';
+    document.getElementById('wr').className = 'value ' + (d.wr >= 50 ? 'green' : 'red');
+    document.getElementById('wins').textContent = d.wins + ' побед';
+    document.getElementById('pnl').textContent = '$' + (d.pnl >= 0 ? '+' : '') + d.pnl.toFixed(2);
+    document.getElementById('pnl').className = 'value ' + (d.pnl >= 0 ? 'green' : 'red');
+    document.getElementById('open').textContent = d.open_count;
+    document.getElementById('opens-count').textContent = d.open_count ? '(' + d.open_count + ')' : '';
+    const op = document.getElementById('opens');
+    op.innerHTML = d.open_trades.length ? d.open_trades.map(x =>
+      '<tr><td>'+x.id+'</td><td>'+x.symbol+'</td><td><span class="pill '+x.side.toLowerCase()+'">'+x.side+'</span></td>' +
+      '<td>'+x.strategy+'</td><td>'+x.entry+'</td><td>'+x.time+'</td></tr>'
+    ).join('') : '<tr><td colspan="6" class="empty">нет открытых</td></tr>';
+    const st = document.getElementById('strategies');
+    st.innerHTML = d.strategies.length ? d.strategies.map(x =>
+      '<tr><td>'+x.name+'</td><td>'+x.n+'</td><td>'+x.wins+'</td>' +
+      '<td>'+x.wr+'%</td><td style="color:'+(x.pnl>=0?'var(--green)':'var(--red)')+'">$'+(x.pnl>=0?'+':'')+x.pnl+'</td></tr>'
+    ).join('') : '<tr><td colspan="5" class="empty">—</td></tr>';
+    const pr = document.getElementById('pairs');
+    pr.innerHTML = d.pairs.length ? d.pairs.map(x =>
+      '<tr><td>'+x.symbol+'</td><td>'+x.n+'</td>' +
+      '<td style="color:'+(x.pnl>=0?'var(--green)':'var(--red)')+'">$'+(x.pnl>=0?'+':'')+x.pnl+'</td></tr>'
+    ).join('') : '<tr><td colspan="3" class="empty">—</td></tr>';
+    const rc = document.getElementById('recent');
+    rc.innerHTML = d.recent.length ? d.recent.map(x =>
+      '<tr><td>'+x.id+'</td><td>'+x.symbol+'</td><td><span class="pill '+x.side.toLowerCase()+'">'+x.side+'</span></td>' +
+      '<td>'+x.strategy+'</td><td style="color:'+(x.pnl>=0?'var(--green)':'var(--red)')+'">$'+(x.pnl>=0?'+':'')+x.pnl+'</td>' +
+      '<td>'+x.time+'</td></tr>'
+    ).join('') : '<tr><td colspan="6" class="empty">—</td></tr>';
+    const rg = document.getElementById('regimes');
+    rg.innerHTML = d.regimes.length ? d.regimes.map(x =>
+      '<tr><td>'+x.pair+'</td><td><span class="pill '+x.regime+'">'+x.regime+'</span></td>' +
+      '<td>'+x.strategy+'</td><td>'+x.tp.toFixed(2)+'%</td><td>'+x.sl.toFixed(2)+'%</td></tr>'
+    ).join('') : '<tr><td colspan="5" class="empty">—</td></tr>';
+    const or = document.getElementById('oracle');
+    or.innerHTML = d.oracle.length ? d.oracle.map(x =>
+      '<tr><td>'+x.symbol+'</td><td><span class="pill '+x.regime+'">'+x.regime+'</span></td><td>'+x.adx+'</td></tr>'
+    ).join('') : '<tr><td colspan="3" class="empty">—</td></tr>';
+    if (chart) chart.destroy();
+    const ctx = document.getElementById('chart').getContext('2d');
+    const isMobile = window.innerWidth < 640;
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: d.chart.map(x => x.t),
+        datasets: [{
+          label: 'PnL $', data: d.chart.map(x => x.v),
+          borderColor: '#00d9ff', backgroundColor: 'rgba(0,217,255,0.1)',
+          fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { display: false },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#6b7280', font: { size: isMobile ? 9 : 11 } } }
+        }
+      }
+    });
+  } catch(e) { console.error(e); }
+}
+load();
+setInterval(load, 5000);
+</script>
+</body>
+</html>'''
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/api':
+            data = build_data()
+            body = json.dumps(data, ensure_ascii=False).encode()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        else:
+            body = HTML.encode()
+            self.send_response(200)
+            self.send_header('Content-Type', 'text/html; charset=utf-8')
+            self.send_header('Content-Length', str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+    def log_message(self, *a): pass
+
+if __name__ == '__main__':
+    print(f'⚡ OKX Panel v3 (mobile): http://127.0.0.1:{PORT}/')
+    HTTPServer(('127.0.0.1', PORT), Handler).serve_forever()

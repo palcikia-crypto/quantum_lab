@@ -1,0 +1,94 @@
+===== 1. ЧЕК-ЛИСТ: ВСЕ 8 ПРОВЕРОК В КОДЕ =====
+Проверка                                    Есть?
+--------------------------------------------------
+1. n >= 300                                     ✅
+2. walk_forward 70/30                           ✅
+3. trend_filter                                 ✅
+4. final_oos_check                              ✅
+5. by_regime walk-forward                       ✅
+6. stability_check (методика №1)                ❌
+7. stability_check_2 (методика №2)              ❌
+8. score = pnl                                  ✅
+
+ИТОГО: 6/8 проверок на месте
+⚠️ ОТСУТСТВУЕТ: 6. stability_check (методика №1), 7. stability_check_2 (методика №2)
+
+===== 2. ВСЕ ФУНКЦИИ (что реально определено) =====
+21:def log(m):
+25:def load_candles(sym, days=DAYS, tf='15m'):
+34:def get_strategy_func(name):
+48:def simulate(data, fn, tp, sl, timeout_bars):
+74:def wf_5fold(data, fn, tp, sl, timeout):
+87:def monte_carlo(data, fn, tp, sl, timeout, n_iter=30):
+102:def multi_oos_check(data, fn, tp, sl, timeout, periods=[30,60,90]):
+115:def tp_sl_sensitivity(data, fn, tp, sl, timeout, delta=0.2):
+125:def stability_check(data, fn, tp, sl, timeout, log_fn=None):
+171:def wf_10fold(data, fn, tp, sl, timeout):
+183:def monte_carlo_50(data, fn, tp, sl, timeout):
+198:def multi_oos_6(data, fn, tp, sl, timeout):
+210:def tp_sl_sens_30(data, fn, tp, sl, timeout):
+218:def stability_check_2(data, fn, tp, sl, timeout):
+264:def walk_forward(data, fn, tp, sl, timeout):
+275:def by_regime(data, fn, tp, sl, timeout):
+297:def optimize_full(sym, strat_name, base_wr):
+424:def main():
+
+===== 3. ВСЕ ВЫЗОВЫ В optimize_full (по порядку) =====
+    if not data: log('  ⚠️ нет данных'); return None
+    if not fn: log('  ⚠️ стратегия не найдена'); return None
+    best_score = -999
+    if 'okx_vwap_rev' in strat_name and nums:
+            if 5 <= mp <= 60: candidates.append(f'okx_vwap_rev_{mp}')
+    if 'okx_grid_sma' in strat_name and nums:
+            if 5 <= mp <= 60: candidates.append(f'okx_grid_sma_{mp}')
+        if not fn_c: continue
+                    wf = walk_forward(data, fn_c, tp, sl, timeout)
+                    if not wf: continue
+                    if wf['test']['wr'] < 55 or wf['train']['wr'] < 55: continue
+                    if wf['test']['n'] < 300: continue
+                    score = wf['test']['pnl']
+                    if score > best_score:
+                        best_score = score
+    if not best:
+        current_regime = reg_row[0] if reg_row else 'flat'
+        if rr_t:
+            if current_regime == 'trend_up' and shorts > longs * 2:
+                log(f'  ❌ TREND reject: trend_up, но SHORT {shorts} vs LONG {longs}')
+            if current_regime == 'trend_down' and longs > shorts * 2:
+                log(f'  ❌ TREND reject: trend_down, но LONG {longs} vs SHORT {shorts}')
+            log(f'  ✅ TREND OK: regime={current_regime} LONG={longs} SHORT={shorts}')
+        log(f'  ⚠️ TREND check err: {e}')
+    # final_oos_check: последние 30 дней (out-of-sample)
+        if rr and len(rr) > 100:
+                    if not sig_o: continue
+                        mv = (cc_[j]-ep_o)/ep_o if side_o=='LONG' else (ep_o-cc_[j])/ep_o
+                        if mv >= best['tp']: pnl_o += best['tp']-2*FEE; wins_o+=1; n_o+=1; break
+                        elif mv <= -best['sl']: pnl_o += -best['sl']-2*FEE; n_o+=1; break
+
+===== 4. ПРОЦЕСС =====
+21003 python3 -u tools/agent/grail_optimizer_full.py
+
+===== 5. ЛОГ (последние 30) =====
+[04:27:00] [full] === GRAIL OPTIMIZER FULL ===
+[04:27:00] [full] Граалей: 16
+[04:27:00] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+[04:28:41] [full]   ⚠️ нет walk-forward (WR>=55)
+[04:28:41] [full] 🔍 ETHUSDT okx_vwap_rev_10 (base WR=73.0%)
+[04:30:31] [full]   ⚠️ TREND check err: no such table: regime
+[04:30:31] [full]   ✅ OOS OK: WR=84.1% PnL=+0.41 n=233
+[04:30:32] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[04:30:32] [full]     train WR=91.1%, test WR=85.8%, test PnL=0.77%, n=422
+[04:30:32] [full]     режимы: bull=92.9%, bear=87.8%, flat=87.1%
+[04:30:32] [full] 🔍 SOLUSDT okx_vwap_rev_10 (base WR=69.2%)
+
+===== 6. ПЕРЕЗАПУСК ОПТИМИЗАТОРА (с полным набором) =====
+  новый PID: 23302
+  --- лог после старта ---
+[04:32:05] [full] === GRAIL OPTIMIZER FULL ===
+[04:32:05] [full] Граалей: 16
+[04:32:05] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 7. ИТОГ =====
+  ✅ 8 проверок (методика №1 + №2)
+  ⏳ optimizer работает ~80-100 минут (двойная проверка)
+  📊 через 80-100 минут проверь okx_active.json

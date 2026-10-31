@@ -1,0 +1,126 @@
+{
+  "updated_at": "2026-10-31T03:32:13.917381",
+  "source": "oos_filter_n100",
+  "pairs": {
+    "ETH-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_7",
+      "wr": 97.2,
+      "n": 106,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 2,
+      "trade": true,
+      "oos_pnl": 0.47
+    },
+    "SOL-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "wr": 85.0,
+      "n": 341,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.95
+    },
+    "DOGE-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "wr": 84.1,
+      "n": 353,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.93
+    },
+    "BTC-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "wr": 86.8,
+      "n": 151,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.39
+    },
+    "ETH-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "wr": 82.6,
+      "n": 276,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.64
+    },
+    "BTC-USDT_15m_okx_vwap_rev_30": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_25",
+      "wr": 79.3,
+      "n": 290,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.3
+    },
+    "SOL-USDT_15m_okx_grid_sma_10": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "wr": 93.8,
+      "n": 145,
+      "tp": 0.008,
+      "sl": 0.004,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.54
+    },
+    "ETH-USDT_15m_okx_grid_sma_20": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "wr": 90.5,
+      "n": 137,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.35
+    },
+    "XRP-USDT_15m_okx_grid_sma_20": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "wr": 91.0,
+      "n": 156,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.47
+    },
+    "BTC-USDT_15m_okx_grid_sma_30": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_25",
+      "wr": 82.1,
+      "n": 168,
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true,
+      "oos_pnl": 0.18
+    }
+  }
+}

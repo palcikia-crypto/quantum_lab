@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-01T03:46:44.372592",
+  "results": [
+    {
+      "key": "ETHUSDT_15m_bb_20_1.5",
+      "wr": 64.6,
+      "kelly": 0.292,
+      "bet": 20,
+      "trade": true
+    },
+    {
+      "key": "ETHUSDT_15m_bb_20_2.0",
+      "wr": 71.3,
+      "kelly": 0.426,
+      "bet": 20,
+      "trade": true
+    },
+    {
+      "key": "ETHUSDT_15m_mean_rev_20_1.5",
+      "wr": 64.6,
+      "kelly": 0.292,
+      "bet": 20,
+      "trade": true
+    },
+    {
+      "key": "BTCUSDT_15m_mean_rev_15_1.5",
+      "wr": 62.6,
+      "kelly": 0.252,
+      "bet": 20,
+      "trade": true
+    }
+  ]
+}

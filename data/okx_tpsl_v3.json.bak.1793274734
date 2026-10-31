@@ -1,0 +1,51 @@
+{
+  "updated_at": "2026-10-29T16:40:00",
+  "source": "manual_plus_only",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2
+  },
+  "per_pair": {
+    "XRP-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      }
+    },
+    "SOL-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2
+      }
+    }
+  }
+}

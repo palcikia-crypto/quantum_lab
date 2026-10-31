@@ -1,0 +1,418 @@
+{
+  "timestamp": "2026-10-27T17:30:03.137864",
+  "summary": {
+    "GOLDEN": 0,
+    "TRADE_NOW": 0,
+    "WATCH": 0,
+    "SKIP": 11
+  },
+  "results": [
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "vol_spike",
+      "verdict": "SKIP",
+      "score": 2.0,
+      "L1": {
+        "wr": 50.2,
+        "n": 675,
+        "p": 0.454,
+        "ci_lo": 46.5,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.5,
+        "test_wr": 49.7,
+        "delta": 0.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 64.3,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.23328008304574552,
+        "p5": -0.06303434902141752,
+        "sharpe": 1.420839253297359,
+        "max_dd": 7.085484339730591,
+        "pass": true
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "mean_rev_2",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.3,
+        "n": 4577,
+        "p": 0.1683,
+        "ci_lo": 47.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.5,
+        "test_wr": 49.2,
+        "delta": 0.2,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 52.0,
+        "flat_wr": 46.6,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.09544269948432914,
+        "p5": -0.11296457183223671,
+        "sharpe": -0.16323041672124627,
+        "max_dd": 41.343193092291976,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 46.6,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "mean_rev_3",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.2,
+        "n": 4585,
+        "p": 0.1541,
+        "ci_lo": 47.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.3,
+        "test_wr": 49.3,
+        "delta": 0.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 52.6,
+        "flat_wr": 45.1,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.09351349590578624,
+        "p5": -0.11234776039094083,
+        "sharpe": -0.3076999925068727,
+        "max_dd": 78.89751544509998,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 45.1,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "vwap_rev",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.4,
+        "n": 3832,
+        "p": 0.0209,
+        "ci_lo": 46.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.1,
+        "test_wr": 48.9,
+        "delta": -0.7,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 75.0,
+        "flat_wr": 44.9,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.09534895212304957,
+        "p5": -0.1128447545798657,
+        "sharpe": -0.23647200721223047,
+        "max_dd": 72.60004170656335,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 44.9,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "rsi_25_up",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.0,
+        "n": 177,
+        "p": 0.2994,
+        "ci_lo": 40.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.6,
+        "test_wr": 44.4,
+        "delta": 5.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 60.0,
+        "flat_wr": 38.5,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.019847633103068262,
+        "p5": -0.19317332963137868,
+        "sharpe": -1.9682170059875905,
+        "max_dd": 18.512979428159873,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 38.5,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "stoch_20",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.7,
+        "n": 1168,
+        "p": 0.057,
+        "ci_lo": 44.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.2,
+        "test_wr": 49.1,
+        "delta": -1.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 63.6,
+        "flat_wr": 38.9,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.10328979232596247,
+        "p5": -0.11602066008293793,
+        "sharpe": -0.20969848398433666,
+        "max_dd": 19.98366761043637,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 38.9,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "rsi_30_up",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.0,
+        "n": 270,
+        "p": 0.1651,
+        "ci_lo": 41.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.2,
+        "test_wr": 46.8,
+        "delta": 0.4,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 80.0,
+        "flat_wr": 31.8,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.02802542468047629,
+        "p5": -0.19545052603919022,
+        "sharpe": -1.913152750137804,
+        "max_dd": 26.302973991116897,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 31.8,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "stoch_30",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 46.5,
+        "n": 1301,
+        "p": 0.0058,
+        "ci_lo": 43.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 45.5,
+        "test_wr": 49.0,
+        "delta": -3.5,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 60.0,
+        "flat_wr": 38.4,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.0672585934121615,
+        "p5": -0.15843236736317035,
+        "sharpe": -1.0811659932316608,
+        "max_dd": 60.78940392275102,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 38.4,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "vol_breakout",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.3,
+        "n": 172,
+        "p": 0.1112,
+        "ci_lo": 37.9,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 45.2,
+        "test_wr": 46.7,
+        "delta": -1.4,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 60.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.2031953921511222,
+        "p5": -0.12659217156976027,
+        "sharpe": 0.5420758262297503,
+        "max_dd": 6.060347451844354,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "ema_9_21",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 44.3,
+        "n": 388,
+        "p": 0.0127,
+        "ci_lo": 39.4,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 45.4,
+        "test_wr": 42.1,
+        "delta": 3.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 56.7,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.08915459452496059,
+        "p5": -0.13852880062655493,
+        "sharpe": -0.5208591485162494,
+        "max_dd": 22.31373314505487,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "1h",
+      "strategy": "rsi_70_down",
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 43.5,
+        "n": 278,
+        "p": 0.0154,
+        "ci_lo": 37.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 41.8,
+        "test_wr": 47.8,
+        "delta": -6.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 60.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.06735102649384252,
+        "p5": -0.12215286494712127,
+        "sharpe": -0.8697016018210773,
+        "max_dd": 16.765754701454398,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    }
+  ]
+}

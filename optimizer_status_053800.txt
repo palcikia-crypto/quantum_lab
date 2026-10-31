@@ -1,0 +1,99 @@
+===== 1. ОПТИМИЗАТОР: ПРОЦЕСС =====
+8969 python3 -u tools/agent/grail_optimizer_full.py
+
+===== 2. ЛОГ (последние 60) =====
+[05:11:03] [full] === GRAIL OPTIMIZER FULL ===
+[05:11:03] [full] Граалей: 16
+[05:11:03] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+[05:12:58] [full]   ⚠️ нет walk-forward (WR>=55)
+[05:12:58] [full] 🔍 ETHUSDT okx_vwap_rev_10 (base WR=73.0%)
+[05:14:57] [full]   ✅ TREND OK: regime=flat LONG=3 SHORT=13
+[05:14:57] [full]   ✅ OOS OK: WR=84.1% PnL=+0.29 n=233
+[05:15:08] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=2.9%, min WR=85.4%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:15:33] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:15:34] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:15:34] [full]     train WR=91.1%, test WR=85.8%, test PnL=0.56%, n=422
+[05:15:34] [full]     режимы: bull=92.9%, bear=87.8%, flat=87.1%
+[05:15:34] [full] 🔍 SOLUSDT okx_vwap_rev_10 (base WR=69.2%)
+[05:17:40] [full]   ✅ TREND OK: regime=flat LONG=5 SHORT=16
+[05:17:41] [full]   ✅ OOS OK: WR=84.9% PnL=+0.43 n=337
+[05:17:54] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=3.8%, min WR=86.0%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:18:18] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:18:18] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:18:18] [full]     train WR=90.8%, test WR=87.7%, test PnL=1.0%, n=634
+[05:18:18] [full]     режимы: bull=88.5%, bear=94.6%, flat=86.2%
+[05:18:18] [full] 🔍 DOGEUSDT okx_vwap_rev_10 (base WR=68.5%)
+[05:20:27] [full]   ✅ TREND OK: regime=flat LONG=3 SHORT=15
+[05:20:28] [full]   ✅ OOS OK: WR=84.5% PnL=+0.41 n=348
+[05:20:38] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=1.8%, min WR=85.3%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:21:03] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:21:03] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:21:03] [full]     train WR=88.2%, test WR=87.0%, test PnL=1.32%, n=820
+[05:21:03] [full]     режимы: bull=89.8%, bear=86.4%, flat=83.9%
+[05:21:03] [full] 🔍 BTCUSDT okx_vwap_rev_20 (base WR=70.8%)
+[05:23:01] [full]   ✅ TREND OK: regime=flat LONG=5 SHORT=5
+[05:23:01] [full]   ✅ OOS OK: WR=85.3% PnL=+0.09 n=177
+[05:23:11] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=3.0%, min WR=85.3%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:23:36] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.7%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (42/49)'}
+[05:23:36] [full]   ✅ BEST: okx_vwap_rev_17 tp=0.008 sl=0.005 timeout=3
+[05:23:36] [full]     train WR=87.5%, test WR=86.1%, test PnL=0.17%, n=310
+[05:23:36] [full]     режимы: bull=86.6%, bear=87.6%, flat=84.7%
+[05:23:36] [full] 🔍 ETHUSDT okx_vwap_rev_20 (base WR=67.6%)
+[05:25:59] [full]   ✅ TREND OK: regime=flat LONG=3 SHORT=14
+[05:25:59] [full]   ✅ OOS OK: WR=82.4% PnL=+0.21 n=272
+[05:26:08] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=2.8%, min WR=84.0%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:26:31] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=3.3%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:26:31] [full]   ✅ BEST: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3
+[05:26:31] [full]     train WR=88.9%, test WR=85.1%, test PnL=0.47%, n=489
+[05:26:31] [full]     режимы: bull=87.6%, bear=87.6%, flat=86.1%
+[05:26:31] [full] 🔍 BTCUSDT okx_vwap_rev_30 (base WR=67.8%)
+[05:28:47] [full]   ✅ TREND OK: regime=flat LONG=12 SHORT=16
+[05:28:47] [full]   ❌ OOS reject: WR=79.1% PnL=-0.14 n=287
+[05:28:47] [full] 🔍 BTCUSDT okx_grid_sma_10 (base WR=75.6%)
+[05:31:25] [full]   ⚠️ нет walk-forward (WR>=55)
+[05:31:25] [full] 🔍 ETHUSDT okx_grid_sma_10 (base WR=75.2%)
+[05:33:47] [full]   ⚠️ нет walk-forward (WR>=55)
+[05:33:47] [full] 🔍 XRPUSDT okx_grid_sma_10 (base WR=71.8%)
+[05:36:08] [full]   ✅ TREND OK: regime=flat LONG=10 SHORT=5
+[05:36:08] [full]   ✅ OOS OK: WR=91.9% PnL=+0.23 n=136
+[05:36:20] [full]   ✅ STABILITY1 OK: {'wf': 'OK (std=2.1%, min WR=86.2%)', 'mc': 'OK (30/30)', 'oos': 'OK (3/3)', 'sens': 'OK (9/9)'}
+[05:36:50] [full]   ✅ STABILITY2 OK: {'wf10': 'OK (std=2.2%)', 'mc50': 'OK (50/50)', 'oos6': 'OK (5/5)', 'sens30': 'OK (49/49)'}
+[05:36:50] [full]   ✅ BEST: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3
+[05:36:50] [full]     train WR=89.5%, test WR=89.8%, test PnL=0.62%, n=373
+[05:36:50] [full]     режимы: bull=90.3%, bear=90.4%, flat=91.9%
+[05:36:50] [full] 🔍 SOLUSDT okx_grid_sma_10 (base WR=71.7%)
+
+===== 3. ЗАКОНЧИЛ? (последняя строка) =====
+  ⏳ ещё работает
+
+===== 4. ЧТО В okx_active.json (обновлён?) =====
+  пар: 10, обновлён: 05:09:24
+    ETH-USDT okx_vwap_rev_7: WR=97.2% n=106
+    SOL-USDT okx_vwap_rev_13: WR=85.0% n=341
+    DOGE-USDT okx_vwap_rev_13: WR=84.1% n=353
+    BTC-USDT okx_vwap_rev_15: WR=86.8% n=151
+    ETH-USDT okx_vwap_rev_15: WR=82.6% n=276
+    BTC-USDT okx_vwap_rev_25: WR=79.3% n=290
+    SOL-USDT okx_grid_sma_13: WR=93.8% n=145
+    ETH-USDT okx_grid_sma_15: WR=90.5% n=137
+    XRP-USDT okx_grid_sma_15: WR=91.0% n=156
+    BTC-USDT okx_grid_sma_25: WR=82.1% n=168
+
+===== 5. СКОЛЬКО ПАР ПРОШЛО ВСЕ 8 ПРОВЕРОК =====
+6
+  (BEST = пара прошла все 8 проверок)
+
+===== 6. СКОЛЬКО ОТСЕЯНО =====
+  STABILITY1 reject: 0
+  STABILITY2 reject: 0
+  OOS reject: 1
+  TREND reject: 0
+  нет walk-forward: 3
+
+===== 7. ВСЕ ✅ BEST (прошли) =====
+[05:15:34] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:18:18] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:21:03] [full]   ✅ BEST: okx_vwap_rev_13 tp=0.008 sl=0.005 timeout=3
+[05:23:36] [full]   ✅ BEST: okx_vwap_rev_17 tp=0.008 sl=0.005 timeout=3
+[05:26:31] [full]   ✅ BEST: okx_vwap_rev_15 tp=0.008 sl=0.005 timeout=3
+[05:36:50] [full]   ✅ BEST: okx_grid_sma_13 tp=0.008 sl=0.005 timeout=3

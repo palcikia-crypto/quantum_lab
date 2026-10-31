@@ -1,0 +1,52 @@
+{
+  "pairs": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "DOGEUSDT",
+    "BNBUSDT",
+    "ADAUSDT",
+    "AVAXUSDT",
+    "DOTUSDT",
+    "LINKUSDT",
+    "ARBUSDT"
+  ],
+  "timeframes": {
+    "1m": {
+      "days": 30,
+      "interval": "1m"
+    },
+    "5m": {
+      "days": 90,
+      "interval": "5m"
+    },
+    "15m": {
+      "days": 180,
+      "interval": "15m"
+    },
+    "1h": {
+      "days": 365,
+      "interval": "1h"
+    },
+    "4h": {
+      "days": 730,
+      "interval": "4h"
+    },
+    "1d": {
+      "days": 1825,
+      "interval": "1d"
+    }
+  },
+  "gate": {
+    "min_wr": 54,
+    "min_n": 500,
+    "max_p": 0.05,
+    "min_ci_lo": 50,
+    "max_dd": 20,
+    "min_sharpe": 1.0
+  },
+  "cycle_hours": 6,
+  "night_start": 0,
+  "night_end": 6
+}

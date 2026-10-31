@@ -1,0 +1,74 @@
+===== 1. PnL ВСЕГО (накопленный) =====
+--- OKX ---
+  v2: 150 сделок, PnL=-178.46
+  v3: 135 сделок, PnL=-188.5
+  v4: 752 сделок, PnL=8.39
+  strategy: 35 сделок, PnL=-0.16
+--- Polymarket ---
+  pm_bot.db: PnL=350.0
+  pm_v4.db: PnL=223.31
+  pm_v5.db: PnL=146.01
+  pm_v6.db: PnL=693.11
+  ИТОГО Polymarket: 1412.43
+
+===== 2. PnL ЗА ПОСЛЕДНИЙ ЧАС =====
+  v2: 4 сделок, PnL=-2.8
+  v3: 0 сделок, PnL=0.0
+  v4: 35 сделок, PnL=0.02
+  strategy: 4 сделок, PnL=-0.03
+
+===== 3. PnL ЗА 24 ЧАСА =====
+  v2: 39 сделок, PnL=-162.3
+  v3: 68 сделок, PnL=-116.6
+  v4: 463 сделок, PnL=7.82
+  strategy: 35 сделок, PnL=-0.16
+
+===== 4. ПОСЛЕДНИЕ 10 СДЕЛОК (все боты) =====
+--- v2 ---
+ symbol   side      strategy              dt           pnl
+--------  -----  ---------------  -------------------  ----
+XRP-USDT  SHORT  okx_vwap_rev_30  2026-10-31 05:19:50   4.3
+XRP-USDT  SHORT  okx_vwap_rev_30  2026-10-31 05:09:30   4.3
+BTC-USDT  SHORT  okx_vwap_rev_30  2026-10-31 04:44:40  -5.7
+BTC-USDT  SHORT  okx_vwap_rev_30  2026-10-31 04:34:20  -5.7
+XRP-USDT  SHORT  okx_vwap_rev_30  2026-10-31 03:39:06  -5.7
+
+--- v3 ---
+ symbol   side      strategy              dt           pnl
+--------  -----  ---------------  -------------------  ----
+XRP-USDT  SHORT  okx_macd_5_35_5  2026-10-31 03:10:51  -4.7
+XRP-USDT  SHORT  okx_macd_5_35_5  2026-10-31 03:00:45  -4.7
+SOL-USDT  SHORT  okx_grid_sma_10  2026-10-31 03:00:45  -4.7
+XRP-USDT  SHORT  okx_macd_5_35_5  2026-10-31 02:50:02  -4.7
+SOL-USDT  SHORT  okx_grid_sma_10  2026-10-31 02:49:03  -4.7
+
+--- v4 ---
+ symbol   side      strategy              dt           pnl
+--------  -----  ---------------  -------------------  ----
+BTC-USDT  SHORT  scalp_obi_short  2026-10-31 05:28:37  0.02
+BTC-USDT  SHORT  scalp_obi_short  2026-10-31 05:27:36  0.03
+BTC-USDT  SHORT  scalp_obi_short  2026-10-31 05:27:36  0.03
+BTC-USDT  SHORT  scalp_obi_short  2026-10-31 05:23:35  0.04
+BTC-USDT  SHORT  scalp_obi_short  2026-10-31 05:23:35  0.04
+
+===== 5. ОТКРЫТЫЕ СДЕЛКИ =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v4 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+BTC-USDT  SHORT  scalp_obi_short  77294.2  2026-10-31 05:28:37
+
+===== 6. ПРОЦЕССЫ =====
+
+===== 7. ОПТИМИЗАТОР =====
+8969 python3 -u tools/agent/grail_optimizer_full.py
+[05:26:31] [full]     режимы: bull=87.6%, bear=87.6%, flat=86.1%
+[05:26:31] [full] 🔍 BTCUSDT okx_vwap_rev_30 (base WR=67.8%)
+[05:28:47] [full]   ✅ TREND OK: regime=flat LONG=12 SHORT=16
+[05:28:47] [full]   ❌ OOS reject: WR=79.1% PnL=-0.14 n=287
+[05:28:47] [full] 🔍 BTCUSDT okx_grid_sma_10 (base WR=75.6%)

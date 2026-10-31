@@ -1,0 +1,3136 @@
+{
+  "updated_at": "2026-10-28T23:11:32.465040",
+  "params": {
+    "tp": 0.001,
+    "sl": 0.0005,
+    "timeout": 60,
+    "fee": 0.0005
+  },
+  "stable_count": 10,
+  "stable": [
+    {
+      "symbol": "ARB-USDT",
+      "strategy": "scalp_obi_spread",
+      "n": 11,
+      "wr": 54.5,
+      "pnl": 0.4
+    },
+    {
+      "symbol": "DOGE-USDT",
+      "strategy": "scalp_obi_vwap",
+      "n": 7,
+      "wr": 57.1,
+      "pnl": 0.4
+    },
+    {
+      "symbol": "SOL-USDT",
+      "strategy": "scalp_obi_short",
+      "n": 8,
+      "wr": 87.5,
+      "pnl": 0.35
+    },
+    {
+      "symbol": "BTC-USDT",
+      "strategy": "scalp_obi_short",
+      "n": 10,
+      "wr": 70.0,
+      "pnl": 0.32
+    },
+    {
+      "symbol": "DOT-USDT",
+      "strategy": "scalp_obi_vwap",
+      "n": 7,
+      "wr": 57.1,
+      "pnl": 0.31
+    },
+    {
+      "symbol": "DOT-USDT",
+      "strategy": "scalp_triple",
+      "n": 7,
+      "wr": 57.1,
+      "pnl": 0.31
+    },
+    {
+      "symbol": "SOL-USDT",
+      "strategy": "scalp_pressure_only",
+      "n": 4,
+      "wr": 75.0,
+      "pnl": 0.16
+    },
+    {
+      "symbol": "XRP-USDT",
+      "strategy": "scalp_obi_short",
+      "n": 9,
+      "wr": 77.8,
+      "pnl": 0.11
+    },
+    {
+      "symbol": "DOT-USDT",
+      "strategy": "scalp_obi_pressure",
+      "n": 9,
+      "wr": 55.6,
+      "pnl": 0.04
+    },
+    {
+      "symbol": "ARB-USDT",
+      "strategy": "scalp_obi_long",
+      "n": 10,
+      "wr": 50.0,
+      "pnl": 0.03
+    }
+  ],
+  "all": {
+    "ADA-USDT|scalp_obi_long": {
+      "n": 3,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.3,
+      "trades": [
+        {
+          "ts": 1793210824,
+          "side": "LONG",
+          "entry": 0.2033,
+          "exit": 0.20319835000000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210888,
+          "side": "LONG",
+          "entry": 0.2029,
+          "exit": 0.20279999999999998,
+          "pnl": -0.0993,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210970,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_obi_short": {
+      "n": 1,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.1,
+      "trades": [
+        {
+          "ts": 1793210533,
+          "side": "SHORT",
+          "entry": 0.2026,
+          "exit": 0.2027013,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_obi_spread": {
+      "n": 4,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210535,
+          "side": "SHORT",
+          "entry": 0.2027,
+          "exit": 0.20280135,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210825,
+          "side": "LONG",
+          "entry": 0.2032,
+          "exit": 0.2030984,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210888,
+          "side": "LONG",
+          "entry": 0.2029,
+          "exit": 0.20279999999999998,
+          "pnl": -0.0993,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210970,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_obi_pressure": {
+      "n": 4,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210613,
+          "side": "LONG",
+          "entry": 0.2043,
+          "exit": 0.20419785000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210781,
+          "side": "LONG",
+          "entry": 0.2033,
+          "exit": 0.20319835000000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210890,
+          "side": "LONG",
+          "entry": 0.2029,
+          "exit": 0.20279999999999998,
+          "pnl": -0.0993,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210966,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_obi_vwap": {
+      "n": 4,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210781,
+          "side": "LONG",
+          "entry": 0.2033,
+          "exit": 0.20319835000000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210841,
+          "side": "LONG",
+          "entry": 0.2032,
+          "exit": 0.2030984,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210901,
+          "side": "LONG",
+          "entry": 0.2028,
+          "exit": 0.2027,
+          "pnl": -0.0993,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210979,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_pressure_only": {
+      "n": 8,
+      "wins": 4,
+      "wr": 50.0,
+      "pnl": -0.37,
+      "trades": [
+        {
+          "ts": 1793210642,
+          "side": "LONG",
+          "entry": 0.2044,
+          "exit": 0.20355,
+          "pnl": -0.4659,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210737,
+          "side": "LONG",
+          "entry": 0.2037,
+          "exit": 0.20359815,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210798,
+          "side": "SHORT",
+          "entry": 0.2032,
+          "exit": 0.2029968,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210858,
+          "side": "SHORT",
+          "entry": 0.203,
+          "exit": 0.20285,
+          "pnl": 0.0239,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210966,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ADA-USDT|scalp_triple": {
+      "n": 3,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.3,
+      "trades": [
+        {
+          "ts": 1793210781,
+          "side": "LONG",
+          "entry": 0.2033,
+          "exit": 0.20319835000000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210890,
+          "side": "LONG",
+          "entry": 0.2029,
+          "exit": 0.20279999999999998,
+          "pnl": -0.0993,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210979,
+          "side": "LONG",
+          "entry": 0.2027,
+          "exit": 0.20259865,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_obi_long": {
+      "n": 10,
+      "wins": 5,
+      "wr": 50.0,
+      "pnl": 0.03,
+      "trades": [
+        {
+          "ts": 1793210734,
+          "side": "LONG",
+          "entry": 0.16805,
+          "exit": 0.16796597500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210799,
+          "side": "LONG",
+          "entry": 0.16769,
+          "exit": 0.167606155,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210859,
+          "side": "LONG",
+          "entry": 0.16763,
+          "exit": 0.16754618500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210931,
+          "side": "LONG",
+          "entry": 0.16744,
+          "exit": 0.16760744,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210993,
+          "side": "LONG",
+          "entry": 0.16745,
+          "exit": 0.16759000000000002,
+          "pnl": 0.0336,
+          "reason": "TP"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_obi_short": {
+      "n": 10,
+      "wins": 3,
+      "wr": 30.0,
+      "pnl": -0.47,
+      "trades": [
+        {
+          "ts": 1793210718,
+          "side": "SHORT",
+          "entry": 0.16786,
+          "exit": 0.16794393,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210779,
+          "side": "SHORT",
+          "entry": 0.16775,
+          "exit": 0.167833875,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210839,
+          "side": "SHORT",
+          "entry": 0.16768,
+          "exit": 0.16751232,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210900,
+          "side": "SHORT",
+          "entry": 0.16736,
+          "exit": 0.16744368,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210960,
+          "side": "SHORT",
+          "entry": 0.16743,
+          "exit": 0.16751371499999998,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 6,
+      "wr": 54.5,
+      "pnl": 0.4,
+      "trades": [
+        {
+          "ts": 1793210749,
+          "side": "LONG",
+          "entry": 0.16789,
+          "exit": 0.167806055,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210809,
+          "side": "SHORT",
+          "entry": 0.16763,
+          "exit": 0.167713815,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210869,
+          "side": "SHORT",
+          "entry": 0.16752,
+          "exit": 0.167445,
+          "pnl": -0.0052,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210931,
+          "side": "LONG",
+          "entry": 0.16744,
+          "exit": 0.16760744,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210993,
+          "side": "LONG",
+          "entry": 0.16745,
+          "exit": 0.16759000000000002,
+          "pnl": 0.0336,
+          "reason": "TP"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 3,
+      "wr": 33.3,
+      "pnl": -0.35,
+      "trades": [
+        {
+          "ts": 1793210710,
+          "side": "SHORT",
+          "entry": 0.16788,
+          "exit": 0.16796394,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210770,
+          "side": "SHORT",
+          "entry": 0.16784,
+          "exit": 0.16767216,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210837,
+          "side": "SHORT",
+          "entry": 0.16768,
+          "exit": 0.16751232,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210900,
+          "side": "SHORT",
+          "entry": 0.16736,
+          "exit": 0.16744368,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210968,
+          "side": "LONG",
+          "entry": 0.16747,
+          "exit": 0.16751,
+          "pnl": -0.0261,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_obi_vwap": {
+      "n": 8,
+      "wins": 4,
+      "wr": 50.0,
+      "pnl": -0.12,
+      "trades": [
+        {
+          "ts": 1793210655,
+          "side": "SHORT",
+          "entry": 0.16898,
+          "exit": 0.16881101999999998,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210723,
+          "side": "LONG",
+          "entry": 0.16783,
+          "exit": 0.16799783,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210788,
+          "side": "LONG",
+          "entry": 0.16771,
+          "exit": 0.167626145,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210859,
+          "side": "LONG",
+          "entry": 0.16763,
+          "exit": 0.16754618500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210948,
+          "side": "SHORT",
+          "entry": 0.16748,
+          "exit": 0.16756374,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_pressure_only": {
+      "n": 10,
+      "wins": 4,
+      "wr": 40.0,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210746,
+          "side": "SHORT",
+          "entry": 0.1679,
+          "exit": 0.1677321,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210806,
+          "side": "LONG",
+          "entry": 0.16773,
+          "exit": 0.167646135,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210866,
+          "side": "SHORT",
+          "entry": 0.16754,
+          "exit": 0.167425,
+          "pnl": 0.0186,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210926,
+          "side": "SHORT",
+          "entry": 0.16737,
+          "exit": 0.167453685,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210986,
+          "side": "LONG",
+          "entry": 0.16755,
+          "exit": 0.16746622500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ARB-USDT|scalp_triple": {
+      "n": 7,
+      "wins": 3,
+      "wr": 42.9,
+      "pnl": -0.25,
+      "trades": [
+        {
+          "ts": 1793210661,
+          "side": "LONG",
+          "entry": 0.16877,
+          "exit": 0.168685615,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210728,
+          "side": "SHORT",
+          "entry": 0.16804,
+          "exit": 0.16787196,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210788,
+          "side": "LONG",
+          "entry": 0.16771,
+          "exit": 0.167626145,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210911,
+          "side": "SHORT",
+          "entry": 0.16747,
+          "exit": 0.167553735,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210983,
+          "side": "LONG",
+          "entry": 0.16753,
+          "exit": 0.16744623500000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_obi_long": {
+      "n": 10,
+      "wins": 2,
+      "wr": 20.0,
+      "pnl": -0.92,
+      "trades": [
+        {
+          "ts": 1793210728,
+          "side": "LONG",
+          "entry": 8.891,
+          "exit": 8.8865545,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210797,
+          "side": "LONG",
+          "entry": 8.88,
+          "exit": 8.875560000000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210866,
+          "side": "LONG",
+          "entry": 8.873,
+          "exit": 8.8595,
+          "pnl": -0.2021,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210936,
+          "side": "LONG",
+          "entry": 8.864,
+          "exit": 8.859568000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210998,
+          "side": "LONG",
+          "entry": 8.858,
+          "exit": 8.856,
+          "pnl": -0.0726,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_obi_short": {
+      "n": 8,
+      "wins": 4,
+      "wr": 50.0,
+      "pnl": -0.04,
+      "trades": [
+        {
+          "ts": 1793210579,
+          "side": "SHORT",
+          "entry": 8.903,
+          "exit": 8.9074515,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210654,
+          "side": "SHORT",
+          "entry": 8.914,
+          "exit": 8.905085999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210714,
+          "side": "SHORT",
+          "entry": 8.89,
+          "exit": 8.881110000000001,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210813,
+          "side": "SHORT",
+          "entry": 8.884,
+          "exit": 8.875116,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210884,
+          "side": "SHORT",
+          "entry": 8.865,
+          "exit": 8.8625,
+          "pnl": -0.0218,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_obi_spread": {
+      "n": 10,
+      "wins": 3,
+      "wr": 30.0,
+      "pnl": -0.48,
+      "trades": [
+        {
+          "ts": 1793210714,
+          "side": "SHORT",
+          "entry": 8.89,
+          "exit": 8.881110000000001,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210774,
+          "side": "LONG",
+          "entry": 8.881,
+          "exit": 8.8765595,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210835,
+          "side": "LONG",
+          "entry": 8.879,
+          "exit": 8.8745605,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210895,
+          "side": "LONG",
+          "entry": 8.865,
+          "exit": 8.859,
+          "pnl": -0.1177,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210956,
+          "side": "LONG",
+          "entry": 8.86,
+          "exit": 8.859,
+          "pnl": -0.0613,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_obi_pressure": {
+      "n": 8,
+      "wins": 3,
+      "wr": 37.5,
+      "pnl": -0.24,
+      "trades": [
+        {
+          "ts": 1793210710,
+          "side": "SHORT",
+          "entry": 8.888,
+          "exit": 8.879112,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210784,
+          "side": "SHORT",
+          "entry": 8.877,
+          "exit": 8.8814385,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210846,
+          "side": "SHORT",
+          "entry": 8.878,
+          "exit": 8.869122,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210908,
+          "side": "SHORT",
+          "entry": 8.861,
+          "exit": 8.8615,
+          "pnl": -0.0556,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210993,
+          "side": "SHORT",
+          "entry": 8.859,
+          "exit": 8.858,
+          "pnl": -0.0387,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_obi_vwap": {
+      "n": 8,
+      "wins": 2,
+      "wr": 25.0,
+      "pnl": -0.5,
+      "trades": [
+        {
+          "ts": 1793210695,
+          "side": "LONG",
+          "entry": 8.904,
+          "exit": 8.899548000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210758,
+          "side": "LONG",
+          "entry": 8.887,
+          "exit": 8.882556500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210821,
+          "side": "LONG",
+          "entry": 8.878,
+          "exit": 8.873561,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210891,
+          "side": "SHORT",
+          "entry": 8.869,
+          "exit": 8.863,
+          "pnl": 0.0177,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210998,
+          "side": "LONG",
+          "entry": 8.858,
+          "exit": 8.856,
+          "pnl": -0.0726,
+          "reason": "SL"
+        }
+      ]
+    },
+    "AVAX-USDT|scalp_pressure_only": {
+      "n": 0,
+      "wins": 0,
+      "wr": 0,
+      "pnl": 0,
+      "trades": []
+    },
+    "AVAX-USDT|scalp_triple": {
+      "n": 6,
+      "wins": 4,
+      "wr": 66.7,
+      "pnl": -0.03,
+      "trades": [
+        {
+          "ts": 1793210579,
+          "side": "SHORT",
+          "entry": 8.903,
+          "exit": 8.9074515,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210663,
+          "side": "LONG",
+          "entry": 8.909,
+          "exit": 8.904545500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210731,
+          "side": "SHORT",
+          "entry": 8.889,
+          "exit": 8.880111,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210805,
+          "side": "SHORT",
+          "entry": 8.88,
+          "exit": 8.871120000000001,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210891,
+          "side": "SHORT",
+          "entry": 8.869,
+          "exit": 8.863,
+          "pnl": 0.0177,
+          "reason": "TP"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_obi_long": {
+      "n": 9,
+      "wins": 1,
+      "wr": 11.1,
+      "pnl": -0.71,
+      "trades": [
+        {
+          "ts": 1793210672,
+          "side": "LONG",
+          "entry": 81054.1,
+          "exit": 81013.57295000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210749,
+          "side": "LONG",
+          "entry": 80943.8,
+          "exit": 80903.32810000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210815,
+          "side": "LONG",
+          "entry": 80914.9,
+          "exit": 80874.44254999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210887,
+          "side": "LONG",
+          "entry": 80786.4,
+          "exit": 80787.65,
+          "pnl": -0.0485,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210952,
+          "side": "LONG",
+          "entry": 80786.5,
+          "exit": 80783.05,
+          "pnl": -0.0543,
+          "reason": "SL"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_obi_short": {
+      "n": 10,
+      "wins": 7,
+      "wr": 70.0,
+      "pnl": 0.32,
+      "trades": [
+        {
+          "ts": 1793210735,
+          "side": "SHORT",
+          "entry": 80981.9,
+          "exit": 80900.9181,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210796,
+          "side": "SHORT",
+          "entry": 80913.4,
+          "exit": 80832.48659999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210857,
+          "side": "SHORT",
+          "entry": 80846.1,
+          "exit": 80789.65,
+          "pnl": 0.0198,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210921,
+          "side": "SHORT",
+          "entry": 80791.3,
+          "exit": 80799.85,
+          "pnl": -0.0606,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210981,
+          "side": "SHORT",
+          "entry": 80799.8,
+          "exit": 80774.85,
+          "pnl": -0.0191,
+          "reason": "SL"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -1.03,
+      "trades": [
+        {
+          "ts": 1793210754,
+          "side": "SHORT",
+          "entry": 80926.2,
+          "exit": 80914.85,
+          "pnl": -0.036,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210815,
+          "side": "LONG",
+          "entry": 80914.9,
+          "exit": 80874.44254999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210875,
+          "side": "SHORT",
+          "entry": 80817.6,
+          "exit": 80816.55,
+          "pnl": -0.0487,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210935,
+          "side": "LONG",
+          "entry": 80816.6,
+          "exit": 80776.19170000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210997,
+          "side": "LONG",
+          "entry": 80778.7,
+          "exit": 80750.05,
+          "pnl": -0.0855,
+          "reason": "SL"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 3,
+      "wr": 33.3,
+      "pnl": -0.58,
+      "trades": [
+        {
+          "ts": 1793210706,
+          "side": "LONG",
+          "entry": 80977.4,
+          "exit": 80936.91129999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210788,
+          "side": "LONG",
+          "entry": 80890.8,
+          "exit": 80850.3546,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210849,
+          "side": "SHORT",
+          "entry": 80871.7,
+          "exit": 80790.8283,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210911,
+          "side": "SHORT",
+          "entry": 80794.5,
+          "exit": 80785.55,
+          "pnl": -0.0389,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210974,
+          "side": "LONG",
+          "entry": 80789.6,
+          "exit": 80776.95,
+          "pnl": -0.0657,
+          "reason": "SL"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_obi_vwap": {
+      "n": 8,
+      "wins": 1,
+      "wr": 12.5,
+      "pnl": -0.54,
+      "trades": [
+        {
+          "ts": 1793210694,
+          "side": "LONG",
+          "entry": 81013.0,
+          "exit": 80972.49350000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210765,
+          "side": "LONG",
+          "entry": 80934.3,
+          "exit": 80893.83285,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210827,
+          "side": "LONG",
+          "entry": 80889.7,
+          "exit": 80849.25515,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210887,
+          "side": "LONG",
+          "entry": 80786.4,
+          "exit": 80787.65,
+          "pnl": -0.0485,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210949,
+          "side": "SHORT",
+          "entry": 80786.4,
+          "exit": 80781.25,
+          "pnl": -0.0436,
+          "reason": "SL"
+        }
+      ]
+    },
+    "BTC-USDT|scalp_pressure_only": {
+      "n": 0,
+      "wins": 0,
+      "wr": 0,
+      "pnl": 0,
+      "trades": []
+    },
+    "BTC-USDT|scalp_triple": {
+      "n": 7,
+      "wins": 1,
+      "wr": 14.3,
+      "pnl": -0.41,
+      "trades": [
+        {
+          "ts": 1793210664,
+          "side": "LONG",
+          "entry": 81050.2,
+          "exit": 81009.6749,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210724,
+          "side": "LONG",
+          "entry": 80969.6,
+          "exit": 80929.11520000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210788,
+          "side": "LONG",
+          "entry": 80890.8,
+          "exit": 80850.3546,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210892,
+          "side": "SHORT",
+          "entry": 80810.3,
+          "exit": 80786.45,
+          "pnl": -0.0205,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210961,
+          "side": "LONG",
+          "entry": 80773.1,
+          "exit": 80783.05,
+          "pnl": -0.0377,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_obi_long": {
+      "n": 4,
+      "wins": 1,
+      "wr": 25.0,
+      "pnl": -0.5,
+      "trades": [
+        {
+          "ts": 1793210393,
+          "side": "LONG",
+          "entry": 0.07923,
+          "exit": 0.079190385,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210460,
+          "side": "LONG",
+          "entry": 0.0795,
+          "exit": 0.07926,
+          "pnl": -0.3519,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210530,
+          "side": "LONG",
+          "entry": 0.07927,
+          "exit": 0.07934926999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210655,
+          "side": "LONG",
+          "entry": 0.0797,
+          "exit": 0.07966015,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_obi_short": {
+      "n": 9,
+      "wins": 5,
+      "wr": 55.6,
+      "pnl": -0.41,
+      "trades": [
+        {
+          "ts": 1793210722,
+          "side": "SHORT",
+          "entry": 0.07941,
+          "exit": 0.079449705,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210797,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210858,
+          "side": "SHORT",
+          "entry": 0.07928,
+          "exit": 0.07920072,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210925,
+          "side": "SHORT",
+          "entry": 0.07919,
+          "exit": 0.07922959499999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210992,
+          "side": "SHORT",
+          "entry": 0.07917,
+          "exit": 0.079125,
+          "pnl": 0.0068,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_obi_spread": {
+      "n": 10,
+      "wins": 6,
+      "wr": 60.0,
+      "pnl": -0.43,
+      "trades": [
+        {
+          "ts": 1793210722,
+          "side": "SHORT",
+          "entry": 0.07941,
+          "exit": 0.079449705,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210797,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210858,
+          "side": "SHORT",
+          "entry": 0.07928,
+          "exit": 0.07920072,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210925,
+          "side": "SHORT",
+          "entry": 0.07919,
+          "exit": 0.07922959499999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210992,
+          "side": "SHORT",
+          "entry": 0.07917,
+          "exit": 0.079125,
+          "pnl": 0.0068,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 5,
+      "wr": 55.6,
+      "pnl": -0.41,
+      "trades": [
+        {
+          "ts": 1793210706,
+          "side": "SHORT",
+          "entry": 0.07941,
+          "exit": 0.079449705,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210778,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210840,
+          "side": "SHORT",
+          "entry": 0.07931,
+          "exit": 0.07923069,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210901,
+          "side": "SHORT",
+          "entry": 0.07921,
+          "exit": 0.079195,
+          "pnl": -0.0311,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210991,
+          "side": "SHORT",
+          "entry": 0.07918,
+          "exit": 0.07913500000000001,
+          "pnl": 0.0068,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_obi_vwap": {
+      "n": 7,
+      "wins": 4,
+      "wr": 57.1,
+      "pnl": 0.4,
+      "trades": [
+        {
+          "ts": 1793210628,
+          "side": "SHORT",
+          "entry": 0.07965,
+          "exit": 0.07957035,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210691,
+          "side": "SHORT",
+          "entry": 0.07957,
+          "exit": 0.07949043,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210806,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210893,
+          "side": "LONG",
+          "entry": 0.07925,
+          "exit": 0.07921500000000001,
+          "pnl": -0.0942,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210954,
+          "side": "LONG",
+          "entry": 0.07922,
+          "exit": 0.07918039,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_pressure_only": {
+      "n": 10,
+      "wins": 5,
+      "wr": 50.0,
+      "pnl": -0.46,
+      "trades": [
+        {
+          "ts": 1793210746,
+          "side": "SHORT",
+          "entry": 0.07941,
+          "exit": 0.07933058999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210806,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210866,
+          "side": "SHORT",
+          "entry": 0.07928,
+          "exit": 0.079205,
+          "pnl": 0.0446,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210926,
+          "side": "LONG",
+          "entry": 0.07921,
+          "exit": 0.079170395,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210986,
+          "side": "SHORT",
+          "entry": 0.07919,
+          "exit": 0.079125,
+          "pnl": 0.0321,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOGE-USDT|scalp_triple": {
+      "n": 5,
+      "wins": 2,
+      "wr": 40.0,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210428,
+          "side": "SHORT",
+          "entry": 0.07925,
+          "exit": 0.079515,
+          "pnl": -0.3844,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210593,
+          "side": "SHORT",
+          "entry": 0.07965,
+          "exit": 0.07968982499999999,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210691,
+          "side": "SHORT",
+          "entry": 0.07957,
+          "exit": 0.07949043,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210806,
+          "side": "SHORT",
+          "entry": 0.07935,
+          "exit": 0.07927065,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210911,
+          "side": "SHORT",
+          "entry": 0.07923,
+          "exit": 0.079205,
+          "pnl": -0.0184,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_obi_long": {
+      "n": 9,
+      "wins": 4,
+      "wr": 44.4,
+      "pnl": 0.41,
+      "trades": [
+        {
+          "ts": 1793210650,
+          "side": "LONG",
+          "entry": 1.0079,
+          "exit": 1.00739605,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210715,
+          "side": "LONG",
+          "entry": 1.0014,
+          "exit": 1.0008993000000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210846,
+          "side": "LONG",
+          "entry": 0.9994,
+          "exit": 0.9989003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210922,
+          "side": "LONG",
+          "entry": 0.9983,
+          "exit": 0.9992982999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210983,
+          "side": "LONG",
+          "entry": 1.0004,
+          "exit": 0.9998998,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_obi_short": {
+      "n": 9,
+      "wins": 4,
+      "wr": 44.4,
+      "pnl": -0.77,
+      "trades": [
+        {
+          "ts": 1793210710,
+          "side": "SHORT",
+          "entry": 1.0013,
+          "exit": 1.0002987,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210772,
+          "side": "SHORT",
+          "entry": 0.9997,
+          "exit": 1.00019985,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210848,
+          "side": "SHORT",
+          "entry": 0.9994,
+          "exit": 0.9984006,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210910,
+          "side": "SHORT",
+          "entry": 0.9986,
+          "exit": 0.9990993,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210988,
+          "side": "SHORT",
+          "entry": 1.0006,
+          "exit": 0.9995993999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 4,
+      "wr": 36.4,
+      "pnl": -0.42,
+      "trades": [
+        {
+          "ts": 1793210750,
+          "side": "LONG",
+          "entry": 1.0006,
+          "exit": 1.0000997,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210810,
+          "side": "SHORT",
+          "entry": 0.9998,
+          "exit": 0.9988002,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210872,
+          "side": "LONG",
+          "entry": 0.9987,
+          "exit": 0.99885,
+          "pnl": -0.035,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210937,
+          "side": "SHORT",
+          "entry": 0.999,
+          "exit": 0.9994995,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210997,
+          "side": "LONG",
+          "entry": 1.0,
+          "exit": 0.9995,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 5,
+      "wr": 55.6,
+      "pnl": 0.04,
+      "trades": [
+        {
+          "ts": 1793210689,
+          "side": "SHORT",
+          "entry": 1.0055,
+          "exit": 1.0044945,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210751,
+          "side": "SHORT",
+          "entry": 1.0002,
+          "exit": 0.9991998,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210821,
+          "side": "SHORT",
+          "entry": 0.9995,
+          "exit": 0.9985005,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210885,
+          "side": "SHORT",
+          "entry": 0.9981,
+          "exit": 0.99985,
+          "pnl": -0.2253,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210957,
+          "side": "LONG",
+          "entry": 1.0001,
+          "exit": 0.99959995,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_obi_vwap": {
+      "n": 7,
+      "wins": 4,
+      "wr": 57.1,
+      "pnl": 0.31,
+      "trades": [
+        {
+          "ts": 1793210629,
+          "side": "SHORT",
+          "entry": 1.0064,
+          "exit": 1.0053935999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210694,
+          "side": "LONG",
+          "entry": 1.0054,
+          "exit": 1.0048973,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210807,
+          "side": "SHORT",
+          "entry": 1.0003,
+          "exit": 0.9992997,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210867,
+          "side": "LONG",
+          "entry": 0.999,
+          "exit": 0.9985005,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210971,
+          "side": "SHORT",
+          "entry": 1.0004,
+          "exit": 0.9993995999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_pressure_only": {
+      "n": 7,
+      "wins": 3,
+      "wr": 42.9,
+      "pnl": 0.06,
+      "trades": [
+        {
+          "ts": 1793210583,
+          "side": "LONG",
+          "entry": 1.0048,
+          "exit": 1.0058047999999997,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210643,
+          "side": "SHORT",
+          "entry": 1.0069,
+          "exit": 1.00105,
+          "pnl": 0.531,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210823,
+          "side": "LONG",
+          "entry": 0.9996,
+          "exit": 0.9991002000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210884,
+          "side": "SHORT",
+          "entry": 0.9981,
+          "exit": 0.99985,
+          "pnl": -0.2253,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210954,
+          "side": "LONG",
+          "entry": 1.0,
+          "exit": 0.9995,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "DOT-USDT|scalp_triple": {
+      "n": 7,
+      "wins": 4,
+      "wr": 57.1,
+      "pnl": 0.31,
+      "trades": [
+        {
+          "ts": 1793210629,
+          "side": "SHORT",
+          "entry": 1.0064,
+          "exit": 1.0053935999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210695,
+          "side": "SHORT",
+          "entry": 1.0062,
+          "exit": 1.0051938,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210827,
+          "side": "LONG",
+          "entry": 0.9995,
+          "exit": 0.9990002500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210910,
+          "side": "SHORT",
+          "entry": 0.9986,
+          "exit": 0.9990993,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210988,
+          "side": "SHORT",
+          "entry": 1.0006,
+          "exit": 0.9995993999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_obi_long": {
+      "n": 9,
+      "wins": 1,
+      "wr": 11.1,
+      "pnl": -1.04,
+      "trades": [
+        {
+          "ts": 1793210675,
+          "side": "LONG",
+          "entry": 2351.74,
+          "exit": 2350.5641299999997,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210750,
+          "side": "LONG",
+          "entry": 2348.59,
+          "exit": 2347.4157050000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210823,
+          "side": "LONG",
+          "entry": 2346.82,
+          "exit": 2345.6465900000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210887,
+          "side": "LONG",
+          "entry": 2342.9,
+          "exit": 2341.9849999999997,
+          "pnl": -0.0891,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210969,
+          "side": "LONG",
+          "entry": 2342.05,
+          "exit": 2342.495,
+          "pnl": -0.031,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_obi_short": {
+      "n": 10,
+      "wins": 4,
+      "wr": 40.0,
+      "pnl": -0.2,
+      "trades": [
+        {
+          "ts": 1793210707,
+          "side": "SHORT",
+          "entry": 2349.6,
+          "exit": 2350.7747999999997,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210767,
+          "side": "SHORT",
+          "entry": 2347.8,
+          "exit": 2345.4522,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210837,
+          "side": "SHORT",
+          "entry": 2346.49,
+          "exit": 2344.14351,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210898,
+          "side": "SHORT",
+          "entry": 2342.59,
+          "exit": 2341.495,
+          "pnl": -0.0033,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210962,
+          "side": "SHORT",
+          "entry": 2341.59,
+          "exit": 2342.760795,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 6,
+      "wr": 54.5,
+      "pnl": -0.0,
+      "trades": [
+        {
+          "ts": 1793210748,
+          "side": "SHORT",
+          "entry": 2348.41,
+          "exit": 2347.185,
+          "pnl": 0.0022,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210808,
+          "side": "SHORT",
+          "entry": 2347.24,
+          "exit": 2344.8927599999997,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210869,
+          "side": "SHORT",
+          "entry": 2344.44,
+          "exit": 2342.285,
+          "pnl": 0.0419,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210929,
+          "side": "LONG",
+          "entry": 2341.74,
+          "exit": 2342.6949999999997,
+          "pnl": -0.0092,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210989,
+          "side": "SHORT",
+          "entry": 2342.96,
+          "exit": 2342.005,
+          "pnl": -0.0092,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_obi_pressure": {
+      "n": 10,
+      "wins": 5,
+      "wr": 50.0,
+      "pnl": -0.17,
+      "trades": [
+        {
+          "ts": 1793210750,
+          "side": "LONG",
+          "entry": 2348.59,
+          "exit": 2347.4157050000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210810,
+          "side": "SHORT",
+          "entry": 2347.18,
+          "exit": 2344.8328199999996,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210871,
+          "side": "SHORT",
+          "entry": 2344.18,
+          "exit": 2342.615,
+          "pnl": 0.0168,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210948,
+          "side": "SHORT",
+          "entry": 2341.98,
+          "exit": 2343.15099,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793211008,
+          "side": "LONG",
+          "entry": 2341.79,
+          "exit": 2341.295,
+          "pnl": -0.0711,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_obi_vwap": {
+      "n": 10,
+      "wins": 2,
+      "wr": 20.0,
+      "pnl": -0.54,
+      "trades": [
+        {
+          "ts": 1793210770,
+          "side": "LONG",
+          "entry": 2347.36,
+          "exit": 2346.1863200000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210830,
+          "side": "LONG",
+          "entry": 2346.75,
+          "exit": 2345.576625,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210893,
+          "side": "LONG",
+          "entry": 2343.18,
+          "exit": 2342.00841,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210953,
+          "side": "SHORT",
+          "entry": 2342.19,
+          "exit": 2343.3610949999998,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793211015,
+          "side": "SHORT",
+          "entry": 2342.44,
+          "exit": 2342.255,
+          "pnl": -0.0421,
+          "reason": "SL"
+        }
+      ]
+    },
+    "ETH-USDT|scalp_pressure_only": {
+      "n": 0,
+      "wins": 0,
+      "wr": 0,
+      "pnl": 0,
+      "trades": []
+    },
+    "ETH-USDT|scalp_triple": {
+      "n": 7,
+      "wins": 2,
+      "wr": 28.6,
+      "pnl": -0.3,
+      "trades": [
+        {
+          "ts": 1793210686,
+          "side": "SHORT",
+          "entry": 2351.71,
+          "exit": 2349.35829,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210750,
+          "side": "LONG",
+          "entry": 2348.59,
+          "exit": 2347.4157050000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210813,
+          "side": "SHORT",
+          "entry": 2348.19,
+          "exit": 2345.84181,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210909,
+          "side": "SHORT",
+          "entry": 2342.82,
+          "exit": 2341.9449999999997,
+          "pnl": -0.0127,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210996,
+          "side": "LONG",
+          "entry": 2341.92,
+          "exit": 2341.085,
+          "pnl": -0.0857,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_obi_long": {
+      "n": 11,
+      "wins": 3,
+      "wr": 27.3,
+      "pnl": -0.46,
+      "trades": [
+        {
+          "ts": 1793210768,
+          "side": "LONG",
+          "entry": 11.592,
+          "exit": 11.586204,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210828,
+          "side": "LONG",
+          "entry": 11.595,
+          "exit": 11.5892025,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210889,
+          "side": "LONG",
+          "entry": 11.576,
+          "exit": 11.57,
+          "pnl": -0.1018,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210949,
+          "side": "LONG",
+          "entry": 11.571,
+          "exit": 11.5652145,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793211009,
+          "side": "LONG",
+          "entry": 11.563,
+          "exit": 11.557218500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_obi_short": {
+      "n": 10,
+      "wins": 6,
+      "wr": 60.0,
+      "pnl": -0.51,
+      "trades": [
+        {
+          "ts": 1793210731,
+          "side": "SHORT",
+          "entry": 11.606,
+          "exit": 11.594394,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210804,
+          "side": "SHORT",
+          "entry": 11.593,
+          "exit": 11.581407,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210867,
+          "side": "SHORT",
+          "entry": 11.581,
+          "exit": 11.5685,
+          "pnl": 0.0579,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210932,
+          "side": "SHORT",
+          "entry": 11.575,
+          "exit": 11.563424999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210992,
+          "side": "SHORT",
+          "entry": 11.563,
+          "exit": 11.5595,
+          "pnl": -0.0197,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 5,
+      "wr": 45.5,
+      "pnl": -0.25,
+      "trades": [
+        {
+          "ts": 1793210745,
+          "side": "LONG",
+          "entry": 11.609,
+          "exit": 11.6031955,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210805,
+          "side": "LONG",
+          "entry": 11.597,
+          "exit": 11.5912015,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210865,
+          "side": "LONG",
+          "entry": 11.586,
+          "exit": 11.580207000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210926,
+          "side": "SHORT",
+          "entry": 11.567,
+          "exit": 11.5715,
+          "pnl": -0.0889,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210987,
+          "side": "LONG",
+          "entry": 11.572,
+          "exit": 11.566214,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 3,
+      "wr": 33.3,
+      "pnl": -0.59,
+      "trades": [
+        {
+          "ts": 1793210710,
+          "side": "LONG",
+          "entry": 11.607,
+          "exit": 11.6011965,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210797,
+          "side": "LONG",
+          "entry": 11.596,
+          "exit": 11.590202000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210861,
+          "side": "SHORT",
+          "entry": 11.586,
+          "exit": 11.574414,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210921,
+          "side": "LONG",
+          "entry": 11.571,
+          "exit": 11.5655,
+          "pnl": -0.0975,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210981,
+          "side": "LONG",
+          "entry": 11.566,
+          "exit": 11.560217000000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_obi_vwap": {
+      "n": 9,
+      "wins": 3,
+      "wr": 33.3,
+      "pnl": -0.8,
+      "trades": [
+        {
+          "ts": 1793210689,
+          "side": "SHORT",
+          "entry": 11.615,
+          "exit": 11.603385,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210758,
+          "side": "LONG",
+          "entry": 11.602,
+          "exit": 11.596199,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210819,
+          "side": "LONG",
+          "entry": 11.594,
+          "exit": 11.588203,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210882,
+          "side": "LONG",
+          "entry": 11.569,
+          "exit": 11.571,
+          "pnl": -0.0327,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210970,
+          "side": "LONG",
+          "entry": 11.567,
+          "exit": 11.5612165,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "LINK-USDT|scalp_pressure_only": {
+      "n": 0,
+      "wins": 0,
+      "wr": 0,
+      "pnl": 0,
+      "trades": []
+    },
+    "LINK-USDT|scalp_triple": {
+      "n": 6,
+      "wins": 2,
+      "wr": 33.3,
+      "pnl": -0.3,
+      "trades": [
+        {
+          "ts": 1793210581,
+          "side": "SHORT",
+          "entry": 11.628,
+          "exit": 11.633814,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210665,
+          "side": "LONG",
+          "entry": 11.627,
+          "exit": 11.621186500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210736,
+          "side": "SHORT",
+          "entry": 11.607,
+          "exit": 11.595393,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210797,
+          "side": "LONG",
+          "entry": 11.596,
+          "exit": 11.590202000000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210970,
+          "side": "LONG",
+          "entry": 11.567,
+          "exit": 11.5612165,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_obi_long": {
+      "n": 7,
+      "wins": 2,
+      "wr": 28.6,
+      "pnl": -0.26,
+      "trades": [
+        {
+          "ts": 1793210546,
+          "side": "LONG",
+          "entry": 101.86,
+          "exit": 101.96185999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210606,
+          "side": "LONG",
+          "entry": 102.18,
+          "exit": 102.12891000000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210756,
+          "side": "LONG",
+          "entry": 101.91,
+          "exit": 101.85904500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210818,
+          "side": "LONG",
+          "entry": 101.83,
+          "exit": 101.77908500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210889,
+          "side": "LONG",
+          "entry": 101.65,
+          "exit": 101.59917500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_obi_short": {
+      "n": 8,
+      "wins": 7,
+      "wr": 87.5,
+      "pnl": 0.35,
+      "trades": [
+        {
+          "ts": 1793210694,
+          "side": "SHORT",
+          "entry": 102.01,
+          "exit": 101.90799,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210769,
+          "side": "SHORT",
+          "entry": 101.88,
+          "exit": 101.77812,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210836,
+          "side": "SHORT",
+          "entry": 101.77,
+          "exit": 101.66823,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210896,
+          "side": "SHORT",
+          "entry": 101.61,
+          "exit": 101.50839,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210994,
+          "side": "SHORT",
+          "entry": 101.46,
+          "exit": 101.38499999999999,
+          "pnl": 0.0239,
+          "reason": "TP"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_obi_spread": {
+      "n": 9,
+      "wins": 2,
+      "wr": 22.2,
+      "pnl": -0.53,
+      "trades": [
+        {
+          "ts": 1793210644,
+          "side": "LONG",
+          "entry": 102.21,
+          "exit": 102.158895,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210756,
+          "side": "LONG",
+          "entry": 101.91,
+          "exit": 101.85904500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210818,
+          "side": "LONG",
+          "entry": 101.83,
+          "exit": 101.77908500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210878,
+          "side": "SHORT",
+          "entry": 101.63,
+          "exit": 101.61500000000001,
+          "pnl": -0.0352,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210994,
+          "side": "SHORT",
+          "entry": 101.46,
+          "exit": 101.38499999999999,
+          "pnl": 0.0239,
+          "reason": "TP"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_obi_pressure": {
+      "n": 8,
+      "wins": 3,
+      "wr": 37.5,
+      "pnl": -0.38,
+      "trades": [
+        {
+          "ts": 1793210712,
+          "side": "LONG",
+          "entry": 101.96,
+          "exit": 101.90902,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210774,
+          "side": "LONG",
+          "entry": 101.88,
+          "exit": 101.82906,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210835,
+          "side": "SHORT",
+          "entry": 101.77,
+          "exit": 101.66823,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210909,
+          "side": "LONG",
+          "entry": 101.63,
+          "exit": 101.579185,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210994,
+          "side": "SHORT",
+          "entry": 101.46,
+          "exit": 101.38499999999999,
+          "pnl": 0.0239,
+          "reason": "TP"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_obi_vwap": {
+      "n": 3,
+      "wins": 1,
+      "wr": 33.3,
+      "pnl": -0.4,
+      "trades": [
+        {
+          "ts": 1793210577,
+          "side": "LONG",
+          "entry": 102.11,
+          "exit": 102.21210999999998,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210642,
+          "side": "LONG",
+          "entry": 102.19,
+          "exit": 101.88499999999999,
+          "pnl": -0.3485,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210748,
+          "side": "LONG",
+          "entry": 101.89,
+          "exit": 101.839055,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_pressure_only": {
+      "n": 4,
+      "wins": 3,
+      "wr": 75.0,
+      "pnl": 0.16,
+      "trades": [
+        {
+          "ts": 1793210400,
+          "side": "SHORT",
+          "entry": 101.66,
+          "exit": 101.55834,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210460,
+          "side": "SHORT",
+          "entry": 101.95,
+          "exit": 101.74000000000001,
+          "pnl": 0.156,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210595,
+          "side": "LONG",
+          "entry": 102.19,
+          "exit": 102.13890500000001,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210809,
+          "side": "SHORT",
+          "entry": 101.81,
+          "exit": 101.70819,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "SOL-USDT|scalp_triple": {
+      "n": 2,
+      "wins": 0,
+      "wr": 0.0,
+      "pnl": -0.45,
+      "trades": [
+        {
+          "ts": 1793210642,
+          "side": "LONG",
+          "entry": 102.19,
+          "exit": 101.88499999999999,
+          "pnl": -0.3485,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210748,
+          "side": "LONG",
+          "entry": 101.89,
+          "exit": 101.839055,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_obi_long": {
+      "n": 8,
+      "wins": 3,
+      "wr": 37.5,
+      "pnl": 0.01,
+      "trades": [
+        {
+          "ts": 1793210612,
+          "side": "LONG",
+          "entry": 1.3266,
+          "exit": 1.3259367,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210682,
+          "side": "LONG",
+          "entry": 1.325,
+          "exit": 1.3243375,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210752,
+          "side": "LONG",
+          "entry": 1.3222,
+          "exit": 1.3215389000000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210883,
+          "side": "LONG",
+          "entry": 1.3191,
+          "exit": 1.3202500000000001,
+          "pnl": 0.0372,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210948,
+          "side": "LONG",
+          "entry": 1.3203,
+          "exit": 1.3196398500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_obi_short": {
+      "n": 9,
+      "wins": 7,
+      "wr": 77.8,
+      "pnl": 0.11,
+      "trades": [
+        {
+          "ts": 1793210646,
+          "side": "SHORT",
+          "entry": 1.3263,
+          "exit": 1.3249737000000001,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210725,
+          "side": "SHORT",
+          "entry": 1.323,
+          "exit": 1.321677,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210785,
+          "side": "SHORT",
+          "entry": 1.3214,
+          "exit": 1.3200786,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210849,
+          "side": "SHORT",
+          "entry": 1.3207,
+          "exit": 1.3193793,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210972,
+          "side": "SHORT",
+          "entry": 1.3201,
+          "exit": 1.3187799,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_obi_spread": {
+      "n": 11,
+      "wins": 3,
+      "wr": 27.3,
+      "pnl": -0.47,
+      "trades": [
+        {
+          "ts": 1793210740,
+          "side": "LONG",
+          "entry": 1.3234,
+          "exit": 1.3227383,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210805,
+          "side": "LONG",
+          "entry": 1.3215,
+          "exit": 1.32083925,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210869,
+          "side": "SHORT",
+          "entry": 1.32,
+          "exit": 1.3194499999999998,
+          "pnl": -0.0083,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210930,
+          "side": "LONG",
+          "entry": 1.3195,
+          "exit": 1.32015,
+          "pnl": -0.0007,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210994,
+          "side": "LONG",
+          "entry": 1.3198,
+          "exit": 1.3191401000000003,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_obi_pressure": {
+      "n": 9,
+      "wins": 6,
+      "wr": 66.7,
+      "pnl": -0.05,
+      "trades": [
+        {
+          "ts": 1793210740,
+          "side": "LONG",
+          "entry": 1.3234,
+          "exit": 1.3227383,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210800,
+          "side": "SHORT",
+          "entry": 1.3211,
+          "exit": 1.3197789,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210860,
+          "side": "SHORT",
+          "entry": 1.3201,
+          "exit": 1.3192499999999998,
+          "pnl": 0.0144,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210920,
+          "side": "LONG",
+          "entry": 1.3196,
+          "exit": 1.3204500000000001,
+          "pnl": 0.0144,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210981,
+          "side": "SHORT",
+          "entry": 1.3204,
+          "exit": 1.3190796,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_obi_vwap": {
+      "n": 9,
+      "wins": 4,
+      "wr": 44.4,
+      "pnl": -0.26,
+      "trades": [
+        {
+          "ts": 1793210705,
+          "side": "LONG",
+          "entry": 1.3231,
+          "exit": 1.32243845,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210788,
+          "side": "LONG",
+          "entry": 1.3212,
+          "exit": 1.3205394,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210883,
+          "side": "LONG",
+          "entry": 1.3191,
+          "exit": 1.3202500000000001,
+          "pnl": 0.0372,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210949,
+          "side": "LONG",
+          "entry": 1.3202,
+          "exit": 1.3195399,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793211009,
+          "side": "LONG",
+          "entry": 1.3197,
+          "exit": 1.3190401500000002,
+          "pnl": -0.1,
+          "reason": "SL"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_pressure_only": {
+      "n": 10,
+      "wins": 3,
+      "wr": 30.0,
+      "pnl": -0.39,
+      "trades": [
+        {
+          "ts": 1793210764,
+          "side": "SHORT",
+          "entry": 1.3219,
+          "exit": 1.3205781,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210824,
+          "side": "SHORT",
+          "entry": 1.3211,
+          "exit": 1.3197789,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210884,
+          "side": "SHORT",
+          "entry": 1.319,
+          "exit": 1.3202500000000001,
+          "pnl": -0.1448,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210948,
+          "side": "SHORT",
+          "entry": 1.3202,
+          "exit": 1.3196500000000002,
+          "pnl": -0.0083,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793211008,
+          "side": "SHORT",
+          "entry": 1.3193,
+          "exit": 1.3186499999999999,
+          "pnl": -0.0007,
+          "reason": "SL"
+        }
+      ]
+    },
+    "XRP-USDT|scalp_triple": {
+      "n": 5,
+      "wins": 3,
+      "wr": 60.0,
+      "pnl": -0.05,
+      "trades": [
+        {
+          "ts": 1793210396,
+          "side": "SHORT",
+          "entry": 1.3174,
+          "exit": 1.3160825999999999,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210680,
+          "side": "LONG",
+          "entry": 1.325,
+          "exit": 1.3243375,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210740,
+          "side": "LONG",
+          "entry": 1.3234,
+          "exit": 1.3227383,
+          "pnl": -0.1,
+          "reason": "SL"
+        },
+        {
+          "ts": 1793210807,
+          "side": "SHORT",
+          "entry": 1.3214,
+          "exit": 1.3200786,
+          "pnl": 0.05,
+          "reason": "TP"
+        },
+        {
+          "ts": 1793210972,
+          "side": "SHORT",
+          "entry": 1.3201,
+          "exit": 1.3187799,
+          "pnl": 0.05,
+          "reason": "TP"
+        }
+      ]
+    }
+  }
+}

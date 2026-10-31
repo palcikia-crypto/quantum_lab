@@ -1,0 +1,19 @@
+===== ПАТЧ grail_optimizer_full.py (полный) =====
+✅ изменения: n>=300, OOS always (n_o>=20, PnL>=0.01), by_regime walk-forward, trend_filter
+✅ синтаксис OK
+
+===== ПРОВЕРКА: ключевые строки =====
+140:                    if wf['test']['n'] < 300: continue
+
+===== ПЕРЕЗАПУСК ОПТИМИЗАТОРА (с полным патчем) =====
+  optimizer PID: 6999
+[03:59:28] [full] === GRAIL OPTIMIZER FULL ===
+[03:59:28] [full] Граалей: 16
+[03:59:28] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== ИТОГ =====
+  ✅ n>=300 (OOS-проверка всегда сработает)
+  ✅ OOS: reject если WR<60 или PnL<0.01 или n_o<20
+  ✅ by_regime: walk-forward 70/30 (не in-sample)
+  ✅ trend_filter: не SHORT против trend_up, не LONG против trend_down
+  ⏳ optimizer работает (~40 минут, т.к. n>=300 — меньше пар)

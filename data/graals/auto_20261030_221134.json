@@ -1,0 +1,97 @@
+{
+  "updated_at": "2026-10-30T22:11:34.156944",
+  "source": "auto_evolve",
+  "stable_count": 15,
+  "stable": [
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 4.399999999999994,
+      "avg_wr": 85.20408163265306
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 4.2601776203680215,
+      "avg_wr": 82.63888888888889
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.6130703878198522,
+      "avg_wr": 69.30474754004166
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.387019769375241,
+      "avg_wr": 77.66349836856291
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.270406833067928,
+      "avg_wr": 66.75236303168214
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 3.148979424163773,
+      "avg_wr": 68.29215399610136
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_ema_7_25",
+      "min_pnl": 2.80364413616088,
+      "avg_wr": 64.02417452830188
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 2.750944365669908,
+      "avg_wr": 65.58269731644344
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 2.716002300886026,
+      "avg_wr": 75.91940859914716
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 2.423978113204029,
+      "avg_wr": 80.98765432098766
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 2.3372225103449518,
+      "avg_wr": 69.10517387616625
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_grid_sma_10",
+      "min_pnl": 1.0500000000000198,
+      "avg_wr": 73.20987654320987
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 0.7769590224149603,
+      "avg_wr": 61.97154471544715
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 0.23647054329596046,
+      "avg_wr": 57.41834661665885
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 0.14552433604325754,
+      "avg_wr": 58.02185507749582
+    }
+  ]
+}

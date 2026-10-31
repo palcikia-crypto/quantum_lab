@@ -1,0 +1,104 @@
+{
+  "updated_at": "2026-10-28T07:24:32",
+  "fee": 0.001,
+  "slip": 0.0002,
+  "bet": 100.0,
+  "timeout_sec": 900,
+  "default": {
+    "tp": 0.006,
+    "sl": 0.004
+  },
+  "per_pair_strategy": {
+    "BTC-USDT_okx_vwap_rev_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 395,
+      "winrate": 0.6759,
+      "pnl_bt": 44.72
+    },
+    "ETH-USDT_okx_vwap_rev_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 820,
+      "winrate": 0.6439,
+      "pnl_bt": 87.59
+    },
+    "SOL-USDT_okx_vwap_rev_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 1237,
+      "winrate": 0.6508,
+      "pnl_bt": 132.7
+    },
+    "DOGE-USDT_okx_vwap_rev_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 1432,
+      "winrate": 0.6187,
+      "pnl_bt": 125.5
+    },
+    "BTC-USDT_okx_vwap_rev_20": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 914,
+      "winrate": 0.5361,
+      "pnl_bt": 21.92
+    },
+    "ETH-USDT_okx_vwap_rev_20": {
+      "tp": 0.005,
+      "sl": 0.004,
+      "n": 1683,
+      "winrate": 0.5098,
+      "pnl_bt": 13.74
+    },
+    "BTC-USDT_okx_grid_sma_10": {
+      "tp": 0.006,
+      "sl": 0.003,
+      "n": 233,
+      "winrate": 0.6524,
+      "pnl_bt": 24.4
+    },
+    "ETH-USDT_okx_grid_sma_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 438,
+      "winrate": 0.7032,
+      "pnl_bt": 56.74
+    },
+    "XRP-USDT_okx_grid_sma_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 638,
+      "winrate": 0.6599,
+      "pnl_bt": 69.29
+    },
+    "SOL-USDT_okx_grid_sma_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 607,
+      "winrate": 0.6952,
+      "pnl_bt": 80.81
+    },
+    "DOGE-USDT_okx_grid_sma_10": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 685,
+      "winrate": 0.6569,
+      "pnl_bt": 72.54
+    },
+    "ETH-USDT_okx_grid_sma_20": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 1096,
+      "winrate": 0.5274,
+      "pnl_bt": 29.19
+    },
+    "XRP-USDT_okx_grid_sma_20": {
+      "tp": 0.006,
+      "sl": 0.004,
+      "n": 1367,
+      "winrate": 0.523,
+      "pnl_bt": 32.04
+    }
+  }
+}

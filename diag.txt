@@ -1,0 +1,468 @@
+########## DIAG 2026-10-28 06:20:21 ##########
+
+===== 1. FILES =====
+./agents/data_agent.py
+./agents/evolve_agent.py
+./agents/gate_agent.py
+./agents/live_agent.py
+./agents/okx_agent.py
+./agents/report_agent.py
+./agents/risk_agent.py
+./auto_scanner.py
+./backup_20261027/app.py
+./backup_20261027/evolution.py
+./backup_20261027/pm_watchdog.py
+./backup_20261027/strategy_pool_advanced.py
+./backup_L8_20261028_003752/evolution.py
+./backup_L8_20261028_003752/gate.py
+./backup_L8_20261028_003752/gate_v3.py
+./backup_evo_20261027_234053/auto_add.py
+./backup_evo_20261027_234053/genetic.py
+./backup_evo_20261027_234053/live_feedback.py
+./backup_evo_20261027_234053/ml_filter.py
+./backup_evo_20261027_234053/run_full_evolution.py
+./backup_full_20261027_233515/pm_bot_v7.py
+./backup_full_20261027_233515/pm_watchdog.py
+./backup_full_20261027_233515/run_gate_full.py
+./backup_full_20261027_233515/run_self_evolution.py
+./backup_full_20261027_233515/strategy_combinator.py
+./backup_full_20261027_233515/strategy_mutator.py
+./backup_okx_golden_20261028_035731/okx_bot.py
+./backup_okx_golden_20261028_035731/okx_downloader.py
+./backup_okx_golden_20261028_035731/okx_funding_arb.py
+./backup_okx_golden_20261028_035731/okx_gate.py
+./backup_okx_golden_20261028_035731/okx_grid.py
+./backup_okx_golden_20261028_035731/okx_mtf_trend.py
+./backup_okx_golden_20261028_035731/okx_mutator.py
+./backup_okx_golden_20261028_035731/okx_orchestrator.py
+./backup_okx_golden_20261028_035731/okx_scalper.py
+./backup_okx_golden_20261028_035731/okx_sim.py
+./backup_okx_golden_20261028_035731/okx_strategies_power.py
+./core/ai_generator.py
+./core/ai_generator_old.py
+./core/alerts.py
+./core/analytics_old.py
+./core/auto_add.py
+./core/brain.py
+./core/brain_api.py
+./core/brain_loop.py
+./core/brain_v1_backup.py
+./core/data_manager.py
+./core/evolution.py
+./core/evolution_old.py
+./core/full_access.py
+./core/gate.py
+./core/gate_v2.py
+./core/gate_v3.py
+./core/genetic.py
+./core/history_downloader.py
+./core/history_manager.py
+./core/live_feedback.py
+./core/live_monitor.py
+./core/market_regime.py
+./core/ml_filter.py
+./core/okx_bot.py
+./core/okx_bot_paper.py
+./core/okx_collector.py
+./core/okx_downloader.py
+./core/okx_funding_arb.py
+./core/okx_gate.py
+./core/okx_grid.py
+./core/okx_mtf_trend.py
+./core/okx_mutator.py
+./core/okx_orchestrator.py
+./core/okx_scalper.py
+./core/okx_sim.py
+./core/okx_strategies.py
+./core/okx_strategies_power.py
+./core/oracle.py
+./core/orchestrator.py
+./core/orchestrator_old.py
+./core/orchestrator_v2.py
+./core/orderbook_collector.py
+./core/self_organizer.py
+./core/strategy_combinator.py
+./core/strategy_mutator.py
+./core/strategy_pool.py
+./core/strategy_pool_advanced.py
+./core/validation.py
+./make_active.py
+./make_active_correct.py
+./make_active_evolution.py
+./make_active_final.py
+./make_active_merge.py
+./pm_watchdog.py
+./run_evolution.py
+./run_full_evolution.py
+./run_gate_15m.py
+./run_gate_all.py
+./run_gate_fast.py
+./run_gate_full.py
+./run_gate_mini.py
+./run_self_evolution.py
+./sequential_runner.py
+./update_active.py
+./web/app.py
+
+===== 2. SYNTAX CHECK =====
+OK  ./core/data_manager.py
+OK  ./core/strategy_pool.py
+OK  ./core/gate.py
+OK  ./core/evolution_old.py
+OK  ./core/analytics_old.py
+OK  ./core/ai_generator_old.py
+OK  ./core/orchestrator_old.py
+OK  ./core/gate_v2.py
+OK  ./core/orchestrator.py
+OK  ./core/live_monitor.py
+OK  ./core/brain.py
+OK  ./core/brain_api.py
+OK  ./core/gate_v3.py
+OK  ./core/oracle.py
+OK  ./core/market_regime.py
+OK  ./core/self_organizer.py
+OK  ./core/validation.py
+OK  ./core/brain_v1_backup.py
+OK  ./core/brain_loop.py
+OK  ./core/full_access.py
+OK  ./core/evolution.py
+OK  ./core/ai_generator.py
+OK  ./core/alerts.py
+OK  ./core/history_manager.py
+OK  ./core/strategy_pool_advanced.py
+OK  ./core/strategy_combinator.py
+OK  ./core/strategy_mutator.py
+OK  ./core/live_feedback.py
+OK  ./core/genetic.py
+OK  ./core/ml_filter.py
+OK  ./core/auto_add.py
+OK  ./core/orchestrator_v2.py
+OK  ./core/orderbook_collector.py
+OK  ./core/history_downloader.py
+OK  ./core/okx_collector.py
+OK  ./core/okx_gate.py
+OK  ./core/okx_strategies.py
+OK  ./core/okx_mutator.py
+OK  ./core/okx_orchestrator.py
+OK  ./core/okx_downloader.py
+OK  ./core/okx_strategies_power.py
+OK  ./core/okx_scalper.py
+OK  ./core/okx_sim.py
+OK  ./core/okx_bot.py
+OK  ./core/okx_grid.py
+OK  ./core/okx_funding_arb.py
+OK  ./core/okx_mtf_trend.py
+  File "./core/okx_bot_paper.py", line 99
+    elif side == 'SHORT' and price > ema200:
+    ^^^^
+SyntaxError: invalid syntax
+ERR ./core/okx_bot_paper.py
+OK  ./web/app.py
+OK  ./make_active.py
+OK  ./run_gate_fast.py
+OK  ./run_gate_mini.py
+OK  ./run_gate_15m.py
+OK  ./run_gate_all.py
+OK  ./update_active.py
+OK  ./run_evolution.py
+OK  ./run_gate_full.py
+OK  ./agents/data_agent.py
+OK  ./agents/gate_agent.py
+OK  ./agents/evolve_agent.py
+OK  ./agents/live_agent.py
+OK  ./agents/risk_agent.py
+OK  ./agents/report_agent.py
+OK  ./agents/okx_agent.py
+OK  ./make_active_evolution.py
+OK  ./make_active_final.py
+OK  ./make_active_merge.py
+OK  ./make_active_correct.py
+OK  ./auto_scanner.py
+OK  ./sequential_runner.py
+OK  ./pm_watchdog.py
+OK  ./backup_20261027/pm_watchdog.py
+OK  ./backup_20261027/strategy_pool_advanced.py
+OK  ./backup_20261027/evolution.py
+OK  ./backup_20261027/app.py
+OK  ./run_self_evolution.py
+OK  ./backup_full_20261027_233515/run_self_evolution.py
+OK  ./backup_full_20261027_233515/run_gate_full.py
+OK  ./backup_full_20261027_233515/pm_watchdog.py
+OK  ./backup_full_20261027_233515/pm_bot_v7.py
+OK  ./backup_full_20261027_233515/strategy_mutator.py
+OK  ./backup_full_20261027_233515/strategy_combinator.py
+OK  ./run_full_evolution.py
+OK  ./backup_evo_20261027_234053/live_feedback.py
+OK  ./backup_evo_20261027_234053/genetic.py
+OK  ./backup_evo_20261027_234053/ml_filter.py
+OK  ./backup_evo_20261027_234053/auto_add.py
+OK  ./backup_evo_20261027_234053/run_full_evolution.py
+OK  ./backup_L8_20261028_003752/gate.py
+OK  ./backup_L8_20261028_003752/gate_v3.py
+OK  ./backup_L8_20261028_003752/evolution.py
+OK  ./backup_okx_golden_20261028_035731/okx_downloader.py
+OK  ./backup_okx_golden_20261028_035731/okx_mutator.py
+OK  ./backup_okx_golden_20261028_035731/okx_gate.py
+OK  ./backup_okx_golden_20261028_035731/okx_scalper.py
+OK  ./backup_okx_golden_20261028_035731/okx_orchestrator.py
+OK  ./backup_okx_golden_20261028_035731/okx_bot.py
+OK  ./backup_okx_golden_20261028_035731/okx_strategies_power.py
+OK  ./backup_okx_golden_20261028_035731/okx_grid.py
+OK  ./backup_okx_golden_20261028_035731/okx_funding_arb.py
+OK  ./backup_okx_golden_20261028_035731/okx_mtf_trend.py
+OK  ./backup_okx_golden_20261028_035731/okx_sim.py
+
+===== 3. PROCESS =====
+not running
+
+===== 4. LOG (last 40) =====
+  File "/data/data/com.termux/files/home/quantum_lab/core/okx_bot_paper.py", line 99
+    elif side == 'SHORT' and price > ema200:
+    ^^^^
+SyntaxError: invalid syntax
+
+===== 5. DB SCHEMA =====
+CREATE TABLE trades (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        symbol TEXT, side TEXT, strategy TEXT,
+        entry_price REAL, exit_price REAL, pnl REAL,
+        entry_ts INTEGER, exit_ts INTEGER,
+        status TEXT DEFAULT 'OPEN', win_flag INTEGER DEFAULT 0);
+
+===== 6. DB OPEN TRADES =====
+id  symbol  side  entry_price  strategy  entry_ts  status
+--  ------  ----  -----------  --------  --------  ------
+
+===== 7. DB COUNTS BY STATUS =====
+status  n
+------  -
+
+===== 8. check_signal =====
+53:def check_signal(strat_name, symbol):
+54-    """Проверяет сигнал через стратегию из okx_mutator."""
+55-    from okx_mutator import generate_mutants
+56-    muts = generate_mutants()
+57-    if strat_name not in muts: return None
+58-    data = get_candles(symbol)
+59-    if not data: return None
+60-    o,h,l,c,v = data['o'], data['h'], data['l'], data['c'], data['v']
+61-    try:
+62-        up, dn = muts[strat_name](o,h,l,c,v,{})
+63-        if up[-1]: return 'LONG'
+64-        if dn[-1]: return 'SHORT'
+65-    except: pass
+66-    return None
+67-
+68-def close_open_trades():
+69-    """Закрывает открытые сделки через 15 мин (по текущей цене)."""
+70-    c = sqlite3.connect(DB)
+71-    rows = c.execute("SELECT id, symbol, side, entry_price, entry_ts, strategy FROM trades WHERE status='OPEN'").fetchall()
+72-    now = int(time.time())
+73-    for t_id, sym, side, ep, ets, strat in rows:
+74-        cur = get_price(sym)
+75-        if not cur: continue
+76-        move = (cur - ep) / ep if side == 'LONG' else (ep - cur) / ep
+77-        # TP/SL: закрываем при +0.5% или -0.3% или через 15 мин
+78-        if move >= 0.003 or move <= -0.002 or (now - ets) >= 900:
+79-            pnl = (move - FEE - SLIP) * BET
+80-            win = 1 if pnl > 0 else 0
+81-            c.execute("UPDATE trades SET exit_price=?, pnl=?, exit_ts=?, status='CLOSED', win_flag=? WHERE id=?",
+82-                      (cur, round(pnl,2), now, win, t_id))
+83-            log(f'  {"✅" if win else "❌"} {sym} {side} CLOSED @ {cur} PnL=${pnl:+.2f}')
+84-    c.commit(); c.close()
+85-
+86-def main():
+87-    init_db()
+88-    log('=== OKX PAPER BOT STARTED ===')
+89-    while True:
+90-        try:
+91-            close_open_trades()
+92-            active = json.load(open(ACTIVE)).get('pairs', {})
+93-            log(f'active: {len(active)} пар')
+94-            for key, cfg in active.items():
+95-                sym = cfg.get('symbol', key.split('_')[0])
+96-                strat = cfg.get('strategy', '')
+97-                side = check_signal(strat, sym)
+98-                if side:
+99-                        elif side == 'SHORT' and price > ema200:
+100-                            side = None
+101-                if not side: continue
+102-                price = get_price(sym)
+103-                if not price: continue
+104-                c = sqlite3.connect(DB)
+105-                c.execute("INSERT INTO trades (symbol, side, strategy, entry_price, entry_ts) VALUES (?,?,?,?,?)",
+106-                          (sym, side, strat, price, int(time.time())))
+107-                c.commit(); c.close()
+108-                log(f'  🎯 {sym} {side} @ {price} ({strat})')
+109-        except Exception as e:
+110-            log(f'⚠️ {e}')
+111-        time.sleep(60)
+112-
+113-if __name__ == '__main__':
+
+===== 9. get_price / get_candles =====
+31:def get_price(symbol='BTC-USDT'):
+32-    url = f'https://www.okx.com/api/v5/market/ticker?instId={symbol}'
+33-    try:
+34-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+35-        d = json.loads(urllib.request.urlopen(req, timeout=5).read())
+36-        if d.get('code') == '0' and d.get('data'):
+37-            return float(d['data'][0]['last'])
+38-    except: pass
+39-    return None
+40-
+41:def get_candles(symbol='BTC-USDT', bar='15m', limit=100):
+42-    url = f'https://www.okx.com/api/v5/market/candles?instId={symbol}&bar={bar}&limit={limit}'
+43-    try:
+44-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+45-        d = json.loads(urllib.request.urlopen(req, timeout=10).read())
+46-        if d.get('code') != '0': return None
+47-        rows = d.get('data', [])
+48-        return {'o':[float(r[1]) for r in rows], 'h':[float(r[2]) for r in rows],
+49-                'l':[float(r[3]) for r in rows], 'c':[float(r[4]) for r in rows],
+50-                'v':[float(r[5]) for r in rows]}
+51-    except: return None
+52-
+53-def check_signal(strat_name, symbol):
+54-    """Проверяет сигнал через стратегию из okx_mutator."""
+55-    from okx_mutator import generate_mutants
+56-    muts = generate_mutants()
+57-    if strat_name not in muts: return None
+58-    data = get_candles(symbol)
+59-    if not data: return None
+60-    o,h,l,c,v = data['o'], data['h'], data['l'], data['c'], data['v']
+61-    try:
+
+===== 10. close_open_trades =====
+68:def close_open_trades():
+69-    """Закрывает открытые сделки через 15 мин (по текущей цене)."""
+70-    c = sqlite3.connect(DB)
+71-    rows = c.execute("SELECT id, symbol, side, entry_price, entry_ts, strategy FROM trades WHERE status='OPEN'").fetchall()
+72-    now = int(time.time())
+73-    for t_id, sym, side, ep, ets, strat in rows:
+74-        cur = get_price(sym)
+75-        if not cur: continue
+76-        move = (cur - ep) / ep if side == 'LONG' else (ep - cur) / ep
+77-        # TP/SL: закрываем при +0.5% или -0.3% или через 15 мин
+78-        if move >= 0.003 or move <= -0.002 or (now - ets) >= 900:
+79-            pnl = (move - FEE - SLIP) * BET
+80-            win = 1 if pnl > 0 else 0
+81-            c.execute("UPDATE trades SET exit_price=?, pnl=?, exit_ts=?, status='CLOSED', win_flag=? WHERE id=?",
+82-                      (cur, round(pnl,2), now, win, t_id))
+83-            log(f'  {"✅" if win else "❌"} {sym} {side} CLOSED @ {cur} PnL=${pnl:+.2f}')
+84-    c.commit(); c.close()
+85-
+86-def main():
+87-    init_db()
+88-    log('=== OKX PAPER BOT STARTED ===')
+89-    while True:
+90-        try:
+91-            close_open_trades()
+92-            active = json.load(open(ACTIVE)).get('pairs', {})
+93-            log(f'active: {len(active)} пар')
+94-            for key, cfg in active.items():
+95-                sym = cfg.get('symbol', key.split('_')[0])
+96-                strat = cfg.get('strategy', '')
+97-                side = check_signal(strat, sym)
+98-                if side:
+99-                        elif side == 'SHORT' and price > ema200:
+100-                            side = None
+101-                if not side: continue
+102-                price = get_price(sym)
+103-                if not price: continue
+104-                c = sqlite3.connect(DB)
+105-                c.execute("INSERT INTO trades (symbol, side, strategy, entry_price, entry_ts) VALUES (?,?,?,?,?)",
+106-                          (sym, side, strat, price, int(time.time())))
+107-                c.commit(); c.close()
+108-                log(f'  🎯 {sym} {side} @ {price} ({strat})')
+109-        except Exception as e:
+110-            log(f'⚠️ {e}')
+111-        time.sleep(60)
+112-
+113-if __name__ == '__main__':
+114-    main()
+
+===== 11. TP/SL refs =====
+78:        if move >= 0.003 or move <= -0.002 or (now - ets) >= 900:
+
+===== 12. ACTIVE JSON =====
+{
+  "updated_at": "2026-10-27T16:48:57.550866",
+  "pairs": {
+    "ETHUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.6,
+      "n": 4049,
+      "p": 0.0005,
+      "pnl": 2085.3,
+      "verdict": "✅ Confirmed"
+    },
+    "DOGEUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.3,
+      "n": 4123,
+      "p": 0.0018,
+      "pnl": 1884.72,
+      "verdict": "⚠️ Likely"
+    },
+    "SOLUSDT": {
+      "strategy": "stoch_30",
+      "wr": 54.3,
+      "n": 6243,
+      "p": 0.0001,
+      "pnl": 2877.82,
+      "verdict": "✅ Confirmed"
+    },
+    "XRPUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.6,
+      "n": 4219,
+      "p": 0.0004,
+      "pnl": 2176.93,
+      "verdict": "✅ Confirmed"
+    },
+    "BNBUSDT": {
+      "strategy": "rsi_30_up",
+      "wr": 55.7,
+      "n": 1002,
+      "p": 0.0106,
+      "pnl": 729.78,
+      "verdict": "⚠️ Likely"
+    }
+  },
+  "source": "rslab2_auto",
+  "rules": {
+    "min_wr": 54.0,
+    "min_n": 500,
+    "max_p": 0.05
+  }
+}{
+  "updated_at": "2026-10-28T06:16:42.833809",
+  "source": "gate_all",
+  "pairs": {
+    "ETHUSDT_15m_mean_rev_20_2.0": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_20_2.0",
+      "wr": 71.3,
+      "n": 944,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_bb_20_1.5": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "bb_20_1.5",
+      "wr": 64.6,
+      "n": 1970,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_bb_20_2.0": {
+      "symbol": "ETHUSDT",

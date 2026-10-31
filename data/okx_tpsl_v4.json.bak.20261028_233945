@@ -1,0 +1,10 @@
+{
+  "updated_at": "2026-10-28T23:30:00",
+  "source": "scalp_obi_short",
+  "params": {"tp": 0.001, "sl": 0.0005, "timeout_sec": 60, "fee": 0.0005},
+  "per_pair": {
+    "SOL-USDT": {"strategy": "scalp_obi_short", "obi_threshold": -0.4, "tp": 0.001, "sl": 0.0005},
+    "BTC-USDT": {"strategy": "scalp_obi_short", "obi_threshold": -0.4, "tp": 0.001, "sl": 0.0005},
+    "XRP-USDT": {"strategy": "scalp_obi_short", "obi_threshold": -0.4, "tp": 0.001, "sl": 0.0005}
+  }
+}

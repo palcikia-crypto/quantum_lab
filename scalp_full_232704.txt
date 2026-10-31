@@ -1,0 +1,55 @@
+============================================================
+##### СКАЛЬПИНГ-БОТ + ВЕБ-ПАНЕЛЬ #####
+============================================================
+
+===== 1. core/okx_bot_scalp.py =====
+  ✅ core/okx_bot_scalp.py
+
+===== 2. okx_active_scalp.json =====
+  ✅ okx_active_scalp.json: 4 пар
+    DOGE-USDT okx_vwap_rev_7: TP=0.30% SL=0.20% timeout=2b
+    XRP-USDT okx_vwap_rev_7: TP=0.30% SL=0.20% timeout=2b
+    SOL-USDT okx_vwap_rev_7: TP=0.30% SL=0.20% timeout=2b
+    ETH-USDT okx_vwap_rev_7: TP=0.30% SL=0.20% timeout=2b
+
+===== 3. web/panel_scalp.py =====
+  ✅ web/panel_scalp.py
+
+===== 4. ЗАПУСК =====
+  scalp PID: 1965
+  panel PID: 1966
+
+===== 5. HTTP-ПРОВЕРКА =====
+  IP: 192.168.43.247
+  localhost:8103 → HTTP 200
+  192.168.43.247:8103 → HTTP 200
+
+===== 6. ЛОГ БОТА =====
+[23:27:12] === OKX BOT SCALP STARTED ===
+[23:27:12] active: 4 пар
+[23:27:30] active: 4 пар
+ve: 4 пар
+[23:27:30] active: 4 пар
+
+===== 7. ЛОГ ПАНЕЛИ =====
+ * Serving Flask app 'panel_scalp'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8103
+ * Running on http://192.168.43.247:8103
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [31/Oct/2026 23:27:31] "GET / HTTP/1.1" 200 -
+192.168.43.247 - - [31/Oct/2026 23:27:31] "GET / HTTP/1.1" 200 -
+
+============================================================
+##### ИТОГ #####
+============================================================
+  ✅ core/okx_bot_scalp.py — скальпинг (okx_vwap_rev_7)
+  ✅ data/okx_active_scalp.json — 4 пары
+  ✅ web/panel_scalp.py — панель (8103)
+  ✅ data/okx_paper_scalp.db — новая БД
+
+  📱 Открывай: http://192.168.43.247:8103
+  ⚡ Скальпинг: DOGE/XRP/SOL/ETH, TP 0.3%, SL 0.2%, timeout 30 мин
+============================================================

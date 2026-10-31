@@ -1,0 +1,86 @@
+{
+  "timestamp": "2026-10-27T23:30:34.274017",
+  "results": [
+    {
+      "key": "XRPUSDT_15m",
+      "symbol": "XRPUSDT",
+      "strategy": "mean_rev_3",
+      "bot": "V7",
+      "backtest_wr": 53.1,
+      "live_wr": 63.6,
+      "delta": 10.5,
+      "n": 11,
+      "pnl": 21.18,
+      "status": "STRENGTHEN"
+    },
+    {
+      "key": "BTCUSDT_15m",
+      "symbol": "BTCUSDT",
+      "strategy": "stoch_20",
+      "bot": "V6.1",
+      "backtest_wr": 57.4,
+      "live_wr": 56.0,
+      "delta": -1.4,
+      "n": 25,
+      "pnl": 143.24,
+      "status": "OK"
+    },
+    {
+      "key": "ETHUSDT_15m",
+      "symbol": "ETHUSDT",
+      "strategy": "stoch_30",
+      "backtest_wr": 54.1,
+      "live_wr": 0,
+      "n": 0,
+      "status": "no_live_data"
+    },
+    {
+      "key": "SOLUSDT_15m",
+      "symbol": "SOLUSDT",
+      "strategy": "stoch_30",
+      "backtest_wr": 54.4,
+      "live_wr": 0,
+      "n": 0,
+      "status": "no_live_data"
+    },
+    {
+      "key": "XRPUSDT_15m_stoch_20",
+      "symbol": "XRPUSDT",
+      "strategy": "stoch_20",
+      "bot": "V6.1",
+      "backtest_wr": 59.6,
+      "live_wr": 56.0,
+      "delta": -3.6,
+      "n": 25,
+      "pnl": 143.24,
+      "status": "OK"
+    },
+    {
+      "key": "XRPUSDT_15m_stoch_30",
+      "symbol": "XRPUSDT",
+      "strategy": "stoch_30",
+      "backtest_wr": 55.3,
+      "live_wr": 0,
+      "n": 0,
+      "status": "no_live_data"
+    },
+    {
+      "key": "BTCUSDT_15m_stoch_30",
+      "symbol": "BTCUSDT",
+      "strategy": "stoch_30",
+      "backtest_wr": 55.6,
+      "live_wr": 0,
+      "n": 0,
+      "status": "no_live_data"
+    },
+    {
+      "key": "BTCUSDT_15m_mean_rev_2",
+      "symbol": "BTCUSDT",
+      "strategy": "mean_rev_2",
+      "backtest_wr": 53.6,
+      "live_wr": 0,
+      "n": 0,
+      "status": "no_live_data"
+    }
+  ]
+}

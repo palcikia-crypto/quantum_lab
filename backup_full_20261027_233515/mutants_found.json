@@ -1,0 +1,17 @@
+{
+  "mutants": {
+    "ETHUSDT_15m_mean_rev_20_1.5": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 64.6,
+      "n": 1969,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "self_evolution",
+      "trade": true
+    }
+  },
+  "saved_at": "2026-10-27T23:33:07.227483"
+}

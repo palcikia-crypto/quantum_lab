@@ -1,0 +1,401 @@
+{
+  "timestamp": "2026-10-27T20:55:53.862865",
+  "results": [
+    {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "pump_dump",
+      "wr": 41.0,
+      "n": 105,
+      "total_pnl_pct": -1.21,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "pump_dump",
+      "wr": 41.4,
+      "n": 116,
+      "total_pnl_pct": -13.17,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "15m",
+      "strategy": "pump_dump",
+      "wr": 39.8,
+      "n": 133,
+      "total_pnl_pct": -16.42,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "pump_dump",
+      "wr": 34.5,
+      "n": 113,
+      "total_pnl_pct": -19.55,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 22.6,
+      "n": 252,
+      "total_pnl_pct": -20.32,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 28.5,
+      "n": 235,
+      "total_pnl_pct": -20.37,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 30.8,
+      "n": 250,
+      "total_pnl_pct": -22.05,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "15m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 30.6,
+      "n": 265,
+      "total_pnl_pct": -24.0,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 27.2,
+      "n": 250,
+      "total_pnl_pct": -26.35,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 36.6,
+      "n": 715,
+      "total_pnl_pct": -36.14,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "5m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 19.3,
+      "n": 348,
+      "total_pnl_pct": -36.41,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "5m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 17.9,
+      "n": 330,
+      "total_pnl_pct": -39.8,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "5m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 17.9,
+      "n": 352,
+      "total_pnl_pct": -40.46,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "5m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 12.5,
+      "n": 359,
+      "total_pnl_pct": -40.64,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "5m",
+      "strategy": "vwap_ema_scalp",
+      "wr": 15.5,
+      "n": 386,
+      "total_pnl_pct": -41.84,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 32.4,
+      "n": 734,
+      "total_pnl_pct": -46.58,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 31.4,
+      "n": 698,
+      "total_pnl_pct": -51.51,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 27.1,
+      "n": 719,
+      "total_pnl_pct": -51.69,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "stoch_20",
+      "wr": 20.9,
+      "n": 770,
+      "total_pnl_pct": -65.29,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 31.4,
+      "n": 956,
+      "total_pnl_pct": -65.74,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 30.9,
+      "n": 933,
+      "total_pnl_pct": -66.73,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 32.2,
+      "n": 944,
+      "total_pnl_pct": -71.95,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 20.9,
+      "n": 982,
+      "total_pnl_pct": -81.03,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "stoch_30",
+      "wr": 24.3,
+      "n": 991,
+      "total_pnl_pct": -81.13,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "5m",
+      "strategy": "stoch_20",
+      "wr": 20.8,
+      "n": 1483,
+      "total_pnl_pct": -155.21,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "5m",
+      "strategy": "stoch_20",
+      "wr": 13.1,
+      "n": 1516,
+      "total_pnl_pct": -165.4,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "5m",
+      "strategy": "stoch_20",
+      "wr": 16.0,
+      "n": 1540,
+      "total_pnl_pct": -165.82,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "5m",
+      "strategy": "stoch_20",
+      "wr": 19.3,
+      "n": 1520,
+      "total_pnl_pct": -167.92,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "5m",
+      "strategy": "stoch_20",
+      "wr": 9.6,
+      "n": 1549,
+      "total_pnl_pct": -173.19,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "5m",
+      "strategy": "stoch_30",
+      "wr": 9.6,
+      "n": 1646,
+      "total_pnl_pct": -183.4,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "5m",
+      "strategy": "stoch_30",
+      "wr": 15.1,
+      "n": 1705,
+      "total_pnl_pct": -183.61,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "5m",
+      "strategy": "stoch_30",
+      "wr": 19.4,
+      "n": 1652,
+      "total_pnl_pct": -183.67,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "5m",
+      "strategy": "stoch_30",
+      "wr": 15.9,
+      "n": 1669,
+      "total_pnl_pct": -186.57,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "5m",
+      "strategy": "stoch_30",
+      "wr": 18.2,
+      "n": 1716,
+      "total_pnl_pct": -187.37,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 30.5,
+      "n": 4091,
+      "total_pnl_pct": -341.87,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 30.3,
+      "n": 4196,
+      "total_pnl_pct": -369.67,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 29.0,
+      "n": 4072,
+      "total_pnl_pct": -375.5,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 25.6,
+      "n": 4321,
+      "total_pnl_pct": -393.25,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_3",
+      "wr": 20.5,
+      "n": 4273,
+      "total_pnl_pct": -427.66,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "5m",
+      "strategy": "mean_rev_3",
+      "wr": 19.8,
+      "n": 6093,
+      "total_pnl_pct": -659.69,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "5m",
+      "strategy": "mean_rev_3",
+      "wr": 18.9,
+      "n": 6126,
+      "total_pnl_pct": -670.58,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "5m",
+      "strategy": "mean_rev_3",
+      "wr": 17.1,
+      "n": 6061,
+      "total_pnl_pct": -681.54,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "5m",
+      "strategy": "mean_rev_3",
+      "wr": 12.9,
+      "n": 6480,
+      "total_pnl_pct": -721.99,
+      "fee": "0.05% taker + 0.02% slippage"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "5m",
+      "strategy": "mean_rev_3",
+      "wr": 8.8,
+      "n": 6402,
+      "total_pnl_pct": -727.92,
+      "fee": "0.05% taker + 0.02% slippage"
+    }
+  ]
+}

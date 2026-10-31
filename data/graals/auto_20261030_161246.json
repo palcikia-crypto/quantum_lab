@@ -1,0 +1,19 @@
+{
+  "updated_at": "2026-10-30T16:12:46.750509",
+  "source": "auto_evolve",
+  "stable_count": 2,
+  "stable": [
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 1.0901271051437016,
+      "avg_wr": 62.627012627012626
+    },
+    {
+      "sym": "BTCUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 0.742191475194707,
+      "avg_wr": 72.22222222222221
+    }
+  ]
+}

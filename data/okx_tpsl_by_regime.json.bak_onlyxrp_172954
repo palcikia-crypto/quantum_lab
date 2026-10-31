@@ -1,0 +1,123 @@
+{
+  "updated_at": "2026-10-28T17:07:36",
+  "source": "manual_fix_nomacd2",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2,
+    "periods": [
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "min_n": 5,
+    "min_pnl": 0.1
+  },
+  "stable_count": 14,
+  "per_pair": {
+    "XRP-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      }
+    },
+    "ETH-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_vwap_rev_30",
+        "min_pnl": 1.26
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_vwap_rev_30",
+        "min_pnl": 1.26
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_vwap_rev_30",
+        "min_pnl": 1.26
+      }
+    },
+    "SOL-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.12
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.12
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.12
+      }
+    },
+    "DOGE-USDT": {
+      "flat": {
+        "strategy": "okx_ema_8_24",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.09
+      },
+      "trend_up": {
+        "strategy": "okx_ema_8_24",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.09
+      },
+      "trend_down": {
+        "strategy": "okx_ema_8_24",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_macd_5_35_5",
+        "min_pnl": 1.09
+      }
+    }
+  }
+}

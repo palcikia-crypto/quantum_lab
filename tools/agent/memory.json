@@ -1,0 +1,318 @@
+{
+  "runs": 219,
+  "actions": [
+    {
+      "ts": 1793365852,
+      "rule": "v4_errors"
+    },
+    {
+      "ts": 1793367300,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793384101,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793384401,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793386501,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793386803,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793387401,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793387401,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793390402,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793396402,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793396702,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793397602,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793398502,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793399402,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793401801,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793402701,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793403602,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793405101,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793405702,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793406602,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793407501,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793407801,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793407801,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793409601,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793439601,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793440501,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793441401,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793442301,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793442902,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793443201,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793443201,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793444101,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793445901,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793453401,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793454301,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793455802,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793456702,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793457603,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793457603,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793457925,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793458808,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793459167,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793459167,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793459167,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793459567,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793459567,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793459567,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793459736,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793459736,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793459736,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793460118,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793460118,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793460118,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793460374,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793460374,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793460374,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793460618,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793460618,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793460618,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793461052,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793461052,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793461052,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793461200,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793461200,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793461200,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793461501,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793461501,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793461501,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793461801,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793461801,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793461801,
+      "rule": "orderbook_stale"
+    },
+    {
+      "ts": 1793475602,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793477403,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793480701,
+      "rule": "brain_dead"
+    },
+    {
+      "ts": 1793480701,
+      "rule": "evolve_dead"
+    },
+    {
+      "ts": 1793482801,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793484301,
+      "rule": "v4_dead"
+    }
+  ],
+  "patterns": {
+    "age_market.db": 181,
+    "age_oracle.db": 14,
+    "age_orderbook.db": 11
+  }
+}

@@ -1,0 +1,64 @@
+===== 1. ПРОЦЕССЫ ВЕБ =====
+  ❌ не запущены
+
+===== 2. ПОРТЫ (кто слушает) =====
+--- 5000 ---
+tcp        0      0 127.0.0.1:5000          0.0.0.0:*               LISTEN      3061/python3        
+--- 5001 ---
+tcp        0      0 127.0.0.1:5001          0.0.0.0:*               LISTEN      3066/python3        
+
+===== 3. ЛОКАЛЬНЫЙ HTTP =====
+  localhost:5000 → HTTP 200
+  localhost:5001 → HTTP 200
+
+===== 4. ВНЕШНИЙ IP =====
+  IP телефона: 192.168.43.247
+  192.168.43.247:5000 → HTTP 000
+  192.168.43.247:5001 → HTTP 000
+
+===== 5. СЛУШАЕТ ЛИ 0.0.0.0 ИЛИ 127.0.0.1 =====
+--- dashboard.py ---
+321:    app.run(host='127.0.0.1', port=5000, debug=False)
+--- strategy_panel.py ---
+127:    app.run(host='127.0.0.1', port=5001, debug=False)
+
+===== 6. ЛОГИ ВЕБ =====
+--- dashboard ---
+ * Serving Flask app 'dashboard'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [31/Oct/2026 05:05:20] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:10:44] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:15:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:18:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:20:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:22:50] "GET / HTTP/1.1" 200 -
+--- strategy_panel ---
+ * Serving Flask app 'strategy_panel'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [31/Oct/2026 05:05:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:10:45] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:15:08] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:15:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+127.0.0.1 - - [31/Oct/2026 05:15:58] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:18:51] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:20:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [31/Oct/2026 05:22:51] "GET / HTTP/1.1" 200 -
+
+===== 7. ТЕСТ: СТРАНИЦА ВОЗВРАЩАЕТ HTML? =====
+--- 5000 (первые 200 байт) ---
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0a0f">
+<titl
+--- 5001 (первые 200 байт) ---
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy Bot</title><style>
+:root{--bg:#0a0a0f;--surface:#1212

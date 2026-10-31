@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-10-31T23:24:08.289812",
+  "L1": 269,
+  "L2": 20,
+  "L3": 20,
+  "top": [
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "vwap_reversion",
+      "wr": 58.4,
+      "n": 932,
+      "expectancy": 0.00191,
+      "score": 0.06
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "vwap_reversion",
+      "wr": 54.5,
+      "n": 1132,
+      "expectancy": 0.0019,
+      "score": 0.06
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 58.5,
+      "n": 1678,
+      "expectancy": 0.00146,
+      "score": 0.06
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_15_2.0",
+      "wr": 63.7,
+      "n": 761,
+      "expectancy": 0.00214,
+      "score": 0.06
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 58.5,
+      "n": 1678,
+      "expectancy": 0.00146,
+      "score": 0.06
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_15_2.0",
+      "wr": 63.7,
+      "n": 761,
+      "expectancy": 0.00214,
+      "score": 0.06
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "mean_rev_15_2.0",
+      "wr": 53.1,
+      "n": 827,
+      "expectancy": 0.00168,
+      "score": 0.05
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "bb_15_2.0",
+      "wr": 53.1,
+      "n": 827,
+      "expectancy": 0.00168,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 54.8,
+      "n": 1651,
+      "expectancy": 0.00126,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_15_2.0",
+      "wr": 61.1,
+      "n": 714,
+      "expectancy": 0.00196,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "mean_rev_15_2.5",
+      "wr": 65.2,
+      "n": 376,
+      "expectancy": 0.00259,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "bb_15_1.5",
+      "wr": 54.8,
+      "n": 1651,
+      "expectancy": 0.00126,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "bb_15_2.0",
+      "wr": 61.1,
+      "n": 714,
+      "expectancy": 0.00196,
+      "score": 0.05
+    },
+    {
+      "symbol": "SOLUSDT",
+      "strategy": "bb_15_2.5",
+      "wr": 65.2,
+      "n": 376,
+      "expectancy": 0.00259,
+      "score": 0.05
+    },
+    {
+      "symbol": "XRPUSDT",
+      "strategy": "vwap_reversion",
+      "wr": 58.3,
+      "n": 753,
+      "expectancy": 0.00198,
+      "score": 0.05
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_15_2.5",
+      "wr": 65.5,
+      "n": 397,
+      "expectancy": 0.00263,
+      "score": 0.05
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 55.3,
+      "n": 1608,
+      "expectancy": 0.00122,
+      "score": 0.05
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_15_2.5",
+      "wr": 65.5,
+      "n": 397,
+      "expectancy": 0.00263,
+      "score": 0.05
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "strategy": "bb_20_1.5",
+      "wr": 55.3,
+      "n": 1608,
+      "expectancy": 0.00122,
+      "score": 0.05
+    },
+    {
+      "symbol": "ETHUSDT",
+      "strategy": "vwap_reversion",
+      "wr": 52.1,
+      "n": 868,
+      "expectancy": 0.00147,
+      "score": 0.04
+    }
+  ]
+}

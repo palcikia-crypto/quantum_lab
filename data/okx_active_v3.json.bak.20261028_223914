@@ -1,0 +1,29 @@
+{
+  "pairs": {
+    "LINK-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "LINK-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_20",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "ARB-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "ARB-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "AVAX-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "AVAX-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    }
+  },
+  "updated_at": "2026-10-28T22:26:00"
+}

@@ -1,0 +1,29 @@
+===== 1. v3 → OOS (10 пар) =====
+  okx_active_v3.json: 10 пар
+
+===== 2. ФИКС ДУБЛЯ В v2 (убрать print) =====
+  ✅ print убран из log() v2
+  ✅ синтаксис OK
+
+===== 3. ФИКС ДУБЛЯ В grail_optimizer_full.py =====
+  ✅ print убран из log() optimizer
+  ✅ синтаксис OK
+
+===== 4. ПЕРЕЗАПУСК v2/v3 (на 10 OOS) =====
+  v2 PID: 25794
+  v3 PID: 25795
+
+===== 5. ЛОГИ (без дублей) =====
+--- v2 ---
+[03:34:48] === OKX PAPER BOT v2 STARTED ===
+[03:34:48] active: 10 пар
+--- v3 ---
+[03:34:48] === OKX PAPER BOT v3 STARTED ===
+[03:34:48] active: 10 пар
+
+===== 6. ИТОГ =====
+  ✅ okx_active.json — 10 пар
+  ✅ okx_active_v3.json — 10 пар
+  ✅ v2/v3 перезапущены на OOS
+  ✅ дубль в log() убран (v2, optimizer)
+  ⏳ optimizer обрабатывает 16golden.json

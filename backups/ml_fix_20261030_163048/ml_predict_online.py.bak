@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+"""ml_predict_online.py — предсказание через online SGD."""
+import os, sys, json, sqlite3, time, pickle
+import numpy as np
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE, 'core'))
+
+MARKET_DB = os.path.join(BASE, 'data/market.db')
+OB_DB = os.path.join(BASE, 'data/orderbook.db')
+MODEL_PATH = os.path.join(BASE, 'data/ml_online.pkl')
+OUT = os.path.join(BASE, 'data/ml_predictions_online.json')
+LOG = os.path.join(BASE, 'logs/ml_predict_online.log')
+
+PAIRS = ['BTCUSDT', 'ETHUSDT', 'XRPUSDT', 'SOLUSDT', 'DOGEUSDT']
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+def load_candles(sym, limit=100, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts,o,h,l,c,v FROM candles
+                        WHERE symbol=? AND tf=? ORDER BY ts DESC LIMIT ?""",
+                     (sym, tf, limit)).fetchall()
+    c.close()
+    if not rows: return None
+    rows = rows[::-1]
+    return {k: np.array([r[i] for r in rows]) for i, k in enumerate(['ts','o','h','l','c','v'])}
+
+def load_recent_obi(sym):
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    c = sqlite3.connect(OB_DB, timeout=5)
+    r = c.execute("""SELECT imbalance FROM orderbooks
+                     WHERE symbol=? ORDER BY ts DESC LIMIT 1""", (sym_dash,)).fetchone()
+    c.close()
+    return r[0] if r else None
+
+def calc_rsi_at(c, idx, period=14):
+    if idx < period + 1: return 50
+    deltas = np.diff(c[:idx+1])
+    gains = np.where(deltas > 0, deltas, 0)
+    losses = np.where(deltas < 0, -deltas, 0)
+    avg_gain = np.mean(gains[-period:])
+    avg_loss = np.mean(losses[-period:])
+    if avg_loss == 0: return 100
+    return 100 - (100 / (1 + avg_gain / avg_loss))
+
+def calc_atr_at(h, l, c, idx):
+    if idx < 50: return 0
+    hh, ll, cc = h[:idx+1], l[:idx+1], c[:idx+1]
+    tr = np.maximum(hh[1:] - ll[1:], np.maximum(np.abs(hh[1:] - cc[:-1]), np.abs(ll[1:] - cc[:-1])))
+    return np.mean(tr[-14:])
+
+def calc_vwap_at(o, h, l, c, v, idx, period=20):
+    if idx < period: return c[idx]
+    tp = (h[idx-period+1:idx+1] + l[idx-period+1:idx+1] + c[idx-period+1:idx+1]) / 3
+    vv = v[idx-period+1:idx+1]
+    total = np.sum(vv)
+    if total == 0: return c[idx]
+    return np.sum(tp * vv) / total
+
+def sigmoid(z):
+    return 1.0 / (1.0 + np.exp(-np.clip(z, -500, 500)))
+
+def main():
+    log('=== ML PREDICT ONLINE ===')
+    if not os.path.exists(MODEL_PATH):
+        log('❌ модель не найдена')
+        return
+
+    with open(MODEL_PATH, 'rb') as f:
+        md = pickle.load(f)
+    w = md['w']
+    mean = md.get('mean', np.zeros(4))
+    std = md.get('std', np.ones(4))
+    log(f'Модель: accuracy={md.get("accuracy", 0):.3f}, drift={md.get("drift", False)}')
+
+    preds = {}
+    for sym in PAIRS:
+        data = load_candles(sym, limit=100)
+        if not data:
+            log(f'{sym}: нет данных')
+            continue
+        idx = len(data['c']) - 1
+        price = data['c'][idx]
+
+        obi = load_recent_obi(sym)
+        rsi = calc_rsi_at(data['c'], idx)
+        atr = calc_atr_at(data['h'], data['l'], data['c'], idx)
+        vwap = calc_vwap_at(data['o'], data['h'], data['l'], data['c'], data['v'], idx)
+        vwap_diff = (price - vwap) / vwap if vwap > 0 else 0
+
+        x = np.array([obi if obi is not None else 0, rsi, atr, vwap_diff])
+        x = (x - mean) / std
+        xb = np.hstack([1.0, x])
+        proba = sigmoid(xb @ w)
+        side = 'LONG' if proba > 0.6 else ('SHORT' if proba < 0.4 else 'WAIT')
+
+        preds[sym] = {'price': float(price), 'proba_long': round(float(proba), 3),
+                      'side': side, 'obi': obi, 'rsi': round(float(rsi), 1),
+                      'atr': round(float(atr), 4), 'vwap_diff': round(float(vwap_diff), 4)}
+        log(f'{sym}: price={price:.4f}, proba={proba:.3f}, side={side} (OBI={obi}, RSI={rsi:.1f})')
+
+    out = {'updated_at': datetime.now().isoformat(), 'predictions': preds}
+    json.dump(out, open(OUT, 'w'), indent=2, ensure_ascii=False)
+    log(f'✅ predictions: {OUT}')
+    log('=== DONE ===')
+
+if __name__ == '__main__':
+    main()

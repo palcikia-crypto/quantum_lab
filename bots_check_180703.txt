@@ -1,0 +1,135 @@
+===== 1. ПРОЦЕССЫ БОТОВ =====
+  ✅ okx_bot_paper_v2 — 6659 (процессов: 1)
+  ✅ okx_bot_paper_v3 — 11870 (процессов: 1)
+  ✅ okx_bot_paper_v4 — 6688 (процессов: 1)
+
+===== 2. ЧТО ЧИТАЮТ =====
+--- v2 ---
+18:ACTIVE = os.path.join(BASE, 'data/okx_active.json')
+--- v3 ---
+19:ACTIVE = os.path.join(BASE, 'data/okx_active_v3.json')
+--- v4 ---
+37:ACTIVE = os.path.join(BASE, 'data/okx_active_v4.json')
+
+===== 3. КОНФИГ (что торгуют) =====
+data/okx_active.json: 5 пар
+  ETH-USDT okx_vwap_rev_13: WR=?%
+  SOL-USDT okx_vwap_rev_13: WR=?%
+  DOGE-USDT okx_vwap_rev_13: WR=?%
+  BTC-USDT okx_vwap_rev_17: WR=?%
+  XRP-USDT okx_grid_sma_13: WR=?%
+data/okx_active_v3.json: 5 пар
+  ETH-USDT okx_vwap_rev_13: WR=?%
+  SOL-USDT okx_vwap_rev_13: WR=?%
+  DOGE-USDT okx_vwap_rev_13: WR=?%
+  BTC-USDT okx_vwap_rev_17: WR=?%
+  XRP-USDT okx_grid_sma_13: WR=?%
+
+===== 4. PnL ВСЕГО =====
+  v2: 88 сделок, PnL=-157.08, WR=40.9%
+  v3: 147 сделок, PnL=-220.11, WR=37.4%
+  v4: 942 сделок, PnL=9.37, WR=51.0%
+
+===== 5. PnL ЗА ЧАС =====
+  v2: 0 сделок, PnL=0.0
+  v3: 6 сделок, PnL=-3.02
+  v4: 64 сделок, PnL=0.53
+
+===== 6. НОВЫЕ СДЕЛКИ (последние 30 мин) =====
+--- v2 ---
+symbol  strategy  ep  xp  pnl  status  dt
+------  --------  --  --  ---  ------  --
+--- v3 ---
+ symbol      strategy        ep      xp    pnl  status          dt
+--------  ---------------  ------  ------  ---  ------  -------------------
+XRP-USDT  okx_grid_sma_13  1.2491               OPEN    2026-10-31 18:01:09
+XRP-USDT  okx_grid_sma_13  1.2491  1.2491  0.0  CLOSED  2026-10-31 17:50:56
+XRP-USDT  okx_grid_sma_13  1.2492  1.2492  0.0  CLOSED  2026-10-31 17:40:55
+--- v4 ---
+ symbol      strategy        ep       xp     pnl   status          dt
+--------  ---------------  -------  -------  ----  ------  -------------------
+BTC-USDT  scalp_obi_short  77453.3                 OPEN    2026-10-31 18:06:28
+BTC-USDT  scalp_obi_short  77480.3  77453.3  0.03  CLOSED  2026-10-31 18:05:13
+XRP-USDT  scalp_obi_short   1.2484   1.2476  0.06  CLOSED  2026-10-31 18:05:13
+BTC-USDT  scalp_obi_short  77501.1  77493.6  0.01  CLOSED  2026-10-31 18:03:27
+XRP-USDT  scalp_obi_short   1.2487   1.2487   0.0  CLOSED  2026-10-31 18:02:27
+BTC-USDT  scalp_obi_short  77481.2  77473.4  0.01  CLOSED  2026-10-31 18:01:11
+XRP-USDT  scalp_obi_short   1.2491   1.2487  0.03  CLOSED  2026-10-31 18:00:56
+BTC-USDT  scalp_obi_short  77485.3  77477.3  0.01  CLOSED  2026-10-31 17:58:56
+BTC-USDT  scalp_obi_short  77521.3  77499.1  0.03  CLOSED  2026-10-31 17:56:25
+BTC-USDT  scalp_obi_short  77522.9  77521.3   0.0  CLOSED  2026-10-31 17:55:10
+
+===== 7. ОТКРЫТЫЕ =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+ symbol   side      strategy        ep            dt
+--------  -----  ---------------  ------  -------------------
+XRP-USDT  SHORT  okx_grid_sma_13  1.2491  2026-10-31 18:01:09
+--- v4 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+BTC-USDT  SHORT  scalp_obi_short  77453.3  2026-10-31 18:06:28
+
+===== 8. СТРАТЕГИИ: PnL по каждой (24ч) =====
+--- v2 ---
+   strategy      n    pnl    wr
+---------------  --  -----  ----
+okx_vwap_rev_30  28  -89.6  25.0
+--- v3 ---
+   strategy      n    pnl    wr
+---------------  --  -----  ----
+okx_vwap_rev_20   7    3.1  57.1
+okx_grid_sma_17   3  -4.81   0.0
+okx_grid_sma_15   2  -13.4   0.0
+okx_grid_sma_13   7  -13.4   0.0
+okx_macd_5_35_5  11  -51.7   0.0
+okx_grid_sma_10  15  -53.5  13.3
+okx_grid_sma_30  24  -61.8  29.2
+--- v4 ---
+   strategy       n   pnl    wr
+---------------  ---  ----  ----
+scalp_obi_short  552  4.26  52.7
+
+===== 9. ЛОГИ v2/v3/v4 (10 строк) =====
+--- v2 ---
+[18:04:18] active: 5 пар
+[18:04:36] active: 5 пар
+[18:04:52] active: 5 пар
+[18:05:09] active: 5 пар
+[18:05:26] active: 5 пар
+[18:05:42] active: 5 пар
+[18:05:59] active: 5 пар
+[18:06:17] active: 5 пар
+[18:06:33] active: 5 пар
+[18:06:50] active: 5 пар
+--- v3 ---
+[18:04:42] active: 5 пар
+[18:04:57] active: 5 пар
+[18:05:13] active: 5 пар
+[18:05:28] active: 5 пар
+[18:05:43] active: 5 пар
+[18:05:59] active: 5 пар
+[18:06:14] active: 5 пар
+[18:06:30] active: 5 пар
+[18:06:45] active: 5 пар
+[18:07:00] active: 5 пар
+--- v4 ---
+[18:05:13]   🎯 OPEN XRP-USDT SHORT @ 1.2484 OBI=-0.555 TP=0.15% SL=0.07%
+[18:05:28]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[18:05:43]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[18:06:28]   ⏱️ TIMEOUT BTC-USDT SHORT: 77480.3000→77453.3000 $0.03
+[18:06:28]   ⏱️ TIMEOUT XRP-USDT SHORT: 1.2484→1.2476 $0.06
+[18:06:28]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+[18:06:28]   🎯 OPEN BTC-USDT SHORT @ 77453.3000 OBI=-0.723 TP=0.15% SL=0.07%
+[18:06:59]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+0.723 TP=0.15% SL=0.07%
+[18:06:59]   ✅ funding OK BTC-USDT: 0.000100 >= 5e-05
+
+===== 10. SANITY CHECK =====
+[18:07:08]   📊 data/okx_paper_v4.db: 942 сделок, PnL=9.37
+[18:07:08]   📊 v3 открытых: 1
+
+[18:07:08] ✅ ОШИБОК НЕТ
+[18:07:08] === ИТОГ: 0 ошибок, 0 предупреждений ===

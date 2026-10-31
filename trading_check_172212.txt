@@ -1,0 +1,78 @@
+===== 1. PnL ВСЕГО =====
+  v2: 111 сделок, PnL=-155.79, WR=45.0%
+  v3: 141 сделок, PnL=-217.09, WR=39.0%
+  v4: 891 сделок, PnL=8.94, WR=50.7%
+
+===== 2. PnL ЗА ПОСЛЕДНИЙ ЧАС =====
+  v2: 0 сделок, PnL=0.0
+  v3: 4 сделок, PnL=-15.19
+  v4: 42 сделок, PnL=0.25
+
+===== 3. НОВЫЕ СДЕЛКИ (после 16:55 — фикса TP/SL) =====
+--- v2 ---
+symbol  strategy  ep  xp  pnl  status  dt
+------  --------  --  --  ---  ------  --
+--- v3 ---
+ symbol      strategy        ep     xp  pnl  status          dt
+--------  ---------------  -------  --  ---  ------  -------------------
+XRP-USDT  okx_grid_sma_13    1.249           OPEN    2026-10-31 17:05:43
+XRP-USDT  okx_grid_sma_13   1.2494           OPEN    2026-10-31 16:55:41
+ETH-USDT  okx_grid_sma_17  2250.26           OPEN    2026-10-31 16:55:26
+
+===== 4. ОТКРЫТЫЕ СЕЙЧАС =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+ETH-USDT  SHORT  okx_grid_sma_17  2250.26  2026-10-31 16:55:26
+XRP-USDT  SHORT  okx_grid_sma_13   1.2494  2026-10-31 16:55:41
+XRP-USDT  SHORT  okx_grid_sma_13    1.249  2026-10-31 17:05:43
+--- v4 ---
+ symbol   side      strategy        ep             dt
+--------  -----  ---------------  -------  -------------------
+BTC-USDT  SHORT  scalp_obi_short  77550.2  2026-10-31 17:21:38
+
+===== 5. СТРАТЕГИИ: PnL по каждой (24ч) =====
+--- v2 ---
+   strategy      n    pnl     wr
+---------------  --  ------  ----
+okx_vwap_rev_30  31  -106.7  22.6
+--- v3 ---
+   strategy      n    pnl    wr
+---------------  --  -----  ----
+okx_vwap_rev_20   7    3.1  57.1
+okx_grid_sma_17   2  -1.79   0.0
+okx_grid_sma_15   2  -13.4   0.0
+okx_grid_sma_13   2  -13.4   0.0
+okx_grid_sma_30  30  -36.0  43.3
+okx_macd_5_35_5  11  -51.7   0.0
+okx_grid_sma_10  15  -53.5  13.3
+--- v4 ---
+   strategy       n   pnl    wr
+---------------  ---  ----  ----
+scalp_obi_short  555  4.39  53.2
+
+===== 6. ПОСЛЕДНИЕ 5 СДЕЛОК v3 =====
+ symbol   side      strategy        ep       xp      pnl           dt
+--------  -----  ---------------  -------  -------  -----  -------------------
+ETH-USDT  SHORT  okx_grid_sma_17  2250.27  2250.27    0.0  2026-10-31 17:01:20
+XRP-USDT  SHORT  okx_grid_sma_13   1.2495   1.2557   -6.7  2026-10-31 16:45:50
+XRP-USDT  SHORT  okx_grid_sma_15   1.2495   1.2557   -6.7  2026-10-31 16:45:50
+ETH-USDT  SHORT  okx_grid_sma_17  2245.65  2245.86  -1.79  2026-10-31 16:35:37
+XRP-USDT  SHORT  okx_grid_sma_13   1.2488    1.255   -6.7  2026-10-31 15:50:44
+
+===== 7. SANITY CHECK =====
+[17:22:15]   📊 data/okx_paper.db: 111 сделок, PnL=-155.79
+[17:22:15]   📊 data/okx_paper_v3.db: 141 сделок, PnL=-217.09
+[17:22:15]   📊 data/okx_paper_v4.db: 891 сделок, PnL=8.94
+[17:22:15]   📊 v3 открытых: 3
+
+[17:22:15] ✅ ОШИБОК НЕТ
+[17:22:15] === ИТОГ: 0 ошибок, 0 предупреждений ===
+
+===== 8. ПРОЦЕССЫ =====
+  ✅ okx_bot_paper_v2 — 20078
+  ✅ okx_bot_paper_v3 — 25962
+  ✅ okx_bot_paper_v4 — 5835

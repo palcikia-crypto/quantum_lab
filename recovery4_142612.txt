@@ -1,0 +1,59 @@
+===== 1. ЧТО ЖИВО? =====
+  ❌ okx_bot_paper_v2
+  ❌ okx_bot_paper_v3
+  ✅ okx_bot_paper_v4 — 9608
+  ✅ brain_loop — 9605
+  ✅ oracle.py — 9599
+  ✅ orderbook_oracle — 9599
+  ✅ strategy_bot — 9611
+  ✅ dashboard.py — 9631
+  ✅ strategy_panel — 9636
+  ❌ grail_optimizer_full
+
+===== 2. UPTIME =====
+ 14:26:13 up  6:01,  0 users,  load average: 7.25, 4.28, 2.76
+
+===== 3. ФИКС okx_active_regime.json (8 пар) =====
+✅ okx_active_regime.json: 5 пар
+
+===== 4. ПРОВЕРКА load_tpsl_by_regime =====
+  ETH-USDT: regime=flat, tcfg={'strategy': 'okx_grid_sma_17', 'tp': 0.008, 'sl': 0.005, 'timeout_bars': 3}
+  SOL-USDT: regime=flat, tcfg={'strategy': 'okx_vwap_rev_13', 'tp': 0.008, 'sl': 0.005, 'timeout_bars': 3}
+  DOGE-USDT: regime=flat, tcfg={'strategy': 'okx_vwap_rev_13', 'tp': 0.008, 'sl': 0.005, 'timeout_bars': 3}
+  BTC-USDT: regime=flat, tcfg={'strategy': 'okx_vwap_rev_17', 'tp': 0.008, 'sl': 0.005, 'timeout_bars': 3}
+  XRP-USDT: regime=flat, tcfg={'strategy': 'okx_grid_sma_15', 'tp': 0.008, 'sl': 0.005, 'timeout_bars': 3}
+
+===== 5. ВОССТАНОВЛЕНИЕ =====
+  🔧 orderbook_oracle.py
+  🔧 okx_bot_paper_v2.py
+  🔧 okx_bot_paper_v3.py
+
+===== 6. ПОСЛЕ ВОССТАНОВЛЕНИЯ =====
+  ✅ okx_bot_paper_v2 — 9914
+  ✅ okx_bot_paper_v3 — 9917
+  ✅ okx_bot_paper_v4 — 9608
+  ✅ brain_loop — 9605
+  ✅ oracle.py — 9906
+  ✅ orderbook_oracle — 9911
+  ✅ strategy_bot — 9611
+  ✅ dashboard.py — 9631
+  ✅ strategy_panel — 9636
+
+===== 7. v3: СИГНАЛЫ СЕЙЧАС =====
+  ETH-USDT: ❌ tcfg=None
+  SOL-USDT okx_vwap_rev_13: — нет сигнала
+  DOGE-USDT: ❌ tcfg=None
+  BTC-USDT okx_vwap_rev_17: — нет сигнала
+  ETH-USDT: ❌ tcfg=None
+  XRP-USDT: ❌ tcfg=None
+  ETH-USDT: ❌ tcfg=None
+  XRP-USDT: ❌ tcfg=None
+
+===== 8. ЛОГИ v2/v3 (последние 6) =====
+[14:26:17] === OKX PAPER BOT v2 STARTED ===
+[14:26:17] active: 8 пар
+[14:26:38] active: 8 пар
+---
+[14:26:17] === OKX PAPER BOT v3 STARTED ===
+[14:26:17] active: 8 пар
+[14:26:38] active: 8 пар

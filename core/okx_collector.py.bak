@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""okx_collector.py — собирает свечи и стаканы OKX через WebSocket."""
+import asyncio, json, sqlite3, os
+import websockets
+
+BASE = os.path.expanduser('~/quantum_lab')
+DB = os.path.join(BASE, 'data/okx.db')
+
+def init_db():
+    c = sqlite3.connect(DB)
+    c.execute('''CREATE TABLE IF NOT EXISTS candles (
+        symbol TEXT, tf TEXT, ts INTEGER, o REAL, h REAL, l REAL, c REAL, v REAL,
+        PRIMARY KEY (symbol, tf, ts))''')
+    c.execute('''CREATE TABLE IF NOT EXISTS orderbooks (
+        ts INTEGER, symbol TEXT, best_bid REAL, best_ask REAL, spread REAL,
+        bid_depth REAL, ask_depth REAL, imbalance REAL,
+        PRIMARY KEY (ts, symbol))''')
+    c.commit(); c.close()
+
+async def collect(symbol='BTC-USDT', duration=60):
+    url = 'wss://ws.okx.com:8443/ws/v5/public'
+    async with websockets.connect(url) as ws:
+        # Подписка на свечи 15m и стакан bbo-tbt
+        sub = {'op': 'subscribe', 'args': [
+            {'channel': 'candle15m', 'instId': symbol},
+            {'channel': 'bbo-tbt', 'instId': symbol},
+        ]}
+        await ws.send(json.dumps(sub))
+        print(f'✅ Подписка на {symbol} (candle15m + bbo-tbt)')
+        
+        start = asyncio.get_event_loop().time()
+        while asyncio.get_event_loop().time() - start < duration:
+            try:
+                msg = await asyncio.wait_for(ws.recv(), timeout=5)
+                data = json.loads(msg)
+                if 'data' not in data: continue
+                ch = data.get('arg', {}).get('channel', '')
+                if ch == 'candle15m':
+                    for row in data['data']:
+                        ts = int(row[0]) // 1000
+                        o,h,l,c,v = map(float, row[1:6])
+                        cdb = sqlite3.connect(DB)
+                        cdb.execute('INSERT OR REPLACE INTO candles VALUES (?,?,?,?,?,?,?,?)',
+                                    (symbol, '15m', ts, o,h,l,c,v))
+                        cdb.commit(); cdb.close()
+                        print(f'  candle: {ts} c={c}')
+                elif ch == 'bbo-tbt':
+                    for row in data['data']:
+                        ts = int(row[0]) // 1000
+                        bid = float(row[1]); ask = float(row[2])
+                        spread = ask - bid
+                        cdb = sqlite3.connect(DB)
+                        cdb.execute('INSERT OR REPLACE INTO orderbooks VALUES (?,?,?,?,?,?,?,?)',
+                                    (ts, symbol, bid, ask, spread, 0, 0, 0))
+                        cdb.commit(); cdb.close()
+                        print(f'  bbo: bid={bid} ask={ask} spread={spread}')
+            except asyncio.TimeoutError:
+                continue
+            except Exception as e:
+                print(f'⚠️ {e}')
+
+async def main():
+    init_db()
+    await collect('BTC-USDT', duration=60)
+
+if __name__ == '__main__':
+    asyncio.run(main())

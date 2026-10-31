@@ -1,0 +1,74 @@
+{
+  "updated_at": "2026-10-28T17:38:13",
+  "source": "xrp_eth_only",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2,
+    "periods": [
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "min_n": 5,
+    "min_pnl": 0.1
+  },
+  "stable_count": 14,
+  "per_pair": {
+    "XRP-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_30",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": "okx_ema_7_25",
+        "min_pnl": 1.55
+      }
+    },
+    "ETH-USDT": {
+      "trend_up": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 506,
+        "wr": 0.56126,
+        "pnl": 46.5155,
+        "timeout_bars": 2
+      },
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 500,
+        "wr": 0.548,
+        "pnl": 25.25679,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_grid_sma_10",
+        "tp": 0.006,
+        "sl": 0.004,
+        "n": 284,
+        "wr": 0.55986,
+        "pnl": 19.24017,
+        "timeout_bars": 2
+      }
+    }
+  }
+}

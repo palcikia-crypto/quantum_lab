@@ -1,0 +1,61 @@
+{
+  "pairs": {
+    "DOGE-USDT_15m_okx_ema_8_24": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_ema_8_24",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "SOL-USDT_15m_okx_ema_5_20": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_ema_5_20",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_ema_7_25": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_ema_7_25",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_ema_5_20": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_ema_5_20",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "LINK-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "LINK-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_20",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "ARB-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "ARB-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    },
+    "AVAX-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "AVAX-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 0,
+      "n": 0,
+      "trade": true
+    }
+  },
+  "updated_at": "2026-10-28T22:40:00"
+}

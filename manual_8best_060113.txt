@@ -1,0 +1,37 @@
+===== 1. ВНЕДРИТЬ 8 ПАР =====
+✅ внедрено 8 пар
+  ETH-USDT okx_vwap_rev_13
+  SOL-USDT okx_vwap_rev_13
+  DOGE-USDT okx_vwap_rev_13
+  BTC-USDT okx_vwap_rev_17
+  ETH-USDT okx_vwap_rev_15
+  XRP-USDT okx_grid_sma_13
+  ETH-USDT okx_grid_sma_17
+  XRP-USDT okx_grid_sma_15
+
+===== 2. ПЕРЕЗАПУСК v2/v3 =====
+  v2 PID: 7372
+  v3 PID: 7373
+
+===== 3. ЛОГИ =====
+[06:01:21] === OKX PAPER BOT v2 STARTED ===
+[06:01:21] active: 8 пар
+---
+[06:01:20] === OKX PAPER BOT v3 STARTED ===
+[06:01:20] active: 8 пар
+
+===== 4. ПРОВЕРКА okx_active.json =====
+  пар: 8
+  ETH-USDT okx_vwap_rev_13
+  SOL-USDT okx_vwap_rev_13
+  DOGE-USDT okx_vwap_rev_13
+  BTC-USDT okx_vwap_rev_17
+  ETH-USDT okx_vwap_rev_15
+  XRP-USDT okx_grid_sma_13
+  ETH-USDT okx_grid_sma_17
+  XRP-USDT okx_grid_sma_15
+
+===== 5. PnL =====
+  v2: 152 сделок, PnL=-169.86
+  v3: 135 сделок, PnL=-188.5
+  v4: 769 сделок, PnL=7.89

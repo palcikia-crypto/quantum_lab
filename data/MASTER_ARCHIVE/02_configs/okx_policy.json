@@ -1,0 +1,8 @@
+{
+  "filter": {
+    "enabled": false,
+    "adx_threshold": 50
+  },
+  "updated_at": "2026-10-28T22:55:14",
+  "source": "brain_filter_adjust"
+}

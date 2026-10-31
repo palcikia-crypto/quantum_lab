@@ -1,0 +1,78 @@
+{
+  "updated_at": "2026-10-31T06:00:00",
+  "source": "manual_8best",
+  "pairs": {
+    "ETH-USDT_15m_okx_vwap_rev_13": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "SOL-USDT_15m_okx_vwap_rev_13": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "DOGE-USDT_15m_okx_vwap_rev_13": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_vwap_rev_17": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_17",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_vwap_rev_15": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_15",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_grid_sma_13": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_13",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_grid_sma_17": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_17",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_grid_sma_15": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_15",
+      "tp": 0.008,
+      "sl": 0.005,
+      "timeout": 3,
+      "trade": true
+    }
+  }
+}

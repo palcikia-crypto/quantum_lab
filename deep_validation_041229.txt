@@ -1,0 +1,217 @@
+===== ГЛУБОКАЯ ПРОВЕРКА ГРААЛЕЙ (устойчивость) =====
+
+============================================================
+ETHUSDT okx_vwap_rev_7  tp=0.008 sl=0.005 timeout=2
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=89.9% max=97.4% mean=92.7% std=3.0%
+     PnL: min=+0.22 max=+0.55 mean=+0.45
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=91.3% max=93.7% mean=92.2%
+     PnL: min=+1.41 max=+1.77 mean=+1.61
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=106 WR=97.2% PnL=+0.36%
+     60d: n=215 WR=95.8% PnL=+0.67%
+     90d: n=338 WR=94.4% PnL=+1.00%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.56 max=+2.88 mean=+2.24
+     ✅ ROBUST
+
+============================================================
+SOLUSDT okx_vwap_rev_13  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=86.0% max=95.0% mean=90.3% std=3.5%
+     PnL: min=+0.47 max=+1.49 mean=+1.05
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=90.5% max=91.7% mean=91.0%
+     PnL: min=+3.35 max=+4.24 mean=+3.88
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=339 WR=85.0% PnL=+0.60%
+     60d: n=712 WR=88.6% PnL=+1.56%
+     90d: n=1064 WR=90.8% PnL=+2.52%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+3.47 max=+6.82 mean=+5.19
+     ✅ ROBUST
+
+============================================================
+DOGEUSDT okx_vwap_rev_13  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=85.4% max=89.8% mean=88.0% std=1.6%
+     PnL: min=+0.42 max=+1.80 mean=+1.06
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=87.4% max=88.7% mean=88.0%
+     PnL: min=+3.56 max=+4.11 mean=+3.77
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=352 WR=84.1% PnL=+0.58%
+     60d: n=925 WR=87.1% PnL=+1.93%
+     90d: n=1345 WR=86.7% PnL=+2.82%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+3.34 max=+6.98 mean=+5.21
+     ✅ ROBUST
+
+============================================================
+BTCUSDT okx_vwap_rev_15  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=87.1% max=93.8% mean=89.3% std=2.4%
+     PnL: min=+0.23 max=+0.52 mean=+0.37
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=88.3% max=89.7% mean=88.9%
+     PnL: min=+1.09 max=+1.46 mean=+1.30
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=149 WR=86.6% PnL=+0.23%
+     60d: n=282 WR=85.8% PnL=+0.41%
+     90d: n=443 WR=87.6% PnL=+0.74%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.16 max=+2.34 mean=+1.78
+     ✅ ROBUST
+
+============================================================
+ETHUSDT okx_vwap_rev_15  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=84.1% max=92.1% mean=88.0% std=2.6%
+     PnL: min=+0.43 max=+0.85 mean=+0.64
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=87.5% max=89.1% mean=88.4%
+     PnL: min=+1.97 max=+2.53 mean=+2.33
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=274 WR=82.5% PnL=+0.35%
+     60d: n=541 WR=85.2% PnL=+0.78%
+     90d: n=804 WR=86.4% PnL=+1.27%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.98 max=+4.22 mean=+3.14
+     ✅ ROBUST
+
+============================================================
+BTCUSDT okx_vwap_rev_25  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=80.1% max=86.9% mean=82.3% std=2.4%
+     PnL: min=+0.02 max=+0.19 mean=+0.12
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=81.6% max=82.7% mean=82.1%
+     PnL: min=+0.32 max=+0.56 mean=+0.46
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=288 WR=79.2% PnL=+0.01%
+     60d: n=564 WR=80.5% PnL=+0.06%
+     90d: n=851 WR=82.0% PnL=+0.25%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=-0.13 max=+1.07 mean=+0.51
+     ✅ ROBUST
+
+============================================================
+SOLUSDT okx_grid_sma_13  tp=0.008 sl=0.004 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=89.9% max=95.0% mean=91.8% std=1.8%
+     PnL: min=+0.25 max=+0.74 mean=+0.54
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=91.0% max=93.1% mean=92.0%
+     PnL: min=+1.69 max=+2.11 mean=+1.94
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=144 WR=93.8% PnL=+0.39%
+     60d: n=339 WR=92.3% PnL=+0.82%
+     90d: n=488 WR=92.6% PnL=+1.25%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.90 max=+3.52 mean=+2.73
+     ✅ ROBUST
+
+============================================================
+ETHUSDT okx_grid_sma_15  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=89.1% max=92.0% mean=90.8% std=1.0%
+     PnL: min=+0.25 max=+0.46 mean=+0.35
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=89.9% max=91.9% mean=90.8%
+     PnL: min=+1.13 max=+1.45 mean=+1.28
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=137 WR=90.5% PnL=+0.21%
+     60d: n=294 WR=91.2% PnL=+0.48%
+     90d: n=422 WR=91.5% PnL=+0.77%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.20 max=+2.32 mean=+1.78
+     ✅ ROBUST
+
+============================================================
+XRPUSDT okx_grid_sma_15  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=84.5% max=92.7% mean=88.7% std=2.6%
+     PnL: min=+0.25 max=+0.93 mean=+0.50
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=88.2% max=89.6% mean=89.1%
+     PnL: min=+1.72 max=+2.05 mean=+1.84
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=155 WR=91.0% PnL=+0.31%
+     60d: n=462 WR=89.2% PnL=+0.87%
+     90d: n=701 WR=89.3% PnL=+1.45%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=+1.69 max=+3.22 mean=+2.48
+     ✅ ROBUST
+
+============================================================
+BTCUSDT okx_grid_sma_25  tp=0.008 sl=0.005 timeout=3
+============================================================
+  1. Walk-forward 5-fold:
+     WR:  min=77.7% max=83.8% mean=81.4% std=2.2%
+     PnL: min=-0.06 max=+0.06 mean=+0.01
+     ✅ STABLE
+  2. Monte Carlo (30 окон 70%):
+     WR:  min=80.7% max=84.3% mean=82.3%
+     PnL: min=+0.03 max=+0.20 mean=+0.14
+     ✅ STABLE
+  3. Multi-OOS:
+     30d: n=167 WR=80.8% PnL=-0.00%
+     60d: n=323 WR=84.5% PnL=+0.10%
+     90d: n=488 WR=84.4% PnL=+0.13%
+     ✅ STABLE
+  4. TP/SL sensitivity (±20%):
+     PnL: min=-0.23 max=+0.35 mean=+0.08
+     ✅ ROBUST
+
+============================================================
+ИТОГ: рейтинг устойчивости
+============================================================
+symbol       strategy                WF_std   MC+  OOS+  Sens+
+------------------------------------------------------------
+ETHUSDT      okx_grid_sma_15            1.0    30     3      9
+DOGEUSDT     okx_vwap_rev_13            1.6    30     3      9
+SOLUSDT      okx_grid_sma_13            1.8    30     3      9
+BTCUSDT      okx_grid_sma_25            2.2    30     2      6
+BTCUSDT      okx_vwap_rev_15            2.4    30     3      9
+BTCUSDT      okx_vwap_rev_25            2.4    30     3      6
+ETHUSDT      okx_vwap_rev_15            2.6    30     3      9
+XRPUSDT      okx_grid_sma_15            2.6    30     3      9
+ETHUSDT      okx_vwap_rev_7             3.0    30     3      9
+SOLUSDT      okx_vwap_rev_13            3.5    30     3      9

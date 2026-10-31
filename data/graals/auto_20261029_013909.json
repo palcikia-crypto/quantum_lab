@@ -1,0 +1,43 @@
+{
+  "updated_at": "2026-10-29T01:39:09.446241",
+  "source": "auto_evolve",
+  "stable_count": 6,
+  "stable": [
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 1.5075125781858365,
+      "avg_wr": 63.20636269234401
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 1.2298795944233463,
+      "avg_wr": 77.26495726495726
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 1.0153828772672124,
+      "avg_wr": 65.50382914985626
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_20",
+      "min_pnl": 0.9505488439376693,
+      "avg_wr": 68.87254901960785
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_vwap_rev_10",
+      "min_pnl": 0.8655172413793136,
+      "avg_wr": 68.86939571150099
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_grid_sma_20",
+      "min_pnl": 0.6865228023716492,
+      "avg_wr": 61.81353767560663
+    }
+  ]
+}

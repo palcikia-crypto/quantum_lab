@@ -1,0 +1,103 @@
+{
+  "updated_at": "2026-10-28T15:51:32",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2,
+    "periods": [
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "min_n": 5,
+    "min_pnl": 0.1
+  },
+  "total_combos": 60,
+  "stable": 14,
+  "top": [
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_ema_7_25",
+      "min_pnl": 1.8147113944338367,
+      "avg_pnl": 4.234733849222706
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_vwap_rev_30",
+      "min_pnl": 1.5643387576585772,
+      "avg_pnl": 3.570995934304104
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_macd_5_35_5",
+      "min_pnl": 1.2615621626232316,
+      "avg_pnl": 1.4531500296297175
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_macd_5_35_5",
+      "min_pnl": 1.253709815611489,
+      "avg_pnl": 4.703921231008768
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_vwap_rev_30",
+      "min_pnl": 1.1152782836473394,
+      "avg_pnl": 1.6350324403350136
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_vwap_rev_30",
+      "min_pnl": 1.1045313060035193,
+      "avg_pnl": 3.1003193087068666
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_ema_8_24",
+      "min_pnl": 1.0876906858284074,
+      "avg_pnl": 1.5758293750436232
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_macd_5_35_5",
+      "min_pnl": 1.064897256002562,
+      "avg_pnl": 3.356783411306607
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_macd_5_35_5",
+      "min_pnl": 1.009562445326276,
+      "avg_pnl": 4.6600972030082595
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_vwap_rev_30",
+      "min_pnl": 0.8435073430225299,
+      "avg_pnl": 2.5878528906862868
+    },
+    {
+      "sym": "SOLUSDT",
+      "strat": "okx_ema_5_20",
+      "min_pnl": 0.786896689212739,
+      "avg_pnl": 5.472328734126651
+    },
+    {
+      "sym": "XRPUSDT",
+      "strat": "okx_ema_5_20",
+      "min_pnl": 0.7687315125577193,
+      "avg_pnl": 4.952815254035741
+    },
+    {
+      "sym": "ETHUSDT",
+      "strat": "okx_ema_5_20",
+      "min_pnl": 0.617153247786931,
+      "avg_pnl": 3.7375572855826262
+    },
+    {
+      "sym": "DOGEUSDT",
+      "strat": "okx_ema_5_20",
+      "min_pnl": 0.6083346568250741,
+      "avg_pnl": 4.625741304687847
+    }
+  ]
+}

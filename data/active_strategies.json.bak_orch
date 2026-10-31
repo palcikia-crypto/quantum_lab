@@ -1,0 +1,78 @@
+{
+  "updated_at": "2026-10-28T07:34:10.887109",
+  "source": "gate_all",
+  "pairs": {
+    "ETHUSDT_15m_mean_rev_20_2.0": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_20_2.0",
+      "wr": 71.3,
+      "n": 944,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_bb_20_1.5": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "bb_20_1.5",
+      "wr": 64.6,
+      "n": 1970,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_bb_20_2.0": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "bb_20_2.0",
+      "wr": 71.3,
+      "n": 944,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "BTCUSDT_15m_mean_rev_15_1.5": {
+      "symbol": "BTCUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 62.7,
+      "n": 1926,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_mean_rev_20_1.5": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_20_1.5",
+      "wr": 64.6,
+      "n": 1970,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    },
+    "ETHUSDT_15m_mean_rev_15_1.5": {
+      "symbol": "ETHUSDT",
+      "tf": "15m",
+      "strategy": "mean_rev_15_1.5",
+      "wr": 70.5,
+      "n": 2060,
+      "p": 0.0,
+      "verdict": "GOLDEN",
+      "score": 10.0,
+      "model": "auto_add",
+      "trade": true
+    }
+  }
+}

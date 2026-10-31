@@ -1,0 +1,34 @@
+{
+  "updated_at": "2026-10-29T17:06:21.863686",
+  "source": "auto_apply_scalp_graals",
+  "params": {
+    "tp": 0.0015,
+    "sl": 0.00075,
+    "timeout_sec": 60,
+    "fee": 0.0005,
+    "funding_min": 5e-05
+  },
+  "per_pair": {
+    "SOL-USDT": {
+      "strategy": "scalp_obi_short",
+      "obi_threshold": -0.4,
+      "tp": 0.0015,
+      "sl": 0.00075,
+      "funding_min": 5e-05
+    },
+    "BTC-USDT": {
+      "strategy": "scalp_obi_short",
+      "obi_threshold": -0.4,
+      "tp": 0.0015,
+      "sl": 0.00075,
+      "funding_min": 5e-05
+    },
+    "XRP-USDT": {
+      "strategy": "scalp_obi_short",
+      "obi_threshold": -0.4,
+      "tp": 0.0015,
+      "sl": 0.00075,
+      "funding_min": 5e-05
+    }
+  }
+}

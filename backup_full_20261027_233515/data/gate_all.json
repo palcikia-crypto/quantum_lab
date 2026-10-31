@@ -1,0 +1,1683 @@
+{
+  "timestamp": "2026-10-27T18:07:53.865227",
+  "summary": {
+    "GOLDEN": 0,
+    "TRADE_NOW": 0,
+    "WATCH": 0,
+    "SKIP": 44
+  },
+  "results": [
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "rsi_70_down",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 2.0,
+      "L1": {
+        "wr": 54.2,
+        "n": 72,
+        "p": 0.2398,
+        "ci_lo": 42.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 53.2,
+        "test_wr": 60.0,
+        "delta": -6.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.608325334233221,
+        "sharpe": 2.156267470152556,
+        "max_dd": 14.015232859693121,
+        "pass": true
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "ema_9_21",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 2.0,
+      "L1": {
+        "wr": 48.5,
+        "n": 130,
+        "p": 0.3629,
+        "ci_lo": 39.9,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.8,
+        "test_wr": 48.0,
+        "delta": 0.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 20.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.5610191258475414,
+        "sharpe": 1.2509845485481057,
+        "max_dd": 15.246826447698346,
+        "pass": true
+      },
+      "L7": {
+        "min_month_wr": 20.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "stoch_20",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 56.1,
+        "n": 171,
+        "p": 0.0541,
+        "ci_lo": 48.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 56.8,
+        "test_wr": 50.0,
+        "delta": 6.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.3654134755180668,
+        "sharpe": -0.27944575645530556,
+        "max_dd": 41.90022677352038,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "stoch_30",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 54.7,
+        "n": 212,
+        "p": 0.0848,
+        "ci_lo": 48.0,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 55.6,
+        "test_wr": 52.1,
+        "delta": 3.5,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 88.9,
+        "flat_wr": 28.6,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.4412611910543651,
+        "sharpe": 0.7460133498857208,
+        "max_dd": 21.450623383966615,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 28.6,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "stoch_30",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 54.5,
+        "n": 222,
+        "p": 0.0897,
+        "ci_lo": 48.0,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 53.8,
+        "test_wr": 57.1,
+        "delta": -3.4,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 85.7,
+        "flat_wr": 16.7,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.37295347211249946,
+        "sharpe": -0.13933418565082337,
+        "max_dd": 27.352682720296134,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 16.7,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "stoch_20",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 52.7,
+        "n": 188,
+        "p": 0.2329,
+        "ci_lo": 45.5,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 53.3,
+        "test_wr": 47.8,
+        "delta": 5.5,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.25765645106991736,
+        "sharpe": -0.9877522788563717,
+        "max_dd": 39.44489576841786,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "rsi_70_down",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 51.6,
+        "n": 95,
+        "p": 0.3791,
+        "ci_lo": 41.5,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 51.9,
+        "test_wr": 50.0,
+        "delta": 1.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.24190879656157518,
+        "sharpe": -1.0604796230663502,
+        "max_dd": 29.359227318591213,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "stoch_30",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 51.3,
+        "n": 224,
+        "p": 0.3442,
+        "ci_lo": 44.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.3,
+        "test_wr": 52.4,
+        "delta": -2.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 83.3,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.5863676013872385,
+        "sharpe": 0.44429707916142425,
+        "max_dd": 36.860782757461386,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "rsi_70_down",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 51.0,
+        "n": 104,
+        "p": 0.4223,
+        "ci_lo": 41.4,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.0,
+        "test_wr": 56.2,
+        "delta": -6.2,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.42219640802504443,
+        "sharpe": -0.430229360104346,
+        "max_dd": 40.87169714367464,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "rsi_70_down",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 50.5,
+        "n": 97,
+        "p": 0.4596,
+        "ci_lo": 40.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 56.0,
+        "test_wr": 15.4,
+        "delta": 40.6,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.22167135192897805,
+        "sharpe": -0.38950531467708666,
+        "max_dd": 12.557424983273894,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_3",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 50.1,
+        "n": 840,
+        "p": 0.4725,
+        "ci_lo": 46.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.9,
+        "test_wr": 45.9,
+        "delta": 5.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 77.3,
+        "flat_wr": 35.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.23377600499972392,
+        "sharpe": -0.6687146359294105,
+        "max_dd": 130.2588565219068,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 35.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "vwap_rev",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.7,
+        "n": 931,
+        "p": 0.4349,
+        "ci_lo": 46.5,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.5,
+        "test_wr": 48.7,
+        "delta": 1.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 32.4,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.4090368399685663,
+        "sharpe": 0.41047591159257835,
+        "max_dd": 59.4136331421399,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 32.4,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "stoch_30",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.4,
+        "n": 243,
+        "p": 0.4237,
+        "ci_lo": 43.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 51.0,
+        "test_wr": 42.9,
+        "delta": 8.2,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 70.0,
+        "flat_wr": 25.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.16207507989991254,
+        "sharpe": -0.5891418147011497,
+        "max_dd": 15.275352394494455,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 25.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_2",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.3,
+        "n": 882,
+        "p": 0.3431,
+        "ci_lo": 46.0,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.5,
+        "test_wr": 48.2,
+        "delta": 1.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 69.4,
+        "flat_wr": 32.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.328738737607465,
+        "sharpe": -0.5671269370011081,
+        "max_dd": 123.68730340544276,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 32.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_3",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 49.0,
+        "n": 847,
+        "p": 0.2796,
+        "ci_lo": 45.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.1,
+        "test_wr": 47.2,
+        "delta": 2.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 78.9,
+        "flat_wr": 29.4,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.1807377335761497,
+        "sharpe": -0.46605697747175073,
+        "max_dd": 61.58498317298019,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 29.4,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "stoch_30",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.8,
+        "n": 250,
+        "p": 0.3522,
+        "ci_lo": 42.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.8,
+        "test_wr": 48.9,
+        "delta": -0.2,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 33.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.15608147928750157,
+        "sharpe": -1.4280520831544825,
+        "max_dd": 61.810285264209185,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 33.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "vwap_rev",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.8,
+        "n": 1503,
+        "p": 0.1833,
+        "ci_lo": 46.3,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.1,
+        "test_wr": 48.4,
+        "delta": 0.7,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 63.3,
+        "flat_wr": 33.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.3700376424806034,
+        "sharpe": -0.3092610231154577,
+        "max_dd": 214.66465499784744,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 33.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_2",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.6,
+        "n": 917,
+        "p": 0.2045,
+        "ci_lo": 45.4,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 49.3,
+        "test_wr": 46.2,
+        "delta": 3.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 65.0,
+        "flat_wr": 28.2,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.2969183549776956,
+        "sharpe": -0.23458452260330123,
+        "max_dd": 96.51945869369185,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 28.2,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_3",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.6,
+        "n": 833,
+        "p": 0.2128,
+        "ci_lo": 45.2,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.1,
+        "test_wr": 50.3,
+        "delta": -2.2,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 73.3,
+        "flat_wr": 20.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.2390646620442603,
+        "sharpe": -1.029435495513544,
+        "max_dd": 174.11484935977936,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 20.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_2",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.0,
+        "n": 955,
+        "p": 0.1035,
+        "ci_lo": 44.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.8,
+        "test_wr": 44.7,
+        "delta": 4.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 66.7,
+        "flat_wr": 33.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.1814044153120659,
+        "sharpe": -0.42162662712078375,
+        "max_dd": 67.90137120281216,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 33.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "stoch_20",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.0,
+        "n": 221,
+        "p": 0.2725,
+        "ci_lo": 41.4,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 50.3,
+        "test_wr": 34.4,
+        "delta": 15.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.08218140010908806,
+        "sharpe": -1.5643903827962302,
+        "max_dd": 24.240912542924487,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_2",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.0,
+        "n": 914,
+        "p": 0.1169,
+        "ci_lo": 44.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 48.6,
+        "test_wr": 45.9,
+        "delta": 2.7,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 61.5,
+        "flat_wr": 28.6,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.36881302845413144,
+        "sharpe": -0.4836814207224497,
+        "max_dd": 167.68825941485852,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 28.6,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_3",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 48.0,
+        "n": 857,
+        "p": 0.1159,
+        "ci_lo": 44.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.4,
+        "test_wr": 49.7,
+        "delta": -2.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 63.0,
+        "flat_wr": 31.1,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.30329432784819715,
+        "sharpe": -0.46714541063683535,
+        "max_dd": 103.9618832581441,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 31.1,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_2",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.9,
+        "n": 894,
+        "p": 0.1019,
+        "ci_lo": 44.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.6,
+        "test_wr": 48.6,
+        "delta": -1.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 60.5,
+        "flat_wr": 34.9,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.4846952726520704,
+        "sharpe": 0.16566026087674615,
+        "max_dd": 56.781725164600026,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 34.9,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "rsi_70_down",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.8,
+        "n": 92,
+        "p": 0.3383,
+        "ci_lo": 37.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.4,
+        "test_wr": 50.0,
+        "delta": -2.6,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.38248693669350986,
+        "sharpe": 0.5289013658404272,
+        "max_dd": 14.3011492695017,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "vol_breakout",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.6,
+        "n": 63,
+        "p": 0.3527,
+        "ci_lo": 35.3,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 46.3,
+        "test_wr": 50.0,
+        "delta": -3.7,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.3924778029654223,
+        "sharpe": 0.2214045631754088,
+        "max_dd": 20.048736771801405,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "mean_rev_3",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.6,
+        "n": 836,
+        "p": 0.0833,
+        "ci_lo": 44.2,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.9,
+        "test_wr": 45.9,
+        "delta": 2.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 82.4,
+        "flat_wr": 26.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.1898069684486184,
+        "sharpe": -1.544913803490058,
+        "max_dd": 235.98858193878792,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 26.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "vol_spike",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.2,
+        "n": 180,
+        "p": 0.228,
+        "ci_lo": 39.9,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 44.7,
+        "test_wr": 51.6,
+        "delta": -6.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 85.7,
+        "flat_wr": 16.7,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.6009559750301766,
+        "sharpe": 0.6847947056937727,
+        "max_dd": 33.23053006340186,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 16.7,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "vol_spike",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 47.2,
+        "n": 163,
+        "p": 0.2404,
+        "ci_lo": 39.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 43.0,
+        "test_wr": 54.5,
+        "delta": -11.6,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 83.3,
+        "flat_wr": 16.7,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.4519014807276305,
+        "sharpe": 0.08990035073414329,
+        "max_dd": 31.962088564708104,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 16.7,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "vwap_rev",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 46.8,
+        "n": 1454,
+        "p": 0.0068,
+        "ci_lo": 44.2,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 46.8,
+        "test_wr": 46.0,
+        "delta": 0.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 61.5,
+        "flat_wr": 38.5,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.15481850097233854,
+        "sharpe": -0.5334033670588754,
+        "max_dd": 84.15099306731746,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 38.5,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "vwap_rev",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 46.7,
+        "n": 979,
+        "p": 0.0189,
+        "ci_lo": 43.6,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 46.8,
+        "test_wr": 46.9,
+        "delta": -0.0,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 34.2,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.32314143387113176,
+        "sharpe": 0.03979672401790348,
+        "max_dd": 63.65145554366916,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 34.2,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "stoch_20",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 46.2,
+        "n": 186,
+        "p": 0.1523,
+        "ci_lo": 39.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 47.4,
+        "test_wr": 33.3,
+        "delta": 14.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 81.8,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.22327090636600766,
+        "sharpe": -0.9479036011936119,
+        "max_dd": 32.840873958279055,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "ema_9_21",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.5,
+        "n": 134,
+        "p": 0.15,
+        "ci_lo": 37.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 45.5,
+        "test_wr": 46.3,
+        "delta": -0.8,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 83.3,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.3034200380170189,
+        "sharpe": 0.09491756102674101,
+        "max_dd": 17.731830986286976,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "vwap_rev",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.5,
+        "n": 696,
+        "p": 0.0094,
+        "ci_lo": 41.8,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 43.3,
+        "test_wr": 48.2,
+        "delta": -4.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 33.3,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.3475208317397707,
+        "sharpe": -0.5406004736524254,
+        "max_dd": 116.40766792620974,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 33.3,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "vol_spike",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.5,
+        "n": 176,
+        "p": 0.1139,
+        "ci_lo": 38.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 46.6,
+        "test_wr": 44.1,
+        "delta": 2.5,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.8449900803872961,
+        "sharpe": 0.7514439691958403,
+        "max_dd": 38.85166174983837,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "ETHUSDT",
+      "tf": "4h",
+      "strategy": "ema_9_21",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.4,
+        "n": 152,
+        "p": 0.1281,
+        "ci_lo": 37.5,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 45.2,
+        "test_wr": 46.4,
+        "delta": -1.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.086766702285153,
+        "sharpe": -1.70149500216176,
+        "max_dd": 46.918347700916726,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "vol_breakout",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.3,
+        "n": 53,
+        "p": 0.2461,
+        "ci_lo": 31.9,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 41.9,
+        "test_wr": 50.0,
+        "delta": -8.1,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.0322014853808992,
+        "sharpe": -3.0910098240738146,
+        "max_dd": 35.4862655122245,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "stoch_20",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.3,
+        "n": 179,
+        "p": 0.1019,
+        "ci_lo": 38.0,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 44.5,
+        "test_wr": 57.1,
+        "delta": -12.6,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": -0.00047904111555389223,
+        "sharpe": -2.5739261721767526,
+        "max_dd": 97.7120606053011,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "ema_9_21",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 45.2,
+        "n": 146,
+        "p": 0.1233,
+        "ci_lo": 37.1,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 38.6,
+        "test_wr": 52.5,
+        "delta": -13.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.1782951211018974,
+        "sharpe": 0.14878713339980879,
+        "max_dd": 9.54214460393974,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "XRPUSDT",
+      "tf": "4h",
+      "strategy": "vol_spike",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 44.8,
+        "n": 163,
+        "p": 0.0915,
+        "ci_lo": 37.2,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 44.8,
+        "test_wr": 43.9,
+        "delta": 0.9,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 80.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.43066790841636204,
+        "sharpe": -0.7055999005383408,
+        "max_dd": 32.819571912337594,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "vol_breakout",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 44.0,
+        "n": 50,
+        "p": 0.1981,
+        "ci_lo": 30.2,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 40.0,
+        "test_wr": 53.3,
+        "delta": -13.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.0580369632992914,
+        "sharpe": -2.550700431534448,
+        "max_dd": 16.752206912979204,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "BTCUSDT",
+      "tf": "4h",
+      "strategy": "vol_spike",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 43.1,
+        "n": 188,
+        "p": 0.029,
+        "ci_lo": 36.0,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 42.3,
+        "test_wr": 42.6,
+        "delta": -0.3,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 85.7,
+        "flat_wr": 16.7,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.24658431420027527,
+        "sharpe": -0.12785398472665102,
+        "max_dd": 27.863905739063476,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 16.7,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "DOGEUSDT",
+      "tf": "4h",
+      "strategy": "vol_breakout",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 42.0,
+        "n": 50,
+        "p": 0.1289,
+        "ci_lo": 28.3,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 38.7,
+        "test_wr": 47.4,
+        "delta": -8.7,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.29227239547064937,
+        "sharpe": -1.1054213503788504,
+        "max_dd": 19.15987837381282,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    },
+    {
+      "symbol": "SOLUSDT",
+      "tf": "4h",
+      "strategy": "ema_9_21",
+      "model": "open",
+      "h1": true,
+      "verdict": "SKIP",
+      "score": 0.0,
+      "L1": {
+        "wr": 41.8,
+        "n": 141,
+        "p": 0.0264,
+        "ci_lo": 33.7,
+        "pass": false
+      },
+      "L2": {
+        "train_wr": 41.6,
+        "test_wr": 40.0,
+        "delta": 1.6,
+        "pass": false
+      },
+      "L3": {
+        "trend_wr": 100.0,
+        "flat_wr": 0.0,
+        "pass": false
+      },
+      "L4": {
+        "p95": 0.19108633219212748,
+        "sharpe": -0.9389234120703895,
+        "max_dd": 30.960217616726382,
+        "pass": false
+      },
+      "L7": {
+        "min_month_wr": 0.0,
+        "all_pos": false,
+        "pass": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+#!/usr/bin/env python3
+"""strategy_pool_advanced.py — 8 новых индикаторов + 6 стратегий."""
+import numpy as np
+
+# ═══ НОВЫЕ ИНДИКАТОРЫ ═══
+def calc_vwap(h, l, c, v):
+    n = len(c); out = np.full(n, np.nan); cum_pv = 0; cum_v = 0
+    for i in range(n):
+        tp = (h[i]+l[i]+c[i])/3; cum_pv += tp*v[i]; cum_v += v[i]
+        if cum_v > 0: out[i] = cum_pv/cum_v
+    return out
+
+def calc_obi(o, h, l, c, v):
+    """Order Book Imbalance (упрощённо): (h-l)/(h+l)."""
+    n = len(c); out = np.zeros(n)
+    for i in range(n):
+        if h[i] + l[i] > 0: out[i] = (h[i]-l[i])/(h[i]+l[i])
+    return out
+
+def calc_funding_proxy(o, h, l, c, v):
+    """Funding proxy: (c - SMA20) / ATR."""
+    sma = np.convolve(c, np.ones(20)/20, mode='same')
+    tr = np.array([max(h[i]-l[i], abs(h[i]-c[i-1]), abs(l[i]-c[i-1])) for i in range(1, len(c))])
+    atr = np.convolve(tr, np.ones(14)/14, mode='same')
+    out = np.zeros(len(c))
+    for i in range(20, len(c)):
+        if i < len(atr) and i < len(sma) and i < len(out) and atr[i] > 0: out[i] = (c[i] - sma[i]) / atr[i]
+    return out
+
+def calc_donchian(h, l, p=20):
+    n = len(h); up = np.full(n, np.nan); dn = np.full(n, np.nan)
+    for i in range(p, n):
+        up[i] = h[i-p+1:i+1].max(); dn[i] = l[i-p+1:i+1].min()
+    return up, dn
+
+def calc_bb_squeeze(c, p=20, k=2.0):
+    n = len(c); out = np.zeros(n)
+    for i in range(p, n):
+        m = c[i-p+1:i+1].mean(); s = c[i-p+1:i+1].std()
+        if s > 0: out[i] = (c[i]-m)/(k*s)
+    return out
+
+def calc_macd(c, fast=12, slow=26, sig=9):
+    def ema(arr, p):
+        k = 2/(p+1); out = np.full(len(arr), np.nan); out[p-1] = arr[:p].mean()
+        for i in range(p, len(arr)): out[i] = arr[i]*k + out[i-1]*(1-k)
+        return out
+    e_fast = ema(c, fast); e_slow = ema(c, slow)
+    macd = e_fast - e_slow; signal = ema(macd, sig)
+    return macd - signal
+
+def calc_atr(h, l, c, p=14):
+    n = len(c); tr = np.zeros(n)
+    for i in range(1, n): tr[i] = max(h[i]-l[i], abs(h[i]-c[i-1]), abs(l[i]-c[i-1]))
+    return np.convolve(tr, np.ones(p)/p, mode='same')
+
+def calc_adx(h, l, c, p=14):
+    n = len(c); out = np.zeros(n)
+    for i in range(p, n):
+        plus = sum(max(h[j]-h[j-1], 0) for j in range(i-p+1, i+1))
+        minus = sum(max(l[j-1]-l[j], 0) for j in range(i-p+1, i+1))
+        if plus + minus > 0: out[i] = 100*abs(plus-minus)/(plus+minus)
+    return out
+
+# ═══ НОВЫЕ СТРАТЕГИИ ═══
+def sig_vwap_bounce(o,h,l,c,v,ind):
+    if 'vwap' not in ind: ind['vwap'] = calc_vwap(h,l,c,v)
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    vw = ind['vwap']
+    for i in range(1, len(c)):
+        if np.isnan(vw[i]): continue
+        if c[i-1] < vw[i-1] and c[i] > vw[i]: up[i] = True
+        if c[i-1] > vw[i-1] and c[i] < vw[i]: dn[i] = True
+    return up, dn
+
+def sig_obi_extreme(o,h,l,c,v,ind):
+    if 'obi' not in ind: ind['obi'] = calc_obi(o,h,l,c,v)
+    obi = ind['obi']
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    for i in range(1, len(c)):
+        if obi[i-1] < -0.3 and obi[i] > -0.3: up[i] = True
+        if obi[i-1] > 0.3 and obi[i] < 0.3: dn[i] = True
+    return up, dn
+
+def sig_funding_extreme(o,h,l,c,v,ind):
+    if 'fund' not in ind: ind['fund'] = calc_funding_proxy(o,h,l,c,v)
+    f = ind['fund']
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    for i in range(1, len(c)):
+        if f[i-1] < -2 and f[i] > -2: up[i] = True
+        if f[i-1] > 2 and f[i] < 2: dn[i] = True
+    return up, dn
+
+def sig_donchian_break_adv(o,h,l,c,v,ind):
+    if 'don_up' not in ind:
+        ind['don_up'], ind['don_dn'] = calc_donchian(h,l,20)
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    for i in range(1, len(c)):
+        if np.isnan(ind['don_up'][i]): continue
+        if c[i] > ind['don_up'][i-1]: up[i] = True
+        if c[i] < ind['don_dn'][i-1]: dn[i] = True
+    return up, dn
+
+def sig_bb_squeeze_break(o,h,l,c,v,ind):
+    if 'bbs' not in ind: ind['bbs'] = calc_bb_squeeze(c,20,2.0)
+    bbs = ind['bbs']
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    for i in range(1, len(c)):
+        if abs(bbs[i-1]) < 0.3 and bbs[i] > 0.3: up[i] = True
+        if abs(bbs[i-1]) < 0.3 and bbs[i] < -0.3: dn[i] = True
+    return up, dn
+
+def sig_macd_hist_adv(o,h,l,c,v,ind):
+    if 'macd_hist' not in ind: ind['macd_hist'] = calc_macd(c)
+    m = ind['macd_hist']
+    up = np.zeros(len(c),dtype=bool); dn = np.zeros(len(c),dtype=bool)
+    for i in range(1, len(c)):
+        if np.isnan(m[i]) or np.isnan(m[i-1]): continue
+        if m[i-1] < 0 and m[i] > 0: up[i] = True
+        if m[i-1] > 0 and m[i] < 0: dn[i] = True
+    return up, dn
+
+
+
+def sig_vwap_reversion(o,h,l,c,v, ind):
+    n = len(c); up = np.zeros(n, dtype=bool); dn = np.zeros(n, dtype=bool)
+    if n < 20: return up, dn
+    tp = (h + l + c) / 3
+    vwap = np.convolve(tp * v, np.ones(20), 'same') / np.maximum(np.convolve(v, np.ones(20), 'same'), 1e-9)
+    for i in range(20, n):
+        dev = (c[i] - vwap[i]) / vwap[i]
+        if dev < -0.01: up[i] = True
+        elif dev > 0.01: dn[i] = True
+    return up, dn
+
+def sig_rsi_divergence(o,h,l,c,v, ind):
+    n = len(c); up = np.zeros(n, dtype=bool); dn = np.zeros(n, dtype=bool)
+    if n < 30: return up, dn
+    delta = np.diff(c, prepend=c[0])
+    gain = np.where(delta > 0, delta, 0); loss = np.where(delta < 0, -delta, 0)
+    ag = np.convolve(gain, np.ones(14)/14, 'same'); al = np.convolve(loss, np.ones(14)/14, 'same')
+    rs = ag / np.maximum(al, 1e-9); rsi = 100 - 100/(1+rs)
+    for i in range(30, n):
+        if c[i] < c[i-10] and rsi[i] > rsi[i-10] and rsi[i] < 40: up[i] = True
+        elif c[i] > c[i-10] and rsi[i] < rsi[i-10] and rsi[i] > 60: dn[i] = True
+    return up, dn
+
+def sig_volume_spike(o,h,l,c,v, ind):
+    n = len(c); up = np.zeros(n, dtype=bool); dn = np.zeros(n, dtype=bool)
+    if n < 20: return up, dn
+    avg = np.convolve(v, np.ones(20)/20, 'same')
+    for i in range(20, n):
+        if v[i] > avg[i] * 2:
+            if c[i] > o[i]: up[i] = True
+            else: dn[i] = True
+    return up, dn
+
+def sig_atr_breakout(o,h,l,c,v, ind):
+    n = len(c); up = np.zeros(n, dtype=bool); dn = np.zeros(n, dtype=bool)
+    if n < 20: return up, dn
+    tr = np.array([max(h[i]-l[i], abs(h[i]-c[i-1]), abs(l[i]-c[i-1])) for i in range(1, n)])
+    atr = np.convolve(tr, np.ones(14)/14, 'same')
+    for i in range(20, n-1):
+        if c[i] > h[i-1] + atr[i]: up[i] = True
+        elif c[i] < l[i-1] - atr[i]: dn[i] = True
+    return up, dn
+
+# ═══ СЛОВАРЬ СТРАТЕГИЙ (в конце, после всех функций) ═══
+ADVANCED_STRATEGIES = {
+    'vwap_bounce': sig_vwap_bounce,
+    'obi_extreme': sig_obi_extreme,
+    'funding_extreme': sig_funding_extreme,
+    'donchian_adv': sig_donchian_break_adv,
+    'bb_squeeze_adv': sig_bb_squeeze_break,
+    'macd_hist_adv': sig_macd_hist_adv,
+    'vwap_reversion': sig_vwap_reversion,
+    'rsi_divergence': sig_rsi_divergence,
+    'volume_spike': sig_volume_spike,
+    'atr_breakout': sig_atr_breakout,
+}

@@ -1,0 +1,58 @@
+===== 1. ЧТО ЖИВО? =====
+  ✅ okx_bot_paper_v2 — 6954
+  ✅ okx_bot_paper_v3 — 6955
+  ✅ okx_bot_paper_v4 — 6681
+  ✅ brain_loop — 4542
+  ✅ oracle.py — 5274
+  ✅ orderbook_oracle — 6957
+  ✅ strategy_bot — 4549
+  ✅ dashboard.py — 4577
+  ✅ strategy_panel — 4581
+  ❌ grail_optimizer_full
+
+===== 2. UPTIME =====
+ 06:29:23 up 15 min,  0 users,  load average: 23.39, 14.16, 8.09
+
+===== 3. okx_active.json (8 пар?) =====
+  пар: 8, обновлён: 06:01:14
+    ETH-USDT okx_vwap_rev_13
+    SOL-USDT okx_vwap_rev_13
+    DOGE-USDT okx_vwap_rev_13
+    BTC-USDT okx_vwap_rev_17
+    ETH-USDT okx_vwap_rev_15
+    XRP-USDT okx_grid_sma_13
+    ETH-USDT okx_grid_sma_17
+    XRP-USDT okx_grid_sma_15
+
+===== 4. ВОССТАНОВЛЕНИЕ =====
+
+===== 5. ПОСЛЕ ВОССТАНОВЛЕНИЯ =====
+  ✅ okx_bot_paper_v2 — 6954
+  ✅ okx_bot_paper_v3 — 6955
+  ✅ okx_bot_paper_v4 — 6681
+  ✅ brain_loop — 4542
+  ✅ oracle.py — 5274
+  ✅ orderbook_oracle — 6957
+  ✅ strategy_bot — 4549
+  ✅ dashboard.py — 4577
+  ✅ strategy_panel — 4581
+
+===== 6. ЛОГИ v2/v3 =====
+[06:24:22] active: 8 пар
+[06:24:45] active: 8 пар
+[06:26:43] active: 8 пар
+[06:27:38] active: 8 пар
+[06:28:28] active: 8 пар
+[06:29:23] active: 8 пар
+---
+[06:24:56] active: 8 пар
+[06:26:34] active: 8 пар
+[06:27:22] active: 8 пар
+[06:28:08] active: 8 пар
+[06:28:46] active: 8 пар
+[06:29:23] active: 8 пар
+
+===== 7. PnL =====
+  v2: 152 сделок, PnL=-169.86
+  v3: 135 сделок, PnL=-188.5
+  v4: 778 сделок, PnL=8.2

@@ -1,0 +1,11 @@
+[
+  {"name": "v4_dead", "condition": {"proc_okx_bot_paper_v4_false": true}, "action": "restart", "target": "okx_bot_paper_v4", "cmd": "python3 -u core/okx_bot_paper_v4.py"},
+  {"name": "brain_dead", "condition": {"proc_brain_loop_false": true}, "action": "restart", "target": "brain_loop", "cmd": "python3 -u core/brain_loop.py"},
+  {"name": "market_stale", "condition": {"age_market.db_gt": 600}, "action": "restart", "target": "data_manager", "cmd": "python3 -u core/data_manager.py"},
+  {"name": "ml_saturated", "condition": {"ml_bad": ["BTCUSDT"]}, "action": "retrain_ml"},
+  {"name": "pnl_negative", "condition": {"pnl_24h_lt": -5}, "action": "alert", "message": "PnL за 24ч: {pnl_24h}"},
+  {"name": "v4_errors_recent", "condition": {"v4_errors_recent_gt": 0}, "action": "alert", "message": "v4 ERROR: {v4_errors_recent}"},
+  {"name": "evolve_dead", "condition": {"proc_evolve_agent_false": true}, "action": "restart", "target": "evolve_agent", "cmd": "python3 -u agents/evolve_agent.py"},
+  {"name": "oracle_stale", "condition": {"age_oracle.db_gt": 300}, "action": "restart", "target": "oracle.py", "cmd": "python3 -u core/oracle.py loop"},
+  {"name": "orderbook_stale", "condition": {"age_orderbook.db_gt": 300}, "action": "restart", "target": "orderbook_oracle", "cmd": "python3 -u core/orderbook_oracle.py"}
+]

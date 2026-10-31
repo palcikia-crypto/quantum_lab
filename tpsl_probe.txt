@@ -1,0 +1,128 @@
+########## TPSL OPTIMIZER PROBE 2026-10-28 06:59:12 ##########
+
+===== 1. market.db: СХЕМА И 15m-ДАННЫЕ ПО 16 ЗОЛОТЫМ =====
+CREATE TABLE candles (
+        symbol TEXT, tf TEXT, ts INTEGER,
+        o REAL, h REAL, l REAL, c REAL, v REAL,
+        PRIMARY KEY (symbol, tf, ts)
+    );
+CREATE INDEX idx_candles ON candles(symbol, tf, ts);
+CREATE TABLE state (key TEXT PRIMARY KEY, value TEXT);
+
+--- таблицы и количество строк ---
+  candles: 1120855
+  state: 0
+
+--- 15m свечи по парам (если есть) ---
+ symbol     n           first                last
+--------  -----  -------------------  -------------------
+ADAUSDT   17304  2026-04-30 13:00:00  2026-10-27 18:45:00
+ARBUSDT   17304  2026-04-30 13:00:00  2026-10-27 18:45:00
+AVAXUSDT  17304  2026-04-30 13:00:00  2026-10-27 18:45:00
+BNBUSDT   17305  2026-04-30 12:45:00  2026-10-27 18:45:00
+BTCUSDT   17305  2026-04-30 12:45:00  2026-10-27 18:45:00
+DOGEUSDT  17305  2026-04-30 12:45:00  2026-10-27 18:45:00
+DOTUSDT   17304  2026-04-30 13:00:00  2026-10-27 18:45:00
+ETHUSDT   17305  2026-04-30 12:45:00  2026-10-27 18:45:00
+LINKUSDT  17304  2026-04-30 13:00:00  2026-10-27 18:45:00
+SOLUSDT   17305  2026-04-30 12:45:00  2026-10-27 18:45:00
+XRPUSDT   17311  2026-04-30 12:45:00  2026-10-27 20:15:00
+
+===== 2. close_open_trades: ТЕКУЩАЯ ЛОГИКА TP/SL =====
+    66	    return None
+    67	
+    68	def close_open_trades():
+    69	    """Закрывает открытые сделки через 15 мин (по текущей цене)."""
+    70	    c = sqlite3.connect(DB)
+    71	    rows = c.execute("SELECT id, symbol, side, entry_price, entry_ts, strategy FROM trades WHERE status='OPEN'").fetchall()
+    72	    now = int(time.time())
+    73	    for t_id, sym, side, ep, ets, strat in rows:
+    74	        cur = get_price(sym)
+    75	        if not cur: continue
+    76	        move = (cur - ep) / ep if side == 'LONG' else (ep - cur) / ep
+    77	        # TP/SL: закрываем при +0.5% или -0.3% или через 15 мин
+    78	        if move >= 0.003 or move <= -0.002 or (now - ets) >= 900:
+    79	            pnl = (move - FEE - SLIP) * BET
+    80	            win = 1 if pnl > 0 else 0
+    81	            c.execute("UPDATE trades SET exit_price=?, pnl=?, exit_ts=?, status='CLOSED', win_flag=? WHERE id=?",
+    82	                      (cur, round(pnl,2), now, win, t_id))
+    83	            log(f'  {"✅" if win else "❌"} {sym} {side} CLOSED @ {cur} PnL=${pnl:+.2f}')
+    84	    c.commit(); c.close()
+    85	
+    86	def main():
+    87	    init_db()
+    88	    log('=== OKX PAPER BOT STARTED ===')
+    89	    while True:
+    90	        try:
+
+===== 3. okx_mutator: СИГНАТУРЫ СТРАТЕГИЙ (первые 40 строк) =====
+#!/usr/bin/env python3
+"""okx_mutator.py — 100+ мутантов OKX-стратегий."""
+import numpy as np
+
+def ema_cross(fast, slow):
+    def f(o,h,l,c,v, ind):
+        n=len(c); up=np.zeros(n,dtype=bool); dn=np.zeros(n,dtype=bool)
+        if n<slow+1: return up,dn
+        ef=np.convolve(c,np.ones(fast)/fast,'same'); es=np.convolve(c,np.ones(slow)/slow,'same')
+        for i in range(slow,n):
+            if ef[i]>es[i] and ef[i-1]<=es[i-1]: up[i]=True
+            elif ef[i]<es[i] and ef[i-1]>=es[i-1]: dn[i]=True
+        return up,dn
+    f.__name__=f'okx_ema_{fast}_{slow}'; return f
+
+def donchian(p):
+    def f(o,h,l,c,v, ind):
+        n=len(c); up=np.zeros(n,dtype=bool); dn=np.zeros(n,dtype=bool)
+        if n<p: return up,dn
+        for i in range(p,n):
+            hi=max(h[i-p:i]); lo=min(l[i-p:i])
+            if c[i]>hi: up[i]=True
+            elif c[i]<lo: dn[i]=True
+        return up,dn
+    f.__name__=f'okx_donchian_{p}'; return f
+
+def rsi_vol(p, lo, hi):
+    def f(o,h,l,c,v, ind):
+        n=len(c); up=np.zeros(n,dtype=bool); dn=np.zeros(n,dtype=bool)
+        if n<p+1: return up,dn
+        d=np.diff(c,prepend=c[0]); g=np.where(d>0,d,0); ls=np.where(d<0,-d,0)
+        ag=np.convolve(g,np.ones(p)/p,'same'); al=np.convolve(ls,np.ones(p)/p,'same')
+        rs=ag/np.maximum(al,1e-9); rsi=100-100/(1+rs)
+        vm=np.convolve(v,np.ones(20)/20,'same')
+        for i in range(p,n):
+            if rsi[i]<lo and v[i]>vm[i]: up[i]=True
+            elif rsi[i]>hi and v[i]>vm[i]: dn[i]=True
+        return up,dn
+    f.__name__=f'okx_rsi_{p}_{lo}_{hi}'; return f
+
+
+===== 4. 16 ЗОЛОТЫХ (из okx_active.json) =====
+  BTC-USDT     okx_vwap_rev_10      wr=73.6 n=2168
+  ETH-USDT     okx_vwap_rev_10      wr=73.0 n=1043
+  SOL-USDT     okx_vwap_rev_10      wr=69.2 n=1455
+  DOGE-USDT    okx_vwap_rev_10      wr=68.5 n=1602
+  BTC-USDT     okx_vwap_rev_20      wr=70.8 n=5234
+  ETH-USDT     okx_vwap_rev_20      wr=67.6 n=2232
+  BTC-USDT     okx_vwap_rev_30      wr=67.8 n=7953
+  BTC-USDT     okx_grid_sma_10      wr=75.6 n=940
+  ETH-USDT     okx_grid_sma_10      wr=75.2 n=464
+  XRP-USDT     okx_grid_sma_10      wr=71.8 n=662
+  SOL-USDT     okx_grid_sma_10      wr=71.7 n=607
+  DOGE-USDT    okx_grid_sma_10      wr=71.9 n=686
+  BTC-USDT     okx_grid_sma_20      wr=70.7 n=2986
+  ETH-USDT     okx_grid_sma_20      wr=69.3 n=1233
+  XRP-USDT     okx_grid_sma_20      wr=67.5 n=1520
+  BTC-USDT     okx_grid_sma_30      wr=66.7 n=4713
+
+===== 5. ЕСТЬ ЛИ УЖЕ КОНФИГ TP/SL =====
+❌ нет — будем создавать
+
+===== 6. СКОЛЬКО 15m-СВЕЧЕЙ ДОСТУПНО ЧЕРЕЗ OKX API (быстрая проверка) =====
+  BTC-USDT: 300 свечей доступно
+  ETH-USDT: 300 свечей доступно
+  SOL-USDT: 300 свечей доступно
+  DOGE-USDT: 300 свечей доступно
+  XRP-USDT: 300 свечей доступно
+
+########## END ##########

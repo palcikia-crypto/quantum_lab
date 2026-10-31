@@ -1,0 +1,86 @@
+===== 1. ОПТИМИЗАТОР: ЖИВ? =====
+11418 python3 -u tools/agent/grail_optimizer_full.py
+11830 python3 tools/agent/grail_optimizer_full.py
+
+===== 2. ЛОГ ОПТИМИЗАТОРА (последние 50) =====
+nohup: ignoring input
+[17:58:37] [full] === GRAIL OPTIMIZER FULL ===
+[17:58:37] [full] Граалей: 16
+[17:58:37] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+[18:00:04] [full] === GRAIL OPTIMIZER FULL ===
+[18:00:04] [full] Граалей: 16
+[18:00:04] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 3. ЧТО ИЩЕТ (FAST / FULL / 1H) =====
+--- FAST ---
+0
+--- FULL ---
+0
+--- 1H ---
+0
+
+===== 4. ВСЕ ⚡ FAST (нашёл быстро) =====
+
+===== 5. ВСЕ 🔬 FULL (нашёл полно) =====
+
+===== 6. ВСЕ 🌐 1H (нашёл на 1h) =====
+
+===== 7. НОВЫЕ СЕМЕЙСТВА (RSI, Bollinger, Ichimoku, breakout, ансамбли) =====
+--- RSI ---
+--- Bollinger ---
+--- Ichimoku ---
+--- Breakout ---
+--- Ансамбли ---
+
+===== 8. BEST (прошли все 8) =====
+0
+
+===== 9. ОТСЕЯНО =====
+  STABILITY1: 0
+  STABILITY2: 0
+  OOS: 0
+  TREND: 0
+  нет walk-forward: 0
+
+===== 10. ТОРГОВЛЯ: PnL ВСЕГО =====
+  v2: 88 сделок, PnL=-157.08, WR=40.9%
+  v3: 145 сделок, PnL=-220.11, WR=37.9%
+  v4: 936 сделок, PnL=9.23, WR=50.7%
+
+===== 11. PnL ЗА ЧАС =====
+  v2: 0 сделок, PnL=0.0
+  v3: 5 сделок, PnL=-3.02
+  v4: 67 сделок, PnL=0.42
+
+===== 12. НОВЫЕ СДЕЛКИ (после 17:58) =====
+--- v2 ---
+symbol  strategy  ep  xp  pnl  status  dt
+------  --------  --  --  ---  ------  --
+--- v3 ---
+ symbol      strategy        ep    xp  pnl  status          dt
+--------  ---------------  ------  --  ---  ------  -------------------
+XRP-USDT  okx_grid_sma_13  1.2491           OPEN    2026-10-31 18:01:09
+XRP-USDT  okx_grid_sma_13  1.2491           OPEN    2026-10-31 17:50:56
+XRP-USDT  okx_grid_sma_13  1.2492           OPEN    2026-10-31 17:40:55
+
+===== 13. ОТКРЫТЫЕ =====
+--- v2 ---
+symbol  side  strategy  ep  dt
+------  ----  --------  --  --
+--- v3 ---
+ symbol   side      strategy        ep            dt
+--------  -----  ---------------  ------  -------------------
+XRP-USDT  SHORT  okx_grid_sma_13  1.2492  2026-10-31 17:40:55
+XRP-USDT  SHORT  okx_grid_sma_13  1.2491  2026-10-31 17:50:56
+XRP-USDT  SHORT  okx_grid_sma_13  1.2491  2026-10-31 18:01:09
+--- v4 ---
+ symbol   side      strategy        ep            dt
+--------  -----  ---------------  ------  -------------------
+XRP-USDT  SHORT  scalp_obi_short  1.2491  2026-10-31 18:00:56
+
+===== 14. SANITY CHECK =====
+[18:01:12]   📊 data/okx_paper_v4.db: 936 сделок, PnL=9.23
+[18:01:12]   📊 v3 открытых: 3
+
+[18:01:12] ✅ ОШИБОК НЕТ
+[18:01:12] === ИТОГ: 0 ошибок, 0 предупреждений ===

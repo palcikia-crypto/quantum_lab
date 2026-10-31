@@ -1,0 +1,19 @@
+===== ВСТРОЙКА ПРОВЕРКИ №2 В ОПТИМИЗАТОР =====
+✅ изменения: stability_check_2
+✅ синтаксис OK
+
+===== ПРОВЕРКА =====
+171:def wf_10fold(data, fn, tp, sl, timeout):
+183:def monte_carlo_50(data, fn, tp, sl, timeout):
+218:def stability_check_2(data, fn, tp, sl, timeout):
+
+===== ПЕРЕЗАПУСК ОПТИМИЗАТОРА (двойная проверка) =====
+  optimizer PID: 21003
+[04:27:00] [full] === GRAIL OPTIMIZER FULL ===
+[04:27:00] [full] Граалей: 16
+[04:27:00] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== ИТОГ =====
+  ✅ stability_check (5-fold, 30 MC, 3 OOS, ±20%)
+  ✅ stability_check_2 (10-fold, 50 MC, 6 OOS, ±30%)
+  ⏳ optimizer работает ~60-80 минут (двойная проверка)

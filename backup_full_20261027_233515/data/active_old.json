@@ -1,0 +1,51 @@
+{
+  "updated_at": "2026-10-27T16:48:57.550866",
+  "pairs": {
+    "ETHUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.6,
+      "n": 4049,
+      "p": 0.0005,
+      "pnl": 2085.3,
+      "verdict": "✅ Confirmed"
+    },
+    "DOGEUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.3,
+      "n": 4123,
+      "p": 0.0018,
+      "pnl": 1884.72,
+      "verdict": "⚠️ Likely"
+    },
+    "SOLUSDT": {
+      "strategy": "stoch_30",
+      "wr": 54.3,
+      "n": 6243,
+      "p": 0.0001,
+      "pnl": 2877.82,
+      "verdict": "✅ Confirmed"
+    },
+    "XRPUSDT": {
+      "strategy": "stoch_20",
+      "wr": 54.6,
+      "n": 4219,
+      "p": 0.0004,
+      "pnl": 2176.93,
+      "verdict": "✅ Confirmed"
+    },
+    "BNBUSDT": {
+      "strategy": "rsi_30_up",
+      "wr": 55.7,
+      "n": 1002,
+      "p": 0.0106,
+      "pnl": 729.78,
+      "verdict": "⚠️ Likely"
+    }
+  },
+  "source": "rslab2_auto",
+  "rules": {
+    "min_wr": 54.0,
+    "min_n": 500,
+    "max_p": 0.05
+  }
+}

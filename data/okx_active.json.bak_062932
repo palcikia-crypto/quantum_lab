@@ -1,0 +1,77 @@
+{
+  "pairs": {
+    "BTC-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 71.7,
+      "n": 3915,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_vwap_rev_10": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_10",
+      "wr": 67.6,
+      "n": 4624,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_vwap_rev_20": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_vwap_rev_20",
+      "wr": 68.8,
+      "n": 8896,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_grid_sma_10": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_10",
+      "wr": 75.7,
+      "n": 1689,
+      "trade": true
+    },
+    "ETH-USDT_15m_okx_grid_sma_10": {
+      "symbol": "ETH-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_10",
+      "wr": 71.6,
+      "n": 1938,
+      "trade": true
+    },
+    "XRP-USDT_15m_okx_grid_sma_10": {
+      "symbol": "XRP-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_10",
+      "wr": 69.6,
+      "n": 2208,
+      "trade": true
+    },
+    "SOL-USDT_15m_okx_grid_sma_10": {
+      "symbol": "SOL-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_10",
+      "wr": 69.8,
+      "n": 2473,
+      "trade": true
+    },
+    "DOGE-USDT_15m_okx_grid_sma_10": {
+      "symbol": "DOGE-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_10",
+      "wr": 69.1,
+      "n": 2689,
+      "trade": true
+    },
+    "BTC-USDT_15m_okx_grid_sma_20": {
+      "symbol": "BTC-USDT",
+      "tf": "15m",
+      "strategy": "okx_grid_sma_20",
+      "wr": 69.9,
+      "n": 4792,
+      "trade": true
+    }
+  },
+  "updated_at": "2026-10-28T06:17:19.174804"
+}

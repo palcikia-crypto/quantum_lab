@@ -1,0 +1,27 @@
+===== 1. ФИКС: trend_filter → ORACLE_DB =====
+✅ изменения: trend_filter → oracle.db
+✅ синтаксис OK
+
+===== 2. ПРОВЕРКА: trend_filter использует ORACLE_DB =====
+26:    c = sqlite3.connect(MARKET, timeout=10)
+344:        ORACLE_DB = os.path.join(BASE, 'data/oracle.db')
+345:        cc_t = sqlite3.connect(ORACLE_DB, timeout=10)
+346:        reg_row = cc_t.execute("SELECT regime FROM regime WHERE symbol=? ORDER BY ts DESC LIMIT 1",
+352:        cc_t = sqlite3.connect(MARKET, timeout=10)
+376:        cc = sqlite3.connect(MARKET, timeout=10)
+
+===== 3. ПРОВЕРКА: ВЫЗОВЫ stability_check =====
+125:def stability_check(data, fn, tp, sl, timeout, log_fn=None):
+218:def stability_check_2(data, fn, tp, sl, timeout):
+
+===== 4. ПЕРЕЗАПУСК ОПТИМИЗАТОРА =====
+  новый PID: 23952
+  --- лог ---
+[04:33:19] [full] === GRAIL OPTIMIZER FULL ===
+[04:33:19] [full] Граалей: 16
+[04:33:19] [full] 🔍 BTCUSDT okx_vwap_rev_10 (base WR=73.6%)
+
+===== 5. ИТОГ =====
+  ✅ trend_filter → oracle.db
+  ✅ stability_check + stability_check_2 (проверить grep в разделе 3)
+  ⏳ optimizer работает

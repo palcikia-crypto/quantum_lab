@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""run_self_evolution.py — самогенерация: комбинации + мутанты → гейт → active."""
+import sys, json, os
+sys.path.insert(0, 'core')
+from strategy_pool import STRATEGIES
+from strategy_combinator import generate_combinations
+from strategy_mutator import generate_mutations
+from gate import run_gate
+
+BASE = os.path.expanduser('~/quantum_lab')
+PAIRS = ['BTCUSDT','ETHUSDT']  # только 2 пары, чтобы не завис
+
+def main():
+    print('=== SELF-EVOLUTION START ===')
+    combos = generate_combinations(STRATEGIES, max_combos=20)
+    muts = generate_mutations(max_mutants=10)
+    candidates = {**combos, **muts}
+    print(f'Кандидатов: {len(candidates)} (комбо {len(combos)}, мутантов {len(muts)})')
+
+    results = []
+    for i, (name, fn) in enumerate(candidates.items()):
+        for pair in PAIRS:
+            try:
+                r = run_gate(pair, '15m', name, fn)
+                if r and r['verdict'] in ('GOLDEN', 'TRADE_NOW'):
+                    results.append(r)
+                    print(f"  ✅ {pair} {name}: {r['verdict']} WR={r['L1']['wr']}% score={r['score']}")
+            except Exception as e:
+                pass
+        if (i+1) % 10 == 0:
+            print(f'  ... прогресс {i+1}/{len(candidates)}')
+    print(f'Прошло гейт: {len(results)}')
+
+    if results:
+        p = os.path.join(BASE, 'data/active_strategies.json')
+        d = json.load(open(p))
+        added = 0
+        for r in results[:3]:
+            key = f"{r['symbol']}_15m_{r['strategy']}"
+            if key not in d['pairs']:
+                d['pairs'][key] = {
+                    'symbol': r['symbol'], 'tf': '15m', 'strategy': r['strategy'],
+                    'wr': r['L1']['wr'], 'n': r['L1']['n'], 'p': 0.0,
+                    'verdict': 'GOLDEN', 'score': r['score'],
+                    'model': 'self_evolution', 'trade': True
+                }
+                added += 1
+                print(f'  ➕ в active: {key}')
+        from datetime import datetime
+        d['updated_at'] = datetime.now().isoformat()
+        json.dump(d, open(p,'w'), ensure_ascii=False, indent=2)
+        print(f'✅ добавлено {added} в active_strategies.json')
+    else:
+        print('ℹ️ новых GOLDEN не найдено')
+
+if __name__ == '__main__':
+    main()

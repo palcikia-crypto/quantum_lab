@@ -1,0 +1,553 @@
+{
+  "timestamp": "2026-10-27T11:42:54.566716+00:00",
+  "pairs": [
+    "BTCUSDT",
+    "ETHUSDT",
+    "DOGEUSDT",
+    "SOLUSDT",
+    "XRPUSDT",
+    "BNBUSDT"
+  ],
+  "findings": {
+    "BTCUSDT": [
+      {
+        "strategy": "rsi_25_up",
+        "wr": 53.6,
+        "n": 554,
+        "p": 0.237,
+        "ci_lo": 49.1,
+        "pnl": 181.66,
+        "verdict": "\u274c",
+        "wr_trend": 51.1,
+        "wr_flat": 51.4
+      },
+      {
+        "strategy": "rsi_35_up",
+        "wr": 53.5,
+        "n": 1747,
+        "p": 0.106,
+        "ci_lo": 51.4,
+        "pnl": 542.63,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.2,
+        "wr_flat": 52.6
+      },
+      {
+        "strategy": "stoch_20",
+        "wr": 53.4,
+        "n": 4404,
+        "p": 0.0342,
+        "ci_lo": 52.1,
+        "pnl": 1251.65,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 51.4,
+        "wr_flat": 52.6
+      },
+      {
+        "strategy": "rsi_30_up",
+        "wr": 52.7,
+        "n": 1062,
+        "p": 0.3278,
+        "ci_lo": 49.6,
+        "pnl": 168.31,
+        "verdict": "\u274c",
+        "wr_trend": 51.5,
+        "wr_flat": 52.2
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 52.6,
+        "n": 6475,
+        "p": 0.182,
+        "ci_lo": 51.4,
+        "pnl": 827.53,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 51.2,
+        "wr_flat": 51.6
+      },
+      {
+        "strategy": "mean_rev_2",
+        "wr": 52.2,
+        "n": 5029,
+        "p": 0.4171,
+        "ci_lo": 50.8,
+        "pnl": 241.68,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 54.2,
+        "wr_flat": 51.8
+      }
+    ],
+    "ETHUSDT": [
+      {
+        "strategy": "stoch_20",
+        "wr": 54.6,
+        "n": 4049,
+        "p": 0.0005,
+        "ci_lo": 53.1,
+        "pnl": 2085.3,
+        "verdict": "\u2705 Confirmed",
+        "wr_trend": 54.2,
+        "wr_flat": 54.9
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 53.3,
+        "n": 6150,
+        "p": 0.02,
+        "ci_lo": 52.1,
+        "pnl": 1669.42,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.8,
+        "wr_flat": 53.4
+      },
+      {
+        "strategy": "mean_rev_3",
+        "wr": 52.7,
+        "n": 2409,
+        "p": 0.2464,
+        "ci_lo": 50.5,
+        "pnl": 376.35,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 53.0,
+        "wr_flat": 54.1
+      },
+      {
+        "strategy": "rsi_65_down",
+        "wr": 52.5,
+        "n": 1818,
+        "p": 0.3339,
+        "ci_lo": 50.2,
+        "pnl": 217.93,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 50.5,
+        "wr_flat": 56.5
+      },
+      {
+        "strategy": "rsi_70_down",
+        "wr": 52.3,
+        "n": 1078,
+        "p": 0.4289,
+        "ci_lo": 49.5,
+        "pnl": 85.37,
+        "verdict": "\u274c",
+        "wr_trend": 50.1,
+        "wr_flat": 61.7
+      }
+    ],
+    "DOGEUSDT": [
+      {
+        "strategy": "rsi_25_up",
+        "wr": 54.9,
+        "n": 537,
+        "p": 0.0937,
+        "ci_lo": 51.1,
+        "pnl": 313.13,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 55.8,
+        "wr_flat": 52.3
+      },
+      {
+        "strategy": "stoch_20",
+        "wr": 54.3,
+        "n": 4123,
+        "p": 0.0018,
+        "ci_lo": 52.7,
+        "pnl": 1884.72,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.5,
+        "wr_flat": 52.5
+      },
+      {
+        "strategy": "mean_rev_3",
+        "wr": 54.2,
+        "n": 2247,
+        "p": 0.0212,
+        "ci_lo": 52.2,
+        "pnl": 975.31,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.3,
+        "wr_flat": 53.7
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 53.6,
+        "n": 6264,
+        "p": 0.0065,
+        "ci_lo": 52.3,
+        "pnl": 2012.81,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.1,
+        "wr_flat": 52.2
+      },
+      {
+        "strategy": "rsi_65_down",
+        "wr": 53.0,
+        "n": 1939,
+        "p": 0.2038,
+        "ci_lo": 51.0,
+        "pnl": 394.99,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.3,
+        "wr_flat": 49.9
+      },
+      {
+        "strategy": "mean_rev_2",
+        "wr": 52.7,
+        "n": 4777,
+        "p": 0.1663,
+        "ci_lo": 51.3,
+        "pnl": 738.88,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.4,
+        "wr_flat": 52.8
+      },
+      {
+        "strategy": "openclose_bias",
+        "wr": 52.6,
+        "n": 10068,
+        "p": 0.1039,
+        "ci_lo": 51.7,
+        "pnl": 1404.4,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 51.8,
+        "wr_flat": 52.6
+      },
+      {
+        "strategy": "sma_cross",
+        "wr": 52.3,
+        "n": 235,
+        "p": 0.4844,
+        "ci_lo": 46.0,
+        "pnl": 19.58,
+        "verdict": "\u274c",
+        "wr_trend": 45.8,
+        "wr_flat": 56.8
+      },
+      {
+        "strategy": "rsi_30_up",
+        "wr": 52.2,
+        "n": 1036,
+        "p": 0.4559,
+        "ci_lo": 49.1,
+        "pnl": 62.28,
+        "verdict": "\u274c",
+        "wr_trend": 52.9,
+        "wr_flat": 56.8
+      }
+    ],
+    "SOLUSDT": [
+      {
+        "strategy": "rsi_25_up",
+        "wr": 56.2,
+        "n": 573,
+        "p": 0.0245,
+        "ci_lo": 52.2,
+        "pnl": 473.28,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 55.1,
+        "wr_flat": 54.3
+      },
+      {
+        "strategy": "stoch_20",
+        "wr": 55.6,
+        "n": 4156,
+        "p": 0.0,
+        "ci_lo": 54.0,
+        "pnl": 2922.52,
+        "verdict": "\u2705 Confirmed",
+        "wr_trend": 56.0,
+        "wr_flat": 56.4
+      },
+      {
+        "strategy": "mean_rev_3",
+        "wr": 54.6,
+        "n": 2221,
+        "p": 0.0072,
+        "ci_lo": 52.4,
+        "pnl": 1158.25,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 56.0,
+        "wr_flat": 53.7
+      },
+      {
+        "strategy": "rsi_65_down",
+        "wr": 54.5,
+        "n": 1911,
+        "p": 0.0143,
+        "ci_lo": 52.2,
+        "pnl": 963.97,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.7,
+        "wr_flat": 56.0
+      },
+      {
+        "strategy": "rsi_75_down",
+        "wr": 54.5,
+        "n": 593,
+        "p": 0.1226,
+        "ci_lo": 50.5,
+        "pnl": 292.54,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 57.4,
+        "wr_flat": 54.3
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 54.3,
+        "n": 6243,
+        "p": 0.0001,
+        "ci_lo": 53.1,
+        "pnl": 2877.82,
+        "verdict": "\u2705 Confirmed",
+        "wr_trend": 55.1,
+        "wr_flat": 55.1
+      },
+      {
+        "strategy": "rsi_70_down",
+        "wr": 54.2,
+        "n": 1120,
+        "p": 0.0747,
+        "ci_lo": 51.3,
+        "pnl": 493.76,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 54.6,
+        "wr_flat": 59.1
+      },
+      {
+        "strategy": "rsi_30_up",
+        "wr": 53.6,
+        "n": 1054,
+        "p": 0.1557,
+        "ci_lo": 50.6,
+        "pnl": 344.64,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 53.1,
+        "wr_flat": 52.9
+      },
+      {
+        "strategy": "mean_rev_2",
+        "wr": 53.5,
+        "n": 4753,
+        "p": 0.0227,
+        "ci_lo": 52.0,
+        "pnl": 1421.97,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.5,
+        "wr_flat": 51.9
+      },
+      {
+        "strategy": "rsi_35_up",
+        "wr": 52.9,
+        "n": 1786,
+        "p": 0.242,
+        "ci_lo": 50.8,
+        "pnl": 326.01,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.3,
+        "wr_flat": 51.6
+      },
+      {
+        "strategy": "openclose_bias",
+        "wr": 52.9,
+        "n": 10099,
+        "p": 0.0365,
+        "ci_lo": 52.0,
+        "pnl": 1922.79,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.9,
+        "wr_flat": 52.3
+      }
+    ],
+    "XRPUSDT": [
+      {
+        "strategy": "rsi_75_down",
+        "wr": 55.9,
+        "n": 551,
+        "p": 0.0368,
+        "ci_lo": 51.5,
+        "pnl": 423.57,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 53.2,
+        "wr_flat": 58.3
+      },
+      {
+        "strategy": "rsi_70_down",
+        "wr": 55.8,
+        "n": 1091,
+        "p": 0.0063,
+        "ci_lo": 53.0,
+        "pnl": 822.29,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 55.2,
+        "wr_flat": 55.3
+      },
+      {
+        "strategy": "rsi_65_down",
+        "wr": 54.8,
+        "n": 1891,
+        "p": 0.0082,
+        "ci_lo": 52.6,
+        "pnl": 1048.38,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.1,
+        "wr_flat": 53.3
+      },
+      {
+        "strategy": "stoch_20",
+        "wr": 54.6,
+        "n": 4219,
+        "p": 0.0004,
+        "ci_lo": 52.9,
+        "pnl": 2176.93,
+        "verdict": "\u2705 Confirmed",
+        "wr_trend": 54.2,
+        "wr_flat": 54.4
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 53.9,
+        "n": 6314,
+        "p": 0.0015,
+        "ci_lo": 52.5,
+        "pnl": 2399.0,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.0,
+        "wr_flat": 53.7
+      },
+      {
+        "strategy": "mean_rev_2",
+        "wr": 53.4,
+        "n": 4808,
+        "p": 0.0243,
+        "ci_lo": 52.0,
+        "pnl": 1411.38,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.1,
+        "wr_flat": 53.6
+      },
+      {
+        "strategy": "mean_rev_3",
+        "wr": 53.2,
+        "n": 2243,
+        "p": 0.1257,
+        "ci_lo": 51.3,
+        "pnl": 572.22,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 54.3,
+        "wr_flat": 54.1
+      },
+      {
+        "strategy": "openclose_bias",
+        "wr": 52.8,
+        "n": 10147,
+        "p": 0.0629,
+        "ci_lo": 51.8,
+        "pnl": 1673.97,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.9,
+        "wr_flat": 52.5
+      },
+      {
+        "strategy": "rsi_35_up",
+        "wr": 52.5,
+        "n": 1810,
+        "p": 0.3481,
+        "ci_lo": 50.4,
+        "pnl": 201.6,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 53.6,
+        "wr_flat": 51.5
+      },
+      {
+        "strategy": "rsi_30_up",
+        "wr": 52.2,
+        "n": 1091,
+        "p": 0.4715,
+        "ci_lo": 49.4,
+        "pnl": 51.7,
+        "verdict": "\u274c",
+        "wr_trend": 53.3,
+        "wr_flat": 48.8
+      },
+      {
+        "strategy": "rsi_25_up",
+        "wr": 52.0,
+        "n": 606,
+        "p": 0.5201,
+        "ci_lo": 47.9,
+        "pnl": 8.43,
+        "verdict": "\u274c",
+        "wr_trend": 54.8,
+        "wr_flat": 42.4
+      }
+    ],
+    "BNBUSDT": [
+      {
+        "strategy": "rsi_25_up",
+        "wr": 57.9,
+        "n": 527,
+        "p": 0.004,
+        "ci_lo": 53.8,
+        "pnl": 605.78,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 55.9,
+        "wr_flat": 52.5
+      },
+      {
+        "strategy": "rsi_30_up",
+        "wr": 55.7,
+        "n": 1002,
+        "p": 0.0106,
+        "ci_lo": 52.6,
+        "pnl": 729.78,
+        "verdict": "\u26a0\ufe0f Likely",
+        "wr_trend": 54.4,
+        "wr_flat": 52.0
+      },
+      {
+        "strategy": "rsi_35_up",
+        "wr": 53.6,
+        "n": 1729,
+        "p": 0.1017,
+        "ci_lo": 51.2,
+        "pnl": 549.24,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 52.8,
+        "wr_flat": 47.8
+      },
+      {
+        "strategy": "stoch_20",
+        "wr": 52.2,
+        "n": 4471,
+        "p": 0.4219,
+        "ci_lo": 50.6,
+        "pnl": 215.61,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 50.6,
+        "wr_flat": 52.7
+      },
+      {
+        "strategy": "stoch_30",
+        "wr": 52.1,
+        "n": 6485,
+        "p": 0.4378,
+        "ci_lo": 50.8,
+        "pnl": 245.9,
+        "verdict": "\ud83d\udfe1 Possible",
+        "wr_trend": 50.7,
+        "wr_flat": 52.5
+      },
+      {
+        "strategy": "rsi_75_down",
+        "wr": 52.0,
+        "n": 794,
+        "p": 0.5108,
+        "ci_lo": 48.3,
+        "pnl": 16.38,
+        "verdict": "\u274c",
+        "wr_trend": 50.6,
+        "wr_flat": 53.7
+      }
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+===== 1. СКОЛЬКО OBI < -0.4 В orderbook.db =====
+  BTC-USDT: всего=80018, OBI<-0.4=27575 (34.5%), OBI>0.4=15638 (19.5%)
+  ETH-USDT: всего=80897, OBI<-0.4=22773 (28.2%), OBI>0.4=20406 (25.2%)
+  SOL-USDT: всего=81578, OBI<-0.4=3058 (3.7%), OBI>0.4=3451 (4.2%)
+  XRP-USDT: всего=81617, OBI<-0.4=5076 (6.2%), OBI>0.4=13113 (16.1%)
+  DOGE-USDT: всего=78154, OBI<-0.4=5806 (7.4%), OBI>0.4=7641 (9.8%)
+
+===== 2. v4 — СКОЛЬКО СДЕЛОК ЗА 7 ДНЕЙ =====
+ n    pnl    wr          first                last
+----  ----  ----  -------------------  -------------------
+1071  9.55  49.4  2026-10-28 23:28:47  2026-11-01 00:05:03
+
+===== 3. v4 — ПЕРВЫЕ 10 СДЕЛОК (entry, exit, pnl) =====
+ symbol   side     ep       xp      pnl   tp_pct  sl_pct          dt
+--------  -----  -------  -------  -----  ------  ------  -------------------
+BTC-USDT  SHORT  80913.7  80945.0  -0.04     0.1    0.05  2026-10-28 23:28:47
+SOL-USDT  SHORT   101.51    101.6  -0.09     0.1    0.05  2026-10-28 23:29:17
+XRP-USDT  SHORT   1.3218   1.3229  -0.08     0.1    0.05  2026-10-28 23:30:02
+BTC-USDT  SHORT  81002.7  80883.4   0.15     0.1    0.05  2026-10-28 23:31:32
+XRP-USDT  SHORT   1.3228   1.3219   0.07     0.1    0.05  2026-10-28 23:31:47
+BTC-USDT  SHORT  80883.4  80746.5   0.17     0.1    0.05  2026-10-28 23:32:33
+XRP-USDT  SHORT   1.3211   1.3193   0.14     0.1    0.05  2026-10-28 23:33:03
+SOL-USDT  SHORT   101.23   101.47  -0.24     0.1    0.05  2026-10-28 23:33:18
+BTC-USDT  SHORT  80746.5  80904.9   -0.2     0.1    0.05  2026-10-28 23:33:18
+BTC-USDT  SHORT  81000.5  81015.4  -0.02     0.1    0.05  2026-10-28 23:34:48
+
+===== 4. v4 — TP/SL (из конфига) =====
+  SOL-USDT: tp=None, sl=None, obi_threshold=None
+  BTC-USDT: tp=None, sl=None, obi_threshold=None
+  XRP-USDT: tp=None, sl=None, obi_threshold=None
+
+===== 5. v4 — КАКОЙ OBI-ПОРОГ =====
+137:        if obi >= tcfg.get('obi_threshold', -0.4): continue
+
+===== 6. v4 — КАКОЙ FUNDING-ФИЛЬТР =====
+65:def get_funding(symbol_spot, ts_back=600):
+66:    """Свежий funding rate из orderbook.db (для SWAP-пары)."""
+71:        r = c.execute("""SELECT funding_rate FROM funding
+138:        # FUNDING-ФИЛЬТР: SHORT разрешён только если funding > funding_min
+139:        funding_min = tcfg.get('funding_min', 0.00005)
+140:        fr = get_funding(sym, ts_back=600)
+141:        if fr is not None and fr < funding_min:
+142:            log(f'  ⏸️ SKIP {sym} SHORT: funding={fr:.6f} < {funding_min} (шорты переплачивают)')
+145:            log(f'  ✅ funding OK {sym}: {fr:.6f} >= {funding_min}')

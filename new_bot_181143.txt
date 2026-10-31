@@ -1,0 +1,55 @@
+============================================================
+##### НОВЫЙ БОТ: ONLY 5 CORRECT PAIRS + WEB PANEL #####
+============================================================
+
+===== 1. СОЗДАТЬ core/okx_bot_new.py =====
+  ✅ core/okx_bot_new.py
+
+===== 2. КОНФИГ okx_active_new.json =====
+  ✅ okx_active_new.json: 5 пар
+    ETH-USDT okx_vwap_rev_13
+    SOL-USDT okx_vwap_rev_13
+    DOGE-USDT okx_vwap_rev_13
+    BTC-USDT okx_vwap_rev_17
+    XRP-USDT okx_grid_sma_13
+
+===== 3. ВЕБ-ПАНЕЛЬ web/panel_new.py =====
+  ✅ web/panel_new.py
+
+===== 4. ЗАПУСК =====
+  бот PID: 16470
+  панель PID: 16471
+
+===== 5. HTTP-ПРОВЕРКА =====
+  IP: 192.168.43.247
+  localhost:8102 → HTTP 200
+  192.168.43.247:8102 → HTTP 200
+
+===== 6. ЛОГ БОТА =====
+[18:11:49] === OKX BOT NEW STARTED ===
+[18:11:49] active: 5 пар
+[18:11:53]   🎯 XRP-USDT SHORT @ 1.249100 (okx_grid_sma_13 TP=0.80% SL=0.50% timeout=3b)
+[18:11:53]   🎯 XRP-USDT SHORT @ 1.249100 (okx_grid_sma_13 TP=0.80% SL=0.50% timeout=3b)
+
+===== 7. ЛОГ ПАНЕЛИ =====
+ * Serving Flask app 'panel_new'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8102
+ * Running on http://192.168.43.247:8102
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [31/Oct/2026 18:12:04] "GET / HTTP/1.1" 200 -
+192.168.43.247 - - [31/Oct/2026 18:12:04] "GET / HTTP/1.1" 200 -
+
+============================================================
+##### ИТОГ #####
+============================================================
+  ✅ core/okx_bot_new.py — только 5 пар, TP/SL после входа
+  ✅ data/okx_active_new.json — 5 пар
+  ✅ web/panel_new.py — современная панель (8102)
+  ✅ data/okx_paper_new.db — новая БД
+
+  📱 Открывай: http://192.168.43.247:8102
+  🎯 Бот: только ETH/SOL/DOGE/BTC/XRP (5 пар)
+============================================================

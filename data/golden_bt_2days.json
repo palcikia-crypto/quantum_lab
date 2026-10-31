@@ -1,0 +1,134 @@
+{
+  "updated_at": "2026-10-28T15:36:22",
+  "period": "2026-10-27 — 2026-10-28",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2
+  },
+  "total_pnl": 0.56,
+  "total_trades": 65,
+  "results": [
+    {
+      "pair": "DOGEUSDT",
+      "strategy": "okx_grid_sma_10",
+      "source": "holy_grail",
+      "n": 1,
+      "wr": 0.0,
+      "pnl": -0.2123674691280959,
+      "TP": 0,
+      "SL": 0,
+      "TO": 1
+    },
+    {
+      "pair": "ETHUSDT",
+      "strategy": "okx_vwap_rev_10",
+      "source": "holy_grail",
+      "n": 2,
+      "wr": 100.0,
+      "pnl": 0.7271798486611334,
+      "TP": 1,
+      "SL": 0,
+      "TO": 1
+    },
+    {
+      "pair": "ETHUSDT",
+      "strategy": "okx_grid_sma_10",
+      "source": "holy_grail",
+      "n": 1,
+      "wr": 0.0,
+      "pnl": -0.05515493468336501,
+      "TP": 0,
+      "SL": 0,
+      "TO": 1
+    },
+    {
+      "pair": "SOLUSDT",
+      "strategy": "okx_vwap_rev_10",
+      "source": "holy_grail",
+      "n": 2,
+      "wr": 100.0,
+      "pnl": 0.5155172413793149,
+      "TP": 1,
+      "SL": 0,
+      "TO": 1
+    },
+    {
+      "pair": "DOGEUSDT",
+      "strategy": "okx_vwap_rev_10",
+      "source": "holy_grail",
+      "n": 3,
+      "wr": 66.66666666666667,
+      "pnl": 0.12500000000001849,
+      "TP": 1,
+      "SL": 1,
+      "TO": 1
+    },
+    {
+      "pair": "XRPUSDT",
+      "strategy": "okx_grid_sma_10",
+      "source": "holy_grail",
+      "n": 4,
+      "wr": 50.0,
+      "pnl": 0.4329528308827886,
+      "TP": 2,
+      "SL": 0,
+      "TO": 2
+    },
+    {
+      "pair": "XRPUSDT",
+      "strategy": "okx_vwap_rev_10",
+      "source": "holy_grail",
+      "n": 4,
+      "wr": 75.0,
+      "pnl": 0.8000000000000063,
+      "TP": 3,
+      "SL": 1,
+      "TO": 0
+    },
+    {
+      "pair": "ETHUSDT",
+      "strategy": "bb_20_2.0",
+      "source": "holy_grail",
+      "n": 10,
+      "wr": 50.0,
+      "pnl": -0.4514783135574344,
+      "TP": 3,
+      "SL": 4,
+      "TO": 3
+    },
+    {
+      "pair": "ETHUSDT",
+      "strategy": "bb_20_1.5",
+      "source": "holy_grail",
+      "n": 14,
+      "wr": 50.0,
+      "pnl": -0.31067584153991445,
+      "TP": 3,
+      "SL": 4,
+      "TO": 7
+    },
+    {
+      "pair": "ETHUSDT",
+      "strategy": "mean_rev_20_1.5",
+      "source": "holy_grail",
+      "n": 14,
+      "wr": 50.0,
+      "pnl": -0.31067584153991445,
+      "TP": 3,
+      "SL": 4,
+      "TO": 7
+    },
+    {
+      "pair": "BTCUSDT",
+      "strategy": "mean_rev_15_1.5",
+      "source": "holy_grail",
+      "n": 10,
+      "wr": 40.0,
+      "pnl": -0.7028758711043044,
+      "TP": 0,
+      "SL": 1,
+      "TO": 9
+    }
+  ]
+}

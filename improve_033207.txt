@@ -1,0 +1,55 @@
+===== ШАГ 3.1: ФИЛЬТР ВЫЖИВШИХ (n>=100, PnL>0) =====
+
+✅ ВЫЖИЛИ: 10
+  SOL-USDT okx_vwap_rev_13: n=341 WR=85.0% PnL=+0.95%
+  DOGE-USDT okx_vwap_rev_13: n=353 WR=84.1% PnL=+0.93%
+  ETH-USDT okx_vwap_rev_15: n=276 WR=82.6% PnL=+0.64%
+  SOL-USDT okx_grid_sma_13: n=145 WR=93.8% PnL=+0.54%
+  ETH-USDT okx_vwap_rev_7: n=106 WR=97.2% PnL=+0.47%
+  XRP-USDT okx_grid_sma_15: n=156 WR=91.0% PnL=+0.47%
+  BTC-USDT okx_vwap_rev_15: n=151 WR=86.8% PnL=+0.39%
+  ETH-USDT okx_grid_sma_15: n=137 WR=90.5% PnL=+0.35%
+  BTC-USDT okx_vwap_rev_25: n=290 WR=79.3% PnL=+0.30%
+  BTC-USDT okx_grid_sma_25: n=168 WR=82.1% PnL=+0.18%
+
+❌ ОТСЕЯНЫ: 6
+  BTC-USDT_15m_okx_vwap_rev_10: n=45, pnl=+0.18
+  BTC-USDT_15m_okx_grid_sma_10: n=15, pnl=+0.06
+  ETH-USDT_15m_okx_grid_sma_10: n=20, pnl=+0.10
+  XRP-USDT_15m_okx_grid_sma_10: n=53, pnl=+0.26
+  DOGE-USDT_15m_okx_grid_sma_10: n=75, pnl=+0.36
+  BTC-USDT_15m_okx_grid_sma_20: n=77, pnl=+0.19
+
+✅ → data/okx_active_oos.json (10 пар)
+
+===== ШАГ 3.2: ПАТЧ grail_optimizer_full.py =====
+✅ изменения: n>=100, score=pnl, FEE=0.0015, final_oos_check
+✅ синтаксис OK
+
+===== ШАГ 3.3: УБРАТЬ analyst_tpsl.py ИЗ CRON =====
+Backup of u0_a119's previous crontab saved to /data/data/com.termux/files/home/.cache/crontab/crontab.bak
+  ✅ analyst_tpsl.py убран из cron
+
+===== ШАГ 3.4: ИТОГ =====
+--- okx_active_oos.json ---
+  пар: 10
+  ETH-USDT okx_vwap_rev_7: WR=97.2% n=106 PnL=0.47%
+  SOL-USDT okx_vwap_rev_13: WR=85.0% n=341 PnL=0.95%
+  DOGE-USDT okx_vwap_rev_13: WR=84.1% n=353 PnL=0.93%
+  BTC-USDT okx_vwap_rev_15: WR=86.8% n=151 PnL=0.39%
+  ETH-USDT okx_vwap_rev_15: WR=82.6% n=276 PnL=0.64%
+  BTC-USDT okx_vwap_rev_25: WR=79.3% n=290 PnL=0.3%
+  SOL-USDT okx_grid_sma_13: WR=93.8% n=145 PnL=0.54%
+  ETH-USDT okx_grid_sma_15: WR=90.5% n=137 PnL=0.35%
+  XRP-USDT okx_grid_sma_15: WR=91.0% n=156 PnL=0.47%
+  BTC-USDT okx_grid_sma_25: WR=82.1% n=168 PnL=0.18%
+
+--- grail_optimizer_full.py (изменения) ---
+18:FEE = 0.0015
+133:                    if wf['test']['n'] < 100: continue
+135:                    score = wf['test']['pnl']
+145:    # final_oos_check: последние 30 дней (out-of-sample)
+
+--- cron (без analyst_tpsl) ---
+0
+  0 (убран)
