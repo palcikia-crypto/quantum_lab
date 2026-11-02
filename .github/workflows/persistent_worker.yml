@@ -31,42 +31,34 @@ jobs:
           BOT_PID=""
           
           while true; do
-            # 1. Подтягиваем свежий код
-            git fetch origin >/dev/null 2>&1
-            git reset --hard origin/master >/dev/null 2>&1
+            git fetch origin >/dev/null 2>&1 || true
+            git reset --hard origin/master >/dev/null 2>&1 || true
             
-            # 2. Распаковываем
-            tar -xzf code.tar.gz >/dev/null 2>&1
+            tar -xzf code.tar.gz >/dev/null 2>&1 || true
+            rm -rf /home/runner/quantum_lab_sandbox || true
+            ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
             
-            # 3. Чиним пути
-            rm -rf /home/runner/quantum_lab_sandbox
-            ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox
-            
-            # 4. Считаем хэш изменений
-            CURRENT_HASH=$(md5sum code.tar.gz 2>/dev/null | awk '{print $1}')
+            CURRENT_HASH=$(md5sum code.tar.gz 2>/dev/null | awk '{print $1}' || true)
             
             if [ "$CURRENT_HASH" != "$LAST_HASH" ]; then
               LAST_HASH="$CURRENT_HASH"
               
-              # Убиваем старый бот
               if [ -n "$BOT_PID" ] && kill -0 $BOT_PID 2>/dev/null; then
-                kill -9 $BOT_PID 2>/dev/null
+                kill -9 $BOT_PID 2>/dev/null || true
                 echo "🛑 Старый бот (PID $BOT_PID) остановлен"
               fi
               
-              # Запускаем новый
               echo "🚀 Запускаю новый код: $SCRIPT_NAME"
               nohup python -u $SCRIPT_NAME > live.log 2>&1 &
               BOT_PID=$!
               echo "✅ Бот запущен с PID $BOT_PID"
             fi
             
-            # 5. Пушим логи каждые 15 секунд
             if [ -f live.log ]; then
-              git add live.log 2>/dev/null
-              git commit -m "Live log $(date +%H:%M:%S)" 2>/dev/null
-              git pull --rebase origin master >/dev/null 2>&1
-              git push origin master >/dev/null 2>&1
+              git add live.log || true
+              git commit -m "Live log $(date +%H:%M:%S)" || true
+              git pull --rebase origin master >/dev/null 2>&1 || true
+              git push origin master >/dev/null 2>&1 || true
             fi
             
             sleep 15
