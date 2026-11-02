@@ -7,9 +7,9 @@ on:
 jobs:
   run-quantum:
     runs-on: ubuntu-latest
-    timeout-minutes: 15  # Лимит: максимум 15 минут на работу
+    timeout-minutes: 15
     permissions:
-      contents: write    # Разрешаем сохранять файлы
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -30,13 +30,15 @@ jobs:
         env:
           BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
           BINANCE_SECRET: ${{ secrets.BINANCE_SECRET }}
-        run: python god_agent_v4.py
-      - name: Commit new strategies
-        if: always() # Сохраняем, даже если упал
+        run: |
+          # Запускаем бота и одновременно пишем вывод в файл bot_output.log
+          python -u god_agent_v4.py | tee bot_output.log
+      - name: Commit results and logs
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ tools/ *.json || true
-          git commit -m "Auto-save strategies $(date -u)" || true
+          git add bot_output.log data/ tools/ *.json index.html || true
+          git commit -m "Auto-save: AI logs and strategies $(date -u)" || true
           git pull --rebase || true
           git push || true
