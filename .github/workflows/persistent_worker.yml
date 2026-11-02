@@ -14,6 +14,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -24,16 +26,21 @@ jobs:
           SCRIPT_NAME: ${{ inputs.script_name }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Создаем ветку logs, если её нет
+          git checkout -b logs || git checkout logs
+          git push origin logs 2>/dev/null || true
+          
           tar -xzf code.tar.gz >/dev/null 2>&1 || true
           rm -rf /home/runner/quantum_lab_sandbox || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
           
-          # Функция для отправки лога в файл через API
+          # Создаем папки и пустую базу, если их нет
+          mkdir -p data god_backups
+          touch data/market.db
+          
           push_log() {
             local LINE="$1"
-            # Кодируем в base64
             local B64=$(echo -n "$LINE" | base64 -w0)
-            # Получаем текущий SHA файла (если он есть)
             local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
             
@@ -51,7 +58,6 @@ jobs:
           
           push_log "🟢 Воркер стартовал: $SCRIPT_NAME"
           
-          # Запускаем бота и каждую строку шлем в лог
           python -u $SCRIPT_NAME 2>&1 | while IFS= read -r line; do
             echo "$line"
             push_log "$line"
