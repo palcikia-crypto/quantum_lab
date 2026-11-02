@@ -1,27 +1,26 @@
 name: Quantum Lab Bot
 on:
   schedule:
-    - cron: '0 */4 * * *'   # Запуск каждые 4 часа
-  workflow_dispatch:        # Кнопка ручного запуска
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
 
 jobs:
   run-quantum:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
       - name: Install dependencies
-        run: |
-          pip install pandas numpy ccxt ta python-dotenv requests
-          
+        run: pip install pandas numpy ccxt ta python-dotenv requests
+      - name: Extract Code
+        run: tar -xzvf code.tar.gz
+      - name: Copy missing modules
+        run: cp tools/agent_dev/llm_backend.py .
       - name: Run Quantum Agent
         env:
-          # Сюда мы потом добавим твои API ключи от биржи (если они есть в коде)
           BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
           BINANCE_SECRET: ${{ secrets.BINANCE_SECRET }}
         run: python god_agent_v4.py
