@@ -1,50 +1,50 @@
 {
-  "scanned": 26,
+  "scanned": 28,
   "ok": 0,
-  "fixed": 23,
-  "errors": 0,
+  "fixed": 15,
+  "errors": 1,
   "advisor": 0,
   "modules_created": 0,
   "files": [
     {
       "file": "agents/data_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файла (open без with) в subprocess.Popen и голый except."
     },
     {
       "file": "agents/evolve_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: голый except (используется без уточнения типа исключения)."
     },
     {
       "file": "agents/gate_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файлов (open без with в строке 10)"
     },
     {
       "file": "agents/live_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: голый except, неопределённые переменные (если subprocess.run не выполнится, переменная res"
     },
     {
       "file": "agents/okx_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файла в функции `log` (open без with), голый except в блоке `try-except`."
     },
     {
       "file": "agents/report_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файла (sqlite3.connect без with), голые except, неопределённые переменные (например"
     },
     {
       "file": "agents/risk_agent.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файла (open без with) в строке `active = json.load(open(p, encoding='utf-8'))`"
     },
     {
       "file": "core/alerts.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: Утечка файлов (open без with) в функции `send_alert` для записи лога, неверный синтаксис п"
     },
     {
       "file": "core/auto_adapt_realtime.py",
@@ -53,13 +53,13 @@
     },
     {
       "file": "core/auto_add.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файлов (open без with), голые except, неопределённые переменные (например, `r` в сл"
     },
     {
       "file": "core/auto_apply_filters.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: использование open без with в нескольких местах, голые except, возможные неопределённые пе"
     },
     {
       "file": "core/auto_apply_graals.py",
@@ -68,18 +68,18 @@
     },
     {
       "file": "core/auto_apply_regime.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечки файлов (open без with) в строках 23, 42, 63. Голые except в строках 32, 50, 60."
     },
     {
       "file": "core/auto_compare.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файлов (open без with) в строке с `json.dump`, а также голый except в функции `get_"
     },
     {
       "file": "core/auto_data.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "error",
+      "msg": "Не починил: f-string: unmatched '(' (<unknown>, line 28)"
     },
     {
       "file": "core/auto_evolve.py",
@@ -93,8 +93,8 @@
     },
     {
       "file": "core/auto_filter.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечки файлов (open без with в `json.load` и `json.dump`), голые except, неопределенные пе"
     },
     {
       "file": "core/auto_filter_optimizer.py",
@@ -103,28 +103,28 @@
     },
     {
       "file": "core/auto_obi_tuner.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: использование `open` без `with` в строке `cur = json.load(open(V4_CFG, encoding='utf-8'))`"
     },
     {
       "file": "core/auto_stop_losers.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файлов (используется `c.close()` вместо `with` для подключения к SQLite); голый `ex"
     },
     {
       "file": "core/auto_tpsl_tuner.py",
-      "status": "fixed_large",
-      "msg": "разбит на функции"
+      "status": "fixed_deterministic",
+      "msg": "regex"
     },
     {
       "file": "core/brain_api.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечки файлов (open без with), голые except, неопределённые переменные."
+      "msg": "ПРОБЛЕМА: голые except."
     },
     {
       "file": "core/brain_loop.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечка файла в функции `log` (открытие файла без `with`), голый `except` в функции `main`,"
     },
     {
       "file": "core/data_manager.py",
@@ -133,8 +133,18 @@
     },
     {
       "file": "core/evolution.py",
-      "status": "fixed_deterministic",
-      "msg": "regex"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: Утечка файла при открытии `/proc/loadavg` (open без with).  \nПРОБЛЕМА: Голый except в блок"
+    },
+    {
+      "file": "core/filter_optimizer_mini.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
+    },
+    {
+      "file": "core/filter_test_raw.py",
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файлов (sqlite3.connect без закрытия), голые except (отсутствуют), неопределённые п"
     }
   ]
 }
