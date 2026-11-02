@@ -1,0 +1,202 @@
+import os, sys, json, sqlite3, time, pickle, random
+import numpy as np
+from datetime import datetime
+from datetime import datetime
+import sqlite3
+import math
+
+from datetime import datetime
+
+LOG = 'log.txt'  # Убедитесь, что этот путь корректен и файл доступен для записи
+
+def log(m):
+    line = f'[{datetime.now():%H:%M:%S}] {m}'
+    print(line, flush=True)
+    try:
+        with open(LOG, 'a') as f:
+            f.write(line + '\n')
+    except Exception as e:
+        print(f"Ошибка при записи в лог: {e}", flush=True)
+
+import sqlite3
+
+MARKET_DB = 'path_to_your_database.db'  # Замените на путь к вашей базе данных
+
+def load_candles(sym, start_ts, end_ts, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts, o, h, l, c, v FROM candles
+                        WHERE symbol=? AND tf=? AND ts>=? AND ts<? ORDER BY ts""",
+                     (sym, tf, start_ts, end_ts)).fetchall()
+    c.close()
+
+    if not rows:
+        return None
+
+    # Исправление: правильное создание словаря
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts', 'o', 'h', 'l', 'c', 'v'])}
+
+import sqlite3
+
+OB_DB = 'path_to_your_database.db'  # Замените на путь к вашей базе данных
+
+def load_obi(sym, start_ts, end_ts):
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    c = sqlite3.connect(OB_DB, timeout=30)
+    try:
+        rows = c.execute("""SELECT ts, imbalance FROM orderbooks
+                            WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                         (sym_dash, start_ts, end_ts)).fetchall()
+    finally:
+        c.close()
+
+    return {ts: obi for ts, obi in rows if obi is not None}
+
+def rsi_at(c, idx, p=14):
+    if idx < p+1: return 50.0
+    d = np.diff(c[:idx+1]); g = np.where(d>0,d,0); l = np.where(d<0,-d,0)
+    ag, al = np.mean(g[-p:]), np.mean(l[-p:])
+    if al == 0: return 100.0
+    return 100.0 - 100.0/(1.0 + ag/al)
+
+def atr_pct(h, l, c, idx, p=14):
+    if idx < p + 1: 
+        return 0.0
+
+    hh = h[:idx + 1]
+    ll = l[:idx + 1]
+    cc = c[:idx + 1]
+
+    tr = []
+    for i in range(1, len(hh)):
+        tr_value = max(hh[i] - ll[i], 
+                       abs(hh[i] - cc[i - 1]), 
+                       abs(ll[i] - cc[i - 1]))
+        tr.append(tr_value)
+
+    atr = sum(tr[-p:]) / p if p > 0 else 0.0
+    return float(atr / max(cc[-1], 1e-9))
+
+def vwap_diff_pct(o, h, l, c, v, idx, p=20):
+    if idx < p:
+        return 0.0
+
+    tp = [(h[i] + l[i] + c[i]) / 3.0 for i in range(idx - p + 1, idx + 1)]
+    vv = v[idx - p + 1:idx + 1]
+    s = sum(vv)
+
+    if s == 0:
+        return 0.0
+
+    vwap = sum(tp[i] * vv[i] for i in range(len(tp))) / s
+    return float((c[idx] - vwap) / max(vwap, 1e-9))
+
+def rsi_at(prices, idx, period=14):
+    if idx < period:
+        return 0.0
+    gain = 0.0
+    loss = 0.0
+    for i in range(1, period + 1):
+        delta = prices[idx - i + 1] - prices[idx - i]
+        if delta > 0:
+            gain += delta
+        else:
+            loss -= delta
+    avg_gain = gain / period
+    avg_loss = loss / period
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
+
+def atr_pct(highs, lows, closes, idx, period=14):
+    if idx < period:
+        return 0.0
+    tr_values = []
+    for i in range(1, period + 1):
+        high = highs[idx - i + 1]
+        low = lows[idx - i + 1]
+        close_prev = closes[idx - i]
+        tr = max(high - low, abs(high - close_prev), abs(low - close_prev))
+        tr_values.append(tr)
+    atr = sum(tr_values) / period
+    return atr / closes[idx] if closes[idx] != 0 else 0.0
+
+def vwap_diff_pct(opens, highs, lows, closes, volumes, idx):
+    if idx == 0:
+        return 0.0
+    total_volume = 0.0
+    total_vwap = 0.0
+    for i in range(idx + 1):
+        volume = volumes[i]
+        total_volume += volume
+        typical_price = (opens[i] + highs[i] + lows[i] + closes[i]) / 4
+        total_vwap += typical_price * volume
+    vwap = total_vwap / total_volume if total_volume != 0 else 0.0
+    return (closes[idx] - vwap) / vwap if vwap != 0 else 0.0
+
+def build_examples(data, obi_by_ts, TP=0.02, SL=0.01):
+    ex = []
+    ts_keys = sorted(obi_by_ts.keys()) if obi_by_ts else []
+    for idx in range(60, len(data['c']) - 2):
+        ts = int
+
+import math
+
+def sigmoid(z):
+    # Используем math.exp для вычисления экспоненты
+    return 1.0 / (1.0 + math.exp(-max(-500, min(z, 500))))
+
+# Пример использования функции
+if __name__ == "__main__":
+    print(sigmoid(0))   # Должно вывести 0.5
+    print(sigmoid(1))   # Должно вывести значение, близкое к 0.731
+    print(sigmoid(-1))  # Должно вывести значение, близкое к 0.269
+
+def main():
+    log('=== ONLINE SGD (numpy) v2 — relative features ===')
+    now = int(time.time()); start = now - 7*86400
+    all_ex = []
+    for sym in PAIRS:
+        data = load_candles(sym, start, now)
+        if not data: log(f'{sym}: нет данных'); continue
+        obi = load_obi(sym, start, now)
+        ex = build_examples(data, obi)
+        log(f'{sym}: {len(ex)} примеров')
+        all_ex.extend(ex)
+
+    if not all_ex:
+        log('❌ нет данных'); return
+
+    random.seed(42); random.shuffle(all_ex)
+    X = np.array([x for x,_ in all_ex], dtype=float)
+    mean = X.mean(axis=0); std = X.std(axis=0)
+    std = np.where(std < 1e-6, 1.0, std)
+    log(f'mean={mean.round(3).tolist()}')
+    log(f'std ={std.round(3).tolist()}')
+
+    w = np.zeros(5); lr0, l2 = 0.001, 1e-3
+    win, total, drift = [], 0, False
+    for x_raw, y in all_ex:
+        x = (np.array(x_raw)-mean)/std
+        xb = np.hstack([1.0, x])
+        p = sigmoid(xb @ w)
+        lr = lr0/(1.0+total*1e-4)
+        w -= lr*((p-y)*xb + l2*w)
+        total += 1
+        win.append(int(p>0.5)==int(y))
+        if len(win) > 200:
+            win.pop(0)
+            if np.mean(win) < 0.40 and not drift:
+                log(f'⚠️ DRIFT acc={np.mean(win):.3f}'); drift=True
+
+    acc = float(np.mean(win)) if win else 0.5
+    log(f'✅ примеров: {total}, acc(last200): {acc:.3f}, drift={drift}')
+    probe = [sigmoid(np.hstack([1.0,(np.array(x)-mean)/std]) @ w) for x,_ in all_ex[:200]]
+    log(f'proba range (first 200): min={min(probe):.3f} max={max(probe):.3f} avg={np.mean(probe):.3f}')
+    log(f'w = {w.round(4).tolist()}')
+
+    with open(MODEL_PATH,'wb') as f:
+        pickle.dump({'type':'online_sgd_v2','w':w,'mean':mean,'std':std,
+                     'accuracy':acc,'drift':drift}, f)
+    log(f'✅ модель: {MODEL_PATH}')
+    log('=== DONE ===')

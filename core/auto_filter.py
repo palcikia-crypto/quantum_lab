@@ -12,7 +12,7 @@ POLICY = os.path.join(BASE, 'data/okx_policy.json')
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
-    with open(os.path.join(BASE, 'logs/auto_filter.log'), 'a') as f:
+    with open(os.path.join(BASE, 'logs/auto_filter.log', encoding='utf-8'), 'a') as f:
         f.write(line + '\n')
 
 def get_wr(db, last_n=20):
@@ -24,7 +24,7 @@ def get_wr(db, last_n=20):
         if not rows: return None
         wins = sum(1 for r in rows if r[0] and r[0] > 0)
         return 100.0 * wins / len(rows)
-    except:
+    except Exception:
         return None
 
 def main():
@@ -34,7 +34,7 @@ def main():
         log(f'{name}: WR={wr:.1f}%' if wr else f'{name}: нет данных')
 
     try:
-        pol = json.load(open(POLICY))
+        pol = json.load(open(POLICY, encoding='utf-8'))
         v2_wr = get_wr(DB_V2, 20)
         if v2_wr is not None:
             if v2_wr < 40:
@@ -45,7 +45,7 @@ def main():
                 log(f'v2 WR={v2_wr:.1f}% > 55 → выключаем фильтр')
             pol['updated_at'] = datetime.now().isoformat()
             pol['source'] = 'auto_filter'
-            json.dump(pol, open(POLICY, 'w'), indent=2, ensure_ascii=False)
+            json.dump(pol, open(POLICY, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
             log('✅ policy обновлён')
     except Exception as e:
         log(f'⚠️ policy: {e}')

@@ -9,7 +9,7 @@ import brain
 def send_alert(msg):
     line = f'[{datetime.now():%H:%M:%S}] ALERT: {msg}'
     print(line, flush=True)
-    with open(os.path.join(BASE, 'logs/alerts.log'), 'a') as f: f.write(line+'\n')
+    with open(os.path.join(BASE, 'logs/alerts.log', encoding='utf-8'), 'a') as f: f.write(line+'\n')
     # Telegram (если есть токен в env)
     token = os.environ.get('TG_BOT_TOKEN')
     chat = os.environ.get('TG_CHAT_ID')
@@ -19,8 +19,8 @@ def send_alert(msg):
             url = f'https://api.telegram.org/bot{token}/sendMessage'
             data = json.dumps({'chat_id': chat, 'text': msg}).encode()
             req = urllib.request.Request(url, data=data, headers={'Content-Type':'application/json'})
-            urllib.request.urlopen(req, timeout=10)
-        except: pass
+            urllib.request.urlopen(req, timeout=10, encoding='utf-8')
+        except Exception: pass
 
 def check():
     h = brain.health_check()

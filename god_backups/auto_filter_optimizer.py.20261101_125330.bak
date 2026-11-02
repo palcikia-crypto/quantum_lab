@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+"""auto_filter_optimizer.py — подбор фильтров (OBI, funding, pressure) для каждой стратегии."""
+import os, sys, json, sqlite3, time
+from collections import defaultdict
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE, 'core'))
+from okx_scalp_strategies import SCALP_STRATEGIES
+
+OB_DB = os.path.join(BASE, 'data/orderbook.db')
+OUT = os.path.join(BASE, 'data/filter_settings.json')
+
+# Сетка фильтров
+OBI_GRID = [-0.3, -0.4, -0.5]
+FUNDING_GRID = [0.00005, 0.0001]
+PRESSURE_GRID = [-500, -1000]
+SPREAD_GRID = [0.0005, 0.001]
+
+# Периоды
+PERIODS = [('1h', 3600)]
+
+# TP/SL
+TP, SL, TIMEOUT, FEE = 0.0015, 0.00075, 60, 0.0005
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(os.path.join(BASE, 'logs/auto_filter_optimizer.log'), 'a') as f:
+        f.write(line + '\n')
+
+def get_pairs():
+    try:
+        c = sqlite3.connect(OB_DB, timeout=10)
+        rows = c.execute("SELECT DISTINCT symbol FROM orderbooks").fetchall()
+        c.close()
+        return [r[0] for r in rows]
+    except:
+        return []
+
+def load_data(symbol, start_ts, end_ts):
+    try:
+        c = sqlite3.connect(OB_DB, timeout=10)
+        obs = c.execute("""SELECT ts, best_bid, best_ask, spread, imbalance
+                           FROM orderbooks WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                        (symbol, start_ts, end_ts)).fetchall()
+        trades = c.execute("""SELECT ts, side, price, volume FROM trades
+                              WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                           (symbol, start_ts, end_ts)).fetchall()
+        swap = symbol + '-SWAP'
+        fundings = c.execute("""SELECT ts, funding_rate FROM funding
+                                WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                             (swap, start_ts-3600, end_ts)).fetchall()
+        c.close()
+        return obs, trades, fundings
+    except:
+        return [], [], []
+
+def simulate(strat_fn, obs, trades, fundings, params):
+    if not obs: return {'n': 0, 'wins': 0, 'wr': 0, 'pnl': 0}
+
+    obi_th = params['obi']
+    fund_th = params['funding']
+    press_th = params['pressure']
+    spread_max = params['spread']
+
+    trades_by_ts = defaultdict(list)
+    for t in trades:
+        trades_by_ts[t[0]].append(t)
+    funding_by_ts = {}
+    for f in fundings:
+        funding_by_ts[f[0]] = f[1]
+
+    def get_funding(ts):
+        prev = None
+        for fts in sorted(funding_by_ts):
+            if fts <= ts: prev = funding_by_ts[fts]
+            else: break
+        return prev
+
+    results = []
+    cooldown = 0
+    for i, ob in enumerate(obs):
+        ts, bid, ask, spread, obi = ob
+        if ts < cooldown: continue
+        if spread is None or spread > spread_max: continue
+        if obi is None: continue
+
+        price = (bid + ask) / 2
+        buy = sum(t[3] for t in trades if t[1]=='buy' and ts-60 <= t[0] <= ts)
+        sell = sum(t[3] for t in trades if t[1]=='sell' and ts-60 <= t[0] <= ts)
+        pressure = buy - sell
+        funding = get_funding(ts)
+
+        side = strat_fn(obi, pressure, spread, price, 0)
+        if not side: continue
+
+        # Фильтры
+        if side == 'SHORT' and obi > obi_th: continue
+        if side == 'LONG' and obi < -obi_th: continue
+        if side == 'SHORT' and funding is not None and funding < fund_th: continue
+        if side == 'SHORT' and pressure > press_th: continue
+
+        entry = ask if side == 'LONG' else bid
+        tp_p = entry * (1 + TP) if side == 'LONG' else entry * (1 - TP)
+        sl_p = entry * (1 - SL) if side == 'LONG' else entry * (1 + SL)
+
+        exit_p = None
+        for j in range(i + 1, len(obs)):
+            o_ts = obs[j][0]
+            if o_ts - ts > TIMEOUT:
+                exit_p = (obs[j][1] + obs[j][2]) / 2
+                break
+            for t in trades_by_ts.get(o_ts, []):
+                p = t[2]
+                if side == 'LONG':
+                    if p <= sl_p: exit_p = sl_p; break
+                    if p >= tp_p: exit_p = tp_p; break
+                else:
+                    if p >= sl_p: exit_p = sl_p; break
+                    if p <= tp_p: exit_p = tp_p; break
+            if exit_p is not None: break
+
+        if exit_p is None: continue
+        move = (exit_p - entry) / entry if side == 'LONG' else (entry - exit_p) / entry
+        pnl = (move - FEE) * 100
+        results.append({'pnl': pnl})
+        cooldown = ts + TIMEOUT
+
+    n = len(results)
+    wins = sum(1 for r in results if r['pnl'] > 0)
+    pnl = sum(r['pnl'] for r in results)
+    return {'n': n, 'wins': wins, 'wr': round(100.0*wins/n, 1) if n else 0, 'pnl': round(pnl, 2)}
+
+def main():
+    log('=== AUTO FILTER OPTIMIZER ===')
+
+    pairs = get_pairs()
+    log(f'Пар: {len(pairs)}, стратегий: {len(SCALP_STRATEGIES)}')
+
+    now = int(time.time())
+    results = {}
+
+    # ТОЛЬКО скальп-стратегии (они принимают отдельные значения, не массивы)
+    SCALP_ONLY = {k: v for k, v in SCALP_STRATEGIES.items()}
+    log(f'Скальп-стратегий: {len(SCALP_ONLY)}')
+
+    for p_name, p_sec in PERIODS:
+        start = now - p_sec
+        for symbol in pairs:
+            obs, trades, fundings = load_data(symbol, start, now)
+            if not obs: continue
+            for strat_name, strat_fn in SCALP_ONLY.items():
+                for obi_th in OBI_GRID:
+                    for fund_th in FUNDING_GRID:
+                        for press_th in PRESSURE_GRID:
+                            for spread_max in SPREAD_GRID:
+                                params = {'obi': obi_th, 'funding': fund_th,
+                                         'pressure': press_th, 'spread': spread_max}
+                                res = simulate(strat_fn, obs, trades, fundings, params)
+                                if res['n'] >= 5 and res['pnl'] > 0 and res['wr'] >= 55:
+                                    key = (symbol, strat_name, obi_th, fund_th, press_th, spread_max)
+                                    results[key] = res
+
+    # Группируем по (symbol, strat) — выбираем лучший
+    best = {}
+    for key, res in results.items():
+        sym, strat = key[0], key[1]
+        if (sym, strat) not in best or res['pnl'] > best[(sym, strat)]['pnl']:
+            best[(sym, strat)] = {
+                'symbol': sym, 'strategy': strat,
+                'obi': key[2], 'funding': key[3],
+                'pressure': key[4], 'spread': key[5],
+                'n': res['n'], 'wr': res['wr'], 'pnl': res['pnl']
+            }
+
+    out = {
+        'updated_at': datetime.now().isoformat(),
+        'total_combinations': len(results),
+        'best_count': len(best),
+        'settings': list(best.values())
+    }
+    json.dump(out, open(OUT, 'w'), indent=2, ensure_ascii=False)
+    log(f'✅ filter_settings.json: {len(best)} настроек')
+
+    # ТОП-10
+    sorted_best = sorted(best.values(), key=lambda x: -x['pnl'])
+    for s in sorted_best[:10]:
+        log(f"  {s['symbol']:12s} {s['strategy']:22s} OBI={s['obi']:.2f} fund={s['funding']:.5f} press={s['pressure']} spread={s['spread']:.4f} → WR={s['wr']:.1f}% PnL={s['pnl']:+.2f}%")
+
+    log('=== DONE ===')
+
+if __name__ == '__main__':
+    main()

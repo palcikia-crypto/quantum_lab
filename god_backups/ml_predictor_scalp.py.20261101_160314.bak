@@ -1,0 +1,199 @@
+import os, sys, json, sqlite3, time, pickle
+import numpy as np
+from datetime import datetime
+from datetime import datetime
+import sqlite3
+import sqlite3
+
+from datetime import datetime
+
+LOG = 'logfile.txt'  # Укажите путь к файлу лога
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+import sqlite3
+
+MARKET_DB = 'your_database_path.db'  # Укажите путь к вашей базе данных
+
+def load_candles(sym, start_ts, end_ts, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts, o, h, l, c, v FROM candles
+                        WHERE symbol=? AND tf=? AND ts>=? AND ts<? ORDER BY ts""",
+                     (sym, tf, start_ts, end_ts)).fetchall()
+    c.close()
+
+    if not rows:
+        return None
+
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts', 'o', 'h', 'l', 'c', 'v'])}
+
+import sqlite3
+
+def load_orderbook(sym, start_ts, end_ts, OB_DB):
+    # Проверяем, что символ заканчивается на 'USDT' и преобразуем его
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+
+    # Подключаемся к базе данных
+    c = sqlite3.connect(OB_DB, timeout=30)
+
+    try:
+        # Загружаем данные из таблицы orderbooks
+        obs = c.execute("""SELECT ts, imbalance, spread FROM orderbooks
+                           WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                        (sym_dash, start_ts, end_ts)).fetchall()
+
+        # Формируем символ для funding
+        swap = sym_dash + '-SWAP'
+
+        # Загружаем данные из таблицы funding
+        fundings = c.execute("""SELECT ts, funding_rate FROM funding
+                                WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                             (swap, start_ts, end_ts)).fetchall()
+
+        # Загружаем данные из таблицы trades
+        trades = c.execute("""SELECT ts, side, volume FROM trades
+                              WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                           (sym_dash, start_ts, end_ts)).fetchall()
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+        obs, fundings, trades = [], [], []
+    finally:
+        # Закрываем соединение с базой данных
+        c.close()
+
+    return obs, fundings, trades
+
+def build_features(data, obi_by_ts, funding_by_ts, trades, TP=0.02, SL=0.01):
+    X = []
+    y = []
+    for idx in range(60, len(data['c']) - 2):
+        ts = int(data['ts'][idx])
+        price = data['c'][idx]
+
+        # Получаем значение OBI и spread
+        obi_val = None
+        spread_val = None
+        for ots in sorted(obi_by_ts.keys(), reverse=True):
+            if ots <= ts:
+                obi_val = obi_by_ts[ots]['obi']
+                spread_val = obi_by_ts[ots]['spread']
+                break
+
+        # Получаем значение funding
+        fund_val = None
+        for fts in sorted(funding_by_ts.keys(), reverse=True):
+            if fts <= ts:
+                fund_val = funding_by_ts[fts]
+                break
+
+        # Рассчитываем давление
+        buy = sum(v for tts, side, v in trades if side == 'buy' and ts - 60 <= tts <= ts)
+        sell = sum(v for tts, side, v in trades if side == 'sell' and ts - 60 <= tts <= ts)
+        pressure = buy - sell
+
+        # Рассчитываем целевую переменную
+        future_price = data['c'][min(idx + 2, len(data['c']) - 1)]
+        move = (future_price - price) / price
+
+        if move >= TP:
+            target = 1
+        elif move <= -SL:
+            target = 0
+        else:
+            continue
+
+        # Добавляем данные в X и y
+        X.append([
+            obi_val if obi_val is not None else 0,
+            fund_val if fund_val is not None else 0,
+            pressure,
+            spread_val if spread_val is not None else 0
+        ])
+        y.append(target)
+
+    return X, y
+
+import math
+
+def sigmoid(z):
+    # Используем math.exp вместо np.exp и ограничиваем значения z
+    z_clipped = max(-500, min(500, z))
+    return 1.0 / (1.0 + math.exp(-z_clipped))
+
+def train_logreg(X, y, lr=0.01, epochs=1000, reg=0.01):
+    n, m = X.shape
+    mean = X.mean(axis=0)
+    std = X.std(axis=0) + 1e-9
+    Xn = (X - mean) / std
+    Xb = np.hstack([np.ones((n, 1)), Xn])
+    w = np.zeros(Xb.shape[1])
+    for _ in range(epochs):
+        z = Xb @ w
+        p = sigmoid(z)
+        grad = (Xb.T @ (p - y)) / n
+        grad[1:] += reg * w[1:]
+        w -= lr * grad
+    return w, mean, std
+
+def predict(w, mean, std, X):
+    Xn = (X - mean) / std
+    Xb = np.hstack([np.ones((Xn.shape[0], 1)), Xn])
+    return sigmoid(Xb @ w)
+
+import time
+import random
+from collections import defaultdict
+
+# Замените этот список на ваши торговые пары
+PAIRS = ['BTC/USD', 'ETH/USD', 'XRP/USD']  # Пример пар
+PERIOD = 3600 * 24  # Пример периода в секундах (например, 1 день)
+
+def log(message):
+    print(message)
+
+def load_candles(sym, start, end):
+    # Здесь должен быть ваш код для загрузки свечей
+    return []
+
+def load_orderbook(sym, start, end):
+    # Здесь должен быть ваш код для загрузки данных ордербука
+    return [], [], []
+
+def build_features(data, obi_by_ts, funding_by_ts, ob_trades):
+    # Здесь должен быть ваш код для построения признаков
+    return [], []
+
+def train_logreg(X_train, y_train):
+    # Здесь должен быть ваш код для обучения логистической регрессии
+    return [0] * (len(X_train[0]) + 1), 0, 1  # Заглушка
+
+def predict(w, mean, std, X_test):
+    # Здесь должен быть ваш код для предсказания вероятностей
+    return [random.random() for _ in range(len(X_test))]  # Заглушка
+
+def main():
+    log('=== ML SCALP (TP 0.15%) ===')
+    now = int(time.time())
+    start = now - PERIOD
+
+    all_X = []
+    all_y = []
+    for sym in PAIRS:
+        data = load_candles(sym, start, now)
+        if not data: 
+            continue
+        ob_obs, ob_fundings, ob_trades = load_orderbook(sym, start, now)
+        obi_by_ts = {ts: {'obi': obi, 'spread': spread} for ts, obi, spread in ob_obs if obi is not None}
+        funding_by_ts = {ts: fr for ts, fr in ob_fundings}
+        X, y = build_features(data, obi_by_ts, funding_by_ts, ob_trades)
+        log(f'{sym}: {len(X)} примеров (LONG={sum(y)}, SHORT={len(y)-sum(y)})')
+        all_X.extend(X)
+        all_y.extend(y)
+
+    if not all_X:
+        log('❌ нет данных')
+        return

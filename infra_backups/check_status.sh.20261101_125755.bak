@@ -1,0 +1,33 @@
+#!/data/data/com.termux/files/usr/bin/bash
+clear
+echo "════════════════════════════════════════════════"
+echo "  📊 ДАШБОРД: $(date +%H:%M:%S)  |  $(date +%d.%m.%Y)"
+echo "════════════════════════════════════════════════"
+echo ""
+echo "═══ 🤖 БОТЫ ═══"
+echo "v3 (16 GOLDEN): $(pgrep -f okx_bot_paper_v3 > /dev/null && echo '✅' || echo '❌')"
+echo "oracle:         $(pgrep -f 'oracle.py loop' > /dev/null && echo '✅' || echo '❌')"
+echo "RSI-бот:        $(pgrep -f rsi_bot > /dev/null && echo '✅' || echo '❌')"
+echo ""
+echo "═══ 🧪 ИИ-ЛАБОРАТОРИЯ ═══"
+echo "Процесс:  $(pgrep -f strategy_lab > /dev/null && echo '✅' || echo '❌')"
+echo "Рекорд:   $(python3 -c "
+import json
+try:
+    d = json.load(open('/data/data/com.termux/files/home/quantum_lab_sandbox/GOLDEN_AI.json'))
+    print(f\"{d.get('pnl', '?')} ({d.get('indicator', '?')})\")
+except Exception as e:
+    print('нет данных')
+" 2>/dev/null)"
+echo "Итераций: $(grep -c 'ИТЕРАЦИЯ' /data/data/com.termux/files/home/quantum_lab_sandbox/.strategy_lab.log 2>/dev/null || echo 0)"
+echo ""
+echo "═══ 📈 PnL БОТОВ ═══"
+echo -n "v3 (всего): "
+sqlite3 /data/data/com.termux/files/home/quantum_lab/data/okx_paper_v3.db "SELECT COUNT(*) || ' сделок, PnL=' || ROUND(COALESCE(SUM(pnl),0),2) FROM trades WHERE status='CLOSED';" 2>/dev/null
+echo -n "v3 (открыто): "
+sqlite3 /data/data/com.termux/files/home/quantum_lab/data/okx_paper_v3.db "SELECT COUNT(*) FROM trades WHERE status='OPEN';" 2>/dev/null
+echo ""
+echo "═══ 💾 СИСТЕМА ═══"
+free -h | awk 'NR==2{printf "RAM:   %s / %s (avail %s)\n",$3,$2,$7}'
+free -h | awk 'NR==3{printf "Swap:  %s / %s\n",$3,$2}'
+echo ""

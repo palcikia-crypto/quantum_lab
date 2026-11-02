@@ -1,0 +1,140 @@
+{
+  "scanned": 26,
+  "ok": 0,
+  "fixed": 23,
+  "errors": 0,
+  "advisor": 0,
+  "modules_created": 0,
+  "files": [
+    {
+      "file": "agents/data_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/evolve_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/gate_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/live_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/okx_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/report_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "agents/risk_agent.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/alerts.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_adapt_realtime.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
+    },
+    {
+      "file": "core/auto_add.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_apply_filters.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_apply_graals.py",
+      "status": "needs_review",
+      "msg": "большой файл, ИИ не справился"
+    },
+    {
+      "file": "core/auto_apply_regime.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_compare.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_data.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_evolve.py",
+      "status": "needs_review",
+      "msg": "большой файл, ИИ не справился"
+    },
+    {
+      "file": "core/auto_evolve_by_regime.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
+    },
+    {
+      "file": "core/auto_filter.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_filter_optimizer.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
+    },
+    {
+      "file": "core/auto_obi_tuner.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_stop_losers.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/auto_tpsl_tuner.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
+    },
+    {
+      "file": "core/brain_api.py",
+      "status": "fixed_ai",
+      "msg": "ПРОБЛЕМА: утечки файлов (open без with), голые except, неопределённые переменные."
+    },
+    {
+      "file": "core/brain_loop.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    },
+    {
+      "file": "core/data_manager.py",
+      "status": "needs_review",
+      "msg": "большой файл, ИИ не справился"
+    },
+    {
+      "file": "core/evolution.py",
+      "status": "fixed_deterministic",
+      "msg": "regex"
+    }
+  ]
+}

@@ -1,16 +1,9 @@
-#!/usr/bin/env python3
-"""auto_adapt_realtime.py — адаптация v3/v4 под рынок в реальном времени."""
 import os, json, sqlite3, shutil, time, stat, subprocess
 from datetime import datetime
 
-BASE = os.path.expanduser('~/quantum_lab')
-ORACLE_DB = os.path.join(BASE, 'data/oracle.db')
-V3_CFG = os.path.join(BASE, 'data/okx_tpsl_v3.json')
-V4_CFG = os.path.join(BASE, 'data/okx_tpsl_v4.json')
-REGIME = os.path.join(BASE, 'data/holy_grail_regime.json')
-DB_V3 = os.path.join(BASE, 'data/okx_paper_v3.db')
-DB_V4 = os.path.join(BASE, 'data/okx_paper_v4.db')
-LOG = os.path.join(BASE, 'logs/auto_adapt_realtime.log')
+from datetime import datetime
+
+LOG = 'logfile.txt'  # Убедитесь, что вы указали правильный путь к файлу логов
 
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
@@ -18,9 +11,15 @@ def log(msg):
     with open(LOG, 'a') as f:
         f.write(line + '\n')
 
+import os
+import shutil
+import time
+
 def backup(path):
     if os.path.exists(path):
         shutil.copy(path, f'{path}.bak.{int(time.time())}')
+    else:
+        print(f"File {path} does not exist.")
 
 def get_regimes():
     """Текущие режимы из oracle."""
@@ -33,6 +32,8 @@ def get_regimes():
     except:
         return {}
 
+import sqlite3
+
 def get_wr(db, last_n=10):
     """WR за последние N сделок."""
     try:
@@ -40,38 +41,55 @@ def get_wr(db, last_n=10):
         rows = c.execute("""SELECT pnl FROM trades WHERE status='CLOSED'
                             ORDER BY exit_ts DESC LIMIT ?""", (last_n,)).fetchall()
         c.close()
-        if not rows: return None, 0
-        wins = sum(1 for r in rows if r[0] and r[0] > 0)
+        if not rows: 
+            return None, 0
+        wins = sum(1 for r in rows if r[0] is not None and r[0] > 0)
         return 100.0 * wins / len(rows), len(rows)
-    except:
+    except Exception as e:
+        print(f"Error: {e}")  # Для отладки, можно убрать в продакшене.
         return None, 0
+
+import json
+import os
+import stat
+
+V3_CFG = 'path_to_v3_config.json'  # Укажите путь к конфигурационному файлу V3
+
+def log(message):
+    print(message)  # Замените на свою реализацию логирования
+
+def backup(file_path):
+    # Реализуйте функцию резервного копирования файла
+    pass
 
 def adapt_v3(regimes, grail_regime):
     """Адаптирует v3 под текущий режим."""
     if not grail_regime or 'pairs' not in grail_regime:
         return
+
     try:
-        cur = json.load(open(V3_CFG))
+        with open(V3_CFG, 'r', encoding='utf-8') as f:
+            cur = json.load(f)
+
         st = os.stat(V3_CFG)
         need_restore = False
+
         if st.st_mode & stat.S_IWUSR == 0:
             os.chmod(V3_CFG, 0o644)
             need_restore = True
 
         changed = 0
+
         for pair, cfg in cur.get('per_pair', {}).items():
             sym = pair.replace('-', '')
-            if sym not in regimes: continue
+            if sym not in regimes:
+                continue
+
             current_regime = regimes[sym]['regime']
-            # Маппинг: flat/trend_up/trend_down → flat/trend
-            if current_regime == 'flat':
-                key = 'flat'
-            else:
-                key = 'trend'
-            # Есть ли стратегия для этого режима?
+            key = 'flat' if current_regime == 'flat' else 'trend'
+
             if pair in grail_regime['pairs'] and key in grail_regime['pairs'][pair]:
                 new_strat = grail_regime['pairs'][pair][key]['strategy']
-                # Обновляем все 3 режима (flat/trend_up/trend_down)
                 for reg in ['flat', 'trend_up', 'trend_down']:
                     if cfg.get(reg, {}).get('strategy') != new_strat:
                         cfg[reg]['strategy'] = new_strat
@@ -79,8 +97,10 @@ def adapt_v3(regimes, grail_regime):
 
         if changed > 0:
             backup(V3_CFG)
-            json.dump(cur, open(V3_CFG, 'w'), indent=2, ensure_ascii=False)
+            with open(V3_CFG, 'w', encoding='utf-8') as f:
+                json.dump(cur, f, indent=2, ensure_ascii=False)
             log(f'✅ v3: обновлено {changed} стратегий (по режимам)')
+
         if need_restore:
             os.chmod(V3_CFG, 0o444)
     except Exception as e:
@@ -146,6 +166,3 @@ def main():
         adapt_v3(regimes, grail_regime)
 
     log('=== DONE ===')
-
-if __name__ == '__main__':
-    main()

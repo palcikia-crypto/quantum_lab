@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""self_organizer.py — событийная самоорганизация. Реагирует на изменения."""
+import os, sys, time, json
+BASE = os.path.expanduser('~/quantum_lab')
+sys.path.insert(0, os.path.join(BASE, 'core'))
+import brain
+from datetime import datetime
+
+def log(m):
+    line = f'[{datetime.now():%H:%M:%S}] {m}'
+    print(line, flush=True)
+    with open(os.path.join(BASE, 'logs/self_organizer.log', encoding='utf-8'), 'a') as f: f.write(line+'\n')
+
+def main():
+    log('=== SELF-ORGANIZER STARTED ===')
+    brain.init_db()
+    last_state = None
+    while True:
+        try:
+            state = brain.get_full_state()
+            # Реагируем на изменения режима рынка
+            oracle = state.get('oracle', [])
+            regimes = {o['symbol']: o['regime'] for o in oracle} if oracle else {}
+            if last_state and last_state != regimes:
+                changed = [s for s in regimes if s in last_state and regimes[s] != last_state[s]]
+                if changed:
+                    log(f'режим изменился: {changed}')
+                    # здесь можно пересмотреть стратегии
+            last_state = regimes
+        except Exception as e:
+            log(f'ERROR: {e}')
+        time.sleep(120)
+
+if __name__ == '__main__': main()

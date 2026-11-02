@@ -1,25 +1,14 @@
-#!/usr/bin/env python3
-"""auto_evolve_by_regime.py — саморазвитие стратегий по режимам (flat/trend)."""
 import os, sys, json, sqlite3, time
 import numpy as np
 from collections import defaultdict
 from datetime import datetime
-
-BASE = os.path.expanduser('~/quantum_lab')
-sys.path.insert(0, os.path.join(BASE, 'core'))
 from okx_mutator import generate_mutants
 from strategy_mutations import generate_mutations
 
-MARKET_DB = os.path.join(BASE, 'data/market.db')
-OUT = os.path.join(BASE, 'data/holy_grail_regime.json')
-GRAALS_DIR = os.path.join(BASE, 'data/graals')
+import os
+from datetime import datetime
 
-PAIRS = ['BTCUSDT', 'ETHUSDT', 'XRPUSDT', 'SOLUSDT', 'DOGEUSDT']
-PERIODS = [('2d', 2*86400), ('7d', 7*86400)]
-TP, SL, TIMEOUT, FEE = 0.006, 0.004, 2, 0.0015
-MIN_N = 1
-MIN_PNL = -100.0
-MIN_WR = 0.0
+BASE = os.getcwd()  # Замените на нужный путь, если необходимо
 
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
@@ -27,14 +16,17 @@ def log(msg):
     with open(os.path.join(BASE, 'logs/auto_evolve_by_regime.log'), 'a') as f:
         f.write(line + '\n')
 
+import sqlite3
+
 def load_candles(sym, start_ts, end_ts, tf='15m'):
     c = sqlite3.connect(MARKET_DB, timeout=30)
-    rows = c.execute("""SELECT ts,o,h,l,c,v FROM candles
+    rows = c.execute("""SELECT ts, o, h, l, c, v FROM candles
                         WHERE symbol=? AND tf=? AND ts>=? AND ts<? ORDER BY ts""",
                      (sym, tf, start_ts, end_ts)).fetchall()
     c.close()
-    if not rows: return None
-    return {k: np.array([r[i] for r in rows]) for i, k in enumerate(['ts','o','h','l','c','v'])}
+    if not rows:
+        return None
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts', 'o', 'h', 'l', 'c', 'v'])}
 
 def calc_adx_at(data, idx):
     """ADX на индексе idx (упрощённо)."""
@@ -155,6 +147,3 @@ def main():
     json.dump(out, open(os.path.join(GRAALS_DIR, f'regime_{stamp}.json'), 'w'), indent=2, ensure_ascii=False)
 
     log('=== DONE ===')
-
-if __name__ == '__main__':
-    main()

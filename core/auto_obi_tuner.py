@@ -14,7 +14,7 @@ OBI_GRID = [-0.2, -0.3, -0.4, -0.5, -0.6]
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
-    with open(LOG, 'a') as f:
+    with open(LOG, 'a', encoding='utf-8') as f:
         f.write(line + '\n')
 
 def backup(path):
@@ -29,7 +29,7 @@ def get_trades(last_n=100):
                             ORDER BY exit_ts DESC LIMIT ?""", (last_n,)).fetchall()
         c.close()
         return rows
-    except:
+    except Exception:
         return []
 
 def get_obi_at(symbol, ts):
@@ -40,7 +40,7 @@ def get_obi_at(symbol, ts):
                       (symbol, ts)).fetchone()
         c.close()
         return r[0] if r else None
-    except:
+    except Exception:
         return None
 
 def main():
@@ -79,7 +79,7 @@ def main():
     log(f'✅ Лучший OBI: {best["th"]:.2f} (n={best["n"]}, WR={best["wr"]:.1f}%, PnL=${best["pnl"]:+.2f})')
 
     try:
-        cur = json.load(open(V4_CFG))
+        cur = json.load(open(V4_CFG, encoding='utf-8'))
         backup(V4_CFG)
         st = os.stat(V4_CFG)
         need_restore = False
@@ -91,7 +91,7 @@ def main():
             cfg['obi_threshold'] = best['th']
         cur['source'] = 'auto_obi_tuner'
         cur['updated_at'] = datetime.now().isoformat()
-        json.dump(cur, open(V4_CFG, 'w'), indent=2, ensure_ascii=False)
+        json.dump(cur, open(V4_CFG, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
         log(f'✅ v4 обновлён: OBI={best["th"]:.2f}')
 
         if need_restore:

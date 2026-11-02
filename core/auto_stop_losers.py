@@ -15,7 +15,7 @@ BOTS = {
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
-    with open(LOG, 'a') as f:
+    with open(LOG, 'a', encoding='utf-8') as f:
         f.write(line + '\n')
 
 def get_wr(db, last_n=20):
@@ -27,7 +27,7 @@ def get_wr(db, last_n=20):
         if not rows: return None, 0
         wins = sum(1 for r in rows if r[0] and r[0] > 0)
         return 100.0 * wins / len(rows), len(rows)
-    except:
+    except Exception:
         return None, 0
 
 def main():

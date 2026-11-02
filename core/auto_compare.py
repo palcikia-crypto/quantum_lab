@@ -15,7 +15,7 @@ def get_stats(db):
         if r and r[0]:
             n, wins, pnl = r
             return {'n': n, 'wins': wins or 0, 'wr': round(100.0*(wins or 0)/n, 1), 'pnl': pnl or 0}
-    except:
+    except Exception:
         pass
     return {'n': 0, 'wins': 0, 'wr': 0, 'pnl': 0}
 
@@ -39,7 +39,7 @@ def main():
         'best_pnl': best[0] if best else None,
         'best_pnl_value': best[1]['pnl'] if best else 0,
     }
-    json.dump(out, open(OUT, 'w'), indent=2, ensure_ascii=False)
+    json.dump(out, open(OUT, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
     print(f'✅ Лучший по PnL: {best[0] if best else "—"}')
     print(f'✅ Записано: {OUT}')
 

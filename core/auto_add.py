@@ -21,7 +21,7 @@ def run_auto_add():
     candidates = {**combos, **muts}
     print(f'Кандидатов: {len(candidates)}')
     added = 0
-    d = json.load(open(ACTIVE))
+    d = json.load(open(ACTIVE, encoding='utf-8'))
     for name, fn in candidates.items():
         for pair in PAIRS[:2]:
             try:
@@ -35,10 +35,10 @@ def run_auto_add():
                             'verdict':'GOLDEN','score':r['score'],'model':'auto_add','trade':True}
                         added += 1
                         print(f"  ➕ {key}: WR={r['L1']['wr']}% n={r['L1']['n']}")
-            except: pass
+            except Exception: pass
     if added:
         d['updated_at'] = datetime.now().isoformat()
-        json.dump(d, open(ACTIVE,'w'), ensure_ascii=False, indent=2)
+        json.dump(d, open(ACTIVE,'w', encoding='utf-8'), ensure_ascii=False, indent=2)
         print(f'✅ добавлено {added} в active')
     else: print('ℹ️ новых GOLDEN WR>60% не найдено')
     return added

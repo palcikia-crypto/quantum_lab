@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import os, json, sys
+BASE = os.path.expanduser('~/quantum_lab')
+HIST = os.path.join(BASE, 'data/ml_accuracy_history.jsonl')
+def main():
+    if not os.path.exists(HIST):
+        print('❌ нет истории'); return
+    rows = [json.loads(l) for l in open(HIST, encoding='utf-8') if l.strip()]
+    if len(rows) < 5:
+        print(f'ℹ️ мало данных ({len(rows)})'); return
+    recent = rows[-10:]
+    avg = sum(r['accuracy'] for r in recent)/len(recent)
+    dr = sum(1 for r in recent if r['drift'])
+    print(f'📊 avg_acc={avg:.3f} drift={dr}')
+    if avg < 0.55: print('🚨 acc<0.55 — ПОРА ПЕРЕОБУЧАТЬ'); sys.exit(2)
+    elif dr > 3: print('🚨 drift>3 — ПОРА ПЕРЕОБУЧАТЬ'); sys.exit(3)
+    else: print('✅ модель здорова')
+if __name__ == '__main__': main()

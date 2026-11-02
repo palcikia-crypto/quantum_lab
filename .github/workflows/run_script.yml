@@ -1,0 +1,47 @@
+name: Run Any Script
+on:
+  workflow_dispatch:
+    inputs:
+      script_name:
+        description: 'Скрипт для запуска'
+        required: true
+        default: 'ls -la'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pandas numpy ccxt ta python-dotenv requests llmf
+      - name: Extract Code
+        run: tar -xzvf code.tar.gz
+      - name: Copy missing modules
+        run: cp tools/agent_dev/llm_backend.py .
+      - name: Create symlink
+        run: |
+          rm -rf /home/runner/quantum_lab_sandbox
+          ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox
+      - name: Run Script
+        env:
+          BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+          BINANCE_SECRET: ${{ secrets.BINANCE_SECRET }}
+        run: |
+          echo "🚀 Запускаю: ${{ inputs.script_name }}"
+          ${{ inputs.script_name }}
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ tools/ *.json || true
+          git commit -m "Auto-save: results" || true
+          git pull --rebase || true
+          git push || true

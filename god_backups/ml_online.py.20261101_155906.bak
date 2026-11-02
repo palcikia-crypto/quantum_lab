@@ -1,0 +1,149 @@
+import os, sys, json, sqlite3, time, pickle
+import numpy as np
+from datetime import datetime
+from river import compose, linear_model, preprocessing, metrics
+from river import drift
+from datetime import datetime
+import sqlite3
+import sqlite3
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+import sqlite3
+
+MARKET_DB = 'your_database.db'  # Замените на путь к вашей базе данных
+
+def load_candles(sym, start_ts, end_ts, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts, o, h, l, c, v FROM candles
+                        WHERE symbol = ? AND tf = ? AND ts >= ? AND ts < ? ORDER BY ts""",
+                     (sym, tf, start_ts, end_ts)).fetchall()
+    c.close()
+
+    if not rows:
+        return None
+
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts', 'o', 'h', 'l', 'c', 'v'])}
+
+import sqlite3
+
+OB_DB = 'path_to_your_database.db'  # Укажите путь к вашей базе данных
+
+def load_obi(sym, start_ts, end_ts):
+    # Проверяем, что символ заканчивается на 'USDT' и преобразуем его
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+
+    # Устанавливаем соединение с базой данных
+    c = sqlite3.connect(OB_DB, timeout=30)
+
+    # Выполняем запрос к базе данных
+    obs = c.execute("""SELECT ts, imbalance FROM orderbooks
+                       WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
+                    (sym_dash, start_ts, end_ts)).fetchall()
+
+    # Закрываем соединение с базой данных
+    c.close()
+
+    # Возвращаем словарь, исключая записи с None в imbalance
+    return {ts: obi for ts, obi in obs if obi is not None}
+
+def calc_rsi_at(c, idx, period=14):
+    if idx < period:
+        return 50
+
+    deltas = [c[i] - c[i - 1] for i in range(1, idx + 1)]
+    gains = [delta if delta > 0 else 0 for delta in deltas]
+    losses = [-delta if delta < 0 else 0 for delta in deltas]
+
+    # Используем скользящее среднее для расчета среднего прироста и убытка
+    avg_gain = sum(gains[-period:]) / period
+    avg_loss = sum(losses[-period:]) / period
+
+    if avg_loss == 0:
+        return 100
+
+    rs = avg_gain / avg_loss
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
+def calc_atr_at(h, l, c, idx):
+    if idx < 50:
+        return 0
+    hh = h[:idx + 1]
+    ll = l[:idx + 1]
+    cc = c[:idx + 1]
+
+    tr = []
+    for i in range(1, len(hh)):
+        tr_value = max(hh[i] - ll[i], abs(hh[i] - cc[i - 1]), abs(ll[i] - cc[i - 1]))
+        tr.append(tr_value)
+
+    if len(tr) < 14:
+        return 0
+
+    return sum(tr[-14:]) / 14
+
+def build_examples(data, obi_by_ts):
+    examples = []
+    for idx in range(60, len(data['c']) - 2):
+        ts = int(data['ts'][idx])
+        price = data['c'][idx]
+
+        obi_val = None
+        for ots in sorted(obi_by_ts.keys(), reverse=True):
+            if ots <= ts: obi_val = obi_by_ts[ots]; break
+
+        rsi = calc_rsi_at(data['c'], idx)
+        atr = calc_atr_at(data['h'], data['l'], data['c'], idx)
+        vol = data['v'][idx] / (np.mean(data['v'][idx-20:idx]) + 1e-9) if idx > 20 else 1
+
+        future = data['c'][min(idx+2, len(data['c'])-1)]
+        move = (future - price) / price
+        if move >= TP: target = 1
+        elif move <= -SL: target = 0
+        else: continue
+
+        examples.append(({'obi': obi_val if obi_val is not None else 0,
+                          'rsi': rsi, 'atr': atr, 'vol': vol}, target))
+    return examples
+
+def main():
+    log('=== RIVER ONLINE ML ===')
+    now = int(time.time())
+    start = now - 7*86400
+
+    # Модель: StandardScaler + LogisticRegression + ADWIN (drift)
+    model = compose.Pipeline(
+        preprocessing.StandardScaler(),
+        linear_model.LogisticRegression()
+    )
+    adwin = drift.ADWIN()
+    metric = metrics.Accuracy()
+
+    total = 0
+    for sym in PAIRS:
+        data = load_candles(sym, start, now)
+        if not data: continue
+        obi_by_ts = load_obi(sym, start, now)
+        examples = build_examples(data, obi_by_ts)
+        log(f'{sym}: {len(examples)} примеров')
+
+        for x, y in examples:
+            y_pred = model.predict_one(x)
+            if y_pred is not None:
+                metric.update(y, y_pred)
+            model.learn_one(x, y)
+            adwin.update(y)
+            total += 1
+
+    log(f'✅ Online-обучение: {total} примеров, Accuracy={metric.get():.3f}')
+    log(f'   Drift detected: {adwin.drift_detected}')
+
+    with open(MODEL_PATH, 'wb') as f:
+        pickle.dump({'model': model, 'adwin': adwin, 'accuracy': metric.get()}, f)
+    log(f'✅ Модель сохранена: {MODEL_PATH}')
+    log('=== DONE ===')

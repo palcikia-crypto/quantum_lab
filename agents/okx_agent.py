@@ -12,7 +12,7 @@ LOG = os.path.join(BASE, 'logs/okx_agent.log')
 def log(m):
     line = f'[{datetime.now():%H:%M:%S}] {m}'
     print(line, flush=True)
-    with open(LOG, 'a') as f: f.write(line+'\n')
+    with open(LOG, 'a', encoding='utf-8') as f: f.write(line+'\n')
 
 def main():
     log('=== OKX AGENT ===')
@@ -42,7 +42,7 @@ def main():
                 except Exception as e:
                     log(f'  {pair} {tf} {name}: {e}')
     results.sort(key=lambda x: -x['total_pnl_pct'])
-    with open(REPORT, 'w') as f:
+    with open(REPORT, 'w', encoding='utf-8') as f:
         json.dump({'timestamp': datetime.now().isoformat(), 'results': results}, f, indent=2, ensure_ascii=False)
     log(f'Прогонов: {len(results)}')
     for r in results[:10]:

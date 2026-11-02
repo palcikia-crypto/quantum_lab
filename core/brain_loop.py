@@ -12,7 +12,7 @@ CHECK_INTERVAL = 60
 def log(m):
     line = f'[{datetime.now():%H:%M:%S}] {m}'
     print(line, flush=True)
-    with open(os.path.join(BASE, 'logs/brain_loop.log'), 'a') as f: f.write(line+'\n')
+    with open(os.path.join(BASE, 'logs/brain_loop.log', encoding='utf-8'), 'a') as f: f.write(line+'\n')
 
 def main():
     log('=== BRAIN LOOP v2 STARTED ===')

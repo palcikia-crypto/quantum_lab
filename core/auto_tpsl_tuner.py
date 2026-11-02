@@ -1,24 +1,19 @@
-#!/usr/bin/env python3
-"""auto_tpsl_tuner.py — автонастройка TP/SL для v3/v4 по live-сделкам."""
 import os, json, sqlite3, shutil, time, stat
 from datetime import datetime
 
-BASE = os.path.expanduser('~/quantum_lab')
-DB_V3 = os.path.join(BASE, 'data/okx_paper_v3.db')
-DB_V4 = os.path.join(BASE, 'data/okx_paper_v4.db')
-V3_CFG = os.path.join(BASE, 'data/okx_tpsl_v3.json')
-V4_CFG = os.path.join(BASE, 'data/okx_tpsl_v4.json')
-LOG = os.path.join(BASE, 'logs/auto_tpsl_tuner.log')
+from datetime import datetime
 
-# Сетки TP/SL
-V3_GRID = [(0.004, 0.003), (0.006, 0.004), (0.008, 0.005), (0.006, 0.003), (0.008, 0.004)]
-V4_GRID = [(0.001, 0.0005), (0.0015, 0.00075), (0.002, 0.001), (0.001, 0.001), (0.0015, 0.001)]
+LOG = 'logfile.log'  # Задайте имя файла для логирования
 
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
     with open(LOG, 'a') as f:
         f.write(line + '\n')
+
+import os
+import shutil
+import time
 
 def backup(path):
     if os.path.exists(path):
@@ -118,6 +113,3 @@ def main():
     tune_for(DB_V4, V4_CFG, V4_GRID, 'v4')
 
     log('=== DONE ===')
-
-if __name__ == '__main__':
-    main()

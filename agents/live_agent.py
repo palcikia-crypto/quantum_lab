@@ -6,7 +6,7 @@ REPORT = os.path.join(BASE, 'data/live_report.json'); LOG = os.path.join(BASE, '
 def log(m):
     line = f'[{datetime.now():%H:%M:%S}] {m}'
     print(line, flush=True)
-    with open(LOG, 'a') as f: f.write(line+'\n')
+    with open(LOG, 'a', encoding='utf-8') as f: f.write(line+'\n')
 def main():
     log('=== LIVE AGENT ===')
     try:
@@ -15,5 +15,5 @@ def main():
         result = {'status': 'ok' if r.returncode == 0 else 'fail'}
     except Exception as e: result = {'status': 'fail', 'error': str(e)}
     log(f'live_monitor: {result["status"]}')
-    with open(REPORT, 'w') as f: json.dump({'timestamp': datetime.now().isoformat(), 'result': result}, f, indent=2)
+    with open(REPORT, 'w', encoding='utf-8') as f: json.dump({'timestamp': datetime.now().isoformat(), 'result': result}, f, indent=2)
 if __name__ == '__main__': main()

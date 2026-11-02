@@ -6,7 +6,7 @@ RSBOT = os.path.expanduser('~/rsbot'); LOG = os.path.join(BASE, 'logs/report_age
 def log(m):
     line = f'[{datetime.now():%H:%M:%S}] {m}'
     print(line, flush=True)
-    with open(LOG, 'a') as f: f.write(line+'\n')
+    with open(LOG, 'a', encoding='utf-8') as f: f.write(line+'\n')
 def daily():
     today = datetime.now().strftime('%Y-%m-%d')
     os.makedirs(REPORTS, exist_ok=True)
@@ -20,8 +20,8 @@ def daily():
             r = c.execute("SELECT COUNT(*), ROUND(COALESCE(SUM(pnl),0),2) FROM trades").fetchone()
             c.close()
             lines.append(f'- {db}: {r[0]} сделок, PnL=${r[1]}\n')
-        except: pass
-    with open(path, 'w') as f: f.writelines(lines)
+        except Exception: pass
+    with open(path, 'w', encoding='utf-8') as f: f.writelines(lines)
     log(f'daily: {path}')
 def main():
     log('=== REPORT AGENT ===')

@@ -8,7 +8,7 @@ BASE = os.path.expanduser('~/quantum_lab')
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
-    with open(os.path.join(BASE, 'logs/auto_data.log'), 'a') as f:
+    with open(os.path.join(BASE, 'logs/auto_data.log', encoding='utf-8'), 'a') as f:
         f.write(line + '\n')
 
 def check_freshness(db, table, max_age_sec):
@@ -19,13 +19,13 @@ def check_freshness(db, table, max_age_sec):
         if r and r[0]:
             age = int(time.time()) - r[0]
             return age < max_age_sec, age
-    except:
+    except Exception:
         pass
     return False, 999999
 
 def run_script(script):
-    subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE, 'core', script)],
-                    stdout=open(os.path.join(BASE, f'logs/{script.replace(".py","")}.log'),'a'),
+    subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE, 'core', script, encoding='utf-8')],
+                    stdout=open(os.path.join(BASE, f'logs/{script.replace(".py","", encoding='utf-8')}.log'),'a'),
                     stderr=subprocess.STDOUT, start_new_session=True)
     log(f'  запущен {script}')
 
@@ -44,8 +44,8 @@ def main():
         log(f'oracle.db устарел ({age} сек) → перезапуск oracle')
         subprocess.run(['pkill','-f','core/oracle.py'], capture_output=True)
         time.sleep(1)
-        subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE,'core/oracle.py'),'loop'],
-                        stdout=open(os.path.join(BASE,'logs/oracle.log'),'a'),
+        subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE,'core/oracle.py', encoding='utf-8'),'loop'],
+                        stdout=open(os.path.join(BASE,'logs/oracle.log', encoding='utf-8'),'a'),
                         stderr=subprocess.STDOUT, start_new_session=True)
         log('  oracle перезапущен')
     else:
@@ -56,8 +56,8 @@ def main():
         log(f'orderbook.db устарел ({age} сек) → перезапуск orderbook_oracle')
         subprocess.run(['pkill','-f','orderbook_oracle'], capture_output=True)
         time.sleep(1)
-        subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE,'core/orderbook_oracle.py')],
-                        stdout=open(os.path.join(BASE,'logs/orderbook_oracle.log'),'a'),
+        subprocess.Popen(['nice','-n','19','python3', os.path.join(BASE,'core/orderbook_oracle.py', encoding='utf-8')],
+                        stdout=open(os.path.join(BASE,'logs/orderbook_oracle.log', encoding='utf-8'),'a'),
                         stderr=subprocess.STDOUT, start_new_session=True)
         log('  orderbook_oracle перезапущен')
     else:

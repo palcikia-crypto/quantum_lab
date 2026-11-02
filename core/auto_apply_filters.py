@@ -11,7 +11,7 @@ V4 = os.path.join(BASE, 'data/okx_tpsl_v4.json')
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
     print(line, flush=True)
-    with open(os.path.join(BASE, 'logs/auto_apply_filters.log'), 'a') as f:
+    with open(os.path.join(BASE, 'logs/auto_apply_filters.log', encoding='utf-8'), 'a') as f:
         f.write(line + '\n')
 
 def backup(path):
@@ -25,7 +25,7 @@ def main():
         return
 
     try:
-        data = json.load(open(SETTINGS))
+        data = json.load(open(SETTINGS, encoding='utf-8'))
         settings = data.get('settings', [])
     except Exception as e:
         log(f'❌ {e}')
@@ -40,7 +40,7 @@ def main():
     # Обновляем v3
     if os.path.exists(V3):
         try:
-            cur = json.load(open(V3))
+            cur = json.load(open(V3, encoding='utf-8'))
             backup(V3)
             count = 0
             for s in settings:
@@ -59,7 +59,7 @@ def main():
                 count += 1
             cur['source'] = 'auto_apply_filters'
             cur['updated_at'] = datetime.now().isoformat()
-            json.dump(cur, open(V3, 'w'), indent=2, ensure_ascii=False)
+            json.dump(cur, open(V3, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
             log(f'✅ v3 обновлён (фильтры): {count} пар')
         except Exception as e:
             log(f'⚠️ v3: {e}')
@@ -67,7 +67,7 @@ def main():
     # Обновляем v4 (только scalp_obi_short)
     if os.path.exists(V4):
         try:
-            cur = json.load(open(V4))
+            cur = json.load(open(V4, encoding='utf-8'))
             backup(V4)
             count = 0
             for s in settings:
@@ -83,7 +83,7 @@ def main():
                 count += 1
             cur['source'] = 'auto_apply_filters'
             cur['updated_at'] = datetime.now().isoformat()
-            json.dump(cur, open(V4, 'w'), indent=2, ensure_ascii=False)
+            json.dump(cur, open(V4, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
             log(f'✅ v4 обновлён (фильтры): {count} пар')
         except Exception as e:
             log(f'⚠️ v4: {e}')

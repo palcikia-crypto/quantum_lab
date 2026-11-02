@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+"""live_feedback.py — сравнивает backtest WR с live WR, убирает плохие стратегии."""
+import json, sqlite3, os
+from datetime import datetime
+
+BASE = os.path.expanduser('~/quantum_lab')
+ACTIVE = os.path.join(BASE, 'data/active_strategies.json')
+DB = os.path.expanduser('~/rsbot/pm_v7.db')
+
+def get_live_stats():
+    """Считает live WR по каждой стратегии из pm_v7.db."""
+    try:
+        c = sqlite3.connect(DB)
+        rows = c.execute("""
+            SELECT strategy, COUNT(*), SUM(win_flag)
+            FROM trades WHERE status='CLOSED'
+            GROUP BY strategy
+        """).fetchall()
+        c.close()
+        return {r[0]: {'n': r[1], 'wr': 100*r[2]/r[1] if r[1] else 0} for r in rows}
+    except Exception as e:
+        print(f'⚠️ ошибка чтения DB: {e}')
+        return {}
+
+def run_feedback(min_live_n=10, min_live_wr=45, max_delta=15):
+    """Убирает стратегии, где live WR плохой или сильно расходится с backtest."""
+    if not os.path.exists(ACTIVE):
+        print('❌ active_strategies.json не найден')
+        return
+    d = json.load(open(ACTIVE))
+    live = get_live_stats()
+    removed = []
+    for key, v in list(d.get('pairs', {}).items()):
+        strat = v['strategy']
+        if strat not in live:
+            continue
+        stats = live[strat]
+        if stats['n'] < min_live_n:
+            continue  # мало данных — не трогаем
+        backtest_wr = v['wr']
+        live_wr = stats['wr']
+        delta = abs(backtest_wr - live_wr)
+        if live_wr < min_live_wr or delta > max_delta:
+            print(f"  ❌ {key}: backtest={backtest_wr}% live={live_wr:.1f}% (n={stats['n']}) → убрать")
+            removed.append(key)
+            del d['pairs'][key]
+    if removed:
+        d['updated_at'] = datetime.now().isoformat()
+        json.dump(d, open(ACTIVE, 'w'), ensure_ascii=False, indent=2)
+        print(f'✅ убрано {len(removed)} стратегий из active')
+    else:
+        print('ℹ️ все стратегии в норме (live WR ≥ 45%, delta ≤ 15%)')
+    return removed
+
+if __name__ == '__main__':
+    print('=== LIVE FEEDBACK ===')
+    run_feedback()

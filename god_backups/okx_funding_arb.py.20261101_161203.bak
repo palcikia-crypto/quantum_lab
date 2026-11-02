@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+"""okx_funding_arb.py — funding rate сигналы (реальный funding через API)."""
+
+def okx_funding_signal(threshold=0.0001):
+    """Если funding отрицательный — лонг (получаем выплату)."""
+    def f(o, h, l, c, v, ind):
+        n = len(c)
+        up = [False] * n
+        dn = [False] * n
+
+        # Прокси: если цена упала и объём вырос — funding отрицательный (шорты платят)
+        for i in range(20, n):
+            try:
+                if c[i - 1] != 0:  # Проверка на деление на ноль
+                    ret = (c[i] - c[i - 1]) / c[i - 1]
+                else:
+                    ret = 0  # Если c[i-1] равно 0, устанавливаем ret в 0 или другое значение по умолчанию
+
+                # Проверка на деление на ноль для скользящего среднего
+                if len(v[i - 20:i]) > 0:
+                    vol_ma = sum(v[i - 20:i]) / 20  # Рассчитываем скользящее среднее объема
+                else:
+                    vol_ma = 0
+
+                if ret < -0.003 and v[i] > vol_ma * 1.5:
+                    up[i] = True  # паника → funding отрицательный → лонг
+                elif ret > 0.003 and v[i] > vol_ma * 1.5:
+                    dn[i] = True  # эйфория → funding положительный → шорт
+
+            except Exception as e:
+                print(f"Ошибка при обработке данных на индексе {i}: {e}")
+
+        return up, dn
+
+    f.__name__ = f'okx_funding_{threshold}'
+    return f

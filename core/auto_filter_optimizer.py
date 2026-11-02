@@ -1,27 +1,12 @@
-#!/usr/bin/env python3
-"""auto_filter_optimizer.py — подбор фильтров (OBI, funding, pressure) для каждой стратегии."""
 import os, sys, json, sqlite3, time
 from collections import defaultdict
 from datetime import datetime
-
-BASE = os.path.expanduser('~/quantum_lab')
-sys.path.insert(0, os.path.join(BASE, 'core'))
 from okx_scalp_strategies import SCALP_STRATEGIES
 
-OB_DB = os.path.join(BASE, 'data/orderbook.db')
-OUT = os.path.join(BASE, 'data/filter_settings.json')
+import os
+from datetime import datetime
 
-# Сетка фильтров
-OBI_GRID = [-0.3, -0.4, -0.5]
-FUNDING_GRID = [0.00005, 0.0001]
-PRESSURE_GRID = [-500, -1000]
-SPREAD_GRID = [0.0005, 0.001]
-
-# Периоды
-PERIODS = [('1h', 3600)]
-
-# TP/SL
-TP, SL, TIMEOUT, FEE = 0.0015, 0.00075, 60, 0.0005
+BASE = '.'  # Задайте базовый путь, если необходимо
 
 def log(msg):
     line = f'[{datetime.now():%H:%M:%S}] {msg}'
@@ -38,6 +23,8 @@ def get_pairs():
     except:
         return []
 
+import sqlite3
+
 def load_data(symbol, start_ts, end_ts):
     try:
         c = sqlite3.connect(OB_DB, timeout=10)
@@ -50,10 +37,11 @@ def load_data(symbol, start_ts, end_ts):
         swap = symbol + '-SWAP'
         fundings = c.execute("""SELECT ts, funding_rate FROM funding
                                 WHERE symbol=? AND ts>=? AND ts<? ORDER BY ts""",
-                             (swap, start_ts-3600, end_ts)).fetchall()
+                             (swap, start_ts - 3600, end_ts)).fetchall()
         c.close()
         return obs, trades, fundings
-    except:
+    except Exception as e:
+        print(f"An error occurred: {e}")
         return [], [], []
 
 def simulate(strat_fn, obs, trades, fundings, params):
@@ -189,6 +177,3 @@ def main():
         log(f"  {s['symbol']:12s} {s['strategy']:22s} OBI={s['obi']:.2f} fund={s['funding']:.5f} press={s['pressure']} spread={s['spread']:.4f} → WR={s['wr']:.1f}% PnL={s['pnl']:+.2f}%")
 
     log('=== DONE ===')
-
-if __name__ == '__main__':
-    main()

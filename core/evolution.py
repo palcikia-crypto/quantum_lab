@@ -57,8 +57,8 @@ def L3_mutations(top):
 def main():
     import os as _os
     try:
-        load = float(open('/proc/loadavg').read().split()[0])
-    except:
+        load = float(open('/proc/loadavg', encoding='utf-8').read().split()[0])
+    except Exception:
         load = 0
     if load > 6:
         print(f'load {load:.1f} > 6, пропускаю (не перегружать)'); return
@@ -67,7 +67,7 @@ def main():
     l2 = L2_features(l1); print(f'L2: {len(l2)} топ', flush=True)
     l3 = L3_mutations(l2); print(f'L3: {len(l3)} финальных', flush=True)
     out = {'timestamp': datetime.now().isoformat(), 'L1': len(l1), 'L2': len(l2), 'L3': len(l3), 'top': l3}
-    with open(os.path.join(BASE, 'data/evolution.json'), 'w') as f:
+    with open(os.path.join(BASE, 'data/evolution.json', encoding='utf-8'), 'w') as f:
         json.dump(out, f, indent=2, ensure_ascii=False)
     print('Сохранено: evolution.json', flush=True)
     for r in l3[:10]: print(f'  {r["symbol"]:10} {r["strategy"]:15} WR={r["wr"]}% n={r["n"]}', flush=True)

@@ -1,0 +1,213 @@
+import os, sys, json, sqlite3, time
+import numpy as np
+from collections import defaultdict
+from datetime import datetime
+from okx_mutator import generate_mutants
+from strategy_mutations import generate_mutations
+import os
+from datetime import datetime
+import sqlite3
+import time
+from datetime import datetime
+from collections import defaultdict
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(os.path.join(BASE, 'logs/auto_evolve_by_regime.log'), 'a') as f:
+        f.write(line + '\n')
+
+import sqlite3
+
+MARKET_DB = 'path_to_your_database.db'  # Замените на путь к вашей базе данных
+
+def load_candles(sym, start_ts, end_ts, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts, o, h, l, c, v FROM candles
+                        WHERE symbol=? AND tf=? AND ts>=? AND ts<? ORDER BY ts""",
+                     (sym, tf, start_ts, end_ts)).fetchall()
+    c.close()
+
+    if not rows:
+        return None
+
+    return {k: [r[i] for r in rows] for i, k in enumerate(['ts', 'o', 'h', 'l', 'c', 'v'])}
+
+def calc_adx_at(data, idx):
+    """ADX на индексе idx (упрощённо)."""
+    if idx < 50: 
+        return 0
+
+    c = data['c'][:idx + 1]
+    h = data['h'][:idx + 1]
+    l = data['l'][:idx + 1]
+
+    plus_dm = [max(0, h[i] - h[i - 1]) for i in range(1, len(h))]
+    minus_dm = [max(0, l[i - 1] - l[i]) for i in range(1, len(l))]
+
+    tr = [max(h[i] - l[i], 
+               abs(h[i] - c[i - 1]), 
+               abs(l[i] - c[i - 1])) for i in range(1, len(h))]
+
+    if len(tr) < 14: 
+        return 0
+
+    plus_di = 100 * sum(plus_dm[-14:]) / (sum(tr[-14:]) + 1e-9)
+    minus_di = 100 * sum(minus_dm[-14:]) / (sum(tr[-14:]) + 1e-9)
+
+    if (plus_di + minus_di) == 0:
+        return 0
+
+    dx = 100 * abs(plus_di - minus_di) / (plus_di + minus_di)
+
+    return dx
+
+def sim_trades_regime(up, dn, o, h, l, c, ts, regime_filter='flat', adx_threshold=25, tp=TP, sl=SL, timeout=TIMEOUT, start=50):
+    """Симуляция с фильтром по режиму."""
+    trades = []
+    n = len(c)
+    if n < start+2: return trades
+    i = start; last_i = -1
+    # Предвычисляем ADX для каждого бара
+    adx_arr = np.zeros(n)
+    for k in range(start, n):
+        adx_arr[k] = calc_adx_at({'c': c, 'h': h, 'l': l}, k)
+
+    while i < n - 1:
+        if i <= last_i: i += 1; continue
+        # Фильтр по режиму
+        is_flat = adx_arr[i] < adx_threshold
+        if regime_filter == 'flat' and not is_flat: i += 1; continue
+        if regime_filter == 'trend' and is_flat: i += 1; continue
+
+        side = None
+        if up[i]: side = 'LONG'
+        elif dn[i]: side = 'SHORT'
+        if not side: i += 1; continue
+        entry = c[i]
+        tp_p = entry*(1+tp) if side=='LONG' else entry*(1-tp)
+        sl_p = entry*(1-sl) if side=='LONG' else entry*(1+sl)
+        end = min(i+1+timeout, n); exit_p = None
+        for j in range(i+1, end):
+            if side == 'LONG':
+                if l[j] <= sl_p: exit_p = sl_p; break
+                if h[j] >= tp_p: exit_p = tp_p; break
+            else:
+                if h[j] >= sl_p: exit_p = sl_p; break
+                if l[j] <= tp_p: exit_p = tp_p; break
+        if exit_p is None:
+            jj = min(i+timeout, n-1); exit_p = c[jj]; last_i = jj
+        else:
+            last_i = i
+        move = (exit_p - entry)/entry if side=='LONG' else (entry - exit_p)/entry
+        pnl = (move - FEE) * 100
+        trades.append({'pnl': float(pnl)})
+        i += 1
+    return trades
+
+def log(message):
+    print(message)
+
+import requests
+import time
+
+def load_candles(symbol, start_ts, end_ts, interval='4h'):
+    url = f"https://api.binance.com/api/v3/klines"
+    params = {
+        'symbol': symbol,
+        'interval': interval,
+        'startTime': start_ts * 1000,  # API ожидает время в миллисекундах
+        'endTime': end_ts * 1000,
+        'limit': 1000  # Максимальное количество свечей за один запрос
+    }
+
+    candles = []
+
+    while start_ts < end_ts:
+        response = requests.get(url, params=params)
+        if response.status_code != 200:
+            raise Exception(f"Ошибка при загрузке данных: {response.text}")
+
+        data = response.json()
+        if not data:
+            break
+
+        candles.extend(data)
+
+        # Обновляем start_ts для следующего запроса
+        start_ts = data[-1][0] // 1000  # Время последней свечи в секундах
+
+        time.sleep(1)  # Задержка для предотвращения превышения лимита запросов
+
+    return candles
+
+# Пример использования:
+# candles = load_candles('BTCUSDT', start_timestamp, end_timestamp)
+
+def sim_trades_regime(up, dn, opens, highs, lows, closes, timestamps, regime):
+    # Здесь должна быть реализация симуляции торговли по режиму
+    return []
+
+import random
+
+def generate_mutants(base_strategy):
+    mutants = {}
+
+    for mutation in range(10):  # Генерация 10 мутантов
+        mutant = base_strategy.copy()
+
+        # Вносим изменения в стратегию
+        if 'TP' in mutant:
+            mutant['TP'] += random.uniform(-0.02, 0.02)  # Изменение Take Profit
+        if 'SL' in mutant:
+            mutant['SL'] += random.uniform(-0.01, 0.01)  # Изменение Stop Loss
+        if 'ADX' in mutant:
+            mutant['ADX'] += random.randint(-5, 5)  # Изменение ADX
+
+        # Убедимся, что значения в разумных пределах
+        mutant['TP'] = max(0, min(mutant['TP'], 0.1))  # Ограничиваем TP от 0 до 10%
+        mutant['SL'] = max(0, min(mutant['SL'], 0.05))  # Ограничиваем SL от 0 до 5%
+        mutant['ADX'] = max(0, mutant['ADX'])  # ADX не может быть отрицательным
+
+        mutants[f'mutant_{mutation + 1}'] = mutant
+
+    return mutants
+
+# Пример базовой стратегии
+base_strategy = {
+    'TP': 0.02,
+    'SL': 0.01,
+    'ADX': 25
+}
+
+# Генерация мутантов
+mutants = generate_mutants(base_strategy)
+print(mutants)
+
+def main():
+    log('=== AUTO EVOLVE BY REGIME ===')
+    muts = generate_mutants()
+    # 50 стратегий: все vwap, ema, grid, macd
+    all_muts = {k: v for k, v in muts.items() if any(x in k for x in ['vwap', 'ema', 'grid_sma', 'macd'])}
+    log(f'Стратегий (50): {len(all_muts)}')
+
+    now = int(time.time())
+    results = {'flat': defaultdict(dict), 'trend': defaultdict(dict)}
+
+    for p_name, p_sec in PERIODS:
+        start_ts = now - p_sec
+        for sym in PAIRS:
+            data = load_candles(sym, start_ts, now)
+            if not data: continue
+            for strat_name, strat_fn in all_muts.items():
+                try:
+                    up, dn = strat_fn(data['o'], data['h'], data['l'], data['c'], data['v'], {})
+                except Exception as e:
+                    log(f"Error in strategy {strat_name}: {e}")
+                    continue
+
+                # Flat
+                trades = sim_trades_regime(up, dn, data['o'], data['h'], data['l'], data['c'], data['ts'], 'flat')
+                if trades:
+                    n = len(trades)
+                    wins = sum(1 for t in trades if t['pnl'] > 0)

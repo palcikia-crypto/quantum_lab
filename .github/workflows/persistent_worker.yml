@@ -1,0 +1,73 @@
+name: Persistent Hot-Reload Worker
+on:
+  workflow_dispatch:
+    inputs:
+      script_name:
+        description: 'Скрипт для запуска'
+        required: true
+        default: 'core/okx_bot_paper_v4.py'
+
+jobs:
+  run-worker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pandas numpy ccxt ta python-dotenv requests llmf
+      
+      - name: Run Hot-Reload Worker
+        env:
+          SCRIPT_NAME: ${{ inputs.script_name }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          LAST_HASH=""
+          BOT_PID=""
+          
+          while true; do
+            # 1. Подтягиваем свежий код
+            git fetch origin >/dev/null 2>&1
+            git reset --hard origin/master >/dev/null 2>&1
+            
+            # 2. Распаковываем
+            tar -xzf code.tar.gz >/dev/null 2>&1
+            
+            # 3. Чиним пути
+            rm -rf /home/runner/quantum_lab_sandbox
+            ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox
+            
+            # 4. Считаем хэш изменений
+            CURRENT_HASH=$(md5sum code.tar.gz 2>/dev/null | awk '{print $1}')
+            
+            if [ "$CURRENT_HASH" != "$LAST_HASH" ]; then
+              LAST_HASH="$CURRENT_HASH"
+              
+              # Убиваем старый бот
+              if [ -n "$BOT_PID" ] && kill -0 $BOT_PID 2>/dev/null; then
+                kill -9 $BOT_PID 2>/dev/null
+                echo "🛑 Старый бот (PID $BOT_PID) остановлен"
+              fi
+              
+              # Запускаем новый
+              echo "🚀 Запускаю новый код: $SCRIPT_NAME"
+              nohup python -u $SCRIPT_NAME > live.log 2>&1 &
+              BOT_PID=$!
+              echo "✅ Бот запущен с PID $BOT_PID"
+            fi
+            
+            # 5. Пушим логи каждые 15 секунд
+            if [ -f live.log ]; then
+              git add live.log 2>/dev/null
+              git commit -m "Live log $(date +%H:%M:%S)" 2>/dev/null
+              git pull --rebase origin master >/dev/null 2>&1
+              git push origin master >/dev/null 2>&1
+            fi
+            
+            sleep 15
+          done

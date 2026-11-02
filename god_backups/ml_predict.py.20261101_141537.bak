@@ -1,0 +1,225 @@
+import os, sys, json, sqlite3, time, pickle
+import numpy as np
+from datetime import datetime
+
+from datetime import datetime
+
+LOG = 'logfile.txt'  # Укажите путь к вашему файлу журнала
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+def load_candles(sym, limit=100, tf='15m'):
+    c = sqlite3.connect(MARKET_DB, timeout=30)
+    rows = c.execute("""SELECT ts,o,h,l,c,v FROM candles
+                        WHERE symbol=? AND tf=? ORDER BY ts DESC LIMIT ?""",
+                     (sym, tf, limit)).fetchall()
+    c.close()
+    if not rows: return None
+    rows = rows[::-1]
+    return {k: np.array([r[i] for r in rows]) for i, k in enumerate(['ts','o','h','l','c','v'])}
+
+import sqlite3
+
+OB_DB = 'path_to_your_database.db'  # Замените на путь к вашей базе данных
+
+def load_recent_obi(sym):
+    # Преобразуем символ, если он заканчивается на 'USDT'
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    try:
+        # Подключаемся к базе данных
+        c = sqlite3.connect(OB_DB, timeout=5)
+        # Выполняем запрос для получения последнего значения imbalance
+        r = c.execute("""SELECT imbalance FROM orderbooks
+                         WHERE symbol=? ORDER BY ts DESC LIMIT 1""", (sym_dash,)).fetchone()
+    except sqlite3.Error as e:
+        print(f"Ошибка при обращении к базе данных: {e}")
+        return None
+    finally:
+        # Закрываем соединение с базой данных
+        c.close()
+
+    # Возвращаем значение imbalance, если оно существует
+    return r[0] if r is not None else None
+
+import sqlite3
+
+OB_DB = 'path_to_your_database.db'  # Укажите путь к вашей базе данных
+
+def load_recent_funding(sym):
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    swap = sym_dash + '-SWAP'
+    c = sqlite3.connect(OB_DB, timeout=5)
+    try:
+        r = c.execute("""SELECT funding_rate FROM funding
+                         WHERE symbol=? ORDER BY ts DESC LIMIT 1""", (swap,)).fetchone()
+    finally:
+        c.close()
+    return r[0] if r else None
+
+import time
+import sqlite3
+
+OB_DB = 'your_database.db'  # Замените на имя вашей базы данных
+
+def load_recent_pressure(sym, window=60):
+    sym_dash = sym[:-4] + '-USDT' if sym.endswith('USDT') else sym
+    now = int(time.time())
+
+    c = sqlite3.connect(OB_DB, timeout=5)
+
+    try:
+        r = c.execute("""SELECT
+                            SUM(CASE WHEN side='buy' THEN volume ELSE 0 END),
+                            SUM(CASE WHEN side='sell' THEN volume ELSE 0 END)
+                         FROM trades WHERE symbol=? AND ts > ?""", (sym_dash, now - window)).fetchone()
+    finally:
+        c.close()
+
+    if r and (r[0] is not None or r[1] is not None):
+        return (r[0] if r[0] is not None else 0) - (r[1] if r[1] is not None else 0)
+
+    return 0
+
+def calc_adx_at(c, h, l, idx):
+    if idx < 50:
+        return 0
+
+    cc = c[:idx+1]
+    hh = h[:idx+1]
+    ll = l[:idx+1]
+
+    plus_dm = [max(hh[i] - hh[i - 1], 0) for i in range(1, len(hh))]
+    minus_dm = [max(ll[i - 1] - ll[i], 0) for i in range(1, len(ll))]
+
+    tr = [max(hh[i] - ll[i], abs(hh[i] - cc[i - 1]), abs(ll[i] - cc[i - 1])) for i in range(1, len(hh))]
+
+    if len(tr) < 14:
+        return 0
+
+    plus_di = 100 * sum(plus_dm[-14:]) / (sum(tr[-14:]) + 1e-9)
+    minus_di = 100 * sum(minus_dm[-14:]) / (sum(tr[-14:]) + 1e-9)
+
+    dx = 100 * abs(plus_di - minus_di) / (plus_di + minus_di + 1e-9)
+    return dx
+
+def calc_atr_at(h, l, c, idx):
+    if idx < 50: return 0
+    hh = h[:idx+1]; ll = l[:idx+1]; cc = c[:idx+1]
+    tr = np.maximum(hh[1:] - ll[1:], np.maximum(np.abs(hh[1:] - cc[:-1]), np.abs(ll[1:] - cc[:-1])))
+    return np.mean(tr[-14:])
+
+def calc_rsi_at(c, idx, period=14):
+    if idx < period:
+        return 50  # Возвращаем 50, если недостаточно данных для расчета RSI
+
+    deltas = []
+    for i in range(1, idx + 1):
+        deltas.append(c[i] - c[i - 1])
+
+    gains = sum(delta for delta in deltas[-period:] if delta > 0)
+    losses = -sum(delta for delta in deltas[-period:] if delta < 0)
+
+    avg_gain = gains / period
+    avg_loss = losses / period
+
+    if avg_loss == 0:
+        return 100
+
+    rs = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
+
+def calc_macd_at(c, idx):
+    if idx < 26: return 0
+    cc = c[:idx+1]
+    return np.mean(cc[-12:]) - np.mean(cc[-26:])
+
+import math
+
+def sigmoid(z):
+    # Используем math.exp для вычисления экспоненты
+    return 1.0 / (1.0 + math.exp(-max(-500, min(z, 500))))
+
+def sigmoid(x):
+    return 1 / (1 + exp(-x))
+
+def predict(w, mean, std, X):
+    Xn = [(x - mean) / std for x in X]
+    Xb = [[1] + [xn] for xn in Xn]  # добавляем единичный столбец
+    return [sigmoid(sum(w[j] * Xb[i][j] for j in range(len(w)))) for i in range(len(Xb))]
+
+import os
+import pickle
+import json
+from datetime import datetime
+
+MODEL_PATH = 'model.pkl'  # Путь к модели
+OUT = 'predictions.json'  # Путь для сохранения предсказаний
+PAIRS = ['BTCUSD', 'ETHUSD']  # Пример валютных пар
+
+def log(message):
+    print(message)  # Логирование сообщений
+
+def load_candles(sym, limit=100):
+    # Здесь должна быть реализация загрузки свечей
+    pass
+
+def load_recent_obi(sym):
+    # Здесь должна быть реализация загрузки OBI
+    pass
+
+def load_recent_funding(sym):
+    # Здесь должна быть реализация загрузки funding
+    pass
+
+def load_recent_pressure(sym):
+    # Здесь должна быть реализация загрузки pressure
+    pass
+
+def calc_adx_at(closes, highs, lows, idx):
+    # Здесь должна быть реализация расчета ADX
+    pass
+
+def calc_atr_at(highs, lows, closes, idx):
+    # Здесь должна быть реализация расчета ATR
+    pass
+
+def calc_rsi_at(closes, idx):
+    # Здесь должна быть реализация расчета RSI
+    pass
+
+def calc_macd_at(closes, idx):
+    # Здесь должна быть реализация расчета MACD
+    pass
+
+def predict(weights, mean, std, features):
+    # Здесь должна быть реализация предсказания
+    pass
+
+def main():
+    log('=== ML PREDICT ===')
+    if not os.path.exists(MODEL_PATH):
+        log('❌ модель не найдена')
+        return
+
+    with open(MODEL_PATH, 'rb') as f:
+        md = pickle.load(f)
+    w = md['w']
+    mean = md['mean']
+    std = md['std']
+    log(f'Модель: accuracy={md.get("accuracy", 0):.3f}, cv={md.get("cv_mean", 0):.3f}')
+
+    preds = {}
+    for sym in PAIRS:
+        data = load_candles(sym, limit=100)
+        if not data:
+            log(f'{sym}: нет данных')
+            continue
+        idx = len(data['c']) - 1
+        price = data['c'][idx]
+
+        obi = load_recent_obi(sym)
+        funding = load_recent_funding(sym)

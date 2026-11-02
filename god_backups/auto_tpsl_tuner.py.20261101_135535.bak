@@ -1,0 +1,161 @@
+import os, json, sqlite3, shutil, time, stat
+from datetime import datetime
+
+from datetime import datetime
+
+LOG = 'logfile.txt'  # Замените на желаемый путь к файлу журнала
+
+def log(msg):
+    line = f'[{datetime.now():%H:%M:%S}] {msg}'
+    print(line, flush=True)
+    with open(LOG, 'a') as f:
+        f.write(line + '\n')
+
+import os
+import shutil
+import time
+
+def backup(path):
+    if os.path.exists(path):
+        backup_path = f'{path}.bak.{int(time.time())}'
+        shutil.copy(path, backup_path)
+
+import sqlite3
+
+def get_trades(db, last_n=100):
+    try:
+        c = sqlite3.connect(db, timeout=5)
+        rows = c.execute("""SELECT symbol, side, entry_price, exit_price, pnl, entry_ts, exit_ts, tp, sl
+                            FROM trades WHERE status='CLOSED'
+                            ORDER BY exit_ts DESC LIMIT ?""", (last_n,)).fetchall()
+        c.close()
+        return rows
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return []
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return []
+
+def recalc_pnl(trades, new_tp, new_sl):
+    """Пересчитывает PnL для новых TP/SL (по entry/exit)."""
+    n = 0
+    wins = 0
+    pnl = 0
+
+    for t in trades:
+        sym, side, ep, xp, pnl_v, ets, xts, tp, sl = t
+
+        if ep is None or xp is None:
+            continue
+
+        # Пересчитываем: если движение вышло за новые TP/SL
+        move = (xp - ep) / ep if side == 'LONG' else (ep - xp) / ep
+
+        # Проверяем: если move >= new_tp → TP; если move <= -new_sl → SL
+        if move >= new_tp:  # TP Hit
+            new_pnl = (new_tp - 0.0015) * 100  # FEE
+        elif move <= -new_sl:  # SL Hit
+            new_pnl = (-new_sl - 0.0015) * 100  # FEE
+        else:  # Neither TP nor SL hit
+            new_pnl = (move - 0.0015) * 100  # FEE
+
+        n += 1
+        if new_pnl > 0:
+            wins += 1
+        pnl += new_pnl
+
+    wr = 100.0 * wins / n if n else 0
+    return {'n': n, 'wins': wins, 'wr': wr, 'pnl': round(pnl, 2)}
+
+def tune_for(db, cfg_path, grid, name):
+    """Настраивает TP/SL для бота."""
+    trades = get_trades(db, last_n=100)
+    if len(trades) < 10:
+        log(f'⚠️ {name}: мало сделок: {len(trades)} < 10 — не трогаем')
+        return None
+
+    log(f'{name}: сделок {len(trades)}')
+    results = []
+    for tp, sl in grid:
+        r = recalc_pnl(trades, tp, sl)
+        results.append({'tp': tp, 'sl': sl, **r})
+        log(f'  TP={tp*100:.2f}% SL={sl*100:.2f}%: n={r["n"]}, WR={r["wr"]:.1f}%, PnL={r["pnl"]:+.2f}%')
+
+    # Лучший: n >= 10, WR >= 50%, max PnL
+    valid = [r for r in results if r['n'] >= 10 and r['wr'] >= 50]
+    if not valid:
+        log(f'⚠️ {name}: нет TP/SL с n>=10, WR>=50% — не меняем')
+        return None
+
+    best = max(valid, key=lambda x: x['pnl'])
+    log(f'✅ {name}: лучший TP={best["tp"]*100:.2f}% SL={best["sl"]*100:.2f}% (n={best["n"]}, WR={best["wr"]:.1f}%, PnL={best["pnl"]:+.2f}%)')
+
+    # Обновляем конфиг
+    try:
+        cur = json.load(open(cfg_path))
+        backup(cfg_path)
+        st = os.stat(cfg_path)
+        need_restore = False
+        if st.st_mode & stat.S_IWUSR == 0:
+            os.chmod(cfg_path, 0o644)
+            need_restore = True
+
+        for sym, cfg in cur.get('per_pair', {}).items():
+            if isinstance(cfg, dict) and 'strategy' in cfg:
+                cfg['tp'] = best['tp']
+                cfg['sl'] = best['sl']
+            else:
+                for reg, rc in cfg.items():
+                    rc['tp'] = best['tp']
+                    rc['sl'] = best['sl']
+        cur['source'] = f'{name}_tuned'
+        cur['updated_at'] = datetime.now().isoformat()
+        json.dump(cur, open(cfg_path, 'w'), indent=2, ensure_ascii=False)
+        log(f'✅ {name}: обновлён (TP={best["tp"]*100:.2f}%, SL={best["sl"]*100:.2f}%)')
+
+        if need_restore:
+            os.chmod(cfg_path, 0o444)
+            log(f'✅ {name}: 444 восстановлен')
+    except Exception as e:
+        log(f'⚠️ {name}: {e}')
+    return best
+
+def log(message):
+    print(message)
+
+def tune_for(database, config, grid, version):
+    # Пример реализации, которая может быть адаптирована под ваши нужды
+    log(f'Tuning {version} with config: {config} and grid: {grid}')
+
+    # Здесь должна быть логика настройки для каждой стратегии
+    for strategy in grid:
+        result = execute_strategy(database, strategy, config)
+        log(f'Strategy {strategy} executed with result: {result}')
+
+def execute_strategy(database, strategy, config):
+    # Пример выполнения стратегии
+    # Здесь должна быть логика анализа данных из базы и исполнения стратегии
+    # Возвращаем фиктивный результат для примера
+    return f'Success on {strategy}'
+
+def main():
+    log('=== AUTO TPSL TUNER ===')
+
+    # v3 — свечной
+    tune_for(DB_V3, V3_CFG, V3_GRID, 'v3')
+    # v4 — скальпинг
+    tune_for(DB_V4, V4_CFG, V4_GRID, 'v4')
+
+    log('=== DONE ===')
+
+# Пример глобальных переменных
+DB_V3 = 'database_v3'
+DB_V4 = 'database_v4'
+V3_CFG = {'TP': 0.02, 'SL': 0.01, 'ADX': 25}
+V4_CFG = {'TP': 0.02, 'SL': 0.01, 'ADX': 25}
+V3_GRID = ['strategy_1', 'strategy_2', 'strategy_3']
+V4_GRID = ['strategy_a', 'strategy_b', 'strategy_c']
+
+if __name__ == "__main__":
+    main()
