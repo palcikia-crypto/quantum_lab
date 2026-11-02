@@ -6,7 +6,6 @@ venv/
 *.pyc
 .env
 *.pem
-*.tar.gz
 *.zip
 *.bin
 *.gguf
