@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     permissions:
-      contents: write # Разрешаем пушить файл со ссылкой
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -24,22 +24,26 @@ jobs:
         run: |
           rm -rf /home/runner/quantum_lab_sandbox
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox
-          
-      - name: Start tmate and save link
+
+      - name: Install upterm and save SSH link
         run: |
-          sudo apt-get install -y tmate
-          tmate -S /tmp/tmate.sock new-session -d
-          tmate -S /tmp/tmate.sock wait tmate-ready
-          # Вытаскиваем SSH ссылку
-          SSH_LINK=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')
-          echo "Ссылка: $SSH_LINK"
-          echo "$SSH_LINK" > ssh_link.txt
+          # Скачиваем upterm
+          curl -sL https://github.com/owenthereal/upterm/releases/latest/download/upterm_linux_amd64.tar.gz | tar xz
+          sudo mv upterm /usr/local/bin/
           
+          # Запускаем сессию в фоне и сохраняем строку подключения в файл
+          upterm host --detach --accept > ssh_link.txt
+          
+          # Показываем строку в логе для отладки
+          echo "=== Ссылка для подключения ==="
+          cat ssh_link.txt
+          
+          # Коммитим файл в репозиторий
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add ssh_link.txt
-          git commit -m "Update SSH link"
+          git commit -m "Update SSH link (upterm)"
           git push
-          
+
       - name: Keep alive
-        run: sleep 7200 # Держим сервер открытым 2 часа
+        run: sleep 7200
