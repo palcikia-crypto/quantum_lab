@@ -1,11 +1,13 @@
 name: Interactive AI Lab Server
 on:
-  workflow_dispatch: # Запускается только вручную
+  workflow_dispatch:
 
 jobs:
   run-interactive:
     runs-on: ubuntu-latest
-    timeout-minutes: 120 # Сервер будет жить 2 часа
+    timeout-minutes: 120
+    permissions:
+      contents: write # Разрешаем пушить файл со ссылкой
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -18,13 +20,26 @@ jobs:
         run: tar -xzvf code.tar.gz
       - name: Copy missing modules
         run: cp tools/agent_dev/llm_backend.py .
-      - name: Create symlink for hardcoded paths
+      - name: Create symlink
         run: |
           rm -rf /home/runner/quantum_lab_sandbox
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox
           
-      # ЭТОТ ШАГ ОСТАНАВЛИВАЕТ СЕРВЕР И ДАЕТ ССЫЛКУ ДЛЯ SSH
-      - name: Setup SSH Session (tmate)
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: false
+      - name: Start tmate and save link
+        run: |
+          sudo apt-get install -y tmate
+          tmate -S /tmp/tmate.sock new-session -d
+          tmate -S /tmp/tmate.sock wait tmate-ready
+          # Вытаскиваем SSH ссылку
+          SSH_LINK=$(tmate -S /tmp/tmate.sock display -p '#{tmate_ssh}')
+          echo "Ссылка: $SSH_LINK"
+          echo "$SSH_LINK" > ssh_link.txt
+          
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ssh_link.txt
+          git commit -m "Update SSH link"
+          git push
+          
+      - name: Keep alive
+        run: sleep 7200 # Держим сервер открытым 2 часа
