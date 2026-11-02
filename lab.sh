@@ -1,7 +1,6 @@
 #!/bin/bash
 cd ~/quantum_lab_sandbox
 SCRIPT=${1:-core/okx_bot_paper_v4.py}
-TOPIC="palcikia-qlab-2026"
 
 echo "📦 Собираю архив..."
 tar -czf code.tar.gz --exclude='__pycache__' --exclude='*.log' --exclude='*.bak' --exclude='*.db' --exclude='*.db-*' --exclude='god_backups' --exclude='infra_backups' --exclude='*.tar.gz' *.py core/ tools/ data/ fixed/ fixed_v2/ new_modules/ agents/ web/ 2>/dev/null
@@ -17,26 +16,21 @@ gh run list --workflow=persistent_worker.yml --json databaseId --jq '.[].databas
 echo "🚀 Запускаю воркер в облаке..."
 gh workflow run persistent_worker.yml -f script_name="$SCRIPT"
 
-echo "⏳ Ждем 30 секунд, пока сервер развернется..."
-sleep 30
+echo "⏳ Ждем 40 секунд (сервер разворачивается)..."
+sleep 40
 
-echo ""
-echo "=== 🟢 ЖИВЫЕ ЛОГИ С GITHUB (Ctrl+C для выхода) ==="
-echo ""
-
-# Проверяем, есть ли jq
-if ! command -v jq &> /dev/null; then
-    pkg install jq -y >/dev/null 2>&1
-fi
-
-# Бесконечный цикл: если связь оборвется, он переподключится
 while true; do
-    curl -sN --max-time 60 "https://ntfy.sh/$TOPIC/json" | while IFS= read -r line; do
-        msg=$(echo "$line" | jq -r '.message // empty' 2>/dev/null)
-        if [ -n "$msg" ]; then
-            echo "$msg"
-        fi
-    done
-    echo "🔄 Переподключение к стриму логов..."
-    sleep 2
+  clear
+  echo "=== 🟢 ЖИВЫЕ ЛОГИ С GITHUB (Ctrl+C для выхода) ==="
+  
+  # Берем лог напрямую через API GitHub из ветки logs
+  LOG_B64=$(gh api repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs --jq '.content' 2>/dev/null || echo "")
+  
+  if [ -n "$LOG_B64" ]; then
+    echo "$LOG_B64" | base64 -d 2>/dev/null | tail -n 30
+  else
+    echo "⏳ Ожидание логов (сервер запускает бота, файл еще не создан)..."
+  fi
+  
+  sleep 5
 done
