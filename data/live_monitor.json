@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-01T04:54:24.200299",
+  "timestamp": "2026-11-01T16:44:20.302658",
   "results": [
     {
       "key": "ETHUSDT_15m_bb_20_1.5",
@@ -7,10 +7,10 @@
       "strategy": "bb_20_1.5",
       "bot": "V7",
       "backtest_wr": 64.6,
-      "live_wr": 39.1,
-      "delta": -25.5,
-      "n": 87,
-      "pnl": -64.1,
+      "live_wr": 38.0,
+      "delta": -26.6,
+      "n": 100,
+      "pnl": -83.19,
       "status": "QUARANTINE"
     },
     {
@@ -19,10 +19,10 @@
       "strategy": "bb_20_2.0",
       "bot": "V7",
       "backtest_wr": 71.3,
-      "live_wr": 41.7,
-      "delta": -29.6,
-      "n": 24,
-      "pnl": 21.28,
+      "live_wr": 40.0,
+      "delta": -31.3,
+      "n": 30,
+      "pnl": 19.35,
       "status": "QUARANTINE"
     },
     {
@@ -31,10 +31,10 @@
       "strategy": "mean_rev_20_1.5",
       "bot": "V7",
       "backtest_wr": 64.6,
-      "live_wr": 33.3,
-      "delta": -31.3,
-      "n": 12,
-      "pnl": -14.96,
+      "live_wr": 37.5,
+      "delta": -27.1,
+      "n": 16,
+      "pnl": -16.59,
       "status": "waiting"
     },
     {
@@ -43,10 +43,10 @@
       "strategy": "mean_rev_15_1.5",
       "bot": "V7",
       "backtest_wr": 62.6,
-      "live_wr": 35.1,
-      "delta": -27.5,
-      "n": 131,
-      "pnl": -139.11,
+      "live_wr": 33.3,
+      "delta": -29.3,
+      "n": 156,
+      "pnl": -194.55,
       "status": "QUARANTINE"
     }
   ]

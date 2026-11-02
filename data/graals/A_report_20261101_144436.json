@@ -1,0 +1,45 @@
+{
+  "updated_at": "2026-11-01T14:44:36",
+  "source": "multi_backtest",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2,
+    "periods": [
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "min_n": 5,
+    "min_pnl": 0.1
+  },
+  "stable_count": 1,
+  "per_pair": {
+    "SOL-USDT": {
+      "flat": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": null,
+        "min_pnl": 0.42
+      },
+      "trend_up": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": null,
+        "min_pnl": 0.42
+      },
+      "trend_down": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.004,
+        "timeout_bars": 2,
+        "alt_strategy": null,
+        "min_pnl": 0.42
+      }
+    }
+  }
+}

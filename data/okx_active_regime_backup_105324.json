@@ -1,0 +1,194 @@
+{
+  "per_pair": {
+    "BTC-USDT": {
+      "flat": [
+        {
+          "strategy": "okx_grid_sma_30",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_up": [
+        {
+          "strategy": "okx_grid_sma_30",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_down": [
+        {
+          "strategy": "okx_grid_sma_30",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ]
+    },
+    "ETH-USDT": {
+      "flat": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_up": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_down": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ]
+    },
+    "SOL-USDT": {
+      "flat": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_up": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_down": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ]
+    },
+    "DOGE-USDT": {
+      "flat": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_up": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_down": [
+        {
+          "strategy": "okx_grid_sma_10",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ]
+    },
+    "XRP-USDT": {
+      "flat": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_up": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ],
+      "trend_down": [
+        {
+          "strategy": "okx_grid_sma_20",
+          "tp": 0.02,
+          "sl": 0.01,
+          "timeout_bars": 3,
+          "filter": {
+            "enabled": true,
+            "adx_threshold": 25
+          }
+        }
+      ]
+    }
+  }
+}

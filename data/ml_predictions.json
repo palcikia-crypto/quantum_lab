@@ -1,55 +1,55 @@
 {
-  "updated_at": "2026-11-01T04:54:26.895406",
+  "updated_at": "2026-11-01T16:43:05.537552",
   "predictions": {
     "BTCUSDT": {
-      "price": 77518.8,
-      "proba_long": 0.459,
+      "price": 78000.1,
+      "proba_long": 0.565,
       "side": "WAIT",
-      "obi": 0.1519,
-      "funding": 0.0001,
-      "pressure": 0.00021930000000000002,
-      "adx": 13.2,
-      "rsi": 47.2
+      "obi": 0.7205,
+      "funding": 6.8059336308e-05,
+      "pressure": -2.93323061,
+      "adx": 0.9,
+      "rsi": 57.6
     },
     "ETHUSDT": {
-      "price": 2254.81,
-      "proba_long": 0.483,
+      "price": 2269.17,
+      "proba_long": 0.48,
       "side": "WAIT",
-      "obi": -0.5785,
-      "funding": 3.5054825432e-06,
-      "pressure": -5.019341000000001,
-      "adx": 24.5,
-      "rsi": 55.3
+      "obi": 0.8468,
+      "funding": -1.59744989183e-05,
+      "pressure": -3.989469,
+      "adx": 0.1,
+      "rsi": 52.9
     },
     "XRPUSDT": {
-      "price": 1.2511,
-      "proba_long": 0.468,
+      "price": 1.2553,
+      "proba_long": 0.486,
       "side": "WAIT",
-      "obi": -0.0301,
-      "funding": -3.30405116423e-05,
-      "pressure": 0,
-      "adx": 21.8,
-      "rsi": 48.6
+      "obi": 0.2369,
+      "funding": -5.7474136354e-06,
+      "pressure": -21455.662317,
+      "adx": 16.5,
+      "rsi": 59.9
     },
     "SOLUSDT": {
-      "price": 95.4,
-      "proba_long": 0.45,
+      "price": 95.31,
+      "proba_long": 0.471,
       "side": "WAIT",
-      "obi": 0.6007,
-      "funding": 5.90596748926e-05,
-      "pressure": 0,
-      "adx": 33.7,
-      "rsi": 37.3
+      "obi": 0.0121,
+      "funding": 0.0001,
+      "pressure": 108.778427,
+      "adx": 10.3,
+      "rsi": 48.8
     },
     "DOGEUSDT": {
-      "price": 0.07556,
-      "proba_long": 0.446,
+      "price": 0.07582,
+      "proba_long": 0.477,
       "side": "WAIT",
-      "obi": 0.2117,
-      "funding": -2.81500366276e-05,
-      "pressure": 0,
-      "adx": 17.7,
-      "rsi": 33.3
+      "obi": 0.2051,
+      "funding": 6.86514487913e-05,
+      "pressure": 69992.19622700001,
+      "adx": 13.7,
+      "rsi": 53.2
     }
   }
 }

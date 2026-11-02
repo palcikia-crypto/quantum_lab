@@ -1,5 +1,5 @@
 {
-  "runs": 228,
+  "runs": 342,
   "actions": [
     {
       "ts": 1793365852,
@@ -316,11 +316,107 @@
     {
       "ts": 1793489401,
       "rule": "market_stale"
+    },
+    {
+      "ts": 1793494801,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793495701,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793496601,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793497500,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793499301,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793500501,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793505900,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793513401,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793514301,
+      "rule": "v4_dead"
+    },
+    {
+      "ts": 1793519701,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793520601,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793521500,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793522401,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793523301,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793524201,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793525101,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793525701,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793526001,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793527800,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793528101,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793529600,
+      "rule": "oracle_stale"
+    },
+    {
+      "ts": 1793529902,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793530802,
+      "rule": "market_stale"
+    },
+    {
+      "ts": 1793533201,
+      "rule": "market_stale"
     }
   ],
   "patterns": {
-    "age_market.db": 187,
-    "age_oracle.db": 14,
+    "age_market.db": 287,
+    "age_oracle.db": 19,
     "age_orderbook.db": 11
   }
 }

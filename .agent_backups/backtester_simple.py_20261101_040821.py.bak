@@ -1,0 +1,112 @@
+import sqlite3
+import sys
+
+# Настройки стратегии
+FAST_PERIOD = 5   # Быстрый SMA
+SLOW_PERIOD = 20  # Медленный SMA
+
+# Путь к базе данных
+DB_PATH = "data/market.db"
+
+def fetch_candles(conn):
+    """
+    Возвращает список свечей в виде кортежей (datetime, close).
+    """
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT datetime, close
+        FROM candles
+        ORDER BY datetime ASC
+    """)
+    return cursor.fetchall()
+
+def moving_average(values, period):
+    """
+    Вычисляет скользящую среднюю для списка значений.
+    """
+    if len(values) < period:
+        return None
+    return sum(values[-period:]) / period
+
+def backtest(candles):
+    """
+    Выполняет бэктестинг стратегии пересечения SMA.
+    Возвращает словарь с результатами.
+    """
+    positions = []          # Список PnL по сделкам
+    position_open = False  # Флаг открытой позиции
+    entry_price = 0.0
+
+    closes = []  # Храним закрытия для расчёта SMA
+
+    prev_fast = None
+    prev_slow = None
+
+    for idx, (dt, close) in enumerate(candles):
+        closes.append(close)
+
+        fast = moving_average(closes, FAST_PERIOD)
+        slow = moving_average(closes, SLOW_PERIOD)
+
+        # Если не хватает данных для SMA, продолжаем
+        if fast is None or slow is None:
+            continue
+
+        # Определяем сигналы
+        signal = None
+        if prev_fast is not None and prev_slow is not None:
+            if prev_fast <= prev_slow and fast > slow:
+                signal = "buy"
+            elif prev_fast >= prev_slow and fast < slow:
+                signal = "sell"
+
+        # Обрабатываем сигналы
+        if signal == "buy" and not position_open:
+            position_open = True
+            entry_price = close
+        elif signal == "sell" and position_open:
+            pnl = close - entry_price
+            positions.append(pnl)
+            position_open = False
+
+        prev_fast = fast
+        prev_slow = slow
+
+    # Если позиция осталась открытой, закрываем её по последнему закрытию
+    if position_open:
+        pnl = candles[-1][1] - entry_price
+        positions.append(pnl)
+
+    total_pnl = sum(positions)
+    total_trades = len(positions)
+    wins = sum(1 for p in positions if p > 0)
+    win_rate = (wins / total_trades) * 100 if total_trades > 0 else 0.0
+
+    return {
+        "total_pnl": total_pnl,
+        "total_trades": total_trades,
+        "wins": wins,
+        "win_rate": win_rate,
+    }
+
+def main():
+    try:
+        conn = sqlite3.connect(DB_PATH)
+    except sqlite3.Error as e:
+        print(f"Ошибка подключения к базе данных: {e}")
+        sys.exit(1)
+
+    candles = fetch_candles(conn)
+    if not candles:
+        print("Нет данных для бэктеста.")
+        sys.exit(0)
+
+    results = backtest(candles)
+
+    print("=== Результаты бэктеста ===")
+    print(f"Общее количество сделок: {results['total_trades']}")
+    print(f"Профит/Убыток: {results['total_pnl']:.2f}")
+    print(f"Win Rate: {results['win_rate']:.2f}%")
+
+if __name__ == "__main__":
+    main()

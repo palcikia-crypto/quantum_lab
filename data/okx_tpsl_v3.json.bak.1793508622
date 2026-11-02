@@ -1,0 +1,71 @@
+{
+  "updated_at": "2026-11-01T09:34:55.365818",
+  "source": "auto_apply_regime",
+  "params": {
+    "tp": 0.006,
+    "sl": 0.004,
+    "timeout_bars": 2
+  },
+  "per_pair": {
+    "XRP-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_up": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_vwap_rev_20",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      }
+    },
+    "SOL-USDT": {
+      "flat": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_up": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      }
+    },
+    "DOGE-USDT": {
+      "flat": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_up": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      },
+      "trend_down": {
+        "strategy": "okx_macd_5_35_5",
+        "tp": 0.006,
+        "sl": 0.003,
+        "timeout_bars": 2
+      }
+    }
+  }
+}

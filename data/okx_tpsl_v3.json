@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-01T04:55:44.579374",
+  "updated_at": "2026-11-01T14:31:56.193008",
   "source": "auto_apply_regime",
   "params": {
     "tp": 0.006,
@@ -9,19 +9,19 @@
   "per_pair": {
     "XRP-USDT": {
       "flat": {
-        "strategy": "okx_vwap_rev_20",
+        "strategy": "okx_ema_10_30",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_up": {
-        "strategy": "okx_vwap_rev_10",
+        "strategy": "okx_ema_10_30",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_down": {
-        "strategy": "okx_vwap_rev_10",
+        "strategy": "okx_ema_10_30",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
@@ -29,19 +29,19 @@
     },
     "SOL-USDT": {
       "flat": {
-        "strategy": "okx_grid_sma_20",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_up": {
-        "strategy": "okx_vwap_rev_10",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_down": {
-        "strategy": "okx_vwap_rev_10",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
@@ -49,19 +49,19 @@
     },
     "DOGE-USDT": {
       "flat": {
-        "strategy": "okx_ema_8_24",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_up": {
-        "strategy": "okx_grid_sma_20",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2
       },
       "trend_down": {
-        "strategy": "okx_grid_sma_20",
+        "strategy": "okx_macd_5_35_5",
         "tp": 0.006,
         "sl": 0.003,
         "timeout_bars": 2

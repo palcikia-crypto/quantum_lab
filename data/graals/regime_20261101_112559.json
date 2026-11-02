@@ -1,0 +1,66 @@
+{
+  "updated_at": "2026-11-01T11:25:59.573178",
+  "source": "auto_evolve_by_regime",
+  "pairs": {
+    "BTC-USDT": {
+      "flat": {
+        "strategy": "okx_ema_8_24",
+        "min_pnl": -0.54,
+        "wr": 15.0
+      },
+      "trend": {
+        "strategy": "okx_grid_sma_20",
+        "min_pnl": 0.11,
+        "wr": 38.9
+      }
+    },
+    "ETH-USDT": {
+      "flat": {
+        "strategy": "okx_grid_sma_10",
+        "min_pnl": -0.47,
+        "wr": 16.7
+      },
+      "trend": {
+        "strategy": "okx_ema_8_24",
+        "min_pnl": 0.28,
+        "wr": 39.0
+      }
+    },
+    "XRP-USDT": {
+      "flat": {
+        "strategy": "okx_vwap_rev_10",
+        "min_pnl": -0.06,
+        "wr": 24.4
+      },
+      "trend": {
+        "strategy": "okx_grid_sma_20",
+        "min_pnl": 0.24,
+        "wr": 44.4
+      }
+    },
+    "SOL-USDT": {
+      "flat": {
+        "strategy": "okx_macd_5_35_5",
+        "min_pnl": 0.27,
+        "wr": 41.0
+      },
+      "trend": {
+        "strategy": "okx_grid_sma_10",
+        "min_pnl": 0.23,
+        "wr": 59.0
+      }
+    },
+    "DOGE-USDT": {
+      "flat": {
+        "strategy": "okx_ema_14_40",
+        "min_pnl": -0.12,
+        "wr": 32.2
+      },
+      "trend": {
+        "strategy": "okx_grid_sma_20",
+        "min_pnl": 1.06,
+        "wr": 55.9
+      }
+    }
+  }
+}

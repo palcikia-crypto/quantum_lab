@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-31T23:24:08.289812",
+  "timestamp": "2026-11-01T13:49:44.154929",
   "L1": 269,
   "L2": 20,
   "L3": 20,
@@ -23,8 +23,8 @@
     {
       "symbol": "DOGEUSDT",
       "strategy": "mean_rev_15_1.5",
-      "wr": 58.5,
-      "n": 1678,
+      "wr": 58.4,
+      "n": 1679,
       "expectancy": 0.00146,
       "score": 0.06
     },
@@ -39,8 +39,8 @@
     {
       "symbol": "DOGEUSDT",
       "strategy": "bb_15_1.5",
-      "wr": 58.5,
-      "n": 1678,
+      "wr": 58.4,
+      "n": 1679,
       "expectancy": 0.00146,
       "score": 0.06
     },
@@ -71,49 +71,49 @@
     {
       "symbol": "SOLUSDT",
       "strategy": "mean_rev_15_1.5",
-      "wr": 54.8,
-      "n": 1651,
-      "expectancy": 0.00126,
+      "wr": 54.9,
+      "n": 1659,
+      "expectancy": 0.00125,
       "score": 0.05
     },
     {
       "symbol": "SOLUSDT",
       "strategy": "mean_rev_15_2.0",
       "wr": 61.1,
-      "n": 714,
-      "expectancy": 0.00196,
+      "n": 720,
+      "expectancy": 0.00194,
       "score": 0.05
     },
     {
       "symbol": "SOLUSDT",
       "strategy": "mean_rev_15_2.5",
       "wr": 65.2,
-      "n": 376,
-      "expectancy": 0.00259,
+      "n": 379,
+      "expectancy": 0.00256,
       "score": 0.05
     },
     {
       "symbol": "SOLUSDT",
       "strategy": "bb_15_1.5",
-      "wr": 54.8,
-      "n": 1651,
-      "expectancy": 0.00126,
+      "wr": 54.9,
+      "n": 1659,
+      "expectancy": 0.00125,
       "score": 0.05
     },
     {
       "symbol": "SOLUSDT",
       "strategy": "bb_15_2.0",
       "wr": 61.1,
-      "n": 714,
-      "expectancy": 0.00196,
+      "n": 720,
+      "expectancy": 0.00194,
       "score": 0.05
     },
     {
       "symbol": "SOLUSDT",
       "strategy": "bb_15_2.5",
       "wr": 65.2,
-      "n": 376,
-      "expectancy": 0.00259,
+      "n": 379,
+      "expectancy": 0.00256,
       "score": 0.05
     },
     {
@@ -136,8 +136,8 @@
       "symbol": "DOGEUSDT",
       "strategy": "mean_rev_20_1.5",
       "wr": 55.3,
-      "n": 1608,
-      "expectancy": 0.00122,
+      "n": 1610,
+      "expectancy": 0.00121,
       "score": 0.05
     },
     {
@@ -152,8 +152,8 @@
       "symbol": "DOGEUSDT",
       "strategy": "bb_20_1.5",
       "wr": 55.3,
-      "n": 1608,
-      "expectancy": 0.00122,
+      "n": 1610,
+      "expectancy": 0.00121,
       "score": 0.05
     },
     {

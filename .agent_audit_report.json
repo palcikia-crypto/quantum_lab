@@ -11,14 +11,129 @@
       "checked_at": "2026-11-01T04:43:10.325030",
       "syntax_ok": true,
       "ai_review": "ОШИБКА API 400: {\"success\":false,\"error\":{\"message\":\"The model exhausted its output token limit before producing an answer. Increase the token limit or reduce reasoning effort.\",\"code\":\"output_token_limit_exceeded\",\"timestamp\":\"2026-10-31T23:43:34.848Z\",\"details\":{\"name\":\"UpstreamError\",\"upstreamHost\":\"portkey.myceli.ai\"}},\"status\":400}"
+    },
+    {
+      "file": "agents/evolve_agent.py",
+      "size": 987,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      ],
+      "checked_at": "2026-11-01T04:58:55.835459",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "file": "agents/gate_agent.py",
+      "size": 959,
+      "severity": "medium",
+      "issues": [
+        "СТАТУС: ПРОБЛЕМА  \nКРАТКО: Файл `gate_all.json` открывается без контекстного менеджера, что приводит к утечке файлового дескриптора; также пути к каталогам (`data`, `logs`) не создаются, что может вызвать `FileNotFoundError` при записи логов или отчётов.  \nСЕРЬЁЗНОСТЬ: medium"
+      ],
+      "checked_at": "2026-11-01T04:59:58.837878",
+      "syntax_ok": true,
+      "ai_review": "СТАТУС: ПРОБЛЕМА  \nКРАТКО: Файл `gate_all.json` открывается без контекстного менеджера, что приводит к утечке файлового дескриптора; также пути к каталогам (`data`, `logs`) не создаются, что может вызвать `FileNotFoundError` при записи логов или отчётов.  \nСЕРЬЁЗНОСТЬ: medium"
+    },
+    {
+      "file": "agents/live_agent.py",
+      "size": 901,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      ],
+      "checked_at": "2026-11-01T05:00:53.012818",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "file": "agents/okx_agent.py",
+      "size": 2402,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      ],
+      "checked_at": "2026-11-01T05:01:55.519305",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "file": "agents/report_agent.py",
+      "size": 1196,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+      ],
+      "checked_at": "2026-11-01T05:02:58.271938",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА СЕТИ: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))"
+    },
+    {
+      "file": "agents/risk_agent.py",
+      "size": 1093,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 1s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:04:02.236Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+      ],
+      "checked_at": "2026-11-01T05:04:00.347516",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 1s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:04:02.236Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+    },
+    {
+      "file": "core/alerts.py",
+      "size": 1163,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 26s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:04:34.666Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+      ],
+      "checked_at": "2026-11-01T05:04:32.619654",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 26s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:04:34.666Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+    },
+    {
+      "file": "core/auto_adapt_realtime.py",
+      "size": 6248,
+      "severity": "skipped",
+      "issues": [],
+      "checked_at": "2026-11-01T05:05:05.054224",
+      "syntax_ok": true
+    },
+    {
+      "file": "core/auto_add.py",
+      "size": 2035,
+      "severity": "medium",
+      "issues": [
+        "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 29s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:05:37.341Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+      ],
+      "checked_at": "2026-11-01T05:05:35.795558",
+      "syntax_ok": true,
+      "ai_review": "ОШИБКА API 402: {\"status\":402,\"success\":false,\"error\":{\"code\":\"FREE_LIMIT\",\"message\":\"Free limit reached: 1 reply every 45 seconds per IP. Retry after 29s, or get unlimited replies with a pollen key at https://enter.pollinations.ai/?ref=classic\",\"timestamp\":\"2026-11-01T00:05:37.341Z\",\"fixUrl\":\"https://enter.pollinations.ai/?ref=classic\"}}"
+    },
+    {
+      "file": "core/auto_apply_filters.py",
+      "size": 3408,
+      "severity": "medium",
+      "issues": [
+        "СТАТУС: ПРОБЛЕМА  \nКРАТКО: Файлы открываются через `open()` без контекстного менеджера, поэтому они не закрываются явно; это приводит к утечкам файловых дескрипторов. Кроме того, запись в лог может упасть, если каталог `logs/` не существует, а обновление JSON‑файлов может вызвать `KeyError`, если ожидаемые ключи отсутствуют.  \nСЕРЬЁЗНОСТЬ: medium"
+      ],
+      "checked_at": "2026-11-01T05:06:07.712218",
+      "syntax_ok": true,
+      "ai_review": "СТАТУС: ПРОБЛЕМА  \nКРАТКО: Файлы открываются через `open()` без контекстного менеджера, поэтому они не закрываются явно; это приводит к утечкам файловых дескрипторов. Кроме того, запись в лог может упасть, если каталог `logs/` не существует, а обновление JSON‑файлов может вызвать `KeyError`, если ожидаемые ключи отсутствуют.  \nСЕРЬЁЗНОСТЬ: medium"
+    },
+    {
+      "file": "core/auto_apply_graals.py",
+      "size": 5321,
+      "severity": "skipped",
+      "issues": [],
+      "checked_at": "2026-11-01T05:07:05.997646",
+      "syntax_ok": true
     }
   ],
-  "finished_at": "2026-11-01T04:41:50.534204",
+  "finished_at": "2026-11-01T05:07:36.941934",
   "summary": {
-    "total": 1,
+    "total": 12,
     "ok": 0,
-    "issues": 1,
+    "issues": 10,
     "critical": 0,
-    "skipped": 0
+    "skipped": 2
   }
 }

@@ -1,50 +1,50 @@
 {
-  "updated_at": "2026-11-01T04:54:26.830256",
+  "updated_at": "2026-11-01T16:43:05.536790",
   "predictions": {
     "BTCUSDT": {
-      "price": 77518.8,
-      "proba_long": 0.444,
+      "price": 78000.1,
+      "proba_long": 0.436,
       "side": "WAIT",
-      "obi": 0.1519,
-      "rsi": 0.5,
-      "atr": 0.0009,
-      "vwap_diff": -0.0003
+      "obi": 0.715,
+      "rsi": 0.6,
+      "atr": 0.0012,
+      "vwap_diff": -0.0004
     },
     "ETHUSDT": {
-      "price": 2254.81,
-      "proba_long": 0.445,
+      "price": 2269.17,
+      "proba_long": 0.439,
       "side": "WAIT",
-      "obi": -0.5785,
-      "rsi": 0.6,
-      "atr": 0.0015,
-      "vwap_diff": -0.0005
-    },
-    "XRPUSDT": {
-      "price": 1.2511,
-      "proba_long": 0.447,
-      "side": "WAIT",
-      "obi": -0.0411,
+      "obi": 0.8468,
       "rsi": 0.5,
       "atr": 0.0014,
-      "vwap_diff": -0.0013
+      "vwap_diff": -0.0007
+    },
+    "XRPUSDT": {
+      "price": 1.2553,
+      "proba_long": 0.439,
+      "side": "WAIT",
+      "obi": 0.2369,
+      "rsi": 0.6,
+      "atr": 0.002,
+      "vwap_diff": 0.001
     },
     "SOLUSDT": {
-      "price": 95.4,
-      "proba_long": 0.457,
+      "price": 95.31,
+      "proba_long": 0.451,
       "side": "WAIT",
-      "obi": 0.6007,
-      "rsi": 0.4,
+      "obi": 0.0121,
+      "rsi": 0.5,
       "atr": 0.0021,
-      "vwap_diff": -0.003
+      "vwap_diff": -0.0022
     },
     "DOGEUSDT": {
-      "price": 0.07556,
-      "proba_long": 0.46,
+      "price": 0.07582,
+      "proba_long": 0.443,
       "side": "WAIT",
-      "obi": 0.2117,
-      "rsi": 0.3,
-      "atr": 0.0018,
-      "vwap_diff": -0.0032
+      "obi": 0.2051,
+      "rsi": 0.5,
+      "atr": 0.0017,
+      "vwap_diff": 0.0003
     }
   }
 }

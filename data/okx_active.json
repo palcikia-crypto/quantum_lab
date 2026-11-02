@@ -1,38 +1,7 @@
 {
   "updated_at": "2026-10-31T23:00:00",
   "source": "backtest_2days_all_plus",
-  "pairs": {
-    "SOL-USDT_15m_okx_grid_sma_13": {
-      "symbol": "SOL-USDT",
-      "tf": "4h",
-      "strategy": "okx_grid_sma_13",
-      "tp": 0.02,
-      "sl": 0.01,
-      "timeout": 3,
-      "trade": true,
-      "backtest_2d_pnl": "+0.0047",
-      "backtest_2d_wr": 75.0,
-      "online_wr": 92.1,
-      "online_pnl": 0.06,
-      "online_n": 139,
-      "online_updated": "2026-11-01T03:00:04.831697"
-    },
-    "DOGE-USDT_15m_okx_grid_sma_13": {
-      "symbol": "DOGE-USDT",
-      "tf": "4h",
-      "strategy": "okx_grid_sma_13",
-      "tp": 0.02,
-      "sl": 0.01,
-      "timeout": 3,
-      "trade": true,
-      "backtest_2d_pnl": "+0.0039",
-      "backtest_2d_wr": 66.7,
-      "online_wr": 86.7,
-      "online_pnl": 0.04,
-      "online_n": 158,
-      "online_updated": "2026-11-01T03:00:05.152975"
-    }
-  },
-  "killed_at": "2026-11-01T03:15:02.221097",
-  "online_updated_at": "2026-11-01T03:00:05.570878"
+  "pairs": {},
+  "killed_at": "2026-11-01T09:15:00.825256",
+  "online_updated_at": "2026-11-01T08:00:04.628369"
 }

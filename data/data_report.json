@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-11-01T04:54:23.897906",
+  "timestamp": "2026-11-01T16:44:25.691357",
   "result": {
     "pairs": 11,
-    "candles": 775318,
-    "age_hours": 0.0,
+    "candles": 785411,
+    "age_hours": 0.1,
     "need": false
   }
 }
