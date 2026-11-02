@@ -7,6 +7,9 @@ on:
 jobs:
   run-quantum:
     runs-on: ubuntu-latest
+    timeout-minutes: 15  # Лимит: максимум 15 минут на работу
+    permissions:
+      contents: write    # Разрешаем сохранять файлы
     steps:
       - uses: actions/checkout@v4
       - name: Setup Python
@@ -28,3 +31,12 @@ jobs:
           BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
           BINANCE_SECRET: ${{ secrets.BINANCE_SECRET }}
         run: python god_agent_v4.py
+      - name: Commit new strategies
+        if: always() # Сохраняем, даже если упал
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/ tools/ *.json || true
+          git commit -m "Auto-save strategies $(date -u)" || true
+          git pull --rebase || true
+          git push || true
