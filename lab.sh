@@ -29,7 +29,7 @@ while true; do
   if [ -n "$LOG_B64" ]; then
     echo "$LOG_B64" | base64 -d 2>/dev/null | tail -n 30
   else
-    echo "⏳ Ожидание логов (сервер запускает бота, файл еще не создан)..."
+    echo "⏳ Ожидание логов (сервер запускает бота)..."
   fi
   
   sleep 5

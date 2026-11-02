@@ -10,6 +10,8 @@ jobs:
   run-worker:
     runs-on: ubuntu-latest
     timeout-minutes: 350
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -17,22 +19,42 @@ jobs:
           python-version: '3.11'
       - name: Install deps
         run: pip install pandas numpy ccxt ta python-dotenv requests llmf
-      - name: Run Worker with ntfy stream
+      - name: Run Worker with API logging
         env:
           SCRIPT_NAME: ${{ inputs.script_name }}
-          NTFY_TOPIC: palcikia-qlab-2026
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          notify() { curl -s -d "$1" "https://ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 || true; }
-          notify "🟢 Воркер стартовал: $SCRIPT_NAME"
-          
           tar -xzf code.tar.gz >/dev/null 2>&1 || true
           rm -rf /home/runner/quantum_lab_sandbox || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
           
-          # Запускаем бота, каждую строку сразу шлём в ntfy
+          # Функция для отправки лога в файл через API
+          push_log() {
+            local LINE="$1"
+            # Кодируем в base64
+            local B64=$(echo -n "$LINE" | base64 -w0)
+            # Получаем текущий SHA файла (если он есть)
+            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
+            
+            local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
+            if [ -n "$SHA" ]; then
+              JSON="$JSON, \"sha\": \"$SHA\""
+            fi
+            JSON="$JSON}"
+            
+            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "$JSON" \
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log" > /dev/null
+          }
+          
+          push_log "🟢 Воркер стартовал: $SCRIPT_NAME"
+          
+          # Запускаем бота и каждую строку шлем в лог
           python -u $SCRIPT_NAME 2>&1 | while IFS= read -r line; do
             echo "$line"
-            notify "$line"
+            push_log "$line"
           done
           
-          notify "🔴 Бот завершил работу"
+          push_log "🔴 Бот завершил работу"
