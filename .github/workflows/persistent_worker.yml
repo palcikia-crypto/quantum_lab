@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
     inputs:
       script_name:
-        description: 'Скрипт для запуска'
         required: true
         default: 'core/okx_bot_paper_v4.py'
 
@@ -15,6 +14,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -27,12 +28,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Создаем отдельную ветку для логов
+          git checkout -b logs || git checkout logs
+          
           LAST_HASH=""
           BOT_PID=""
           
           while true; do
-            git fetch origin >/dev/null 2>&1 || true
-            git reset --hard origin/master >/dev/null 2>&1 || true
+            # Берем код из master
+            git fetch origin master >/dev/null 2>&1 || true
+            git checkout origin/master -- code.tar.gz >/dev/null 2>&1 || true
             
             tar -xzf code.tar.gz >/dev/null 2>&1 || true
             rm -rf /home/runner/quantum_lab_sandbox || true
@@ -45,20 +51,18 @@ jobs:
               
               if [ -n "$BOT_PID" ] && kill -0 $BOT_PID 2>/dev/null; then
                 kill -9 $BOT_PID 2>/dev/null || true
-                echo "🛑 Старый бот (PID $BOT_PID) остановлен"
               fi
               
-              echo "🚀 Запускаю новый код: $SCRIPT_NAME"
+              echo "🚀 Запускаю: $SCRIPT_NAME"
               nohup python -u $SCRIPT_NAME > live.log 2>&1 &
               BOT_PID=$!
-              echo "✅ Бот запущен с PID $BOT_PID"
             fi
             
+            # Пушим логи в ветку logs
             if [ -f live.log ]; then
               git add live.log || true
-              git commit -m "Live log $(date +%H:%M:%S)" || true
-              git pull --rebase origin master >/dev/null 2>&1 || true
-              git push origin master >/dev/null 2>&1 || true
+              git commit -m "Log update $(date +%H:%M:%S)" || true
+              git push origin logs -f >/dev/null 2>&1 || true
             fi
             
             sleep 15
