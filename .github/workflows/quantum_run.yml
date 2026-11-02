@@ -14,7 +14,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install dependencies
-        run: pip install pandas numpy ccxt ta python-dotenv requests
+        run: pip install pandas numpy ccxt ta python-dotenv requests llmf
       - name: Extract Code
         run: tar -xzvf code.tar.gz
       - name: Copy missing modules
