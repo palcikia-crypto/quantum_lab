@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Lab AI - Live Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes blink { 50% { opacity: 0; } }
+        .cursor { animation: blink 1s step-end infinite; }
+    </style>
+</head>
+<body class="bg-gray-950 text-green-400 font-mono p-4 md:p-8 h-screen flex flex-col">
+    <div class="max-w-5xl mx-auto w-full flex-1 flex flex-col">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-800 pb-4 mb-4 gap-2">
+            <div>
+                <h1 class="text-2xl font-bold text-blue-400">🧠 Quantum Lab AI</h1>
+                <p class="text-xs text-gray-500 mt-1">Автономный ИИ-агент на серверах GitHub</p>
+            </div>
+            <div class="text-right">
+                <span id="status" class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-900 text-yellow-300">🔄 Обновление...</span>
+                <p class="text-xs text-gray-500 mt-2">Обновлено: <span id="ts">-</span></p>
+            </div>
+        </header>
+
+        <div class="flex-1 bg-black rounded-lg border border-gray-800 p-4 overflow-y-auto text-sm whitespace-pre-wrap shadow-inner" id="terminal">
+            Загрузка логов...
+        </div>
+        
+        <footer class="mt-4 flex justify-between items-center text-xs text-gray-600">
+            <p>Логи обновляются каждые 10 секунд.</p>
+            <a href="https://github.com/palcikia-crypto/quantum_lab/actions" target="_blank" class="text-blue-500 hover:text-blue-400">Открыть Actions на GitHub →</a>
+        </footer>
+    </div>
+
+    <script>
+        async function fetchLogs() {
+            try {
+                // Добавляем рандом, чтобы браузер не кэшировал файл
+                const response = await fetch('bot_output.log?t=' + new Date().getTime());
+                if (!response.ok) throw new Error('Файл еще не создан');
+                const text = await response.text();
+                
+                const terminal = document.getElementById('terminal');
+                terminal.textContent = text;
+                terminal.scrollTop = terminal.scrollHeight; // Автоскролл вниз
+                
+                document.getElementById('status').className = 'px-3 py-1 rounded-full text-xs font-bold bg-green-900 text-green-300';
+                document.getElementById('status').innerText = '✅ Бот работает';
+            } catch (e) {
+                document.getElementById('status').className = 'px-3 py-1 rounded-full text-xs font-bold bg-red-900 text-red-300';
+                document.getElementById('status').innerText = '⏳ Ожидание запуска';
+            }
+            document.getElementById('ts').textContent = new Date().toLocaleTimeString();
+        }
+        
+        fetchLogs();
+        setInterval(fetchLogs, 10000);
+    </script>
+</body>
+</html>
