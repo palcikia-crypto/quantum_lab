@@ -12,9 +12,9 @@ jobs:
     steps:
       - name: Dispatch Persistent Worker
         run: |
-          curl -s -X POST \\
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \\
-            -H "Accept: application/vnd.github+json" \\
-            https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/dispatches \\
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/dispatches" \
             -d '{"ref":"master","inputs":{"script_name":"core/okx_bot_paper_v4.py"}}'
           echo "Persistent Worker запущен"

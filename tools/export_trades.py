@@ -24,8 +24,8 @@ def dump_db(path):
 
 def main():
     bots, trades = {}, []
-    dbs = sorted(glob.glob(os.path.join(DATA, 'pm_*.db'))) + \
-          sorted(glob.glob(os.path.join(DATA, 'okx_paper_*.db')))
+    dbs = sorted(glob.glob(os.path.join(DATA, 'pm_*.db')))
+    dbs += sorted(glob.glob(os.path.join(DATA, 'okx_paper_*.db')))
     for p in dbs:
         name, rows = dump_db(p)
         if not rows:

@@ -30,7 +30,6 @@ jobs:
           SCRIPT_NAME: ${{ inputs.script_name || 'core/okx_bot_paper_v4.py' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Создаем ветку logs, если её нет
           git checkout -b logs || git checkout logs
           git push origin logs 2>/dev/null || true
           
@@ -38,25 +37,22 @@ jobs:
           rm -rf /home/runner/quantum_lab_sandbox || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
           
-          # Создаем папки и пустую базу, если их нет
           mkdir -p data god_backups
           touch data/market.db
           
           push_log() {
             local LINE="$1"
             local B64=$(echo -n "$LINE" | base64 -w0)
-            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \\
+            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
-            
             local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
             if [ -n "$SHA" ]; then
               JSON="$JSON, \"sha\": \"$SHA\""
             fi
             JSON="$JSON}"
-            
-            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \\
-              -H "Content-Type: application/json" \\
-              -d "$JSON" \\
+            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d "$JSON" \
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log" > /dev/null
           }
           
@@ -73,22 +69,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          push_log() {
-            local LINE="$1"
-            local B64=$(echo -n "$LINE" | base64 -w0)
-            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \\
-              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
-            local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
-            if [ -n "$SHA" ]; then JSON="$JSON, \"sha\": \"$SHA\""; fi
-            JSON="$JSON}"
-            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \\
-              -H "Content-Type: application/json" \\
-              -d "$JSON" \\
-              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log" > /dev/null
-          }
-          push_log "♻️ Перезапускаю воркер (бесконечный цикл)"
+          echo "♻️ Перезапускаю воркер"
           sleep 30
-          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" \\
-            -H "Accept: application/vnd.github+json" \\
-            https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/dispatches \\
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/dispatches" \
             -d '{"ref":"master","inputs":{"script_name":"core/okx_bot_paper_v4.py"}}' || true
+          echo "done"
