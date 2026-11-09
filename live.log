@@ -106,3 +106,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [22:37:34] === OKX SCALPER v4 STARTED (OBI SHORT) ===
 [22:38:34]   🎯 OPEN BTC-USDT SHORT @ 75323.7000 OBI=-0.722 TP=0.15% SL=0.07%
 [22:39:35]   ⏱️ TIMEOUT BTC-USDT SHORT: 75323.7000→75324.3000 $-0.00
+[22:44:36]   🎯 OPEN BTC-USDT SHORT @ 75273.7000 OBI=-0.491 TP=0.15% SL=0.07%
