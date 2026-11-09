@@ -100,3 +100,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [22:36:14] ERROR: no such column: closed_at
 [22:36:29] ERROR: no such column: closed_at
 [22:36:44] ERROR: no such column: closed_at
+🟢 Воркер стартовал: core/okx_bot_paper_v4.py
