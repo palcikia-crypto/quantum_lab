@@ -17,3 +17,4 @@ Traceback (most recent call last):
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_paper_v4.py", line 175, in <module>
     main()
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_paper_v4.py", line 165, in main
+    log('=== OKX SCALPER v4 STARTED (OBI SHORT) ===')
