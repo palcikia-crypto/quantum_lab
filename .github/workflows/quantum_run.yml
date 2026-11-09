@@ -33,6 +33,8 @@ jobs:
         run: |
           # Запускаем бота и одновременно пишем вывод в файл bot_output.log
           python -u god_agent_v4.py | tee bot_output.log
+      - name: Export trades for web dashboard
+        run: python tools/export_trades.py || true
       - name: Commit results and logs
         if: always()
         run: |

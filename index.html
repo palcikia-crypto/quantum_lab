@@ -3,201 +3,325 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quantum Lab AI — Live Dashboard</title>
+<title>Quantum Lab — Trading AI Dashboard</title>
 <style>
-  :root { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:#030712; color:#4ade80; padding:24px; min-height:100vh; }
-  .wrap { max-width:960px; margin:0 auto; }
-  header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; border-bottom:1px solid #1f2937; padding-bottom:16px; margin-bottom:24px; }
-  h1 { font-size:24px; margin:0; color:#60a5fa; }
-  .sub { font-size:12px; color:#6b7280; margin-top:4px; }
-  .status { padding:4px 12px; border-radius:999px; font-size:12px; font-weight:700; background:#78350f; color:#fcd34d; }
-  .status.ok { background:#14532d; color:#86efac; }
-  .status.err { background:#7f1d1d; color:#fca5a5; }
-  .ts { font-size:12px; color:#6b7280; margin-top:8px; text-align:right; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-bottom:24px; }
-  .card { background:#0a0e17; border:1px solid #1f2937; border-radius:12px; padding:16px; }
-  .card .label { font-size:11px; color:#6b7280; letter-spacing:.05em; margin-bottom:6px; }
-  .card .big { font-size:26px; font-weight:700; color:#c084fc; }
-  .card .big.blue { color:#93c5fd; font-size:18px; }
-  .card .meta { font-size:12px; color:#6b7280; margin-top:8px; line-height:1.6; }
-  .pos { color:#86efac; } .neg { color:#f87171; }
-  section.panel { background:#0a0e17; border:1px solid #1f2937; border-radius:12px; padding:16px; margin-bottom:20px; }
-  section.panel h2 { font-size:13px; color:#93c5fd; margin:0 0 12px; }
-  section.panel .src { float:right; font-size:11px; color:#4b5563; }
-  .day { margin-bottom:16px; }
-  .day-head { display:flex; justify-content:space-between; border-bottom:1px solid #1f2937; padding-bottom:4px; margin-bottom:8px; font-size:13px; }
-  .day-head .d { color:#93c5fd; }
-  .row { display:flex; align-items:center; gap:8px; margin:4px 0; font-size:12px; }
-  .row .bot { width:90px; color:#9ca3af; }
-  .row .tr { width:84px; color:#4b5563; }
-  .row .bar { flex:1; height:8px; background:#111827; border-radius:4px; overflow:hidden; }
-  .row .bar i { display:block; height:8px; }
-  .row .bar i.p { background:#15803d; } .row .bar i.n { background:#b91c1c; }
-  .row .val { width:90px; text-align:right; }
-  #terminal { background:#000; border:1px solid #1f2937; border-radius:8px; padding:16px; height:280px; overflow-y:auto; font-size:12px; white-space:pre-wrap; box-shadow:inset 0 0 24px #000; }
-  footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; font-size:12px; color:#4b5563; padding-bottom:32px; }
-  footer a { color:#3b82f6; text-decoration:none; }
-  @keyframes blink { 50% { opacity:0; } }
-  .cursor { animation: blink 1s step-end infinite; }
+  :root{
+    --bg:#05070f; --card:rgba(255,255,255,.035); --border:rgba(255,255,255,.08);
+    --txt:#e2e8f0; --dim:#64748b; --accent:#6366f1; --cyan:#22d3ee;
+    --green:#34d399; --red:#f87171; --amber:#fbbf24; --radius:18px;
+    --grad:linear-gradient(135deg,#6366f1,#22d3ee);
+  }
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,'Segoe UI',Inter,Roboto,sans-serif;
+    background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:48px;
+    background-image:radial-gradient(600px 300px at 15% -5%,rgba(99,102,241,.16),transparent 60%),
+                     radial-gradient(700px 350px at 90% 0%,rgba(34,211,238,.10),transparent 60%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:20px 20px 0}
+  /* HEADER */
+  header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:8px 0 20px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:44px;height:44px;border-radius:14px;background:var(--grad);display:grid;place-items:center;font-size:22px;box-shadow:0 8px 24px rgba(99,102,241,.35)}
+  .brand h1{font-size:19px;font-weight:800;letter-spacing:-.02em}
+  .brand h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand small{display:block;color:var(--dim);font-size:11px;font-weight:500;margin-top:2px}
+  .hstat{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--card)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+  .dot.ok{background:var(--green);box-shadow:0 0 8px var(--green)}
+  .dot.err{background:var(--red);box-shadow:0 0 8px var(--red)}
+  /* TABS */
+  nav{display:flex;gap:6px;padding:6px;background:var(--card);border:1px solid var(--border);border-radius:999px;width:max-content;margin:0 auto 24px;backdrop-filter:blur(12px);flex-wrap:wrap;justify-content:center}
+  nav button{border:0;background:transparent;color:var(--dim);font-size:13px;font-weight:600;padding:9px 18px;border-radius:999px;cursor:pointer;transition:.2s}
+  nav button:hover{color:var(--txt)}
+  nav button.on{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(99,102,241,.4)}
+  /* GRID + CARDS */
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;backdrop-filter:blur(14px);transition:transform .2s,border-color .2s;animation:rise .4s both}
+  .card:hover{transform:translateY(-2px);border-color:rgba(99,102,241,.35)}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+  .card h3{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--dim);text-transform:uppercase;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+  .kpi .v{font-size:28px;font-weight:800;letter-spacing:-.03em}
+  .kpi .s{font-size:12px;color:var(--dim);margin-top:6px}
+  .pos{color:var(--green)} .neg{color:var(--red)}
+  .grad-t{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  /* TABLES */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+  td{padding:10px;border-bottom:1px solid rgba(255,255,255,.04)}
+  tr:last-child td{border-bottom:0}
+  tbody tr{transition:background .15s}
+  tbody tr:hover{background:rgba(99,102,241,.06)}
+  .badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700}
+  .b-green{background:rgba(52,211,153,.12);color:var(--green)}
+  .b-red{background:rgba(248,113,113,.12);color:var(--red)}
+  .b-amber{background:rgba(251,191,36,.12);color:var(--amber)}
+  .b-accent{background:rgba(99,102,241,.15);color:#a5b4fc}
+  .b-dim{background:rgba(255,255,255,.06);color:var(--dim)}
+  .scrolly{overflow-x:auto}
+  /* BARS */
+  .bars{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px}
+  .bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:30px}
+  .bar .col{width:100%;border-radius:8px 8px 3px 3px;background:var(--green);min-height:3px;transition:.3s;position:relative}
+  .bar .col.neg{background:var(--red)}
+  .bar .lbl{font-size:10px;color:var(--dim)}
+  .bar .val{font-size:10px;font-weight:700}
+  /* terminal */
+  #term{background:#01040a;border:1px solid var(--border);border-radius:12px;padding:16px;height:340px;overflow-y:auto;font:12px/1.6 ui-monospace,Consolas,monospace;white-space:pre-wrap;color:#7dd3fc}
+  #term::-webkit-scrollbar,.scrolly::-webkit-scrollbar{height:8px;width:8px}
+  #term::-webkit-scrollbar-thumb,.scrolly::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:4px}
+  details{margin-top:10px}
+  summary{cursor:pointer;font-size:12px;color:#a5b4fc;font-weight:600}
+  details pre{margin-top:10px;background:#01040a;border:1px solid var(--border);border-radius:10px;padding:14px;font-size:11px;overflow:auto;max-height:300px;color:#94a3b8}
+  .skel{height:14px;border-radius:7px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.1),rgba(255,255,255,.05));background-size:200% 100%;animation:sh 1.2s infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+  footer{text-align:center;font-size:11px;color:var(--dim);padding:28px 0}
+  footer a{color:#818cf8;text-decoration:none}
+  .section{display:none}
+  .section.on{display:block}
+  @media(max-width:640px){nav{width:100%}.wrap{padding:14px 12px 0}.kpi .v{font-size:22px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <h1>🧠 Quantum Lab AI</h1>
-      <p class="sub">Автономная лаборатория торговых стратегий на серверах GitHub</p>
+    <div class="brand">
+      <div class="logo">⚛️</div>
+      <div>
+        <h1>Quantum <span>Lab</span></h1>
+        <small>AI-эволюция торговых стратегий · обновление каждые 4 часа</small>
+      </div>
     </div>
-    <div>
-      <span id="status" class="status">🔄 Обновление...</span>
-      <p class="ts">Обновлено: <span id="ts">-</span></p>
+    <div class="hstat">
+      <span class="pill"><span class="dot" id="dot"></span><span id="status">подключение…</span></span>
+      <span class="pill">🕒 <span id="ts">—</span></span>
     </div>
   </header>
 
-  <div class="cards">
-    <div class="card">
-      <p class="label">ЛУЧШАЯ СТРАТЕГИЯ</p>
-      <p class="big" id="g-ind">-</p>
-      <p class="meta">Итерация <span id="g-iter">-</span><br>PnL бэктеста: <span id="g-pnl">-</span></p>
-    </div>
-    <div class="card">
-      <p class="label">ПОСЛЕДНИЙ ЗАПУСК АГЕНТА</p>
-      <p class="big blue" id="last-run">-</p>
-      <p class="meta">Планировщик: каждые 4 часа (quantum_run)</p>
-    </div>
-    <div class="card">
-      <p class="label">PAPER-БОТЫ (последний отчёт)</p>
-      <p class="big" id="bots-pnl">-</p>
-      <p class="meta"><span id="bots-count">-</span> ботов · <span id="rep-date">-</span></p>
-    </div>
-  </div>
+  <nav>
+    <button class="on" data-t="overview">📊 Обзор</button>
+    <button data-t="strategies">🧬 Стратегии</button>
+    <button data-t="trades">💰 Сделки</button>
+    <button data-t="logs">🖥️ Логи</button>
+  </nav>
 
-  <section class="panel">
-    <h2>📊 Результаты paper-ботов по дням <span class="src">reports/daily_*.md</span></h2>
-    <div id="reports" style="font-size:13px;color:#9ca3af">Загрузка отчётов...</div>
+  <!-- ОБЗОР -->
+  <section class="section on" id="overview">
+    <div class="grid g4" style="margin-bottom:14px">
+      <div class="card kpi"><h3>PnL paper-ботов <span class="badge b-dim">последний день</span></h3><div class="v" id="k-bots">—</div><div class="s" id="k-bots-s">—</div></div>
+      <div class="card kpi"><h3>Лучшая стратегия <span class="badge b-dim">GOLDEN</span></h3><div class="v grad-t" id="k-gold">—</div><div class="s" id="k-gold-s">—</div></div>
+      <div class="card kpi"><h3>Бэктест за неделю</h3><div class="v" id="k-bt">—</div><div class="s" id="k-bt-s">—</div></div>
+      <div class="card kpi"><h3>В эволюции сейчас</h3><div class="v" id="k-evo">—</div><div class="s">L1 → L2 → L3 отбор</div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><h3>PnL paper-ботов по дням</h3><div class="bars" id="chart"><div class="skel" style="width:100%;height:100%"></div></div></div>
+      <div class="card"><h3>Live-мониторинг (бэктест vs live)</h3><div class="scrolly"><table id="mon-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+    </div>
   </section>
 
-  <section class="panel">
-    <h2>🖥️ Логи агента (live) <span class="src">источник: <span id="log-src">-</span></span></h2>
-    <div id="terminal">Загрузка логов...<span class="cursor">▊</span></div>
+  <!-- СТРАТЕГИИ -->
+  <section class="section" id="strategies">
+    <div class="grid g2" style="margin-bottom:14px">
+      <div class="card"><h3>Активные пары <span class="badge b-green">в торговле</span></h3><div class="scrolly"><table id="act-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+      <div class="card"><h3>Топ эволюции <span class="badge b-accent">live-отбор</span></h3><div class="scrolly"><table id="evo-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+    </div>
+    <div class="card"><h3>Код лучшей стратегии (GOLDEN_AI)</h3>
+      <details><summary>Показать Python-код</summary><pre id="gold-code">—</pre></details>
+    </div>
+  </section>
+
+  <!-- СДЕЛКИ -->
+  <section class="section" id="trades">
+    <div class="grid g4" id="bot-cards" style="margin-bottom:14px"></div>
+    <div class="card"><h3>Последние сделки paper-ботов <span class="badge b-dim" id="tr-src">источник: data/web_dashboard.json</span></h3>
+      <div class="scrolly"><table id="tr-t"><thead><tr><th>Время</th><th>Бот</th><th>Пара</th><th>Сторона</th><th>Вход → Выход</th><th>Статус</th><th>PnL</th></tr></thead>
+      <tbody><tr><td colspan="7" class="skel" style="width:100%"></td></tr></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- ЛОГИ -->
+  <section class="section" id="logs">
+    <div class="card"><h3>Живой лог агента <span class="badge b-dim" id="log-src">—</span></h3><div id="term">подключение…</div></div>
   </section>
 
   <footer>
-    <p>Панель обновляется каждые 60 секунд.</p>
-    <p>
-      <a href="https://github.com/palcikia-crypto/quantum_lab/actions" target="_blank">Actions →</a> &nbsp;
-      <a href="https://github.com/palcikia-crypto/quantum_lab" target="_blank">Репозиторий →</a>
-    </p>
+    Quantum Lab · автообновление каждые 60 сек ·
+    <a href="https://github.com/palcikia-crypto/quantum_lab/actions" target="_blank">Actions</a> ·
+    <a href="https://github.com/palcikia-crypto/quantum_lab" target="_blank">GitHub</a>
   </footer>
 </div>
 
 <script>
-const REPO = 'palcikia-crypto/quantum_lab';
-const RAW = (p, b) => 'https://raw.githubusercontent.com/' + REPO + '/' + b + '/' + p + '?t=' + Date.now();
-const API = 'https://api.github.com/repos/' + REPO;
+var REPO='palcikia-crypto/quantum_lab';
+function RAW(p,b){return 'https://raw.githubusercontent.com/'+REPO+'/'+b+'/'+p+'?t='+Date.now();}
+var API='https://api.github.com/repos/'+REPO;
+function esc(s){return String(s==null?'-':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fmtV(x){if(x==null||isNaN(x))return '-';return (x>=0?'+':'')+Number(x).toFixed(2)+'$';}
+function fmtD(ts){ if(!ts) return '-'; var d=new Date(ts*1000); if(isNaN(d)) return '-'; return d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+async function tryF(urls){for(var i=0;i<urls.length;i++){try{var r=await fetch(urls[i]);if(r.ok)return await r.text();}catch(e){}}return null;}
+async function j(urls){var t=await tryF(urls);if(!t)return null;try{return JSON.parse(t);}catch(e){return null;}}
 
-async function tryFetch(urls) {
-  for (const u of urls) {
-    try { const r = await fetch(u); if (r.ok) return await r.text(); } catch (e) {}
+/* TABS */
+document.querySelectorAll('nav button').forEach(function(b){
+  b.onclick=function(){
+    document.querySelectorAll('nav button').forEach(function(x){x.classList.remove('on');});
+    document.querySelectorAll('.section').forEach(function(x){x.classList.remove('on');});
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+  };
+});
+
+function setStatus(cls,txt){var d=document.getElementById('dot');d.className='dot '+(cls||'');document.getElementById('status').textContent=txt;}
+
+/* ---- STATUS ---- */
+async function loadStatus(){
+  try{
+    var runs=await j([API+'/actions/runs?per_page=1']);
+    var r=runs&&runs.workflow_runs&&runs.workflow_runs[0];
+    var c=await j([API+'/commits?per_page=1']);
+    if(r){
+      var ago=(Date.now()-new Date(r.created_at).getTime())/3600000;
+      if(r.conclusion==='success'&&ago<6) setStatus('ok','агент активен');
+      else if(r.conclusion==='failure') setStatus('err','последний прогон упал');
+      else setStatus('','нет прогонов > 6ч');
+    }
+    if(c&&c[0]) document.getElementById('ts').textContent=new Date(c[0].commit.committer.date).toLocaleTimeString('ru-RU');
+  }catch(e){setStatus('err','нет связи с API');}
+}
+
+/* ---- GOLDEN ---- */
+async function loadGolden(){
+  var g=await j([RAW('GOLDEN_AI.json','master')]);
+  if(!g)return;
+  document.getElementById('k-gold').textContent=esc(g.indicator||'—');
+  document.getElementById('k-gold-s').textContent='итерация '+esc(g.iter)+' · бэктест PnL '+fmtV(g.pnl);
+  if(g.full_code) document.getElementById('gold-code').textContent=g.full_code;
+}
+
+/* ---- WEEK BACKTEST ---- */
+async function loadBt(){
+  var g=await j([RAW('data/golden_bt_week.json','master')]);
+  if(!g)return;
+  document.getElementById('k-bt').textContent=fmtV(g.total_pnl);
+  document.getElementById('k-bt-s').textContent=esc(g.period||'')+' · '+esc(g.total_trades)+' сделок';
+}
+
+/* ---- EVOLUTION ---- */
+async function loadEvo(){
+  var e=await j([RAW('data/evolution.json','master')]);
+  if(!e)return;
+  document.getElementById('k-evo').innerHTML=esc(e.L1||0)+' <span style="font-size:14px;color:var(--dim)">'+'→ '+esc(e.L2||0)+' → '+esc(e.L3||0)+'</span>';
+  var rows=(e.top||[]).map(function(s,i){
+    return '<tr><td>'+(i+1)+'</td><td><b>'+esc(s.symbol)+'</b></td><td class="badge b-accent">'+esc(s.strategy)+'</td>'+
+      '<td>'+esc(s.wr)+'%</td><td>'+esc(s.n)+'</td><td class="'+(s.expectancy>=0?'pos':'neg')+'">'+(s.expectancy*100).toFixed(3)+'%</td></tr>';
+  }).join('');
+  document.getElementById('evo-t').innerHTML='<thead><tr><th>#</th><th>Пара</th><th>Стратегия</th><th>WR</th><th>Сделок</th><th>Мат.ожид.</th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+/* ---- ACTIVE STRATEGIES ---- */
+async function loadActive(){
+  var a=await j([RAW('data/active_strategies.json','master')]);
+  if(!a||!a.pairs)return;
+  var rows=Object.values(a.pairs).map(function(p){
+    return '<tr><td><b>'+esc(p.symbol)+'</b></td><td class="badge b-accent">'+esc(p.strategy)+'</td><td>'+esc(p.tf)+'</td>'+
+      '<td>'+esc(p.wr)+'%</td><td>'+esc(p.n)+'</td><td><span class="badge '+(p.trade?'b-green':'b-dim')+'">'+(p.trade?'ТОРГУЕТ':'пауза')+'</span></td></tr>';
+  }).join('');
+  document.getElementById('act-t').innerHTML='<thead><tr><th>Пара</th><th>Стратегия</th><th>ТФ</th><th>WR</th><th>Сделок</th><th>Статус</th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+/* ---- LIVE MONITOR ---- */
+async function loadMonitor(){
+  var m=await j([RAW('data/live_monitor.json','master')]);
+  if(!m||!m.results)return;
+  var rows=m.results.map(function(r){
+    var st=r.status==='QUARANTINE'?'b-red':(r.status==='waiting'?'b-amber':'b-green');
+    return '<tr><td><b>'+esc(r.symbol)+'</b> <span style="color:var(--dim);font-size:11px">'+esc(r.strategy)+'</span></td>'+
+      '<td>'+esc(r.backtest_wr)+'%</td><td>'+esc(r.live_wr)+'%</td>'+
+      '<td class="'+(r.delta>=0?'pos':'neg')+'">'+(r.delta>=0?'+':'')+esc(r.delta)+'</td>'+
+      '<td class="'+(r.pnl>=0?'pos':'neg')+'">'+fmtV(r.pnl)+'</td>'+
+      '<td><span class="badge '+st+'">'+esc(r.status)+'</span></td></tr>';
+  }).join('');
+  document.getElementById('mon-t').innerHTML='<thead><tr><th>Пара / стратегия</th><th>Бэктест WR</th><th>Live WR</th><th>Δ</th><th>PnL</th><th>Статус</th></tr></thead><tbody>'+rows+'</tbody>';
+}
+
+/* ---- REPORTS CHART ---- */
+async function loadChart(){
+  var files=[];
+  try{
+    var r=await fetch(API+'/contents/reports');
+    files=(await r.json()).filter(function(f){return f.name.indexOf('daily_')===0;}).map(function(f){return f.name;}).sort().slice(-7);
+  }catch(e){}
+  var data=[];
+  for(var i=0;i<files.length;i++){
+    var t=await tryF([RAW('reports/'+files[i],'master')]);
+    if(!t)continue;
+    var re=/- (\S+): (\d+) сделок?, PnL=\$?(-?[\d.]+)/g,m,bot=0,total=0;
+    while((m=re.exec(t))!==null){bot++;total+=parseFloat(m[3]);}
+    data.push({d:files[i].replace('daily_','').replace('.md',''),t:total,b:bot});
   }
-  return null;
-}
-function setStatus(ok, txt) {
-  const s = document.getElementById('status');
-  s.className = 'status ' + (ok ? 'ok' : 'err');
-  s.textContent = txt;
-}
-
-async function loadGolden() {
-  const t = await tryFetch([RAW('GOLDEN_AI.json','master')]);
-  if (!t) return;
-  try {
-    const g = JSON.parse(t);
-    document.getElementById('g-ind').textContent = g.indicator || '-';
-    document.getElementById('g-iter').textContent = g.iter ?? '-';
-    const pnl = Number(g.pnl), el = document.getElementById('g-pnl');
-    el.textContent = pnl.toFixed(3);
-    el.className = pnl >= 0 ? 'pos' : 'neg';
-  } catch (e) {}
+  var el=document.getElementById('chart');
+  if(!data.length){el.innerHTML='<p style="color:var(--dim);font-size:13px">Отчёты не найдены</p>';return;}
+  var mx=Math.max.apply(null,data.map(function(x){return Math.abs(x.t);}))||1;
+  el.innerHTML=data.map(function(x){
+    var h=Math.max(3,Math.abs(x.t)/mx*100);
+    return '<div class="bar" title="'+x.b+' ботов, '+fmtV(x.t)+'">'+
+      '<span class="val '+(x.t>=0?'pos':'neg')+'">'+fmtV(x.t)+'</span>'+
+      '<div class="col'+(x.t<0?' neg':'')+'" style="height:'+h+'%"></div>'+
+      '<span class="lbl">'+x.d+'</span></div>';
+  }).join('');
+  var last=data[data.length-1];
+  document.getElementById('k-bots').textContent=fmtV(last.t);
+  document.getElementById('k-bots-s').textContent=last.b+' ботов · '+last.d;
 }
 
-async function loadLastRun() {
-  try {
-    const r = await fetch(API + '/commits?per_page=1');
-    const c = await r.json();
-    const d = new Date(c[0].commit.committer.date);
-    const hrs = (Date.now() - d.getTime()) / 3600000;
-    document.getElementById('last-run').textContent = d.toLocaleString('ru-RU');
-    setStatus(hrs < 6, hrs < 6 ? '✅ Агент активен' : '⚠️ Нет запусков > 6ч');
-  } catch (e) { setStatus(false, '⚠️ Нет связи с API'); }
-}
-
-async function loadReports() {
-  let files = [];
-  try {
-    const r = await fetch(API + '/contents/reports');
-    files = (await r.json()).filter(f => f.name.indexOf('daily_') === 0).map(f => f.name).sort().slice(-5).reverse();
-  } catch (e) {}
-  const box = document.getElementById('reports');
-  if (!files.length) { box.textContent = 'Отчёты не найдены.'; return; }
-  box.innerHTML = '';
-  let firstTotal = null, firstDate = '-', botCount = 0;
-  for (const f of files) {
-    const t = await tryFetch([RAW('reports/' + f, 'master')]);
-    if (!t) continue;
-    const date = f.replace('daily_','').replace('.md','');
-    const re = /- (\S+): (\d+) сделок?, PnL=\$?(-?[\d.]+)/g;
-    let m, bots = [];
-    while ((m = re.exec(t)) !== null) bots.push({ name: m[1], trades: m[2], pnl: parseFloat(m[3]) });
-    const total = bots.reduce((s, b) => s + b.pnl, 0);
-    if (firstTotal === null) { firstTotal = total; firstDate = date; botCount = bots.length; }
-    const div = document.createElement('div');
-    div.className = 'day';
-    let html = '<div class="day-head"><span class="d">' + date + '</span><span class="' +
-      (total >= 0 ? 'pos' : 'neg') + '">Σ ' + (total >= 0 ? '+' : '') + total.toFixed(2) + '$</span></div>';
-    html += bots.map(b => {
-      const v = b.pnl, w = Math.min(100, Math.abs(v) / 10);
-      return '<div class="row"><span class="bot">' + b.name + '</span><span class="tr">' + b.trades +
-        ' сдл</span><span class="bar"><i class="' + (v >= 0 ? 'p' : 'n') + '" style="width:' + w + '%"></i></span><span class="val ' +
-        (v >= 0 ? 'pos' : 'neg') + '">' + (v >= 0 ? '+' : '') + v.toFixed(2) + '$</span></div>';
-    }).join('') || '<span style="font-size:12px;color:#4b5563">нет данных о сделках</span>';
-    div.innerHTML = html;
-    box.appendChild(div);
+/* ---- TRADES ---- */
+async function loadTrades(){
+  var w=await j([RAW('data/web_dashboard.json','master')]);
+  var t=document.getElementById('tr-t').querySelector('tbody');
+  if(!w||!w.trades||!w.trades.length){
+    document.getElementById('tr-src').textContent='экспорт появится после следующего прогона агента';
+    t.innerHTML='<tr><td colspan="7" style="color:var(--dim);font-size:13px;padding:24px;text-align:center">'+
+      'Сделки пока не выгружены. Workflow <b>quantum_run</b> каждые 4 часа создаёт <b>data/web_dashboard.json</b> из баз ботов — после первого прогона сделки появятся здесь автоматически.</td></tr>';
+    return;
   }
-  document.getElementById('rep-date').textContent = firstDate;
-  document.getElementById('bots-count').textContent = botCount;
-  if (firstTotal !== null) {
-    const el = document.getElementById('bots-pnl');
-    el.textContent = (firstTotal >= 0 ? '+' : '') + firstTotal.toFixed(2) + '$';
-    el.className = 'big ' + (firstTotal >= 0 ? 'pos' : 'neg');
-  }
+  document.getElementById('tr-src').textContent='обновлено: '+esc((w.updated_at||'').slice(0,16).replace('T',' '));
+  var cards=Object.keys(w.bots||{}).map(function(n){
+    var b=w.bots[n],cls=b.pnl>=0?'pos':'neg';
+    return '<div class="card kpi"><h3>'+esc(n)+'</h3><div class="v '+cls+'">'+fmtV(b.pnl)+'</div>'+
+      '<div class="s">'+b.closed+' закрытых · '+b.open+' открытых'+(b.wr!=null?' · WR '+b.wr+'%':'')+'</div></div>';
+  }).join('');
+  document.getElementById('bot-cards').innerHTML=cards;
+  var rows=w.trades.slice(0,60).map(function(r){
+    var open=String(r.status||'').toUpperCase()==='OPEN';
+    var pnl=open?'<span class="badge b-amber">в позиции</span>':'<span class="'+(r.pnl>=0?'pos':'neg')+'" style="font-weight:700">'+fmtV(r.pnl)+'</span>';
+    var side='<span class="badge '+(r.side==='LONG'?'b-green':'b-red')+'">'+esc(r.side||'-')+'</span>';
+    var pr=(r.entry_price!=null?Number(r.entry_price).toFixed(4):'-')+' → '+(r.exit_price!=null?Number(r.exit_price).toFixed(4):(open?'—':'-'));
+    var tm=fmtD(r.exit_ts||r.entry_ts||r.ts);
+    return '<tr><td style="white-space:nowrap">'+esc(tm)+'</td><td>'+esc(r._bot)+'</td><td><b>'+esc(r.symbol)+'</b></td><td>'+side+'</td><td style="white-space:nowrap">'+pr+'</td><td>'+esc(r.status)+'</td><td>'+pnl+'</td></tr>';
+  }).join('');
+  t.innerHTML=rows;
 }
 
-async function loadLog() {
-  const t = await tryFetch([
-    RAW('bot_output.log','master'),
-    RAW('live.log','logs'),
-    RAW('bot_output.log','logs')
-  ]);
-  const term = document.getElementById('terminal');
-  if (t) {
-    term.textContent = t.slice(-8000);
-    term.scrollTop = term.scrollHeight;
-    document.getElementById('log-src').textContent = 'найден';
-  } else {
-    term.innerHTML = 'Лог-файл ещё не создан в этом прогоне.<br>Следующий автозапуск агента по расписанию (каждые 4 часа).<span class="cursor">▊</span>';
-    document.getElementById('log-src').textContent = 'нет файла';
-  }
+/* ---- LOG ---- */
+async function loadLog(){
+  var t=await tryF([RAW('bot_output.log','master'),RAW('live.log','logs'),RAW('bot_output.log','logs')]);
+  var el=document.getElementById('term');
+  if(t){el.textContent=t.slice(-10000);el.scrollTop=el.scrollHeight;document.getElementById('log-src').textContent='источник найден';}
+  else{el.textContent='Лог появится после следующего запуска агента (каждые 4 часа).';document.getElementById('log-src').textContent='нет файла';}
 }
 
-async function refresh() {
-  await Promise.all([loadGolden(), loadLastRun(), loadReports(), loadLog()]);
-  document.getElementById('ts').textContent = new Date().toLocaleTimeString('ru-RU');
+async function refresh(){
+  await Promise.all([loadStatus(),loadGolden(),loadBt(),loadEvo(),loadActive(),loadMonitor(),loadChart(),loadTrades(),loadLog()]);
+  document.getElementById('ts').textContent=new Date().toLocaleTimeString('ru-RU');
 }
 refresh();
-setInterval(refresh, 60000);
+setInterval(refresh,60000);
 </script>
 </body>
 </html>
