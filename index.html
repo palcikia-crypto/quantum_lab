@@ -3,498 +3,479 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#05070f">
-<title>Quantum Lab · Живая экосистема торговых AI</title>
+<meta name="theme-color" content="#0b0d12">
+<title>Quantum Lab · AI Trading Ecosystem</title>
 <style>
 :root{
-  --bg:#04060d; --card:rgba(148,163,255,.05); --card2:rgba(148,163,255,.08);
-  --border:rgba(148,163,255,.13); --txt:#e8ecf8; --dim:#7b86a8;
-  --indigo:#6366f1; --cyan:#22d3ee; --violet:#a78bfa;
-  --green:#34d399; --red:#fb7185; --amber:#fbbf24;
-  --grad:linear-gradient(120deg,#6366f1,#22d3ee);
-  --grad-v:linear-gradient(120deg,#a78bfa,#6366f1,#22d3ee);
-  --r:20px;
+  --bg:#0b0d12; --panel:#12151d; --panel2:#171b25;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.12);
+  --txt:#f2f5fa; --dim:#8a93a8; --dim2:#5c657a;
+  --blue:#4f8cff; --green:#2fd58b; --red:#ff5d7a; --gold:#f5b94a; --cyan:#38d9e5;
+  --grad:linear-gradient(135deg,#4f8cff,#38d9e5);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%}
 body{
-  font-family:-apple-system,'SF Pro Display',Inter,'Segoe UI',Roboto,sans-serif;
-  background:var(--bg);color:var(--txt);min-height:100vh;overflow-x:hidden;
-  padding-bottom:110px;
+  font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;
+  background:var(--bg);color:var(--txt);min-height:100vh;
+  font-variant-numeric:tabular-nums;
 }
-body::before,body::after{
-  content:'';position:fixed;z-index:-2;border-radius:50%;filter:blur(90px);pointer-events:none;
-  opacity:.55;will-change:transform;
+body::before{
+  content:'';position:fixed;top:0;left:0;right:0;height:420px;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 100% at 50% -10%,rgba(79,140,255,.14),transparent 70%);
 }
-body::before{width:55vw;height:55vw;left:-15vw;top:-20vw;background:radial-gradient(circle,rgba(99,102,241,.5),transparent 65%);animation:drift1 26s ease-in-out infinite alternate}
-body::after{width:50vw;height:50vw;right:-15vw;top:10vh;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 65%);animation:drift2 32s ease-in-out infinite alternate}
-@keyframes drift1{to{transform:translate(12vw,18vh) scale(1.15)}}
-@keyframes drift2{to{transform:translate(-14vw,10vh) scale(1.1)}}
-#net{position:fixed;inset:0;z-index:-1;opacity:.5}
-.wrap{max-width:1180px;margin:0 auto;padding:18px clamp(12px,3vw,24px) 0}
+.app{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
 
 /* ---------- header ---------- */
-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0 18px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:13px}
-.logo{width:48px;height:48px;border-radius:15px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 26px rgba(99,102,241,.45);position:relative;overflow:hidden}
-.logo::after{content:'';position:absolute;inset:0;background:linear-gradient(200deg,rgba(255,255,255,.5),transparent 45%)}
-.logo svg{width:27px;height:27px;animation:spin 9s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.brand h1{font-size:20px;font-weight:850;letter-spacing:-.02em}
-.brand h1 b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand small{display:block;color:var(--dim);font-size:11px;font-weight:600;margin-top:3px;letter-spacing:.02em}
-.hstat{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--border);background:var(--card);backdrop-filter:blur(12px)}
-.dot{width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber);flex:none}
-.dot.ok{background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.8s infinite}
-.dot.err{background:var(--red);box-shadow:0 0 10px var(--red)}
-@keyframes pulse{50%{opacity:.35;transform:scale(.8)}}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 0 14px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--grad);display:grid;place-items:center;flex:none;box-shadow:0 4px 20px rgba(79,140,255,.4)}
+.mark svg{width:24px;height:24px;animation:rot 10s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+.brand h1{font-size:17px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.brand p{font-size:11.5px;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud{display:flex;gap:8px;flex:none}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-size:12px;font-weight:600;color:var(--dim)}
+.chip b{color:var(--txt);font-weight:700}
+.led{width:8px;height:8px;border-radius:50%;flex:none}
+.led.on{background:var(--green);box-shadow:0 0 12px var(--green);animation:beat 1.6s infinite}
+.led.err{background:var(--red);box-shadow:0 0 12px var(--red)}
+.led.off{background:var(--dim2)}
+@keyframes beat{50%{opacity:.3}}
 
 /* ---------- nav ---------- */
-nav{
-  display:flex;gap:4px;padding:5px;background:var(--card);border:1px solid var(--border);
-  border-radius:999px;width:max-content;margin:0 auto 22px;backdrop-filter:blur(16px);
-}
-nav button{border:0;background:transparent;color:var(--dim);font-size:13px;font-weight:700;padding:10px 20px;border-radius:999px;cursor:pointer;transition:.2s;font-family:inherit}
-nav button:hover{color:var(--txt)}
-nav button.on{background:var(--grad);color:#fff;box-shadow:0 4px 18px rgba(99,102,241,.5)}
+.tabs{position:sticky;top:0;z-index:40;background:rgba(11,13,18,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);margin:0 -100vw;padding:0 100vw}
+.tabs-in{display:flex;gap:2px;max-width:1200px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+.tab{border:0;background:none;color:var(--dim);font-family:inherit;font-size:13.5px;font-weight:700;padding:13px 16px;cursor:pointer;position:relative;transition:color .2s}
+.tab:hover{color:var(--txt)}
+.tab.on{color:var(--blue)}
+.tab.on::after{content:'';position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--grad);border-radius:2px}
+.bnav{display:none}
+
+main{padding:22px 0 40px}
+.view{display:none}
+.view.on{display:block;animation:vin .3s ease}
+@keyframes vin{from{opacity:0;transform:translateY(8px)}to{opacity:1}}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:22px;padding:28px clamp(20px,4vw,38px);position:relative;overflow:hidden;margin-bottom:16px}
+.hero::after{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(79,140,255,.18),transparent 70%)}
+.hero .lbl{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.hero .big{font-size:clamp(40px,9vw,58px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:10px 0 4px}
+.hero .big.pos{color:var(--green);text-shadow:0 0 34px rgba(47,213,139,.35)}
+.hero .big.neg{color:var(--red);text-shadow:0 0 34px rgba(255,93,122,.35)}
+.hero .big.nul{color:var(--txt)}
+.hero .sub{color:var(--dim);font-size:13.5px}
+.stats-row{display:flex;gap:0;margin-top:22px;border-top:1px solid var(--line);flex-wrap:wrap}
+.stat{flex:1;min-width:120px;padding:16px 18px 0 0;margin-right:18px}
+.stat .n{font-size:21px;font-weight:800;letter-spacing:-.02em}
+.stat .t{font-size:11px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
 
 /* ---------- cards ---------- */
-.grid{display:grid;gap:14px}
-.g4{grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
-.g2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
-.card{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;
-  backdrop-filter:blur(16px);position:relative;overflow:hidden;
-  transition:transform .25s,border-color .25s,box-shadow .25s;
-  animation:rise .45s both;
-}
-.card::before{content:'';position:absolute;inset:0 0 auto 0;height:1px;background:linear-gradient(90deg,transparent,rgba(148,163,255,.35),transparent)}
-.card:hover{transform:translateY(-3px);border-color:rgba(99,102,241,.45);box-shadow:0 14px 40px rgba(0,0,0,.45)}
-@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1}}
-.card h3{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin-bottom:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.kpi .v{font-size:clamp(24px,5.5vw,31px);font-weight:850;letter-spacing:-.03em;line-height:1.1}
-.kpi .s{font-size:12px;color:var(--dim);margin-top:7px;font-weight:500}
-.pos{color:var(--green)} .neg{color:var(--red)}
-.glowpos{text-shadow:0 0 22px rgba(52,211,153,.45)} .glowneg{text-shadow:0 0 22px rgba(251,113,133,.45)}
-.grad-t{background:var(--grad-v);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid{display:grid;gap:14px;margin-bottom:14px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h2{font-size:13px;font-weight:800;letter-spacing:.02em;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px}
+.card h2 .r{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:0}
+.b{display:inline-block;padding:3px 10px;border-radius:7px;font-size:10.5px;font-weight:800;white-space:nowrap}
+.b-g{background:rgba(47,213,139,.12);color:var(--green)}
+.b-r{background:rgba(255,93,122,.12);color:var(--red)}
+.b-o{background:rgba(245,185,74,.12);color:var(--gold)}
+.b-b{background:rgba(79,140,255,.14);color:var(--blue)}
+.b-d{background:rgba(255,255,255,.06);color:var(--dim)}
+.b-c{background:rgba(56,217,229,.12);color:var(--cyan)}
+.pos{color:var(--green)} .neg{color:var(--red)} .gold{color:var(--gold)}
+.w700{font-weight:700}
 
 /* ---------- pipeline ---------- */
-.pipe-card{margin-bottom:14px}
-.pipe{display:flex;align-items:stretch;gap:0;overflow-x:auto;padding:6px 2px}
-.pstep{flex:1;min-width:120px;text-align:center;padding:14px 10px;border-radius:14px;border:1px solid var(--border);background:var(--card2);position:relative}
-.pstep .ic{font-size:24px;display:block;margin-bottom:7px}
-.pstep .t{font-size:12.5px;font-weight:800}
-.pstep .n{font-size:20px;font-weight:850;letter-spacing:-.02em;margin-top:2px}
-.pstep .d{font-size:10.5px;color:var(--dim);margin-top:4px;line-height:1.45}
-.pstep.gold{border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.07);box-shadow:0 0 30px rgba(251,191,36,.12) inset}
-.pstep.gold .n{color:var(--amber)}
-.parrow{display:grid;place-items:center;padding:0 6px;color:var(--indigo);font-size:18px;flex:none;animation:arr 1.6s infinite}
-@keyframes arr{50%{opacity:.35;transform:translateX(3px)}}
+.steps{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.step{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:16px;position:relative}
+.step .e{font-size:21px}
+.step .h{font-size:12.5px;font-weight:800;margin-top:8px}
+.step .v{font-size:23px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.step .d{font-size:11px;color:var(--dim);margin-top:4px;line-height:1.5}
+.step.gold{border-color:rgba(245,185,74,.35);background:linear-gradient(160deg,rgba(245,185,74,.08),var(--panel2))}
+.step.gold .v{color:var(--gold)}
 
 /* ---------- tables ---------- */
+.tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:10px;border-bottom:1px solid rgba(148,163,255,.06)}
+th{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--dim2);font-weight:800;text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap}
 tr:last-child td{border-bottom:0}
 tbody tr{transition:background .15s}
-tbody tr:hover{background:rgba(99,102,241,.07)}
-tr.flash{animation:flash 2.2s ease-out}
-@keyframes flash{0%{background:rgba(52,211,153,.28)}100%{background:transparent}}
-.scrolly{overflow-x:auto}
-.badge{display:inline-block;padding:3px 9px;border-radius:7px;font-size:11px;font-weight:700;white-space:nowrap}
-.b-green{background:rgba(52,211,153,.13);color:var(--green)}
-.b-red{background:rgba(251,113,133,.13);color:var(--red)}
-.b-amber{background:rgba(251,191,36,.13);color:var(--amber)}
-.b-accent{background:rgba(99,102,241,.16);color:#a5b4fc}
-.b-dim{background:rgba(148,163,255,.08);color:var(--dim)}
-.b-cyan{background:rgba(34,211,238,.13);color:var(--cyan)}
-.badge.new{background:rgba(52,211,153,.9);color:#04110b}
+tbody tr:hover{background:rgba(255,255,255,.03)}
+tr.fx{animation:fx 2.5s ease-out}
+@keyframes fx{0%{background:rgba(47,213,139,.25)}to{background:transparent}}
+.mono{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:12px}
 
-/* ---------- chart ---------- */
-.bars{display:flex;align-items:flex-end;gap:10px;height:160px;padding-top:12px}
-.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:30px;justify-content:flex-end;height:100%}
-.bar .col{width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#34d399,rgba(52,211,153,.25));min-height:3px;transition:height .6s;box-shadow:0 0 14px rgba(52,211,153,.25)}
-.bar .col.neg{background:linear-gradient(180deg,#fb7185,rgba(251,113,133,.25));box-shadow:0 0 14px rgba(251,113,133,.25)}
-.bar .lbl{font-size:10px;color:var(--dim)}
-.bar .val{font-size:10.5px;font-weight:800}
+/* ---------- bars ---------- */
+.bars{display:flex;align-items:flex-end;gap:8px;height:150px;padding-top:10px}
+.bar{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px;height:100%}
+.bar .v{font-size:10px;font-weight:800}
+.bar .c{width:100%;border-radius:6px 6px 2px 2px;min-height:3px;transition:height .5s;background:linear-gradient(180deg,rgba(79,140,255,.9),rgba(79,140,255,.15))}
+.bar .c.neg{background:linear-gradient(180deg,rgba(255,93,122,.9),rgba(255,93,122,.15))}
+.bar .l{font-size:9.5px;color:var(--dim2);max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- feed ---------- */
+.feed{display:flex;flex-direction:column;gap:8px;max-height:430px;overflow-y:auto}
+.tr{display:grid;grid-template-columns:52px 1fr auto auto;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:13px;padding:11px 14px;animation:vin .3s}
+.tr .tm{font-size:11px;color:var(--dim2);font-weight:700}
+.tr .sy{font-size:14px;font-weight:800;letter-spacing:-.01em}
+.tr .st{font-size:11px;color:var(--dim);margin-top:2px}
+.tr .pl{font-size:15px;font-weight:800}
+.tr.fx{border-color:rgba(47,213,139,.5);animation:fx 2.5s}
+.new{background:var(--green);color:#052012;font-size:9px;font-weight:900;padding:2px 6px;border-radius:5px;margin-left:6px;vertical-align:2px}
 
 /* ---------- terminal ---------- */
-.term{background:#010409;border:1px solid var(--border);border-radius:14px;padding:16px;overflow-y:auto;font:12px/1.65 ui-monospace,'SF Mono',Consolas,monospace;white-space:pre-wrap;color:#7dd3fc;position:relative}
-.term::before{content:'● ● ●';position:sticky;display:block;top:0;color:rgba(148,163,255,.25);font-size:9px;letter-spacing:.2em;margin-bottom:10px}
-#term{height:400px} #mini{height:170px;font-size:11.5px}
-.term::-webkit-scrollbar,.scrolly::-webkit-scrollbar{height:7px;width:7px}
-.term::-webkit-scrollbar-thumb,.scrolly::-webkit-scrollbar-thumb{background:rgba(148,163,255,.15);border-radius:4px}
+.term{background:#05070a;border:1px solid var(--line);border-radius:13px;padding:14px 16px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;color:#9adfbf;font:12px/1.7 ui-monospace,'SF Mono',Menlo,Consolas,monospace}
+#term{height:420px}
+#mini{height:180px;font-size:11.5px}
+.term::-webkit-scrollbar,.feed::-webkit-scrollbar,.tw::-webkit-scrollbar,.steps::-webkit-scrollbar{width:6px;height:6px}
+.term::-webkit-scrollbar-thumb,.feed::-webkit-scrollbar-thumb,.tw::-webkit-scrollbar-thumb,.steps::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:4px}
 
 details{margin-top:4px}
-summary{cursor:pointer;font-size:12.5px;color:#a5b4fc;font-weight:700;transition:.2s}
+summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--blue)}
 summary:hover{color:var(--cyan)}
-details pre{margin-top:12px;background:#010409;border:1px solid var(--border);border-radius:12px;padding:14px;font-size:11px;overflow:auto;max-height:320px;color:#9fb0d0}
+details pre{margin-top:12px;background:#05070a;border:1px solid var(--line);border-radius:12px;padding:14px;font-size:11px;overflow:auto;max-height:340px;color:#b7c2d8}
 
-.skel{height:14px;border-radius:7px;background:linear-gradient(90deg,rgba(148,163,255,.06),rgba(148,163,255,.14),rgba(148,163,255,.06));background-size:200% 100%;animation:sh 1.2s infinite}
-@keyframes sh{to{background-position:-200% 0}}
-.empty{color:var(--dim);font-size:13.5px;padding:28px 18px;text-align:center;line-height:1.8}
-.empty b{color:#a5b4fc}
-.empty .big{font-size:34px;display:block;margin-bottom:10px}
+.sk{height:13px;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.09),rgba(255,255,255,.04));background-size:200% 100%;animation:skl 1.1s infinite}
+@keyframes skl{to{background-position:-200% 0}}
+.empty{text-align:center;color:var(--dim);padding:34px 16px;line-height:1.9;font-size:13.5px}
+.empty .e{font-size:32px;display:block;margin-bottom:8px}
+.empty b{color:var(--txt)}
 
-footer{text-align:center;font-size:11px;color:var(--dim);padding:26px 0 8px;line-height:1.9}
-footer a{color:#818cf8;text-decoration:none}
-.section{display:none}
-.section.on{display:block;animation:secIn .35s}
-@keyframes secIn{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+footer{text-align:center;font-size:11px;color:var(--dim2);padding:10px 0 30px;line-height:2}
+footer a{color:var(--blue);text-decoration:none;font-weight:600}
 
-/* ---------- mobile: bottom tab bar ---------- */
-@media(min-width:761px){.bnav{display:none}}
+/* ---------- mobile ---------- */
 @media(max-width:760px){
-  nav.top{display:none}
-  .wrap{padding:14px 12px 0}
-  body{padding-bottom:96px}
-  .brand h1{font-size:17px}
+  .tabs{display:none}
+  header{padding:14px 0 10px}
+  .brand p{display:none}
+  main{padding:14px 0 96px}
+  .hero{padding:22px 18px}
+  .stat{min-width:30%;margin-right:10px;padding:12px 8px 0 0}
+  .steps{flex-direction:column}
+  .step{min-width:0}
   .bnav{
-    position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;
-    padding:8px 10px calc(8px + env(safe-area-inset-bottom));
-    background:rgba(4,6,13,.82);backdrop-filter:blur(20px);border-top:1px solid var(--border);
+    display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:rgba(11,13,18,.9);backdrop-filter:blur(18px);border-top:1px solid var(--line);
+    padding:6px 8px calc(6px + env(safe-area-inset-bottom));
   }
-  .bnav button{flex:1;border:0;background:none;color:var(--dim);font-family:inherit;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px;border-radius:12px;cursor:pointer;transition:.2s}
-  .bnav button .ic{font-size:20px;filter:grayscale(1) opacity(.6);transition:.2s}
-  .bnav button.on{color:var(--cyan)}
-  .bnav button.on .ic{filter:none;transform:translateY(-2px)}
-  .pipe{flex-direction:column}
-  .parrow{transform:rotate(90deg);padding:4px 0}
-  .g2{grid-template-columns:1fr}
+  .bnav button{flex:1;border:0;background:none;color:var(--dim2);font-family:inherit;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:10px;cursor:pointer}
+  .bnav button .e{font-size:19px;filter:grayscale(1);transition:.15s}
+  .bnav button.on{color:var(--blue)}
+  .bnav button.on .e{filter:none}
+  .tr{grid-template-columns:44px 1fr auto}
+  .tr .pl{grid-column:2/4}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<canvas id="net"></canvas>
-<div class="wrap">
+<div class="app">
 
 <header>
   <div class="brand">
-    <div class="logo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.2" fill="#fff"/><ellipse cx="12" cy="12" rx="10" ry="4.2" stroke="#fff" stroke-width="1.4"/><ellipse cx="12" cy="12" rx="10" ry="4.2" stroke="#fff" stroke-width="1.4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" stroke="#fff" stroke-width="1.4" transform="rotate(-60 12 12)"/></svg></div>
-    <div>
-      <h1>Quantum <b>Lab</b></h1>
-      <small>живая экосистема саморазвивающихся торговых агентов</small>
-    </div>
+    <div class="mark"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" fill="#fff"/><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#fff" stroke-width="1.3"/><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#fff" stroke-width="1.3" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#fff" stroke-width="1.3" transform="rotate(-60 12 12)"/></svg></div>
+    <div><h1>Quantum Lab</h1><p>саморазвивающаяся экосистема торговых агентов</p></div>
   </div>
-  <div class="hstat">
-    <span class="pill"><span class="dot" id="dot"></span><span id="status">подключение…</span></span>
-    <span class="pill">⚡ <span id="ago">—</span></span>
+  <div class="hud">
+    <span class="chip"><span class="led off" id="led"></span><b id="st">…</b></span>
+    <span class="chip" id="ago">синхронизация</span>
   </div>
 </header>
 
-<nav class="top">
-  <button class="on" data-t="overview">🌐 Обзор</button>
-  <button data-t="evolution">🧬 Эволюция</button>
-  <button data-t="trades">⚡ Сделки</button>
-  <button data-t="logs">🖥️ Логи</button>
-</nav>
+<div class="tabs"><div class="tabs-in">
+  <button class="tab on" data-v="v1">Обзор</button>
+  <button class="tab" data-v="v2">Эволюция</button>
+  <button class="tab" data-v="v3">Сделки</button>
+  <button class="tab" data-v="v4">Логи</button>
+</div></div>
 
-<!-- ================= ОБЗОР ================= -->
-<section class="section on" id="overview">
-  <div class="card pipe-card">
-    <h3>Пульс экосистемы <span class="badge b-cyan" id="pipe-src">god_agent_v4 · каждые 4 ч</span></h3>
-    <div class="pipe">
-      <div class="pstep"><span class="ic">🧬</span><span class="t">Мутации</span><span class="n">∞</span><div class="d">агент генерирует новые стратегии</div></div>
-      <span class="parrow">▶</span>
-      <div class="pstep"><span class="ic">🔬</span><span class="t">Уровень L1</span><span class="n" id="p-l1">—</span><div class="d">черновые варианты</div></div>
-      <span class="parrow">▶</span>
-      <div class="pstep"><span class="ic">📊</span><span class="t">Уровень L2</span><span class="n" id="p-l2">—</span><div class="d">бэктест-отбор</div></div>
-      <span class="parrow">▶</span>
-      <div class="pstep"><span class="ic">🥇</span><span class="t">Уровень L3</span><span class="n" id="p-l3">—</span><div class="d">live-проверка на рынке</div></div>
-      <span class="parrow">▶</span>
-      <div class="pstep gold"><span class="ic">🏆</span><span class="t">GOLDEN</span><span class="n" id="p-gold">—</span><div class="d" id="p-gold-d">чемпион экосистемы</div></div>
+<main>
+
+<!-- ОБЗОР -->
+<section class="view on" id="v1">
+  <div class="hero">
+    <div class="lbl">Баланс экосистемы · paper trading</div>
+    <div class="big nul" id="hp">—</div>
+    <div class="sub" id="hs">подключение к данным…</div>
+    <div class="stats-row">
+      <div class="stat"><div class="n" id="s1">—</div><div class="t">сделок</div></div>
+      <div class="stat"><div class="n" id="s2">—</div><div class="t">винрейт</div></div>
+      <div class="stat"><div class="n" id="s3">—</div><div class="t">в позициях</div></div>
+      <div class="stat"><div class="n" id="s4">—</div><div class="t">агентов в отборе</div></div>
+      <div class="stat"><div class="n gold" id="s5">—</div><div class="t">GOLDEN</div></div>
     </div>
   </div>
 
-  <div class="grid g4" style="margin-bottom:14px">
-    <div class="card kpi"><h3>Экосистема сейчас</h3><div class="v" id="k-now" style="font-size:18px">—</div><div class="s" id="k-now-s">—</div></div>
-    <div class="card kpi"><h3>Заработок бота <span class="badge b-dim">paper</span></h3><div class="v" id="k-live">—</div><div class="s" id="k-live-s">—</div></div>
-    <div class="card kpi"><h3>Чемпион эволюции <span class="badge b-amber">GOLDEN</span></h3><div class="v grad-t" id="k-gold">—</div><div class="s" id="k-gold-s">—</div></div>
-    <div class="card kpi"><h3>Бэктест за неделю</h3><div class="v" id="k-bt">—</div><div class="s" id="k-bt-s">—</div></div>
+  <div class="card" style="margin-bottom:14px"><h2>Конвейер эволюции <span class="r">god_agent · каждые 4 часа</span></h2>
+    <div class="steps">
+      <div class="step"><div class="e">🧬</div><div class="h">Мутации</div><div class="v">∞</div><div class="d">агент создаёт новые торговые стратегии</div></div>
+      <div class="step"><div class="e">🔬</div><div class="h">Уровень L1</div><div class="v" id="pl1">—</div><div class="d">черновые кандидаты</div></div>
+      <div class="step"><div class="e">📈</div><div class="h">Уровень L2</div><div class="v" id="pl2">—</div><div class="d">прошли бэктест</div></div>
+      <div class="step"><div class="e">⚔️</div><div class="h">Уровень L3</div><div class="v" id="pl3">—</div><div class="d">live-проверка на рынке</div></div>
+      <div class="step gold"><div class="e">🏆</div><div class="h">GOLDEN</div><div class="v" id="plg">—</div><div class="d" id="plgd">чемпион экосистемы</div></div>
+    </div>
   </div>
 
   <div class="grid g2">
-    <div class="card"><h3>📈 PnL агентов по дням</h3><div class="bars" id="chart"><div class="skel" style="width:100%;height:100%"></div></div></div>
-    <div class="card"><h3>🩺 Жизнеспособность стратегий <span class="badge b-dim">бэктест vs live</span></h3><div class="scrolly"><table id="mon-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+    <div class="card"><h2>Бэктест чемпиона за неделю <span class="r" id="btp">—</span></h2><div class="bars" id="bchart"><div class="sk" style="width:100%"></div></div></div>
+    <div class="card"><h2>Здоровье live-стратегий <span class="r">бэктест vs живой рынок</span></h2>
+      <div class="tw"><table id="mon"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+    </div>
   </div>
 </section>
 
-<!-- ================= ЭВОЛЮЦИЯ ================= -->
-<section class="section" id="evolution">
-  <div class="grid g2" style="margin-bottom:14px">
-    <div class="card"><h3>Активные пары <span class="badge b-green">в торговле</span></h3><div class="scrolly"><table id="act-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
-    <div class="card"><h3>Топ эволюции <span class="badge b-accent">естественный отбор</span></h3><div class="scrolly"><table id="evo-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+<!-- ЭВОЛЮЦИЯ -->
+<section class="view" id="v2">
+  <div class="grid g2">
+    <div class="card"><h2>Топ естественного отбора <span class="b b-b">эволюция</span></h2>
+      <div class="tw"><table id="evo"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+    </div>
+    <div class="card"><h2>Активные пары <span class="b b-g">в торговле</span></h2>
+      <div class="tw"><table id="act"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+    </div>
   </div>
-  <div class="card"><h3>🧬 Генетический код чемпиона (GOLDEN_AI)</h3>
-    <details><summary>Показать Python-код стратегии</summary><pre id="gold-code">—</pre></details>
+  <div class="card"><h2>Геном чемпиона <span class="b b-o">GOLDEN_AI</span></h2>
+    <details><summary>Показать код стратегии</summary><pre id="gcode">…</pre></details>
   </div>
 </section>
 
-<!-- ================= СДЕЛКИ ================= -->
-<section class="section" id="trades">
-  <div class="grid g4" style="margin-bottom:14px">
-    <div class="card kpi"><h3>Всего заработано</h3><div class="v" id="t-pnl">—</div><div class="s" id="t-n">—</div></div>
-    <div class="card kpi"><h3>Винрейт</h3><div class="v" id="t-wr">—</div><div class="s">закрытых сделок</div></div>
-    <div class="card kpi"><h3>Открытых позиций</h3><div class="v" id="t-open">—</div><div class="s" id="t-upd">—</div></div>
-    <div class="card kpi"><h3>Монет / стратегий</h3><div class="v" id="t-dim">—</div><div class="s">участвует в торговле</div></div>
+<!-- СДЕЛКИ -->
+<section class="view" id="v3">
+  <div class="card" style="margin-bottom:14px"><h2>Лента сделок <span class="r" id="fsrc">…</span></h2>
+    <div class="feed" id="feed"><div class="sk" style="height:44px"></div></div>
   </div>
-  <div class="grid g2" style="margin-bottom:14px">
-    <div class="card"><h3>₿ По монетам</h3><div class="scrolly"><table id="sym-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
-    <div class="card"><h3>🧠 По стратегиям</h3><div class="scrolly"><table id="strat-t"><tbody><tr><td class="skel" style="width:100%"></td></tr></tbody></table></div></div>
+  <div class="grid g2">
+    <div class="card"><h2>По монетам</h2><div class="tw"><table id="bysym"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div></div>
+    <div class="card"><h2>По стратегиям</h2><div class="tw"><table id="bystr"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div></div>
   </div>
-  <div class="card" style="margin-bottom:14px"><h3>⚡ Лента сделок <span class="badge b-green" id="tr-src">live</span></h3>
-    <div class="scrolly"><table id="tr-t"><thead><tr><th>Время</th><th>Монета</th><th>Стратегия</th><th>Сторона</th><th>Вход → Выход</th><th>Статус</th><th>PnL</th></tr></thead>
-    <tbody><tr><td colspan="7" class="skel" style="width:100%"></td></tr></tbody></table></div>
-  </div>
-  <div class="card"><h3>🫀 Что происходит прямо сейчас <span class="badge b-dim">live.log</span></h3><div class="term" id="mini">подключение…</div></div>
+  <div class="card"><h2>Пульс агента <span class="r">live.log</span></h2><div class="term" id="mini">…</div></div>
 </section>
 
-<!-- ================= ЛОГИ ================= -->
-<section class="section" id="logs">
-  <div class="card"><h3>🖥️ Поток сознания агента <span class="badge b-dim" id="log-src">—</span></h3><div class="term" id="term">подключение…</div></div>
+<!-- ЛОГИ -->
+<section class="view" id="v4">
+  <div class="card"><h2>Живой поток агента <span class="r" id="lsrc">—</span></h2><div class="term" id="term">…</div></div>
 </section>
 
-<footer>
-  Quantum Lab · самостоятельная AI-экосистема · автообновление 60 с<br>
-  <a href="https://github.com/palcikia-crypto/quantum_lab/actions" target="_blank">Actions</a> ·
-  <a href="https://github.com/palcikia-crypto/quantum_lab" target="_blank">GitHub</a>
-</footer>
+<footer>Quantum Lab · обновление каждые 60 с · <a href="https://github.com/palcikia-crypto/quantum_lab" target="_blank">GitHub</a> · <a href="https://github.com/palcikia-crypto/quantum_lab/actions" target="_blank">Actions</a></footer>
+</main>
 </div>
 
 <nav class="bnav">
-  <button class="on" data-t="overview"><span class="ic">🌐</span>Обзор</button>
-  <button data-t="evolution"><span class="ic">🧬</span>Эволюция</button>
-  <button data-t="trades"><span class="ic">⚡</span>Сделки</button>
-  <button data-t="logs"><span class="ic">🖥️</span>Логи</button>
+  <button class="on" data-v="v1"><span class="e">◎</span>Обзор</button>
+  <button data-v="v2"><span class="e">🧬</span>Эволюция</button>
+  <button data-v="v3"><span class="e">⚡</span>Сделки</button>
+  <button data-v="v4"><span class="e">▤</span>Логи</button>
 </nav>
 
 <script>
-var REPO='palcikia-crypto/quantum_lab';
+var REPO='palcikia-crypto/quantum_lab', API='https://api.github.com/repos/'+REPO;
 function RAW(p,b){return 'https://raw.githubusercontent.com/'+REPO+'/'+b+'/'+p+'?t='+Date.now();}
-var API='https://api.github.com/repos/'+REPO;
-var WORKER_ON=false, LAST_TRADE_ID=0, LAST_FETCH=0;
-function esc(s){return String(s==null?'-':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-function fmtV(x){if(x==null||isNaN(x))return '-';return (x>=0?'+':'')+Number(x).toFixed(2)+'$';}
-function fmtD(ts){if(!ts)return '-';var d=new Date(ts*1000);if(isNaN(d))return '-';return d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
-function fmtP(x){if(x==null||isNaN(x))return '-';return Number(x).toLocaleString('ru-RU',{maximumFractionDigits:6});}
-async function tryF(urls){for(var i=0;i<urls.length;i++){try{var r=await fetch(urls[i]);if(r.ok)return await r.text();}catch(e){}}return null;}
-async function j(urls){var t=await tryF(urls);if(!t)return null;try{return JSON.parse(t);}catch(e){return null;}}
+var ON=false, LASTID=0, LASTTS=0, LOGTXT='';
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fv(x){if(x==null||isNaN(x))return '—';return (x>=0?'+':'')+Number(x).toFixed(2)+' $';}
+function fp(x){if(x==null||isNaN(x))return '—';return Number(x).toLocaleString('ru-RU',{maximumFractionDigits:6});}
+function fd(ts){if(!ts)return '';var d=new Date(ts*1000);return isNaN(d)?'':d.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+function ft(ts){if(!ts)return '';var d=new Date(ts*1000);return isNaN(d)?'':d.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function money(x){return (x>=0?'+':'')+Math.abs(x).toFixed(2)+' $';}
+async function txt(urls){for(var i=0;i<urls.length;i++){try{var r=await fetch(urls[i]);if(r.ok)return await r.text();}catch(e){}}return null;}
+async function jj(urls){var t=await txt(urls);if(!t)return null;try{return JSON.parse(t);}catch(e){return null;}}
 
-/* tabs: верхние + нижние кнопки синхронно */
-function goTab(id){
-  document.querySelectorAll('nav button').forEach(function(x){x.classList.toggle('on',x.dataset.t===id);});
-  document.querySelectorAll('.section').forEach(function(x){x.classList.toggle('on',x.id===id);});
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-document.querySelectorAll('nav button').forEach(function(b){b.onclick=function(){goTab(b.dataset.t);};});
-
-/* ---- нейро-фон ---- */
-(function(){
-  var c=document.getElementById('net'),x=c.getContext('2d'),pts=[],N=innerWidth<760?26:55;
-  function rs(){c.width=innerWidth;c.height=innerHeight;}
-  rs();addEventListener('resize',rs);
-  for(var i=0;i<N;i++)pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.6+.6});
-  var match=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  (function tick(){
-    x.clearRect(0,0,c.width,c.height);
-    for(var i=0;i<pts.length;i++){
-      var p=pts[i];p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;
-      x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle='rgba(148,163,255,.5)';x.fill();
-      for(var k=i+1;k<pts.length;k++){
-        var q=pts[k],dx=p.x-q.x,dy=p.y-q.y,d=dx*dx+dy*dy;
-        if(d<13000){x.beginPath();x.moveTo(p.x,p.y);x.lineTo(q.x,q.y);x.strokeStyle='rgba(99,102,241,'+(0.09*(1-d/13000))+')';x.stroke();}
-      }
-    }
-    if(!match)requestAnimationFrame(tick);
-  })();
-})();
-
-function setStatus(cls,txt){var d=document.getElementById('dot');d.className='dot '+(cls||'');document.getElementById('status').textContent=txt;}
-
-/* ---- тикер "обновлено X назад" ---- */
+document.querySelectorAll('.tab,.bnav button').forEach(function(b){
+  b.onclick=function(){
+    document.querySelectorAll('.tab,.bnav button').forEach(function(x){x.classList.toggle('on',x.dataset.v===b.dataset.v);});
+    document.querySelectorAll('.view').forEach(function(x){x.classList.toggle('on',x.id===b.dataset.v);});
+    window.scrollTo({top:0});
+  };
+});
 setInterval(function(){
-  if(LAST_FETCH){var s=Math.round((Date.now()-LAST_FETCH)/1000);document.getElementById('ago').textContent='обновлено '+s+' с назад';}
+  if(LASTTS){var s=Math.round((Date.now()-LASTTS)/1000);document.getElementById('ago').textContent='обновлено '+s+' с назад';}
 },1000);
 
+/* ============ СТАТУС ============ */
 async function loadStatus(){
-  var w=await j([API+'/actions/workflows/persistent_worker.yml/runs?per_page=1']);
+  var w=await jj([API+'/actions/workflows/persistent_worker.yml/runs?per_page=1']);
   var r=w&&w.workflow_runs&&w.workflow_runs[0];
-  if(!r){setStatus('err','воркер не найден');return;}
-  var mins=Math.round((Date.now()-new Date(r.created_at).getTime())/60000);
-  if(r.status==='in_progress'){
-    WORKER_ON=true;setStatus('ok','торгует · '+mins+' мин');
-    document.getElementById('k-now').innerHTML='<span class="pos glowpos">● Экосистема жива</span>';
-    document.getElementById('k-now-s').textContent='агент торгует '+mins+' мин · сбор данных OKX активен';
-  }else{
-    WORKER_ON=false;
-    if(r.conclusion==='failure'){setStatus('err','воркер упал');document.getElementById('k-now').textContent='⚠️ Сбой';document.getElementById('k-now-s').textContent='последний прогон упал '+mins+' мин назад · авто-перезапуск сработает';}
-    else{setStatus('','в спящем режиме');document.getElementById('k-now').textContent='⏸ Ожидает';document.getElementById('k-now-s').textContent='остановлен '+mins+' мин назад · проснётся по расписанию';}
+  var led=document.getElementById('led'),st=document.getElementById('st');
+  if(!r){led.className='led err';st.textContent='воркер не найден';return;}
+  var min=Math.round((Date.now()-new Date(r.created_at).getTime())/60000);
+  if(r.status==='in_progress'){ON=true;led.className='led on';st.textContent='торгует · '+min+' мин';}
+  else if(r.conclusion==='failure'){ON=false;led.className='led err';st.textContent='сбой воркера';}
+  else{ON=false;led.className='led off';st.textContent='пауза';}
+}
+
+/* ============ ГЕРОЙ ============ */
+function setHero(pnl,n,wr,open,l1,gold){
+  var h=document.getElementById('hp');
+  if(pnl==null){h.textContent='скоро';h.className='big nul';document.getElementById('hs').textContent='бот открыл первую сделку — прибыль появится после её закрытия';}
+  else{h.textContent=fv(pnl);h.className='big '+(pnl>0?'pos':(pnl<0?'neg':'nul'));
+       document.getElementById('hs').textContent='чистая прибыль агента по закрытым сделкам';}
+  document.getElementById('s1').textContent=n!=null?n:'—';
+  document.getElementById('s2').textContent=wr!=null?wr+'%':'—';
+  document.getElementById('s3').textContent=open!=null?open:'—';
+  document.getElementById('s4').textContent=l1!=null?l1:'—';
+  document.getElementById('s5').textContent=gold||'—';
+}
+
+/* ============ GOLDEN / БЭКТЕСТ / ЭВОЛЮЦИЯ ============ */
+async function loadEvoData(){
+  var g=await jj([RAW('GOLDEN_AI.json','master')]);
+  if(g){
+    document.getElementById('plg').textContent=g.indicator||'—';
+    document.getElementById('plgd').textContent='итерация '+g.iter+' · PnL '+fv(g.pnl);
+    document.getElementById('s5').textContent=g.indicator||'—';
+    if(g.full_code)document.getElementById('gcode').textContent=g.full_code;
+  }
+  var e=await jj([RAW('data/evolution.json','master')]);
+  if(e){
+    document.getElementById('pl1').textContent=e.L1!=null?e.L1:'—';
+    document.getElementById('pl2').textContent=e.L2!=null?e.L2:'—';
+    document.getElementById('pl3').textContent=e.L3!=null?e.L3:'—';
+    document.getElementById('s4').textContent=e.L1!=null?e.L1:'—';
+    if(e.top){
+      var rows=e.top.map(function(s,i){
+        return '<tr><td style="color:var(--dim2)">'+(i+1)+'</td><td><b>'+esc(s.symbol)+'</b></td>'+
+          '<td><span class="b b-b">'+esc(s.strategy)+'</span></td><td>'+esc(s.wr)+'%</td><td>'+esc(s.n)+'</td>'+
+          '<td class="'+(s.expectancy>=0?'pos':'neg')+' w700">'+(s.expectancy*100).toFixed(3)+'%</td></tr>';
+      }).join('');
+      document.getElementById('evo').innerHTML='<thead><tr><th>#</th><th>Пара</th><th>Стратегия</th><th>WR</th><th>Сделок</th><th>Мат. ожид.</th></tr></thead><tbody>'+rows+'</tbody>';
+    }
+  }
+  var a=await jj([RAW('data/active_strategies.json','master')]);
+  if(a&&a.pairs){
+    var tr=0;
+    var rows=Object.values(a.pairs).map(function(p){
+      if(p.trade)tr++;
+      return '<tr><td><b>'+esc(p.symbol)+'</b></td><td><span class="b b-b">'+esc(p.strategy)+'</span></td><td>'+esc(p.tf)+'</td>'+
+        '<td>'+esc(p.wr)+'%</td><td>'+esc(p.n)+'</td><td><span class="b '+(p.trade?'b-g':'b-d')+'">'+(p.trade?'ТОРГУЕТ':'ПАУЗА')+'</span></td></tr>';
+    }).join('');
+    document.getElementById('act').innerHTML='<thead><tr><th>Пара</th><th>Стратегия</th><th>ТФ</th><th>WR</th><th>Сделок</th><th>Режим</th></tr></thead><tbody>'+rows+'</tbody>';
+  }
+  var b=await jj([RAW('data/golden_bt_week.json','master')]);
+  if(b){
+    document.getElementById('btp').textContent=esc(b.period||'')+' · '+esc(b.total_trades)+' сделок · '+fv(b.total_pnl);
+    if(b.results){
+      var data=b.results.map(function(r){return {k:r.pair||r.symbol||'—',p:(r.pnl!=null?r.pnl:(r.total_pnl||0))};});
+      var mx=Math.max.apply(null,data.map(function(x){return Math.abs(x.p);}))||1;
+      document.getElementById('bchart').innerHTML=data.map(function(x){
+        var h=Math.max(4,Math.abs(x.p)/mx*70);
+        return '<div class="bar"><span class="v '+(x.p>=0?'pos':'neg')+'">'+money(x.p)+'</span>'+
+          '<div class="c'+(x.p<0?' neg':'')+'" style="height:'+h+'%"></div><span class="l">'+esc(x.k)+'</span></div>';
+      }).join('');
+    }
+  }
+  var m=await jj([RAW('data/live_monitor.json','master')]);
+  if(m&&m.results){
+    var rows=m.results.slice(0,14).map(function(r){
+      var s=r.status==='QUARANTINE'?'b-r':(r.status==='GOLDEN'?'b-o':'b-g');
+      return '<tr><td><b>'+esc(r.symbol)+'</b> <span style="color:var(--dim2);font-size:11px">'+esc(r.strategy)+'</span></td>'+
+        '<td>'+esc(r.backtest_wr)+'%</td><td>'+esc(r.live_wr)+'%</td>'+
+        '<td class="'+(r.delta>=0?'pos':'neg')+' w700">'+(r.delta>=0?'+':'')+esc(r.delta)+'</td>'+
+        '<td class="'+(r.pnl>=0?'pos':'neg')+' w700">'+fv(r.pnl)+'</td><td><span class="b '+s+'">'+esc(r.status)+'</span></td></tr>';
+    }).join('');
+    document.getElementById('mon').innerHTML='<thead><tr><th>Пара / стратегия</th><th>Бэктест</th><th>Live</th><th>Δ WR</th><th>PnL</th><th>Вердикт</th></tr></thead><tbody>'+rows+'</tbody>';
   }
 }
 
-async function loadGolden(){
-  var g=await j([RAW('GOLDEN_AI.json','master')]);
-  if(!g)return;
-  document.getElementById('k-gold').textContent=esc(g.indicator||'—');
-  document.getElementById('k-gold-s').textContent='итерация '+esc(g.iter)+' · бэктест PnL '+fmtV(g.pnl);
-  document.getElementById('p-gold').textContent=esc(g.indicator||'—');
-  document.getElementById('p-gold-d').textContent='итерация '+esc(g.iter)+' · PnL '+fmtV(g.pnl);
-  if(g.full_code)document.getElementById('gold-code').textContent=g.full_code;
-}
-
-async function loadBt(){
-  var g=await j([RAW('data/golden_bt_week.json','master')]);
-  if(!g)return;
-  document.getElementById('k-bt').textContent=fmtV(g.total_pnl);
-  document.getElementById('k-bt').className='v '+((g.total_pnl||0)>=0?'pos glowpos':'neg glowneg');
-  document.getElementById('k-bt-s').textContent=esc(g.period||'')+' · '+esc(g.total_trades)+' сделок';
-}
-
-async function loadEvo(){
-  var e=await j([RAW('data/evolution.json','master')]);
-  if(!e)return;
-  document.getElementById('p-l1').textContent=esc(e.L1||0);
-  document.getElementById('p-l2').textContent=esc(e.L2||0);
-  document.getElementById('p-l3').textContent=esc(e.L3||0);
-  var rows=(e.top||[]).map(function(s,i){
-    return '<tr><td style="color:var(--dim)">'+(i+1)+'</td><td><b>'+esc(s.symbol)+'</b></td><td><span class="badge b-accent">'+esc(s.strategy)+'</span></td>'+
-      '<td>'+esc(s.wr)+'%</td><td>'+esc(s.n)+'</td><td class="'+(s.expectancy>=0?'pos':'neg')+'" style="font-weight:700">'+(s.expectancy*100).toFixed(3)+'%</td></tr>';
+/* ============ СДЕЛКИ ============ */
+function renderAgg(el,head,obj){
+  var keys=Object.keys(obj||{});
+  if(!keys.length){document.getElementById(el).innerHTML='<tbody><tr><td class="empty">пока нет данных</td></tr></tbody>';return;}
+  var arr=keys.map(function(k){return[k,obj[k]];});
+  arr.sort(function(a,b){return(b[1].pnl||0)-(a[1].pnl||0);});
+  var rows=arr.map(function(x){
+    return '<tr><td class="w700">'+esc(x[0])+'</td><td>'+x[1].trades+'</td><td>'+x[1].wr+'%</td>'+
+      '<td class="'+(x[1].pnl>=0?'pos':'neg')+' w700">'+fv(x[1].pnl)+'</td></tr>';
   }).join('');
-  document.getElementById('evo-t').innerHTML='<thead><tr><th>#</th><th>Пара</th><th>Стратегия</th><th>WR</th><th>Сделок</th><th>Мат.ожид.</th></tr></thead><tbody>'+rows+'</tbody>';
+  document.getElementById(el).innerHTML='<thead><tr><th>'+head+'</th><th>Сделок</th><th>WR</th><th>PnL</th></tr></thead><tbody>'+rows+'</tbody>';
 }
 
-async function loadActive(){
-  var a=await j([RAW('data/active_strategies.json','master')]);
-  if(!a||!a.pairs)return;
-  var rows=Object.values(a.pairs).map(function(p){
-    return '<tr><td><b>'+esc(p.symbol)+'</b></td><td><span class="badge b-accent">'+esc(p.strategy)+'</span></td><td>'+esc(p.tf)+'</td>'+
-      '<td>'+esc(p.wr)+'%</td><td>'+esc(p.n)+'</td><td><span class="badge '+(p.trade?'b-green':'b-dim')+'">'+(p.trade?'ТОРГУЕТ':'пауза')+'</span></td></tr>';
-  }).join('');
-  document.getElementById('act-t').innerHTML='<thead><tr><th>Пара</th><th>Стратегия</th><th>ТФ</th><th>WR</th><th>Сделок</th><th>Статус</th></tr></thead><tbody>'+rows+'</tbody>';
-}
-
-async function loadMonitor(){
-  var m=await j([RAW('data/live_monitor.json','master')]);
-  if(!m||!m.results)return;
-  var rows=m.results.map(function(r){
-    var st=r.status==='QUARANTINE'?'b-red':(r.status==='waiting'?'b-amber':'b-green');
-    return '<tr><td><b>'+esc(r.symbol)+'</b> <span style="color:var(--dim);font-size:11px">'+esc(r.strategy)+'</span></td>'+
-      '<td>'+esc(r.backtest_wr)+'%</td><td>'+esc(r.live_wr)+'%</td>'+
-      '<td class="'+(r.delta>=0?'pos':'neg')+'">'+(r.delta>=0?'+':'')+esc(r.delta)+'</td>'+
-      '<td class="'+(r.pnl>=0?'pos':'neg')+'" style="font-weight:700">'+fmtV(r.pnl)+'</td>'+
-      '<td><span class="badge '+st+'">'+esc(r.status)+'</span></td></tr>';
-  }).join('');
-  document.getElementById('mon-t').innerHTML='<thead><tr><th>Пара / стратегия</th><th>Бэктест WR</th><th>Live WR</th><th>Δ</th><th>PnL</th><th>Статус</th></tr></thead><tbody>'+rows+'</tbody>';
-}
-
-async function loadChart(){
-  var files=[];
-  try{
-    var r=await fetch(API+'/contents/reports');
-    files=(await r.json()).filter(function(f){return f.name.indexOf('daily_')===0;}).map(function(f){return f.name;}).sort().slice(-7);
-  }catch(e){}
-  var data=[];
-  for(var i=0;i<files.length;i++){
-    var t=await tryF([RAW('reports/'+files[i],'master')]);
-    if(!t)continue;
-    var re=/- (S+): (d+) сделок?, PnL=$?(-?[d.]+)/g,m,bot=0,total=0;
-    while((m=re.exec(t))!==null){bot++;total+=parseFloat(m[3]);}
-    data.push({d:files[i].replace('daily_','').replace('.md',''),t:total,b:bot});
+function parseLogTrades(t){
+  var out=[],lines=t.split('\n');
+  for(var i=lines.length-1;i>=0&&out.length<60;i--){
+    var L=lines[i],m;
+    var tm=(L.match(/\[(\d{2}:\d{2}:\d{2})\]/)||[])[1]||'';
+    if(L.indexOf('OPEN ')>-1&&(m=L.match(/OPEN (\S+) (SHORT|LONG) @ ([\d.]+) OBI=(-?[\d.]+)/))){
+      out.push({t:tm,sym:m[1].replace('-USDT','USDT'),side:m[2],px:m[3],open:true,obi:m[4]});
+    }else if(L.indexOf('CLOSED')>-1&&(m=L.match(/CLOSED (\S+) (\S+).*?([+-])\$(\d+\.\d+)/))){
+      out.push({t:tm,sym:m[1].replace('-USDT','USDT'),side:m[2],pnl:(m[3]==='-'?-1:1)*parseFloat(m[4]),open:false});
+    }
   }
-  var el=document.getElementById('chart');
-  if(!data.length){el.innerHTML='<p style="color:var(--dim);font-size:13px">Отчёты появятся после первого дневного цикла</p>';return;}
-  var mx=Math.max.apply(null,data.map(function(x){return Math.abs(x.t);}))||1;
-  el.innerHTML=data.map(function(x){
-    var h=Math.max(4,Math.abs(x.t)/mx*78);
-    return '<div class="bar" title="'+x.b+' агентов, '+fmtV(x.t)+'">'+
-      '<span class="val '+(x.t>=0?'pos':'neg')+'">'+fmtV(x.t)+'</span>'+
-      '<div class="col'+(x.t<0?' neg':'')+'" style="height:'+h+'%"></div>'+
-      '<span class="lbl">'+x.d+'</span></div>';
-  }).join('');
-}
-
-function aggRows(obj){
-  var arr=Object.keys(obj||{}).map(function(k){return {k:k,a:obj[k]};});
-  arr.sort(function(x,y){return (y.a.pnl||0)-(x.a.pnl||0);});
-  return arr.map(function(x){
-    return '<tr><td style="font-weight:700">'+esc(x.k)+'</td><td>'+esc(x.a.trades)+'</td>'+
-      '<td>'+(x.a.wr!=null?esc(x.a.wr)+'%':'-')+'</td>'+
-      '<td class="'+((x.a.pnl||0)>=0?'pos':'neg')+'" style="font-weight:700">'+fmtV(x.a.pnl)+'</td></tr>';
-  }).join('');
+  return out;
 }
 
 async function loadTrades(){
-  var w=await j([RAW('data/web_dashboard.json','master'),RAW('data/web_dashboard.json','logs')]);
-  var t=document.getElementById('tr-t').querySelector('tbody');
-  if(!w||!w.trades||!w.trades.length){
-    if(WORKER_ON){
-      document.getElementById('tr-src').textContent='ждём сигнал';
-      t.innerHTML='<tr><td colspan="7" class="empty"><span class="big">🛰️</span><b>Экосистема жива и сканирует рынок.</b><br>'+
-        'Каждые 3 секунды агент читает стакан OKX. Сделка откроется сама, как только<br>дисбаланс ордеров (OBI) пробьёт порог. Она появится здесь в течение минуты.<br>Поток мыслей агента — в блоке ниже.</td></tr>';
-    }else{
-      document.getElementById('tr-src').textContent='агент спит';
-      t.innerHTML='<tr><td colspan="7" class="empty"><span class="big">💤</span><b>Торговый агент сейчас не работает.</b><br>'+
-        'Запуск: <b>Actions → Persistent Hot-Reload Worker → Run workflow</b> — далее он живёт и перезапускается сам.</td></tr>';
-    }
-    ['t-pnl','t-wr','t-open','t-dim'].forEach(function(id){document.getElementById(id).textContent='—';});
-    document.getElementById('t-n').textContent='—';document.getElementById('t-upd').textContent='—';
-    document.getElementById('sym-t').innerHTML='';document.getElementById('strat-t').innerHTML='';
+  var w=await jj([RAW('data/web_dashboard.json','master')]);
+  var feed=document.getElementById('feed');
+  if(w&&w.trades&&w.trades.length){
+    document.getElementById('fsrc').textContent='SQLite · live экспорт каждые 45 с';
+    var T=w.totals||{};
+    setHero(T.pnl,T.trades,T.wr,T.open,null,null);
+    renderAgg('bysym','Монета',w.by_symbol);
+    renderAgg('bystr','Стратегия',w.by_strategy);
+    var top=(w.trades[0]&&w.trades[0].id)||0, fresh=LASTID&&top>LASTID;
+    LASTID=Math.max(LASTID,top);
+    var rows=w.trades.slice(0,50).map(function(r,i){
+      var open=String(r.status||'').toUpperCase()==='OPEN';
+      var isNew=fresh&&i===0;
+      var pl=open?'<span class="b b-o">в рынке</span>':'<span class="'+(r.pnl>=0?'pos':'neg')+'">'+fv(r.pnl)+'</span>';
+      var st=(open?'открыт '+fd(r.entry_ts):'закрыт '+fd(r.exit_ts))+' · '+esc(r.strategy||'—')+' · вход '+fp(r.entry_price)+(open?'':' → '+fp(r.exit_price));
+      return '<div class="tr'+(isNew?' fx':'')+'"><span class="tm">'+(isNew?'<span class="new">NEW</span>':'')+esc(open?ft(r.entry_ts):ft(r.exit_ts))+'</span>'+
+        '<div><div class="sy">'+esc(r.symbol)+' <span class="b '+(r.side==='LONG'?'b-g':'b-r')+'">'+esc(r.side)+'</span></div><div class="st">'+st+'</div></div>'+pl+'</div>';
+    }).join('');
+    feed.innerHTML=rows;
     return;
   }
-  var T=w.totals||{};
-  var pnlEl=document.getElementById('t-pnl');
-  pnlEl.textContent=fmtV(T.pnl);
-  pnlEl.className='v '+((T.pnl||0)>=0?'pos glowpos':'neg glowneg');
-  document.getElementById('t-n').textContent=(T.trades||0)+' закрытых сделок';
-  document.getElementById('t-wr').textContent=(T.wr!=null?T.wr+'%':'—');
-  document.getElementById('t-open').textContent=T.open!=null?T.open:'—';
-  document.getElementById('t-dim').textContent=(Object.keys(w.by_symbol||{}).length)+' / '+(Object.keys(w.by_strategy||{}).length);
-  document.getElementById('t-upd').textContent=w.updated_at?('данные: '+fmtD(w.updated_at)):'—';
-  document.getElementById('sym-t').innerHTML='<thead><tr><th>Монета</th><th>Сделок</th><th>WR</th><th>PnL</th></tr></thead><tbody>'+aggRows(w.by_symbol)+'</tbody>';
-  document.getElementById('strat-t').innerHTML='<thead><tr><th>Стратегия</th><th>Сделок</th><th>WR</th><th>PnL</th></tr></thead><tbody>'+aggRows(w.by_strategy)+'</tbody>';
-  var k=document.getElementById('k-live');
-  k.textContent=fmtV(T.pnl);k.className='v '+((T.pnl||0)>=0?'pos glowpos':'neg glowneg');
-  document.getElementById('k-live-s').textContent=(T.trades||0)+' сделок · WR '+(T.wr!=null?T.wr+'%':'-');
-  var top=(w.trades[0]&&w.trades[0].id)||0, fresh=LAST_TRADE_ID&&top>LAST_TRADE_ID;
-  LAST_TRADE_ID=Math.max(LAST_TRADE_ID,top);
-  var rows=w.trades.slice(0,60).map(function(r,i){
-    var open=String(r.status||'').toUpperCase()==='OPEN';
-    var isNew=fresh&&i===0;
-    var pnl=open?'<span class="badge b-amber">в позиции</span>':'<span class="'+((r.pnl||0)>=0?'pos':'neg')+'" style="font-weight:800">'+fmtV(r.pnl)+'</span>';
-    var side='<span class="badge '+(r.side==='LONG'?'b-green':'b-red')+'">'+esc(r.side||'-')+'</span>';
-    var pr=fmtP(r.entry_price)+' → '+(open?'<span style="color:var(--amber)">в рынке…</span>':fmtP(r.exit_price));
-    return '<tr'+(isNew?' class="flash"':'')+'><td style="white-space:nowrap">'+(isNew?'<span class="badge new">NEW</span> ':'')+esc(fmtD(r.exit_ts||r.entry_ts))+'</td>'+
-      '<td><b>'+esc(r.symbol)+'</b></td><td><span class="badge b-accent">'+esc(r.strategy)+'</span></td>'+
-      '<td>'+side+'</td><td style="white-space:nowrap">'+pr+'</td>'+
-      '<td><span class="badge '+(open?'b-amber':'b-dim')+'">'+esc(r.status)+'</span></td><td>'+pnl+'</td></tr>';
-  }).join('');
-  t.innerHTML=rows;
+  /* фолбэк: парсим live.log */
+  if(LOGTXT){
+    document.getElementById('fsrc').textContent='live.log · до первого экспорта';
+    var tr=parseLogTrades(LOGTXT);
+    if(tr.length){
+      var rows=tr.map(function(r,i){
+        var pl=r.open?'<span class="b b-o">открыта</span>':'<span class="'+(r.pnl>=0?'pos':'neg')+'">'+fv(r.pnl)+'</span>';
+        var st=r.open?('SHORT по сигналу OBI '+esc(r.obi)+' · вход '+esc(r.px)):'сделка закрыта';
+        return '<div class="tr'+(i===0?' fx':'')+'"><span class="tm">'+esc(r.t)+'</span>'+
+          '<div><div class="sy">'+esc(r.sym)+' <span class="b '+(r.side==='LONG'?'b-g':'b-r')+'">'+esc(r.side)+'</span></div><div class="st">'+st+'</div></div>'+pl+'</div>';
+      }).join('');
+      feed.innerHTML=rows;
+      var closed=tr.filter(function(r){return !r.open;});
+      var sum=0;closed.forEach(function(r){sum+=r.pnl;});
+      setHero(closed.length?sum:null,tr.length,null,tr.filter(function(r){return r.open;}).length,null,null);
+      renderAgg('bysym','Монета',{});renderAgg('bystr','Стратегия',{});
+      return;
+    }
+  }
+  if(ON){
+    feed.innerHTML='<div class="empty"><span class="e">🛰️</span><b>Экосистема сканирует рынок.</b><br>Каждые 3 секунды агент читает стакан OKX и ищет дисбаланс (OBI).<br>Первая сделка уже открыта — ждём закрытия и экспорта в панель.</div>';
+  }else{
+    feed.innerHTML='<div class="empty"><span class="e">💤</span><b>Агент не работает.</b><br>Запуск: <b>GitHub → Actions → Persistent Hot-Reload Worker → Run workflow</b>.<br>Воркер перезапускается сам и живёт бесконечно.</div>';
+  }
+  setHero(null,null,null,null,null,null);
 }
 
-async function loadLog(){
-  var t=await tryF([RAW('live.log','logs'),RAW('bot_output.log','master'),RAW('bot_output.log','logs')]);
-  var el=document.getElementById('term'),mini=document.getElementById('mini');
-  if(t){
-    el.textContent=t.slice(-12000);el.scrollTop=el.scrollHeight;
-    var lines=t.trim().split('
-');
-    mini.textContent=lines.slice(-14).join('
-');mini.scrollTop=mini.scrollHeight;
-    document.getElementById('log-src').textContent='live-поток';
-  }else{
-    el.textContent='Живой поток появится после запуска воркера (Persistent Hot-Reload Worker).';
-    mini.textContent='Поток сознания агента появится здесь после запуска.';
-    document.getElementById('log-src').textContent='нет файла';
-  }
+/* ============ ЛОГИ ============ */
+async function loadLogs(){
+  var t=await txt([RAW('live.log','logs'),RAW('bot_output.log','master')]);
+  if(!t){document.getElementById('term').textContent='Лог появится после запуска воркера.';document.getElementById('lsrc').textContent='нет файла';return;}
+  LOGTXT=t;
+  var term=document.getElementById('term');
+  term.textContent=t.slice(-14000);term.scrollTop=term.scrollHeight;
+  var mini=document.getElementById('mini');
+  mini.textContent=t.trim().split('\n').slice(-12).join('\n');mini.scrollTop=mini.scrollHeight;
+  document.getElementById('lsrc').textContent='live-поток · '+(t.length>14000?'последние 14 КБ':'полностью');
 }
 
 async function refresh(){
   await loadStatus();
-  await Promise.all([loadGolden(),loadBt(),loadEvo(),loadActive(),loadMonitor(),loadChart(),loadTrades(),loadLog()]);
-  LAST_FETCH=Date.now();
+  await loadEvoData();
+  await loadLogs();
+  await loadTrades();
+  LASTTS=Date.now();
 }
 refresh();
 setInterval(refresh,60000);
