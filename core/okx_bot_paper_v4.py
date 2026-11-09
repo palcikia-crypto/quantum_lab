@@ -161,6 +161,8 @@ def open_new_trades():
     c.commit(); c.close()
 
 def main():
+    os.makedirs(os.path.join(BASE, 'logs'), exist_ok=True)
+    os.makedirs(os.path.join(BASE, 'data'), exist_ok=True)
     init_db()
     # Экспорт сделок в реальном времени для веб-панели
     try:
