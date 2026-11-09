@@ -21,3 +21,4 @@ Traceback (most recent call last):
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_paper_v4.py", line 45, in log
     with open(LOG, 'a') as f: f.write(line+'\n')
          ^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_lab/logs/okx_bot_paper_v4.log'
