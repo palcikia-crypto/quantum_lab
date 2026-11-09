@@ -243,6 +243,10 @@ footer a{color:var(--blue);text-decoration:none;font-weight:600}
   <div class="card"><h2>Геном чемпиона <span class="b b-o">GOLDEN_AI</span></h2>
     <details><summary>Показать код стратегии</summary><pre id="gcode">…</pre></details>
   </div>
+  <div class="card"><h2>Валидация стратегий v5 <span class="r">без подгонок · два окна по 7 дней</span></h2>
+    <div class="tw"><table id="btv5"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+    <div id="btv5v" style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.6"></div>
+  </div>
 </section>
 
 <!-- СДЕЛКИ -->
@@ -470,9 +474,31 @@ async function loadLogs(){
   document.getElementById('lsrc').textContent='live-поток · '+(t.length>14000?'последние 14 КБ':'полностью');
 }
 
+async function loadBacktest5(){
+  var r=await jj([RAW('data/backtest_report.json','master')]);
+  var t=document.getElementById('btv5'),v=document.getElementById('btv5v');
+  if(!r||!r.strategies){t.innerHTML='<tbody><tr><td class="empty">отчёт появится после первого прогона валидации в воркере</td></tr></tbody>';return;}
+  var h2='<thead><tr><th>Стратегия</th><th>Окно</th><th>Сделок</th><th>WR</th><th>PnL %</th><th>PF</th></tr></thead><tbody>';
+  Object.keys(r.strategies).forEach(function(s){
+    ['w7','w_prev'].forEach(function(w){
+      var d=r.strategies[s][w];
+      if(!d||!d.n)return;
+      h2+='<tr><td><span class="b b-b">'+esc(s)+'</span></td><td>'+(w==='w7'?'последние 7 дней':'прошлые 7 дней')+'</td><td>'+d.n+'</td><td>'+d.wr+'%</td><td class="'+(d.pnl>=0?'pos':'neg')+' w700">'+d.pnl+'</td><td>'+d.pf+'</td></tr>';
+    });
+  });
+  t.innerHTML=h2+'</tbody>';
+  var parts=[];
+  Object.keys(r.strategies).forEach(function(s){
+    var vc=r.strategies[s].verdict;
+    parts.push('<span class="b '+(vc==='ROBUST'?'b-g':(vc==='TEST'?'b-o':'b-r'))+'">'+esc(s)+' · '+vc+'</span>');
+  });
+  v.innerHTML='Вердикты (PnL>0 и PF>1.05 в обоих окнах): '+parts.join(' ')+'. Издержки 0.24%/круг, вход по open следующего бара, параметры фиксированы.';
+}
+
 async function refresh(){
   await loadStatus();
   await loadEvoData();
+  await loadBacktest5();
   await loadLogs();
   await loadTrades();
   LASTTS=Date.now();
