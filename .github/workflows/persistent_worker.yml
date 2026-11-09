@@ -36,7 +36,7 @@ jobs:
           git checkout -b logs || git checkout logs
           git push origin logs 2>/dev/null || true
           
-          tar -xzf code.tar.gz >/dev/null 2>&1 || true
+          # code.tar.gz больше НЕ распаковываем — он затирал свежий код из git
           rm -rf /home/runner/quantum_lab_sandbox /home/runner/quantum_lab || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
