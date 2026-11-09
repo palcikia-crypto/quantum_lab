@@ -2,3 +2,4 @@
 [22:09:57] === OKX SCALPER v4 STARTED (OBI SHORT) ===
 Traceback (most recent call last):
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_paper_v4.py", line 175, in <module>
+    main()
