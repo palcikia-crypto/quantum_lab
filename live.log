@@ -25,3 +25,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 🔴 Бот завершил работу
 🟢 Воркер стартовал: core/okx_bot_paper_v4.py
 🟢 Запускаю сборщик рыночных данных OKX
+🟢 Сборщик: [22:12:56]   ✅ XRP-USDT: OBI=0.164 bid=1.0955 ask=1.0956
