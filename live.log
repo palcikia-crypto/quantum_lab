@@ -27,3 +27,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [22:12:56]   ✅ XRP-USDT: OBI=0.164 bid=1.0955 ask=1.0956
 [22:13:06] === OKX SCALPER v4 STARTED (OBI SHORT) ===
+[22:13:36]   🎯 OPEN BTC-USDT SHORT @ 75046.2000 OBI=-0.868 TP=0.15% SL=0.07%
