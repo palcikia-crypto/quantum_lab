@@ -11,3 +11,4 @@ Traceback (most recent call last):
 FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_lab/logs/okx_bot_paper_v4.log'
 🔴 Бот завершил работу
 🟢 Воркер стартовал: core/okx_bot_paper_v4.py
+🟢 Запускаю сборщик рыночных данных OKX
