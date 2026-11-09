@@ -8,6 +8,10 @@ on:
   schedule:
     - cron: '7 */6 * * *'
 
+concurrency:
+  group: trading-worker
+  cancel-in-progress: true
+
 jobs:
   run-worker:
     runs-on: ubuntu-latest
@@ -75,12 +79,16 @@ jobs:
           # Даем сборщику наполнить базу
           sleep 10
           
+          push_log "🟢 Сборщик: $(tail -1 logs/okx_feed_stdout.log 2>/dev/null || echo запущен)"
+          
           python -u $SCRIPT_NAME 2>&1 | while IFS= read -r line; do
             echo "$line"
             push_log "$line"
           done
           
           kill $(cat /tmp/feed.pid) 2>/dev/null || true
+          push_log "— последние строки сборщика —"
+          tail -n 3 logs/okx_feed_stdout.log 2>/dev/null | while IFS= read -r line; do push_log "$line"; done
           push_log "🔴 Бот завершил работу"
       - name: Self-restart (бесконечный цикл)
         if: always()
