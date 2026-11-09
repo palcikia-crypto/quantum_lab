@@ -58,3 +58,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 🟢 Воркер стартовал: core/okx_bot_paper_v4.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [22:24:04]   ✅ XRP-USDT: OBI=-0.083 bid=1.0944 ask=1.0945
+[22:24:14] === OKX SCALPER v4 STARTED (OBI SHORT) ===
