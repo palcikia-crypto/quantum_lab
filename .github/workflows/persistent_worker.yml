@@ -5,6 +5,9 @@ on:
       script_name:
         required: true
         default: 'core/okx_bot_paper_v4.py'
+  schedule:
+    # Страховочный перезапуск каждые 6 часов (если цепочка само-перезапусков прервётся)
+    - cron: '7 */6 * * *'
 
 jobs:
   run-worker:
@@ -12,6 +15,7 @@ jobs:
     timeout-minutes: 350
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +27,7 @@ jobs:
         run: pip install pandas numpy ccxt ta python-dotenv requests llmf
       - name: Run Worker with API logging
         env:
-          SCRIPT_NAME: ${{ inputs.script_name }}
+          SCRIPT_NAME: ${{ inputs.script_name || 'core/okx_bot_paper_v4.py' }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Создаем ветку logs, если её нет
@@ -41,7 +45,7 @@ jobs:
           push_log() {
             local LINE="$1"
             local B64=$(echo -n "$LINE" | base64 -w0)
-            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \\
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
             
             local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
@@ -50,9 +54,9 @@ jobs:
             fi
             JSON="$JSON}"
             
-            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d "$JSON" \
+            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \\
+              -H "Content-Type: application/json" \\
+              -d "$JSON" \\
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log" > /dev/null
           }
           
@@ -64,3 +68,27 @@ jobs:
           done
           
           push_log "🔴 Бот завершил работу"
+      - name: Self-restart (бесконечный цикл)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          push_log() {
+            local LINE="$1"
+            local B64=$(echo -n "$LINE" | base64 -w0)
+            local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \\
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
+            local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
+            if [ -n "$SHA" ]; then JSON="$JSON, \"sha\": \"$SHA\""; fi
+            JSON="$JSON}"
+            curl -s -X PUT -H "Authorization: Bearer $GH_TOKEN" \\
+              -H "Content-Type: application/json" \\
+              -d "$JSON" \\
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log" > /dev/null
+          }
+          push_log "♻️ Перезапускаю воркер (бесконечный цикл)"
+          sleep 30
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" \\
+            -H "Accept: application/vnd.github+json" \\
+            https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/dispatches \\
+            -d '{"ref":"master","inputs":{"script_name":"core/okx_bot_paper_v4.py"}}' || true
