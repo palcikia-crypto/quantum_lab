@@ -1,4 +1,3 @@
-    log('=== OKX SCALPER v4 STARTED (OBI SHORT) ===')
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_paper_v4.py", line 45, in log
     with open(LOG, 'a') as f: f.write(line+'\n')
          ^^^^^^^^^^^^^^
@@ -149,3 +148,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [23:37:37]   ⏱️ TIMEOUT BTC-USDT SHORT: 75199.1000→75183.4000 $0.02
 [23:44:53]   🎯 OPEN BTC-USDT SHORT @ 75204.0000 OBI=-0.519 TP=0.15% SL=0.07%
 [23:45:54]   ⏱️ TIMEOUT BTC-USDT SHORT: 75204.0000→75199.1000 $0.01
+[23:47:55]   🎯 OPEN BTC-USDT SHORT @ 75228.1000 OBI=-0.674 TP=0.15% SL=0.07%
