@@ -12,3 +12,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 🔴 Бот завершил работу
 🟢 Воркер стартовал: core/okx_bot_paper_v4.py
 🟢 Запускаю сборщик рыночных данных OKX
+[22:11:01] === OKX SCALPER v4 STARTED (OBI SHORT) ===
