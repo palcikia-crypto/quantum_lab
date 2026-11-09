@@ -103,13 +103,13 @@ def close_open_trades():
             sl_p = ep * (1 + sl) if sl else 0
             if cur <= tp_p:
                 pnl = (ep - cur) / ep * BET
-                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=?, closed_at=? WHERE id=?",
-                          (cur, round(pnl, 2), now, now, tid))
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
                 log(f'  ✅ CLOSED {sym} SHORT TP: {ep:.4f}→{cur:.4f} +${pnl:.2f}')
             elif cur >= sl_p:
                 pnl = (ep - cur) / ep * BET
-                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=?, closed_at=? WHERE id=?",
-                          (cur, round(pnl, 2), now, now, tid))
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
                 log(f'  ❌ CLOSED {sym} SHORT SL: {ep:.4f}→{cur:.4f} ${pnl:.2f}')
         # timeout
         if now - ets > 60:
@@ -117,8 +117,8 @@ def close_open_trades():
             if ob2:
                 cur = ob2['ask']
                 pnl = (ep - cur) / ep * BET
-                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=?, closed_at=? WHERE id=?",
-                          (cur, round(pnl, 2), now, now, tid))
+                c.execute("UPDATE trades SET status='CLOSED', exit_price=?, pnl=?, exit_ts=? WHERE id=?",
+                          (cur, round(pnl, 2), now, tid))
                 log(f'  ⏱️ TIMEOUT {sym} SHORT: {ep:.4f}→{cur:.4f} ${pnl:.2f}')
     c.commit(); c.close()
 
