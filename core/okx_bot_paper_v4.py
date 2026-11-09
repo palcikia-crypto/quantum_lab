@@ -162,11 +162,19 @@ def open_new_trades():
 
 def main():
     init_db()
+    # Экспорт сделок в реальном времени для веб-панели
+    try:
+        import web_export
+    except Exception:
+        web_export = None
     log('=== OKX SCALPER v4 STARTED (OBI SHORT) ===')
     while True:
         try:
             close_open_trades()
             open_new_trades()
+            if web_export:
+                try: web_export.publish()
+                except Exception as e: log(f'web_export error: {e}')
         except Exception as e:
             log(f'ERROR: {e}')
         time.sleep(15)
