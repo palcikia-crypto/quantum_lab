@@ -90,3 +90,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [22:33:44] ERROR: no such column: closed_at
 [22:33:59] ERROR: no such column: closed_at
 [22:34:14] ERROR: no such column: closed_at
+[22:34:29] ERROR: no such column: closed_at
