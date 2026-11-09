@@ -1,4 +1,3 @@
-         ^^^^^^^^^^^^^^
 FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_lab/logs/okx_bot_paper_v4.log'
 🔴 Бот завершил работу
 🟢 Воркер стартовал: core/okx_bot_paper_v4.py
@@ -149,3 +148,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [23:47:55]   🎯 OPEN BTC-USDT SHORT @ 75228.1000 OBI=-0.674 TP=0.15% SL=0.07%
 [23:48:57]   ⏱️ TIMEOUT BTC-USDT SHORT: 75228.1000→75239.0000 $-0.01
 [23:48:57]   🎯 OPEN BTC-USDT SHORT @ 75239.0000 OBI=-0.799 TP=0.15% SL=0.07%
+[23:49:58]   ⏱️ TIMEOUT BTC-USDT SHORT: 75239.0000→75242.6000 $-0.00
