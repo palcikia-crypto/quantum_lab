@@ -6,7 +6,6 @@ on:
         required: true
         default: 'core/okx_bot_paper_v4.py'
   schedule:
-    # Страховочный перезапуск каждые 6 часов (если цепочка само-перезапусков прервётся)
     - cron: '7 */6 * * *'
 
 jobs:
@@ -24,7 +23,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install deps
-        run: pip install pandas numpy ccxt ta python-dotenv requests llmf
+        run: pip install pandas numpy ccxt ta python-dotenv requests
       - name: Run Worker with API logging
         env:
           SCRIPT_NAME: ${{ inputs.script_name || 'core/okx_bot_paper_v4.py' }}
@@ -37,14 +36,24 @@ jobs:
           rm -rf /home/runner/quantum_lab_sandbox || true
           ln -s $GITHUB_WORKSPACE /home/runner/quantum_lab_sandbox || true
           
-          mkdir -p data god_backups
+          mkdir -p data god_backups logs
           touch data/market.db
           
           push_log() {
             local LINE="$1"
-            local B64=$(echo -n "$LINE" | base64 -w0)
             local SHA=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
               "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.sha // empty')
+            local B64OLD=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/live.log?ref=logs" | jq -r '.content // empty' | tr -d '\n')
+            local OLD=""
+            if [ -n "$B64OLD" ]; then
+              OLD=$(echo "$B64OLD" | base64 -d 2>/dev/null | tail -n 150)
+            fi
+            local NEW="$LINE"
+            if [ -n "$OLD" ]; then
+              NEW="$OLD"$'\n'"$LINE"
+            fi
+            local B64=$(printf '%s' "$NEW" | base64 -w0)
             local JSON="{\"message\": \"Log update\", \"content\": \"$B64\", \"branch\": \"logs\""
             if [ -n "$SHA" ]; then
               JSON="$JSON, \"sha\": \"$SHA\""
@@ -57,12 +66,21 @@ jobs:
           }
           
           push_log "🟢 Воркер стартовал: $SCRIPT_NAME"
+          push_log "🟢 Запускаю сборщик рыночных данных OKX"
+          
+          # Сборщик стакана в фоне — бот торгует по этим данным
+          nohup python -u core/okx_feed.py > logs/okx_feed_stdout.log 2>&1 &
+          echo $! > /tmp/feed.pid
+          
+          # Даем сборщику наполнить базу
+          sleep 10
           
           python -u $SCRIPT_NAME 2>&1 | while IFS= read -r line; do
             echo "$line"
             push_log "$line"
           done
           
+          kill $(cat /tmp/feed.pid) 2>/dev/null || true
           push_log "🔴 Бот завершил работу"
       - name: Self-restart (бесконечный цикл)
         if: always()
