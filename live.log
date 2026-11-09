@@ -62,3 +62,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [22:25:29]   🎯 OPEN BTC-USDT SHORT @ 75064.6000 OBI=-0.642 TP=0.15% SL=0.07%
 [22:26:44] ERROR: no such column: closed_at
 [22:26:59] ERROR: no such column: closed_at
+[22:27:14] ERROR: no such column: closed_at
