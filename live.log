@@ -148,3 +148,4 @@ FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/quantum_la
 [23:24:30]   🎯 OPEN BTC-USDT SHORT @ 75250.3000 OBI=-0.467 TP=0.15% SL=0.07%
 [23:25:32]   ⏱️ TIMEOUT BTC-USDT SHORT: 75250.3000→75276.6000 $-0.03
 [23:32:48]   🎯 OPEN XRP-USDT SHORT @ 1.0992 OBI=-0.431 TP=0.15% SL=0.07%
+[23:33:49]   ⏱️ TIMEOUT XRP-USDT SHORT: 1.0992→1.0985 $0.06
