@@ -233,6 +233,16 @@ footer a{color:var(--mag);text-decoration:none;font-weight:700}
       <div class="tw" style="margin-top:14px"><table id="evo"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
     </div>
   </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h2>🛡 Автокарантин <span class="r">умная защита · realtime</span></h2>
+      <div class="tw"><table id="quar"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+      <div id="quarnote" style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.6">Монета или связка с серией убытков уходит на временную паузу и возвращается сама. Глобальная пауза — только при дневном лимите убытка.</div>
+    </div>
+    <div class="card"><h2>⚙️ Процессы мозга <span class="r">реальное время</span></h2>
+      <div class="tw"><table id="proc"><tbody><tr><td><div class="sk" style="width:120px"></div></td></tr></tbody></table></div>
+      <div id="procnote" style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.6">Мозг: скан ликвидности → автобаланс → ML-обучение. Валидация стратегий идёт параллельно. Обновление каждые ~60 с.</div>
+    </div>
+  </div>
 </section>
 
 <!-- СДЕЛКИ -->
@@ -393,6 +403,46 @@ async function loadBrain(){
     });
     v.innerHTML='Вердикты (PnL>0 и PF>1.05 в обоих окнах): '+parts.join(' ')+'. Издержки 0.24%/круг, вход по open следующего бара, без оптимизации.';
   }else{t.innerHTML='<tbody><tr><td class="empty">валидация прогоняется в фоне (~5 мин)</td></tr></tbody>';}
+  loadQuar();
+  loadProc();
+}
+
+async function loadQuar(){
+  var q=await jj([RAW('data/quarantine.json','master')]);
+  var t=document.getElementById('quar');
+  if(!q||!q.items){t.innerHTML='<tbody><tr><td class="empty">карантин подключится после перезапуска воркера</td></tr></tbody>';return;}
+  var now=Math.floor(Date.now()/1000),rows='';
+  if((q.global_pause_until||0)>now)rows+='<tr><td colspan="5"><span class="b b-r">⏸ ГЛОБАЛЬНАЯ ПАУЗА до конца дня — дневной лимит убытка</span></td></tr>';
+  Object.keys(q.items).forEach(function(k){
+    var it=q.items[k],mins=Math.max(0,Math.round(((it.until||0)-now)/60));
+    rows+='<tr><td><b>'+esc(k)+'</b></td><td class="neg w700">'+fv(it.pnl)+'</td><td style="color:var(--dim)">'+esc(it.reason||'')+'</td><td><span class="b b-o">ур.'+esc(it.level||1)+'</span></td><td class="w700">'+(mins>=1440?'до конца дня':mins+' мин')+'</td></tr>';
+  });
+  if(!rows)rows='<tr><td class="empty">карантин пуст — торговля идёт по всем парам</td></tr>';
+  t.innerHTML='<thead><tr><th>Монета / связка</th><th>PnL дня</th><th>Причина</th><th>Уровень</th><th>Осталось</th></tr></thead><tbody>'+rows+'</tbody>';
+  var ev=(q.events||[]).slice(0,6).join(String.fromCharCode(10));
+  if(ev)document.getElementById('quarnote').textContent=ev;
+}
+
+async function loadProc(){
+  var t=document.getElementById('proc'),now=Math.floor(Date.now()/1000);
+  var ago=function(ts){return ts?Math.max(0,Math.round((now-ts)/60))+' мин назад':'—';};
+  var p=await jj([RAW('data/ai_progress.json','master')]);
+  var b=await jj([RAW('data/bt_progress.json','master')]);
+  var rows='';
+  if(p){
+    var errn=(p.errors&&p.errors.length)?' <span class="b b-r">'+p.errors.length+' ошиб.</span>':'';
+    var mlv=(p.ml&&p.ml.val_acc!=null)?(' · ML '+Math.round(p.ml.val_acc*1000)/10+'%'):'';
+    rows+='<tr><td><b>🧠 Мозг (ai_core)</b></td><td>'+esc(p.stage_txt||p.stage||'—')+'</td><td>'+ago(p.updated_at)+'</td><td>'+esc(p.stage||'')+mlv+errn+'</td></tr>';
+  }else rows+='<tr><td><b>🧠 Мозг (ai_core)</b></td><td colspan="3">ещё не отчитался (первые минуты после старта воркера)</td></tr>';
+  if(b){
+    rows+='<tr><td><b>🔬 Валидация v5</b></td><td>'+esc(b.stage||'')+' · '+esc(b.sym||'')+' '+(b.symbol||0)+'/'+(b.of||0)+'</td><td>'+ago(b.updated_at)+'</td><td>'+(b.bars?b.bars+' бар.':'')+'</td></tr>';
+  }
+  var e=await jj([RAW('data/evolution.json','master')]);
+  if(e&&e.timestamp){
+    var ts=Math.floor(new Date(e.timestamp).getTime()/1000);
+    rows+='<tr><td><b>🧬 Эволюция L1→L3</b></td><td>L1 '+esc(e.L1)+' → L2 '+esc(e.L2)+' → L3 '+esc(e.L3)+'</td><td>'+ago(ts)+'</td><td>сводка мутаций</td></tr>';
+  }
+  t.innerHTML='<thead><tr><th>Процесс</th><th>Стадия</th><th>Обновлено</th><th>Детали</th></tr></thead><tbody>'+rows+'</tbody>';
 }
 
 function renderAgg(el,head,obj){

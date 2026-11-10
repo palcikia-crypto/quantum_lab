@@ -140,7 +140,7 @@ def update(universe_list):
     limit = max(1, len(universe_list or []) // 2)
     if len(sym_quar) > limit:
         for s in sorted(sym_quar, key=lambda s: d['items'].get(s, {}).get('pnl', 0))[:len(sym_quar) - limit]:
-            _event(d, 'зашита от массового карантина: %s возвращён в скан' % s)
+            _event(d, 'защита от массового карантина: %s возвращён в скан' % s)
             del d['items'][s]
 
     d['day_pnl'] = round(day_pnl, 2)
