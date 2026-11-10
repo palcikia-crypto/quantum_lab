@@ -47,7 +47,7 @@ def _collect():
 
     return {
         'updated_at': int(time.time()),
-        'bot': 'okx_bot_paper_v4',
+        'bot': 'okx_bot_v5',
         'totals': {
             'pnl': round(sum(pnls), 2),
             'trades': len(closed),
@@ -89,13 +89,13 @@ def _push_to_github(b64):
 def publish():
     """Вызывать из цикла бота: публикует данные, если они изменились."""
     data = _collect()
-    if not data or not data['trades']:
+    if not data:
         return
     now = time.time()
     if now - _state['ts'] < MIN_INTERVAL:
         return
     sig = (len(data['trades']), data['totals']['pnl'], data['totals']['open'])
-    if sig == _state['sig']:
+    if sig == _state['sig'] and now - _state['ts'] < 120:
         return
     _state['ts'] = now
     _state['sig'] = sig

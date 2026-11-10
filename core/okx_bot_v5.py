@@ -30,7 +30,7 @@ def universe():
         u = json.load(open(os.path.join(BASE, 'data/universe.json')))
         pairs = u.get('pairs')
         if isinstance(pairs, list) and 4 <= len(pairs) <= 24:
-            return pairs
+            return pairs[:12]
     except Exception:
         pass
     return UNIVERSE_DEFAULT
@@ -100,7 +100,7 @@ def get_obi_funding(sym):
         now = int(time.time())
         c = sqlite3.connect(OB_DB, timeout=5)
         r = c.execute('SELECT imbalance, best_bid, best_ask FROM orderbooks WHERE symbol=? AND ts > ? ORDER BY ts DESC LIMIT 1',
-                      (sym, now - 10)).fetchone()
+                      (sym, now - 20)).fetchone()
         if r:
             obi = {'obi': r[0], 'bid': r[1], 'ask': r[2]}
         r2 = c.execute('SELECT funding_rate FROM funding WHERE symbol=? AND ts > ? ORDER BY ts DESC LIMIT 1',
@@ -138,9 +138,9 @@ def signals(sym, c1, c5, obi, fr):
         return out
     z = zscore([b[4] for b in c1])
     o = obi['obi']
-    if z > 2.2 and o < -0.15:
+    if z > 1.9 and o < -0.10:
         out.append(('SHORT', 'mr_z', 0.0035, 0.0025, 1800, 'z=%.2f obi=%.2f' % (z, o)))
-    elif z < -2.2 and o > 0.15:
+    elif z < -1.9 and o > 0.10:
         out.append(('LONG', 'mr_z', 0.0035, 0.0025, 1800, 'z=%.2f obi=%.2f' % (z, o)))
     prior = c5[-25:-1]
     if len(prior) >= 24:
@@ -150,14 +150,14 @@ def signals(sym, c1, c5, obi, fr):
         a_avg = atr(c5[-30:])
         last5 = c5[-1][4]
         if a_avg > 0 and a_now > 1.2 * a_avg:
-            if last5 > hh and o > 0.2:
+            if last5 > hh and o > 0.12:
                 out.append(('LONG', 'donchian_atr', 0.008, 0.004, 7200, 'break>%.6f ATR x%.2f obi=%.2f' % (hh, a_now / a_avg, o)))
-            elif last5 < ll and o < -0.2:
+            elif last5 < ll and o < -0.12:
                 out.append(('SHORT', 'donchian_atr', 0.008, 0.004, 7200, 'break<%.6f ATR x%.2f obi=%.2f' % (ll, a_now / a_avg, o)))
     if fr is not None:
-        if fr > 0.0003 and z > 1.5:
+        if fr > 0.0003 and z > 1.2:
             out.append(('SHORT', 'funding_squeeze', 0.005, 0.0035, 14400, 'funding=%.4f%% z=%.2f' % (fr * 100, z)))
-        elif fr < -0.0003 and z < -1.5:
+        elif fr < -0.0003 and z < -1.2:
             out.append(('LONG', 'funding_squeeze', 0.005, 0.0035, 14400, 'funding=%.4f%% z=%.2f' % (fr * 100, z)))
     return out
 
@@ -288,20 +288,44 @@ def open_new_trades():
     c.commit()
     c.close()
 
+def seed_from_dashboard():
+    """Перенос истории v5-сделок из web_dashboard.json (master) в свежую БД — банк не сбрасывается при рестарте."""
+    try:
+        d = json.load(open(os.path.join(BASE, 'data/web_dashboard.json')))
+        c = sqlite3.connect(DB)
+        if c.execute("SELECT COUNT(*) FROM trades").fetchone()[0] == 0:
+            for t in (d.get('trades') or [])[:200]:
+                if str(t.get('status') or '').upper() == 'OPEN' or t.get('strategy') not in ('mr_z', 'donchian_atr', 'funding_squeeze'):
+                    continue
+                c.execute('INSERT INTO trades (symbol, side, strategy, entry_price, exit_price, pnl, status, entry_ts, exit_ts, tp, sl) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                          (t.get('symbol'), t.get('side'), t.get('strategy'), t.get('entry_price') or 0, t.get('exit_price') or 0, t.get('pnl') or 0, 'CLOSED', t.get('entry_ts') or 0, t.get('exit_ts') or 0, t.get('tp') or 0, t.get('sl') or 0))
+            c.commit()
+        n = c.execute('SELECT COUNT(*) FROM trades').fetchone()[0]
+        c.close()
+        if n:
+            log('перенесено %d сделок из web_dashboard — банк непрерывен' % n)
+    except Exception as e:
+        log('seed: %s' % e)
+
 def main():
     os.makedirs(os.path.join(BASE, 'logs'), exist_ok=True)
     os.makedirs(os.path.join(BASE, 'data'), exist_ok=True)
     init_db()
+    seed_from_dashboard()
     try:
         import web_export
     except Exception:
         web_export = None
     log('=== QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===')
     log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(universe()), RISK * 100, MAX_OPEN))
+    hb = 0
     while True:
+        hb += 1
         try:
             close_open_trades()
             open_new_trades()
+            if hb % 10 == 1:
+                log('live: bank=%.2f юниверс=%d монет' % (bank(), len(universe())))
             if web_export:
                 try:
                     web_export.publish()
