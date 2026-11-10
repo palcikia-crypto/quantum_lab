@@ -1,4 +1,3 @@
-🟢 Воркер стартовал: core/okx_bot_paper_v4.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [22:24:04]   ✅ XRP-USDT: OBI=-0.083 bid=1.0944 ask=1.0945
 [22:24:14] === OKX SCALPER v4 STARTED (OBI SHORT) ===
@@ -149,3 +148,4 @@ Traceback (most recent call last):
     main()
   File "/home/runner/work/quantum_lab/quantum_lab/core/okx_bot_v5.py", line 300, in main
     log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(UNIVERSE), RISK * 100, MAX_OPEN))
+                                                               ^^^^^^^^
