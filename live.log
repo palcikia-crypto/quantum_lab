@@ -1,4 +1,3 @@
-[00:02:39]   🎯 OPEN BTC-USDT SHORT @ 75301.6000 OBI=-0.553 TP=0.15% SL=0.07%
 [00:02:39]   🎯 OPEN XRP-USDT SHORT @ 1.1016 OBI=-0.458 TP=0.15% SL=0.07%
 [00:03:40]   ⏱️ TIMEOUT BTC-USDT SHORT: 75301.6000→75332.8000 $-0.04
 [00:03:40]   ⏱️ TIMEOUT XRP-USDT SHORT: 1.1016→1.1014 $0.02
@@ -149,3 +148,4 @@ NameError: name 'UNIVERSE' is not defined
 [15:00:56]   OPEN XRPUSDT SHORT [mr_z] @ 1.0702 (z=2.72 obi=-0.20) TP=0.35% SL=0.25% tmo=30m
 [15:04:00] live: bank=1000.05 юниверс=12 монет
 [15:05:00]   V CLOSED XRPUSDT SHORT mr_z: 1.0702 -> 1.0664 +0.07$ [TP]
+[15:14:42] live: bank=1000.12 юниверс=12 монет
