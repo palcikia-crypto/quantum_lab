@@ -297,7 +297,7 @@ def main():
     except Exception:
         web_export = None
     log('=== QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===')
-    log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(UNIVERSE), RISK * 100, MAX_OPEN))
+    log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(universe()), RISK * 100, MAX_OPEN))
     while True:
         try:
             close_open_trades()
