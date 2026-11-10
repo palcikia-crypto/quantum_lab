@@ -1,4 +1,3 @@
-[22:33:29] ERROR: no such column: closed_at
 [22:33:44] ERROR: no such column: closed_at
 [22:33:59] ERROR: no such column: closed_at
 [22:34:14] ERROR: no such column: closed_at
@@ -149,3 +148,4 @@ NameError: name 'UNIVERSE' is not defined
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [07:07:07]   ✅ XRP-USDT: OBI=-0.035 bid=1.1043 ask=1.1044
+[07:07:18] === QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===
