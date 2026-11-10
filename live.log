@@ -1,4 +1,3 @@
-[22:16:21] ERROR: no such column: closed_at
 [22:16:36] ERROR: no such column: closed_at
 [22:17:06] ERROR: no such column: closed_at
 [22:17:21] ERROR: no such column: closed_at
@@ -149,3 +148,4 @@
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [00:07:58]   ✅ XRP-USDT: OBI=-0.157 bid=1.1026 ask=1.1027
+[00:08:08] === QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===
