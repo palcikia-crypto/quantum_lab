@@ -1,4 +1,3 @@
-[13:48:02]   T CLOSED USDCUSDT SHORT donchian_atr: 1.0009 -> 1.0010 -0.0$ [TIMEOUT]
 [13:50:15] live: bank=1000.07 юниверс=12 монет
 [13:57:47]   OPEN NEARUSDT SHORT [mr_z] @ 3.6350 (z=2.01 obi=-0.14) TP=0.35% SL=0.25% tmo=30m
 [14:01:01] live: bank=1000.07 юниверс=12 монет
@@ -149,3 +148,4 @@
 [19:47:41]   OPEN NEARUSDT SHORT [mr_z] @ 3.5740 (z=2.28 obi=-0.11) TP=0.35% SL=0.25% tmo=30m
 [19:48:44]   OPEN SOLUSDT SHORT [mr_z] @ 82.9200 (z=2.24 obi=-0.22) TP=0.35% SL=0.25% tmo=30m
 [19:50:46]   X CLOSED NEARUSDT SHORT mr_z: 3.5740 -> 3.5860 -0.07$ [SL]
+[19:50:49] live: bank=999.37 юниверс=12 монет
