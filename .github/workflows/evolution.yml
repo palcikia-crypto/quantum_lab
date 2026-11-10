@@ -1,0 +1,32 @@
+name: Mutation Pipeline
+on:
+  schedule:
+    - cron: '43 */6 * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [master]
+    paths:
+      - 'tools/evolution_pipeline.py'
+      - '.github/workflows/evolution.yml'
+
+concurrency:
+  group: evo-pipeline
+  cancel-in-progress: true
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run mutation pipeline
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p data
+          python -u tools/evolution_pipeline.py

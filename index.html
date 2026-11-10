@@ -437,6 +437,10 @@ async function loadProc(){
   if(b){
     rows+='<tr><td><b>🔬 Валидация v5</b></td><td>'+esc(b.stage||'')+' · '+esc(b.sym||'')+' '+(b.symbol||0)+'/'+(b.of||0)+'</td><td>'+ago(b.updated_at)+'</td><td>'+(b.bars?b.bars+' бар.':'')+'</td></tr>';
   }
+  var g=await jj([RAW('data/evo_progress.json','master')]);
+  if(g){
+    rows+='<tr><td><b>🧬 Мутации (конвейер)</b></td><td>'+esc(g.stage_txt||g.stage||'—')+(g.pct!=null?' · '+g.pct+'%':'')+'</td><td>'+ago(g.updated_at)+'</td><td>L1 '+(g.l1||0)+' · L2 '+(g.l2||0)+' · L3 '+(g.l3||0)+'</td></tr>';
+  }
   var e=await jj([RAW('data/evolution.json','master')]);
   if(e&&e.timestamp){
     var ts=Math.floor(new Date(e.timestamp).getTime()/1000);
