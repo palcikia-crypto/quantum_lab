@@ -1,5 +1,5 @@
 {
-  "scanned": 25,
+  "scanned": 27,
   "ok": 0,
   "fixed": 13,
   "errors": 1,
@@ -9,12 +9,12 @@
     {
       "file": "agents/data_agent.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечка файлов (open без with в subprocess.Popen), голый except, неопределённая переменная "
+      "msg": "ПРОБЛЕМА: утечка файла в subprocess.Popen (open без with) и голый except."
     },
     {
       "file": "agents/evolve_agent.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: голый except, неопределённые переменные (в случае ошибки в subprocess.run переменная `resu"
+      "msg": "ПРОБЛЕМА: голый except."
     },
     {
       "file": "agents/gate_agent.py",
@@ -24,27 +24,27 @@
     {
       "file": "agents/live_agent.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: голый except, неопределённые переменные (например, `result` при возникновении исключения д"
+      "msg": "ПРОБЛЕМА: голый except."
     },
     {
       "file": "agents/okx_agent.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: голые except в строке 42."
+      "msg": "ПРОБЛЕМА: голый except."
     },
     {
       "file": "agents/report_agent.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечка файлов (sqlite3.connect без with), голые except, неопределённые переменные (наприме"
+      "msg": "ПРОБЛЕМА: утечка файла (sqlite3.connect без with), голый except, неопределённые переменные (например"
     },
     {
       "file": "agents/risk_agent.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечка файла (open без with) в строке `active = json.load(open(p, encoding='utf-8'))`."
+      "msg": "ПРОБЛЕМА: утечка файлов (open без with) в строке `active = json.load(open(p, encoding='utf-8'))`."
     },
     {
       "file": "core/alerts.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: \n1. Утечка файлов: в строке `with open(os.path.join(BASE, 'logs/alerts.log', encoding='utf"
+      "msg": "ПРОБЛЕМА: open без with в строке 9 (ошибка в синтаксисе, нужно использовать with для открытия файла)"
     },
     {
       "file": "core/auto_adapt_realtime.py",
@@ -54,12 +54,12 @@
     {
       "file": "core/auto_add.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: утечка файлов (open без with) в строках 26 и 40; голый except."
+      "msg": "ПРОБЛЕМА: утечки файлов (open без with), голые except, неопределённые переменные (например, `d` если"
     },
     {
       "file": "core/auto_apply_filters.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: утечки файлов (open без with), голые except, неопределённые переменные (например, `cur` в "
+      "msg": "ПРОБЛЕМА: Использование `open` без `with` в нескольких местах, что может привести к утечкам файловых"
     },
     {
       "file": "core/auto_apply_graals.py",
@@ -69,12 +69,12 @@
     {
       "file": "core/auto_apply_regime.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: утечки файлов (open без with), голые except, возможные неопределённые переменные (need_res"
+      "msg": "ПРОБЛЕМА: использование `open` без `with` в строках 34, 54 и 67 может привести к утечкам файлов. Так"
     },
     {
       "file": "core/auto_compare.py",
-      "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечка файлов (open без with) в строке `json.dump(out, open(OUT, 'w', encoding='utf-8'), i"
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файлов (открытие файла без `with` в `json.dump`), голый `except` в `get_stats`, пот"
     },
     {
       "file": "core/auto_data.py",
@@ -94,7 +94,7 @@
     {
       "file": "core/auto_filter.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: утечки файлов (open без with в строках 34 и 43), голые except (в строках 11, 20 и 31), нео"
+      "msg": "ПРОБЛЕМА: утечки файлов (open без with) в функциях `log` и `main`, голые except в `get_wr` и `main`,"
     },
     {
       "file": "core/auto_filter_optimizer.py",
@@ -104,12 +104,12 @@
     {
       "file": "core/auto_obi_tuner.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: Использование `open` без `with` в `main`, что может привести к утечке файлов."
+      "msg": "ПРОБЛЕМА: утечка файлов (open без with в `cur = json.load(open(V4_CFG, encoding='utf-8'))`), голые e"
     },
     {
       "file": "core/auto_stop_losers.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: Утечка файлов (sqlite3.connect без with)."
+      "msg": "ПРОБЛЕМА: Утечка файлов (отсутствует использование `with` при открытии базы данных в функции `get_wr"
     },
     {
       "file": "core/auto_tpsl_tuner.py",
@@ -119,17 +119,27 @@
     {
       "file": "core/brain_api.py",
       "status": "needs_review",
-      "msg": "ПРОБЛЕМА: голые except."
+      "msg": "ПРОБЛЕМА: голые except (перехватываются все исключения без обработки)."
     },
     {
       "file": "core/brain_loop.py",
       "status": "fixed_ai",
-      "msg": "ПРОБЛЕМА: утечка файла (открытие лог-файла без `with` в функции `log`), голый `except` в `main`, воз"
+      "msg": "ПРОБЛЕМА: Утечка файлов в функции `log`, так как файл открывается без контекстного менеджера `with`."
     },
     {
       "file": "core/data_manager.py",
       "status": "needs_review",
       "msg": "большой файл, ИИ не справился"
+    },
+    {
+      "file": "core/evolution.py",
+      "status": "needs_review",
+      "msg": "ПРОБЛЕМА: утечка файлов в `open('/proc/loadavg', ...)` без контекстного менеджера `with`.  \nПРОБЛЕМА"
+    },
+    {
+      "file": "core/filter_optimizer_mini.py",
+      "status": "fixed_large",
+      "msg": "разбит на функции"
     }
   ]
 }
