@@ -18,6 +18,44 @@ UNIVERSE = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT', 'DOGEUSDT', 'BNBUSDT', '
 FEE_SIDE = 0.0012
 DAYS = 14
 OUT = os.path.join(os.path.expanduser('~/quantum_lab'), 'data/backtest_report.json')
+BTP = os.path.join(os.path.expanduser('~/quantum_lab'), 'data/bt_progress.json')
+
+def push_progress(obj):
+    data = json.dumps(obj, ensure_ascii=False)
+    try:
+        os.makedirs(os.path.dirname(BTP), exist_ok=True)
+        with open(BTP, 'w') as f:
+            f.write(data)
+    except Exception:
+        pass
+    try:
+        _push_btp(base64.b64encode(data.encode()).decode())
+    except Exception:
+        pass
+
+def _push_btp(b64):
+    token = os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
+    if not token:
+        return
+    url = 'https://api.github.com/repos/palcikia-crypto/quantum_lab/contents/data/bt_progress.json'
+    sha = None
+    try:
+        req = urllib.request.Request(url)
+        req.add_header('Authorization', 'Bearer ' + token)
+        with urllib.request.urlopen(req, timeout=15) as f:
+            sha = json.load(f).get('sha')
+    except Exception:
+        pass
+    payload = {'message': 'BT progress', 'content': b64, 'branch': 'master'}
+    if sha:
+        payload['sha'] = sha
+    req = urllib.request.Request(url, data=json.dumps(payload).encode(), method='PUT')
+    req.add_header('Authorization', 'Bearer ' + token)
+    req.add_header('Content-Type', 'application/json')
+    try:
+        urllib.request.urlopen(req, timeout=15).read()
+    except Exception as e:
+        log('btp push: %s' % e)
 
 def log(m):
     print('[bt] %s' % m, flush=True)
@@ -217,8 +255,14 @@ def main():
               'note': 'fixed live params; entry at next bar open; costs 0.24%/round; SL priority; real funding; live OBI only filters signals further',
               'strategies': {}}
     per = {}
-    for sym in UNIVERSE:
-        bars = hist_1m(sym, DAYS)
+    for si, sym in enumerate(UNIVERSE):
+        push_progress({'updated_at': now, 'stage': 'загрузка истории', 'sym': sym, 'symbol': si + 1, 'of': len(UNIVERSE), 'bars': 0})
+        try:
+            bars = hist_1m(sym, DAYS)
+        except Exception as e:
+            log('%s: hist crash: %s' % (sym, e))
+            continue
+        push_progress({'updated_at': int(time.time()), 'stage': 'симуляция', 'sym': sym, 'symbol': si + 1, 'of': len(UNIVERSE), 'bars': len(bars)})
         if len(bars) < 600:
             log('%s: too few bars, skip' % sym)
             continue
@@ -228,9 +272,13 @@ def main():
             if b[0] >= now - 7 * 86400:
                 cut = i
                 break
-        for w, sub in (('w7', bars[cut:]), ('w_prev', bars[:cut])):
-            for t in simulate(sub, fnd):
-                per.setdefault(t['strategy'], {}).setdefault(w, []).append(t)
+        try:
+            for w, sub in (('w7', bars[cut:]), ('w_prev', bars[:cut])):
+                for t in simulate(sub, fnd):
+                    per.setdefault(t['strategy'], {}).setdefault(w, []).append(t)
+        except Exception as e:
+            log('%s: simulate crash: %s' % (sym, e))
+    push_progress({'updated_at': int(time.time()), 'stage': 'готово', 'sym': '-', 'symbol': len(UNIVERSE), 'of': len(UNIVERSE), 'bars': 0})
     for strat, wins in per.items():
         entry = {}
         ok = True
