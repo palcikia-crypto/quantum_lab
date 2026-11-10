@@ -85,6 +85,9 @@ jobs:
           # Валидация стратегий на истории OKX (фон, ~5 мин) — отчёт в data/backtest_report.json
           nohup python -u tools/backtest_v5.py > logs/backtest_v5.log 2>&1 &
           
+          # МОЗГ: самообучение (ML-модель, скан ликвидности, автобаланс) ~3 мин, фон
+          nohup python -u tools/ai_core.py > logs/ai_core.log 2>&1 &
+          
           python -u $SCRIPT_NAME 2>&1 | while IFS= read -r line; do
             echo "$line"
             push_log "$line"

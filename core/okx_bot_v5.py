@@ -23,7 +23,17 @@ RISK = 0.02
 MAX_OPEN = 3
 COOLDOWN = 600
 CYCLE = 60
-UNIVERSE = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT', 'DOGEUSDT', 'BNBUSDT', 'ADAUSDT', 'LINKUSDT']
+UNIVERSE_DEFAULT = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT', 'DOGEUSDT', 'BNBUSDT', 'ADAUSDT', 'LINKUSDT']
+
+def universe():
+    try:
+        u = json.load(open(os.path.join(BASE, 'data/universe.json')))
+        pairs = u.get('pairs')
+        if isinstance(pairs, list) and 4 <= len(pairs) <= 24:
+            return pairs
+    except Exception:
+        pass
+    return UNIVERSE_DEFAULT
 TIMEOUTS = {'mr_z': 1800, 'donchian_atr': 7200, 'funding_squeeze': 14400}
 
 def log(m):
@@ -183,10 +193,66 @@ def close_open_trades():
     c.commit()
     c.close()
 
+
+_ML = {'ts': 0, 'model': None}
+
+def _sigmoid(x):
+    if x >= 0:
+        return 1.0 / (1.0 + math.exp(-x))
+    e = math.exp(x)
+    return e / (1.0 + e)
+
+def ml_model():
+    if time.time() - _ML['ts'] < 120:
+        return _ML['model']
+    try:
+        m = json.load(open(os.path.join(BASE, 'data/ml_model.json')))
+        _ML['model'] = m if time.time() - m.get('updated_at', 0) < 172800 else None
+    except Exception:
+        _ML['model'] = None
+    _ML['ts'] = time.time()
+    return _ML['model']
+
+def ml_veto(sym, side, c1):
+    m = ml_model()
+    if not m or not c1 or len(c1) < 61 or (m.get('val_acc') or 0) < 0.52:
+        return False
+    c = [b[4] for b in c1[-61:]]
+    last = c[-1]
+    w20 = c[-20:]
+    mm = mean(w20)
+    s = stdv(w20)
+    z = (last - mm) / s if s > 0 else 0.0
+    def rr(n):
+        return (c[-1] - c[-1 - n]) / c[-1 - n] * 100.0 if len(c) > n and c[-1 - n] else 0.0
+    hi = max(c)
+    lo = min(c)
+    rng = (hi - lo) / last * 100.0 if last else 0.0
+    pos = (last - lo) / (hi - lo) if hi > lo else 0.5
+    f = [z, rr(5), rr(15), rr(60), rng, pos]
+    W = m.get('weights') or []
+    if len(W) != 6:
+        return False
+    p = _sigmoid(sum(a * b for a, b in zip(W, f)) + (m.get('bias') or 0))
+    if side == 'LONG' and p < 0.40:
+        return True
+    if side == 'SHORT' and p > 0.60:
+        return True
+    return False
+
+def weight_off(sym, strat):
+    try:
+        w = json.load(open(os.path.join(BASE, 'data/live_weights.json')))
+        if time.time() - w.get('updated_at', 0) < 86400:
+            return (sym + '|' + strat) in (w.get('disabled') or [])
+    except Exception:
+        pass
+    return False
+
 def open_new_trades():
     c = sqlite3.connect(DB, timeout=10)
     n_open = c.execute("SELECT COUNT(*) FROM trades WHERE status='OPEN'").fetchone()[0]
-    for sym in UNIVERSE:
+    for sym in universe():
         if n_open >= MAX_OPEN:
             break
         if c.execute("SELECT 1 FROM trades WHERE symbol=? AND status='OPEN'", (sym,)).fetchone():
@@ -201,6 +267,12 @@ def open_new_trades():
         if not sigs:
             continue
         side, strat, tp, sl, tmo, why = sigs[0]
+        if ml_veto(sym, side, c1):
+            log('  ML veto %s %s %s' % (sym, side, strat))
+            continue
+        if weight_off(sym, strat):
+            log('  AI-core off %s %s (серия минусов)' % (sym, strat))
+            continue
         if fr is not None:
             if side == 'LONG' and fr > 0.0005:
                 continue
