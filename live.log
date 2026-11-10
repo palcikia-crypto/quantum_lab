@@ -1,4 +1,3 @@
-                                                               ^^^^^^^^
 NameError: name 'UNIVERSE' is not defined
 — последние строки сборщика —
 [00:07:58]   ✅ SOL-USDT: OBI=-0.107 bid=86.74 ask=86.75
@@ -149,3 +148,4 @@ NameError: name 'UNIVERSE' is not defined
 [15:37:37]   OPEN BTCUSDT SHORT [donchian_atr] @ 73299.9000 (break<73612.500000 ATR x1.21 obi=-0.98) TP=0.80% SL=0.40% tmo=120m
 [15:45:44] live: bank=999.68 юниверс=12 монет
 [15:55:53] live: bank=999.68 юниверс=12 монет
+[16:06:03] live: bank=999.68 юниверс=12 монет
