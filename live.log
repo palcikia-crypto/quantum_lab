@@ -1,4 +1,3 @@
-    log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(UNIVERSE), RISK * 100, MAX_OPEN))
                                                                ^^^^^^^^
 NameError: name 'UNIVERSE' is not defined
 — последние строки сборщика —
@@ -149,3 +148,4 @@ NameError: name 'UNIVERSE' is not defined
 [15:36:35]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-1.94 obi=0.59) TP=0.35% SL=0.25% tmo=30m
 [15:37:37]   OPEN BTCUSDT SHORT [donchian_atr] @ 73299.9000 (break<73612.500000 ATR x1.21 obi=-0.98) TP=0.80% SL=0.40% tmo=120m
 [15:45:44] live: bank=999.68 юниверс=12 монет
+[15:55:53] live: bank=999.68 юниверс=12 монет
