@@ -83,9 +83,15 @@ def hist_1m(sym, days):
         url = 'https://www.okx.com/api/v5/market/history-candles?instId=%s&bar=1m&limit=100' % inst
         if after:
             url += '&after=' + str(after)
-        try:
-            d = api(url)
-        except Exception:
+        d = None
+        for attempt in range(4):
+            try:
+                d = api(url)
+                break
+            except Exception as e:
+                log('hist %s: %s (попытка %d)' % (sym, e, attempt + 1))
+                time.sleep(2 + attempt * 2)
+        if not d:
             break
         rows = d.get('data') or []
         if not rows:
@@ -128,9 +134,9 @@ def feats(bars, i):
 
 def train_ml(pairs):
     X, Y = [], []
-    for sym in pairs[:10]:
-        bars = hist_1m(sym, 5)
-        if len(bars) < 2000:
+    for sym in pairs[:6]:
+        bars = hist_1m(sym, 3)
+        if len(bars) < 1000:
             continue
         n0 = len(X)
         for i in range(70, len(bars) - 6):
@@ -140,7 +146,7 @@ def train_ml(pairs):
             X.append(feats(bars, i))
             Y.append(1.0 if fwd > 0 else 0.0)
         log('%s: +%d сэмплов' % (sym, len(X) - n0))
-    if len(X) < 500:
+    if len(X) < 300:
         log('мало данных для ML')
         return None
     X = np.array(X)
@@ -211,4 +217,12 @@ def main():
     log('AI CORE: цикл завершён')
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        log('CRASH: %s' % e)
+        err = {'updated_at': int(time.time()), 'error': str(e),
+               'tb': traceback.format_exc()[-1500:]}
+        write_local('ai_core.json', err)
+        push_github('ai_core.json', err)

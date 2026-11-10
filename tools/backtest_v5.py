@@ -40,10 +40,15 @@ def hist_1m(sym, days):
         url = 'https://www.okx.com/api/v5/market/history-candles?instId=%s&bar=1m&limit=100' % inst
         if after:
             url += '&after=' + str(after)
-        try:
-            d = api(url)
-        except Exception as e:
-            log('hist %s err: %s' % (sym, e))
+        d = None
+        for attempt in range(4):
+            try:
+                d = api(url)
+                break
+            except Exception as e:
+                log('hist %s err: %s (попытка %d)' % (sym, e, attempt + 1))
+                time.sleep(2 + attempt * 2)
+        if not d:
             break
         rows = d.get('data') or []
         if not rows:
@@ -251,4 +256,19 @@ def main():
         log('push: %s' % e)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        log('CRASH: %s' % e)
+        rep = {'updated_at': int(time.time()), 'error': str(e), 'tb': traceback.format_exc()[-1500:]}
+        try:
+            os.makedirs(os.path.dirname(OUT), exist_ok=True)
+            with open(OUT, 'w') as f:
+                json.dump(rep, f, ensure_ascii=False)
+        except Exception:
+            pass
+        try:
+            push_github(base64.b64encode(json.dumps(rep, ensure_ascii=False).encode()).decode())
+        except Exception as e2:
+            log('err push: %s' % e2)
