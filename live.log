@@ -1,4 +1,3 @@
-[22:25:29]   🎯 OPEN BTC-USDT SHORT @ 75064.6000 OBI=-0.642 TP=0.15% SL=0.07%
 [22:26:44] ERROR: no such column: closed_at
 [22:26:59] ERROR: no such column: closed_at
 [22:27:14] ERROR: no such column: closed_at
@@ -149,3 +148,4 @@ Traceback (most recent call last):
 NameError: name 'UNIVERSE' is not defined
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
+🟢 Сборщик: [00:11:46]   ✅ XRP-USDT: OBI=0.043 bid=1.1017 ask=1.1018
