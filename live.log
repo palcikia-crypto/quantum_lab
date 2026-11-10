@@ -1,4 +1,3 @@
-[14:16:00]   X CLOSED XRPUSDT LONG mr_z: 1.0636 -> 1.0586 -0.09$ [SL]
 [14:16:03]   OPEN DOGEUSDT LONG [mr_z] @ 0.0688 (z=-2.45 obi=0.42) TP=0.35% SL=0.25% tmo=30m
 [14:18:09]   OPEN HYPEUSDT LONG [mr_z] @ 72.9070 (z=-2.14 obi=0.22) TP=0.35% SL=0.25% tmo=30m
 [14:22:12] live: bank=999.87 юниверс=12 монет
@@ -149,3 +148,4 @@
 [20:11:05]   V CLOSED HYPEUSDT LONG mr_z: 71.7950 -> 72.0890 +0.08$ [TP]
 [20:12:13] live: bank=999.51 юниверс=12 монет
 [20:14:18]   X CLOSED SOLUSDT SHORT mr_z: 82.9200 -> 83.1300 -0.05$ [SL]
+[20:15:23]   OPEN BTCUSDT SHORT [mr_z] @ 73553.0000 (z=2.02 obi=-0.68) TP=0.35% SL=0.25% tmo=30m
