@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """web_export.py — экспорт сделок paper-бота в реальном времени.
 
-Каждый цикл бота публикует свежие сделки, агрегаты по монетам/стратегиям
-и общий PnL в data/web_dashboard.json (локально + через GitHub API),
-откуда их читает веб-панель на GitHub Pages.
+Каждый цикл бота публикует свежие сделки, агрегаты по монетам/стратегиям,
+общий PnL и состояние автокарантина в data/web_dashboard.json
+(локально + через GitHub API), откуда их читает веб-панель.
 """
 import base64, json, os, sqlite3, time, urllib.request
 
@@ -15,6 +15,14 @@ API_URL = 'https://api.github.com/repos/%s/contents/data/web_dashboard.json' % R
 MIN_INTERVAL = 45  # минимум секунд между публикациями
 
 _state = {'ts': 0, 'sig': None}
+
+
+def _quarantine_snapshot():
+    try:
+        with open(os.path.join(BASE, 'data/quarantine.json')) as f:
+            return json.load(f)
+    except Exception:
+        return None
 
 
 def _collect():
@@ -57,6 +65,7 @@ def _collect():
         'by_symbol': agg('symbol'),
         'by_strategy': agg('strategy'),
         'trades': rows,
+        'quarantine': _quarantine_snapshot(),
     }
 
 
