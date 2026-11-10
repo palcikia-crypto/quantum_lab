@@ -1,4 +1,3 @@
-[22:29:29] ERROR: no such column: closed_at
 [22:29:44] ERROR: no such column: closed_at
 [22:29:59] ERROR: no such column: closed_at
 [22:30:14] ERROR: no such column: closed_at
@@ -149,3 +148,4 @@ Traceback (most recent call last):
 NameError: name 'UNIVERSE' is not defined
 — последние строки сборщика —
 [00:11:45]   ✅ SOL-USDT: OBI=0.025 bid=86.67 ask=86.68
+[00:11:45]   ✅ BTC-USDT: OBI=0.130 bid=75326.9 ask=75327.0
