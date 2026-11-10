@@ -1,4 +1,3 @@
-[16:39:02]   V CLOSED SOLUSDT LONG mr_z: 81.6500 -> 82.0600 +0.1$ [TP]
 [16:42:14]   V CLOSED BTCUSDT LONG mr_z: 72838.2000 -> 73117.2000 +0.08$ [TP]
 [16:45:30] live: bank=999.51 юниверс=12 монет
 [16:56:26]   OPEN DOGEUSDT LONG [mr_z] @ 0.0669 (z=-1.92 obi=0.41) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [22:59:57] live: bank=999.36 юниверс=12 монет
 [23:06:01]   T CLOSED XRPUSDT LONG mr_z: 1.0575 -> 1.0556 -0.04$ [TIMEOUT]
 [23:10:19] live: bank=999.32 юниверс=12 монет
+[23:16:42]   OPEN ZECUSDT SHORT [mr_z] @ 1042.4000 (z=2.29 obi=-0.20) TP=0.35% SL=0.25% tmo=30m
