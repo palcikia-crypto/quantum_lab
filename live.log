@@ -1,4 +1,3 @@
-[06:05:19] universe=BTCUSDT,ETHUSDT,USDCUSDT,ZECUSDT,XRPUSDT,SOLUSDT,HYPEUSDT,PEPEUSDT,DOGEUSDT,XNVDAUSDT,XAUTUSDT,UNIUSDT,OKBUSDT,NEARUSDT,XCRCLUSDT,LITUSDT risk=2%/trade max=3 pos
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [07:07:07]   ✅ XRP-USDT: OBI=-0.035 bid=1.1043 ask=1.1044
@@ -149,3 +148,4 @@
 [17:39:18]   V CLOSED XRPUSDT SHORT mr_z: 1.0530 -> 1.0476 +0.1$ [TP]
 [17:39:18]   X CLOSED HYPEUSDT LONG mr_z: 70.6110 -> 70.4190 -0.05$ [SL]
 [17:39:21]   OPEN DOGEUSDT LONG [mr_z] @ 0.0668 (z=-1.98 obi=0.28) TP=0.35% SL=0.25% tmo=30m
+[17:39:21]   OPEN UNIUSDT LONG [mr_z] @ 6.6500 (z=-2.19 obi=0.28) TP=0.35% SL=0.25% tmo=30m
