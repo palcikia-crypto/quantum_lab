@@ -9,9 +9,17 @@
 Честность: сигналы только по закрытым барам; в live OBI — дополнительный
 фильтр сверх бэктеста (срезает часть сделок, но не создаёт новых).
 Риск: 2% банка на сделку, максимум 3 позиции, cooldown 10 мин на пару.
+v5.1: умный автокарантин (core/quarantine.py) — монета/связка с серией
+убытков уходит на временную паузу и возвращается сама; глобальная пауза
+при дневном лимите убытка. ML-veto (ai_core) и AI-балансировка сохранены.
 """
 import json, math, os, sqlite3, time, urllib.request
 from datetime import datetime
+
+try:
+    import quarantine
+except Exception:
+    quarantine = None
 
 BASE = os.path.expanduser('~/quantum_lab')
 OB_DB = os.path.join(BASE, 'data/orderbook.db')
@@ -24,6 +32,7 @@ MAX_OPEN = 3
 COOLDOWN = 600
 CYCLE = 60
 UNIVERSE_DEFAULT = ['BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'XRPUSDT', 'DOGEUSDT', 'BNBUSDT', 'ADAUSDT', 'LINKUSDT']
+LAST_EV = ['']
 
 def universe():
     try:
@@ -250,11 +259,22 @@ def weight_off(sym, strat):
     return False
 
 def open_new_trades():
+    q = None
+    if quarantine is not None:
+        try:
+            q = quarantine.load()
+        except Exception:
+            q = None
+    if q and q.get('global_pause_until', 0) > int(time.time()):
+        log('  PAUSE: дневной лимит убытка (%.2f$ за день) — новые сделки не открываются' % (q.get('day_pnl') or 0))
+        return
     c = sqlite3.connect(DB, timeout=10)
     n_open = c.execute("SELECT COUNT(*) FROM trades WHERE status='OPEN'").fetchone()[0]
     for sym in universe():
         if n_open >= MAX_OPEN:
             break
+        if q and quarantine is not None and quarantine.blocked(q, sym, '*'):
+            continue
         if c.execute("SELECT 1 FROM trades WHERE symbol=? AND status='OPEN'", (sym,)).fetchone():
             continue
         row = c.execute("SELECT exit_ts FROM trades WHERE symbol=? AND status='CLOSED' ORDER BY id DESC LIMIT 1", (sym,)).fetchone()
@@ -267,6 +287,9 @@ def open_new_trades():
         if not sigs:
             continue
         side, strat, tp, sl, tmo, why = sigs[0]
+        if q and quarantine is not None and quarantine.blocked(q, sym, strat):
+            log('  QUARANTINE %s|%s — сигнал пропущен' % (sym, strat))
+            continue
         if ml_veto(sym, side, c1):
             log('  ML veto %s %s %s' % (sym, side, strat))
             continue
@@ -316,13 +339,22 @@ def main():
         import web_export
     except Exception:
         web_export = None
-    log('=== QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===')
+    log('=== QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===')
     log('universe=%s risk=%.0f%%/trade max=%d pos' % (','.join(universe()), RISK * 100, MAX_OPEN))
     hb = 0
     while True:
         hb += 1
         try:
             close_open_trades()
+            if quarantine is not None:
+                try:
+                    qd = quarantine.update(universe())
+                    ev = (qd.get('events') or [''])[0]
+                    if ev and ev != LAST_EV[0]:
+                        LAST_EV[0] = ev
+                        log('🛡 %s' % ev)
+                except Exception as e:
+                    log('quarantine error: %s' % e)
             open_new_trades()
             if hb % 10 == 1:
                 log('live: bank=%.2f юниверс=%d монет' % (bank(), len(universe())))
