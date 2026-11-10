@@ -1,0 +1,23 @@
+name: Cancel Old Worker
+on:
+  push:
+    paths: ['tools/CANCEL_WORKER']
+  workflow_dispatch:
+
+jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Cancel in-progress persistent worker runs
+        run: |
+          RUNS=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/workflows/persistent_worker.yml/runs?status=in_progress&per_page=20")
+          IDS=$(echo "$RUNS" | jq -r ".workflow_runs[].id")
+          for ID in $IDS; do
+            echo "Cancelling run $ID"
+            curl -s -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/palcikia-crypto/quantum_lab/actions/runs/$ID/cancel"
+          done
+          echo "done"
