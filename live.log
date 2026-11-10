@@ -1,4 +1,3 @@
-🟢 Воркер стартовал: core/okx_bot_paper_v4.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [22:12:56]   ✅ XRP-USDT: OBI=0.164 bid=1.0955 ask=1.0956
 [22:13:06] === OKX SCALPER v4 STARTED (OBI SHORT) ===
@@ -149,3 +148,4 @@
 [00:00:05]   🎯 OPEN BTC-USDT SHORT @ 75350.3000 OBI=-0.554 TP=0.15% SL=0.07%
 [00:01:07]   ⏱️ TIMEOUT BTC-USDT SHORT: 75350.3000→75340.7000 $0.01
 [00:01:07]   🎯 OPEN BTC-USDT SHORT @ 75340.7000 OBI=-0.500 TP=0.15% SL=0.07%
+[00:02:23]   ⏱️ TIMEOUT BTC-USDT SHORT: 75340.7000→75332.8000 $0.01
