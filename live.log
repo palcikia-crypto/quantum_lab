@@ -1,4 +1,3 @@
-[01:43:00]   ML veto XNVDAUSDT LONG donchian_atr
 [01:46:05]   X CLOSED HYPEUSDT LONG donchian_atr: 72.5890 -> 72.2030 -0.11$ [SL]
 [01:51:20] live: bank=998.92 юниверс=12 монет
 [01:56:36]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-2.10 obi=0.53) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [07:24:09] 🛡 [07:24:09] защита от массового карантина: GRAMUSDT возвращён в скан
 [07:24:09]   OPEN BTCUSDT LONG [donchian_atr] @ 73968.0000 (break>73977.900000 ATR x1.40 obi=0.70) TP=0.80% SL=0.40% tmo=120m
 [07:25:11]   V CLOSED XNVDAUSDT LONG mr_z: 171.9900 -> 172.6300 +0.07$ [TP]
+[07:26:13] 🛡 [07:26:13] защита от массового карантина: GRAMUSDT возвращён в скан
