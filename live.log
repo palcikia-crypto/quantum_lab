@@ -1,4 +1,3 @@
-[22:05:01]   OPEN HYPEUSDT SHORT [mr_z] @ 72.8550 (z=2.57 obi=-0.21) TP=0.35% SL=0.25% tmo=30m
 [22:07:02] live: bank=999.40 юниверс=12 монет
 [22:11:05]   T CLOSED USDCUSDT LONG mr_z: 1.0009 -> 1.0009 -0.0$ [TIMEOUT]
 [22:16:25]   T CLOSED XRPUSDT SHORT mr_z: 1.0633 -> 1.0639 -0.01$ [TIMEOUT]
@@ -149,3 +148,4 @@
 [05:12:05]   OPEN GRAMUSDT SHORT [mr_z] @ 1.1390 (z=2.17 obi=-0.11) TP=0.35% SL=0.25% tmo=30m
 [05:13:06]   X CLOSED GRAMUSDT SHORT mr_z: 1.1390 -> 1.1450 -0.11$ [SL]
 [05:13:06] 🛡 [05:13:06] КАРАНТИН GRAMUSDT (ур.1, 90 мин): 3 убытков подряд
+[05:17:18] live: bank=998.74 юниверс=12 монет
