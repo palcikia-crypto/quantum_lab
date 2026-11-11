@@ -1,4 +1,3 @@
-[19:39:57] === QUANTUM LAB v5 STARTED: mr_z + donchian_atr + funding_squeeze ===
 [19:39:57] universe=BTCUSDT,ETHUSDT,USDCUSDT,XRPUSDT,ZECUSDT,SOLUSDT,HYPEUSDT,PEPEUSDT,DOGEUSDT,NEARUSDT,UNIUSDT,XNVDAUSDT risk=2%/trade max=3 pos
 [19:40:02] live: bank=999.44 юниверс=12 монет
 [19:47:41]   OPEN UNIUSDT SHORT [mr_z] @ 6.7110 (z=2.26 obi=-0.13) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [02:13:48] 🛡 [02:13:48] КАРАНТИН PEPEUSDT (ур.1, 90 мин): 3 убытков подряд
 [02:22:13] live: bank=998.86 юниверс=12 монет
 [02:27:25]   T CLOSED XNVDAUSDT LONG mr_z: 172.0000 -> 172.2400 +0.03$ [TIMEOUT]
+[02:27:26]   OPEN ETHUSDT SHORT [mr_z] @ 2055.2700 (z=2.15 obi=-0.58) TP=0.35% SL=0.25% tmo=30m
