@@ -1,1 +1,1 @@
-{"updated_at": 1794360783, "stage": "done", "stage_txt": "Цикл завершён: ML ok, отключено связок: 4", "pct": 100, "errors": []}
+{"updated_at": 1794376749, "stage": "ml_train", "stage_txt": "ML: качаю историю BTCUSDT (1/6)", "pct": 10, "errors": []}
