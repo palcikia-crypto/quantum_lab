@@ -1,4 +1,3 @@
-[18:00:31]   V CLOSED PEPEUSDT SHORT mr_z: 0.0000 -> 0.0000 +0.1$ [TP]
 [18:00:37] live: bank=999.91 юниверс=12 монет
 [18:06:06]   OPEN NEARUSDT SHORT [mr_z] @ 3.5520 (z=2.13 obi=-0.25) TP=0.35% SL=0.25% tmo=30m
 [18:11:34] live: bank=999.91 юниверс=12 монет
@@ -149,3 +148,4 @@
 [00:32:26]   OPEN UNIUSDT SHORT [mr_z] @ 6.7210 (z=2.52 obi=-0.33) TP=0.35% SL=0.25% tmo=30m
 [00:34:27] live: bank=999.17 юниверс=12 монет
 [00:37:30]   X CLOSED UNIUSDT SHORT mr_z: 6.7210 -> 6.7380 -0.05$ [SL]
+[00:37:30]   OPEN ETHUSDT SHORT [mr_z] @ 2056.9900 (z=2.25 obi=-0.66) TP=0.35% SL=0.25% tmo=30m
