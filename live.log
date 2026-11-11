@@ -1,4 +1,3 @@
-[18:16:51]   V CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 +0.07$ [TP]
 [18:22:16]   X CLOSED ZECUSDT LONG mr_z: 1030.0100 -> 1024.8000 -0.1$ [SL]
 [18:22:20] live: bank=999.80 юниверс=12 монет
 [18:28:49]   OPEN XRPUSDT SHORT [mr_z] @ 1.0644 (z=2.33 obi=-0.12) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [00:54:49] live: bank=999.15 юниверс=12 монет
 [00:57:58]   V CLOSED ETHUSDT SHORT mr_z: 2056.9900 -> 2049.5600 +0.07$ [TP]
 [00:59:06]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-2.28 obi=0.21) TP=0.35% SL=0.25% tmo=30m
+[01:02:16]   X CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 -0.08$ [SL]
