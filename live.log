@@ -1,4 +1,3 @@
-[22:38:37] live: bank=999.44 юниверс=12 монет
 [22:49:21] live: bank=999.44 юниверс=12 монет
 [22:55:49]   OPEN UNIUSDT LONG [mr_z] @ 6.6630 (z=-3.10 obi=0.35) TP=0.35% SL=0.25% tmo=30m
 [22:57:51]   T CLOSED XNVDAUSDT LONG mr_z: 169.5100 -> 169.3400 -0.02$ [TIMEOUT]
@@ -149,3 +148,4 @@
 🟢 Сборщик: [05:58:57]   ✅ XNVDAUSDT: OBI=0.486 bid=173.52 ask=173.55
 [05:59:05] universe=BTCUSDT,ETHUSDT,USDCUSDT,SOLUSDT,ZECUSDT,XRPUSDT,HYPEUSDT,PEPEUSDT,DOGEUSDT,UNIUSDT,NEARUSDT,XNVDAUSDT risk=2%/trade max=3 pos
 [05:59:05] 🛡 [05:59:05] КАРАНТИН XRPUSDT|mr_z (ур.1, 180 мин): 5 убытков подряд по связке
+[05:59:06] live: bank=998.83 юниверс=12 монет
