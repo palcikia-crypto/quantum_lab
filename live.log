@@ -1,4 +1,3 @@
-[17:19:18]   OPEN SOLUSDT SHORT [mr_z] @ 82.4100 (z=1.94 obi=-0.13) TP=0.35% SL=0.25% tmo=30m
 [17:22:22]   V CLOSED NEARUSDT SHORT mr_z: 3.5240 -> 3.5090 +0.09$ [TP]
 [17:28:49] live: bank=999.65 юниверс=12 монет
 [17:34:12]   OPEN XRPUSDT SHORT [mr_z] @ 1.0530 (z=2.11 obi=-0.18) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [23:56:20]   T CLOSED XRPUSDT SHORT mr_z: 1.0564 -> 1.0569 -0.01$ [TIMEOUT]
 [00:01:44]   OPEN DOGEUSDT SHORT [mr_z] @ 0.0681 (z=2.85 obi=-0.14) TP=0.35% SL=0.25% tmo=30m
 [00:02:45] live: bank=999.33 юниверс=12 монет
+[00:04:46]   V CLOSED XNVDAUSDT LONG mr_z: 170.0700 -> 170.7200 +0.08$ [TP]
