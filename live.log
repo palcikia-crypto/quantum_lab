@@ -1,4 +1,3 @@
-[18:28:49]   OPEN XRPUSDT SHORT [mr_z] @ 1.0644 (z=2.33 obi=-0.12) TP=0.35% SL=0.25% tmo=30m
 [18:33:08]   X CLOSED XRPUSDT SHORT mr_z: 1.0644 -> 1.0693 -0.09$ [SL]
 [18:33:09]   OPEN BTCUSDT SHORT [mr_z] @ 73492.7000 (z=2.12 obi=-0.61) TP=0.35% SL=0.25% tmo=30m
 [18:33:11]   OPEN HYPEUSDT SHORT [mr_z] @ 71.4650 (z=2.02 obi=-0.11) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [01:02:16]   X CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 -0.08$ [SL]
 [01:03:22]   OPEN HYPEUSDT LONG [mr_z] @ 71.7790 (z=-2.00 obi=0.47) TP=0.35% SL=0.25% tmo=30m
 [01:05:32] live: bank=999.14 юниверс=12 монет
+[01:16:19] live: bank=999.14 юниверс=12 монет
