@@ -1,4 +1,3 @@
-[19:47:41]   OPEN NEARUSDT SHORT [mr_z] @ 3.5740 (z=2.28 obi=-0.11) TP=0.35% SL=0.25% tmo=30m
 [19:48:44]   OPEN SOLUSDT SHORT [mr_z] @ 82.9200 (z=2.24 obi=-0.22) TP=0.35% SL=0.25% tmo=30m
 [19:50:46]   X CLOSED NEARUSDT SHORT mr_z: 3.5740 -> 3.5860 -0.07$ [SL]
 [19:50:49] live: bank=999.37 юниверс=12 монет
@@ -149,3 +148,4 @@
 [02:28:30]   OPEN HYPEUSDT SHORT [mr_z] @ 71.7870 (z=2.38 obi=-0.29) TP=0.35% SL=0.25% tmo=30m
 [02:30:31]   V CLOSED HYPEUSDT SHORT mr_z: 71.7870 -> 71.4920 +0.08$ [TP]
 [02:32:37] live: bank=998.97 юниверс=12 монет
+[02:40:54]   X CLOSED ETHUSDT SHORT mr_z: 2055.2700 -> 2060.9900 -0.06$ [SL]
