@@ -1,4 +1,3 @@
-[19:15:10] live: bank=999.54 юниверс=12 монет
 [19:21:35]   T CLOSED SOLUSDT LONG mr_z: 82.8600 -> 82.7300 -0.03$ [TIMEOUT]
 [19:21:39]   OPEN NEARUSDT LONG [mr_z] @ 3.5700 (z=-3.06 obi=0.11) TP=0.35% SL=0.25% tmo=30m
 [19:23:47]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-1.94 obi=0.10) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [01:30:45]   OPEN BTCUSDT SHORT [mr_z] @ 73780.7000 (z=2.46 obi=-0.24) TP=0.35% SL=0.25% tmo=30m
 [01:30:45]   OPEN ETHUSDT SHORT [mr_z] @ 2056.5200 (z=2.50 obi=-0.63) TP=0.35% SL=0.25% tmo=30m
 [01:30:46]   OPEN USDCUSDT SHORT [mr_z] @ 1.0010 (z=2.25 obi=-0.28) TP=0.35% SL=0.25% tmo=30m
+[01:30:46] live: bank=999.16 юниверс=12 монет
