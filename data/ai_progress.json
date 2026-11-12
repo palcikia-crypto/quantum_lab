@@ -1,1 +1,1 @@
-{"updated_at": 1794443554, "stage": "start", "stage_txt": "Мозг стартовал", "pct": 0, "errors": [], "cycle_started": 1794443554}
+{"updated_at": 1794443559, "stage": "ml_train", "stage_txt": "ML: качаю историю BTCUSDT (1/6)", "pct": 10, "errors": []}
