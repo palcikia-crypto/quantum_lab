@@ -1,1 +1,1 @@
-{"updated_at": 1794443693, "stage": "done", "stage_txt": "Цикл завершён: ML ok, отключено связок: 8", "pct": 100, "errors": []}
+{"updated_at": 1794464602, "stage": "rebalance", "stage_txt": "Автобалансировка связок", "pct": 5, "errors": [], "universe_n": 16}
