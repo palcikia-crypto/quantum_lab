@@ -148,4 +148,4 @@
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [00:32:28]   ✅ UNIUSDT: OBI=0.005 bid=6.225 ask=6.226
-[00:32:34] перенесено 199 сделок из web_dashboard — банк непрерывен
+[00:32:34] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
