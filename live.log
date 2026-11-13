@@ -1,4 +1,3 @@
-[07:32:04]   V CLOSED DOGEUSDT SHORT mr_z: 0.0649 -> 0.0647 +0.08$ [TP]
 [07:32:05]   OPEN ETHUSDT LONG [mr_z] @ 1941.9600 (z=-1.91 obi=0.14) TP=0.35% SL=0.25% tmo=30m
 [07:40:20]   AI-core off PEPEUSDT mr_z (серия минусов)
 [07:41:22]   AI-core off PEPEUSDT mr_z (серия минусов)
@@ -149,3 +148,4 @@
 [13:01:56]   QUARANTINE NEARUSDT|mr_z — сигнал пропущен
 [13:02:56] 🛡 [13:02:56] защита от массового карантина: NEARUSDT возвращён в скан
 [13:03:59]   X CLOSED XNVDAUSDT SHORT donchian_atr: 168.1900 -> 168.8800 -0.08$ [SL]
+[13:03:59] 🛡 [13:03:59] защита от массового карантина: NEARUSDT возвращён в скан
