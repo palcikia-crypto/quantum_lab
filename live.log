@@ -1,4 +1,3 @@
-[00:32:46] 🛡 [00:32:46] защита от массового карантина: SOLUSDT возвращён в скан
 [00:32:47]   AI-core off SOLUSDT mr_z (серия минусов)
 [00:32:48]   QUARANTINE DOGEUSDT|mr_z — сигнал пропущен
 [00:33:49] 🛡 [00:33:49] защита от массового карантина: ZECUSDT возвращён в скан
@@ -149,3 +148,4 @@
 [02:21:12]   AI-core off PEPEUSDT mr_z (серия минусов)
 [02:21:13]   QUARANTINE NEARUSDT|mr_z — сигнал пропущен
 [02:21:13]   OPEN LITUSDT SHORT [donchian_atr] @ 3.1657 (break<3.173100 ATR x1.29 obi=-0.36) TP=0.80% SL=0.40% tmo=120m
+[02:22:14]   X CLOSED XNVDAUSDT LONG donchian_atr: 162.3500 -> 161.6300 -0.09$ [SL]
