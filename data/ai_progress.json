@@ -1,1 +1,1 @@
-{"updated_at": 1794662818, "stage": "rebalance", "stage_txt": "Автобалансировка связок", "pct": 5, "errors": [], "universe_n": 16}
+{"updated_at": 1794662820, "stage": "ml_train", "stage_txt": "ML: качаю историю BTCUSDT (1/6)", "pct": 10, "errors": []}
