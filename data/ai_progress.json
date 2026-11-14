@@ -1,1 +1,1 @@
-{"updated_at": 1794657665, "stage": "ml_train", "stage_txt": "ML: обучение на 23269 сэмплах", "pct": 85, "errors": []}
+{"updated_at": 1794657669, "stage": "done", "stage_txt": "Цикл завершён: ML ok, отключено связок: 12", "pct": 100, "errors": []}
