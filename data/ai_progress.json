@@ -1,1 +1,1 @@
-{"updated_at": 1794683967, "stage": "ml_train", "stage_txt": "ML: качаю историю ZECUSDT (6/6)", "pct": 68, "errors": []}
+{"updated_at": 1794683992, "stage": "done", "stage_txt": "Цикл завершён: ML ok, отключено связок: 11", "pct": 100, "errors": []}
