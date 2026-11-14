@@ -1,4 +1,3 @@
-[18:48:57]   AI-core off BTCUSDT mr_z (серия минусов)
 [18:48:57]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 [18:48:58]   QUARANTINE HYPEUSDT|mr_z — сигнал пропущен
 [18:50:00] 🛡 [18:50:00] защита от массового карантина: ETHUSDT возвращён в скан
@@ -149,3 +148,4 @@
 [20:54:30]   AI-core off BTCUSDT mr_z (серия минусов)
 [20:54:30]   AI-core off PEPEUSDT mr_z (серия минусов)
 [20:54:31]   QUARANTINE NEARUSDT|mr_z — сигнал пропущен
+[20:54:31]   OPEN OKBUSDT LONG [mr_z] @ 84.3000 (z=-3.77 obi=0.51) TP=0.35% SL=0.25% tmo=30m
