@@ -1,4 +1,3 @@
-[14:27:14]   QUARANTINE OKBUSDT|mr_z — сигнал пропущен
 [14:28:15] 🛡 [14:28:15] защита от массового карантина: SUIUSDT возвращён в скан
 [14:28:16]   AI-core off BTCUSDT mr_z (серия минусов)
 [14:28:17]   QUARANTINE OKBUSDT|mr_z — сигнал пропущен
@@ -149,3 +148,4 @@
 [16:29:33]   OPEN PEPEUSDT SHORT [mr_z] @ 0.0000 (z=3.19 obi=-0.20) TP=0.35% SL=0.25% tmo=30m
 [16:30:35]   X CLOSED SOLUSDT SHORT donchian_atr: 71.4200 -> 71.8400 -0.12$ [SL]
 [16:30:35]   X CLOSED PEPEUSDT SHORT mr_z: 0.0000 -> 0.0000 -0.2$ [SL]
+[16:30:35] 🛡 [16:30:35] защита от массового карантина: SUIUSDT возвращён в скан
