@@ -1,4 +1,3 @@
-[02:18:53]   ML veto SOLUSDT LONG donchian_atr
 [02:18:54]   ML veto PEPEUSDT LONG donchian_atr
 [02:18:54]   ML veto SUIUSDT LONG donchian_atr
 [02:18:54]   ML veto OKBUSDT LONG donchian_atr
@@ -149,3 +148,4 @@
 [04:07:02] 🛡 [04:07:02] защита от массового карантина: OKBUSDT возвращён в скан
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
+🟢 Сборщик: [04:08:21]   ✅ OKBUSDT: OBI=0.060 bid=86.77 ask=86.79
