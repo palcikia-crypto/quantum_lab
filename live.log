@@ -1,4 +1,3 @@
-[02:19:57]   ML veto DOGEUSDT LONG donchian_atr
 [02:19:58]   ML veto SUIUSDT LONG donchian_atr
 [02:19:58]   ML veto OKBUSDT LONG donchian_atr
 [02:20:58] 🛡 [02:20:58] защита от массового карантина: OKBUSDT возвращён в скан
@@ -149,3 +148,4 @@
 [04:08:29] universe=BTCUSDT,ETHUSDT,SOLUSDT,XRPUSDT,HYPEUSDT,ZECUSDT,DOGEUSDT,PEPEUSDT,NEARUSDT,UNIUSDT,SUIUSDT,OKBUSDT risk=2%/trade max=3 pos
 [04:08:29] 🛡 [04:08:29] защита от массового карантина: OKBUSDT возвращён в скан
 [04:08:30] live: bank=997.46 юниверс=12 монет
+[04:09:32] 🛡 [04:09:32] защита от массового карантина: OKBUSDT возвращён в скан
