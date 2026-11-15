@@ -1,4 +1,3 @@
-[21:16:33]   X CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 -0.08$ [SL]
 [21:16:33] 🛡 [21:16:33] защита от массового карантина: OKBUSDT возвращён в скан
 [21:16:33]   AI-core off BTCUSDT mr_z (серия минусов)
 [21:16:35]   QUARANTINE OKBUSDT|mr_z — сигнал пропущен
@@ -149,3 +148,4 @@
 [23:04:50] 🛡 [23:04:50] защита от массового карантина: OKBUSDT возвращён в скан
 [23:04:50]   AI-core off BTCUSDT mr_z (серия минусов)
 [23:04:50]   AI-core off SOLUSDT mr_z (серия минусов)
+[23:04:52]   ML veto PEPEUSDT LONG donchian_atr
