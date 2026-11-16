@@ -1,4 +1,3 @@
-[12:04:50] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
 [12:04:50] universe=BTCUSDT,ETHUSDT,SOLUSDT,ZECUSDT,XRPUSDT,DOGEUSDT,HYPEUSDT,PEPEUSDT,ASTERUSDT,VINEUSDT,SUIUSDT,XNVDAUSDT risk=2%/trade max=3 pos
 [12:04:50] 🛡 [12:04:50] защита от массового карантина: ZECUSDT возвращён в скан
 [12:04:51]   QUARANTINE ZECUSDT|mr_z — сигнал пропущен
@@ -149,3 +148,4 @@
 [13:58:40] 🛡 [13:58:40] защита от массового карантина: SOLUSDT возвращён в скан
 [13:59:44] 🛡 [13:59:44] защита от массового карантина: UNIUSDT возвращён в скан
 [14:00:46] 🛡 [14:00:46] защита от массового карантина: ZECUSDT возвращён в скан
+[14:00:50] live: bank=998.04 юниверс=12 монет
