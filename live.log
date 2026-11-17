@@ -1,4 +1,3 @@
-🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [03:47:48]   ✅ OKBUSDT: OBI=-0.043 bid=86.68 ask=86.7
 [03:47:56] перенесено 198 сделок из web_dashboard — банк непрерывен
@@ -149,3 +148,4 @@
 [05:21:38]   AI-core off BTCUSDT mr_z (серия минусов)
 [05:21:38]   QUARANTINE LITUSDT|funding_squeeze — сигнал пропущен
 [05:21:39]   OPEN OKBUSDT LONG [donchian_atr] @ 87.3500 (break>87.160000 ATR x1.54 obi=0.57) TP=0.80% SL=0.40% tmo=120m
+[05:21:39] live: bank=996.88 юниверс=12 монет
