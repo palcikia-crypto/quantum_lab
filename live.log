@@ -1,4 +1,3 @@
-[05:21:38]   AI-core off BTCUSDT mr_z (серия минусов)
 [05:21:38]   QUARANTINE LITUSDT|funding_squeeze — сигнал пропущен
 [05:21:39]   OPEN OKBUSDT LONG [donchian_atr] @ 87.3500 (break>87.160000 ATR x1.54 obi=0.57) TP=0.80% SL=0.40% tmo=120m
 [05:21:39] live: bank=996.88 юниверс=12 монет
@@ -149,3 +148,4 @@
 [06:55:13]   V CLOSED PEPEUSDT SHORT mr_z: 0.0000 -> 0.0000 +0.08$ [TP]
 [06:55:13] 🛡 [06:55:13] защита от массового карантина: XRPUSDT возвращён в скан
 [06:55:15]   AI-core off OKBUSDT mr_z (серия минусов)
+[06:55:15] live: bank=996.60 юниверс=12 монет
