@@ -1,4 +1,3 @@
-[07:12:32] universe=BTCUSDT,ETHUSDT,SOLUSDT,ZECUSDT,XNVDAUSDT,HYPEUSDT,XRPUSDT,LITUSDT,NEARUSDT,DOGEUSDT,PEPEUSDT,UNIUSDT risk=2%/trade max=3 pos
 [07:12:32] 🛡 [07:12:32] защита от массового карантина: LITUSDT возвращён в скан
 [07:12:34]   OPEN XRPUSDT LONG [donchian_atr] @ 0.9918 (break>0.990800 ATR x1.20 obi=0.22) TP=0.80% SL=0.40% tmo=120m
 [07:12:35] live: bank=999.60 юниверс=12 монет
@@ -149,3 +148,4 @@
 [09:04:40] 🛡 [09:04:40] защита от массового карантина: ZECUSDT возвращён в скан
 [09:05:44] 🛡 [09:05:44] защита от массового карантина: ZECUSDT возвращён в скан
 [09:06:46] 🛡 [09:06:46] защита от массового карантина: ZECUSDT возвращён в скан
+[09:07:51] 🛡 [09:07:51] защита от массового карантина: ZECUSDT возвращён в скан
