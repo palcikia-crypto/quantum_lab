@@ -1,4 +1,3 @@
-[11:34:47]   AI-core off BTCUSDT mr_z (серия минусов)
 [11:34:47]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 [11:34:49]   OPEN MMTUSDT LONG [donchian_atr] @ 0.2036 (break>0.202900 ATR x1.39 obi=0.15) TP=0.80% SL=0.40% tmo=120m
 [11:35:51]   X CLOSED MMTUSDT LONG donchian_atr: 0.2036 -> 0.2015 -0.21$ [SL]
@@ -149,3 +148,4 @@
 [13:12:55]   AI-core off BTCUSDT mr_z (серия минусов)
 [13:13:59] 🛡 [13:13:59] защита от массового карантина: ZECUSDT возвращён в скан
 [13:14:00]   QUARANTINE ZECUSDT|mr_z — сигнал пропущен
+[13:15:02] 🛡 [13:15:02] защита от массового карантина: ZECUSDT возвращён в скан
