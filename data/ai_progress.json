@@ -1,1 +1,1 @@
-{"updated_at": 1795093588, "stage": "ml_train", "stage_txt": "ML: качаю историю XRPUSDT (6/6)", "pct": 68, "errors": []}
+{"updated_at": 1795093612, "stage": "ml_train", "stage_txt": "ML: обучение на 23467 сэмплах", "pct": 85, "errors": []}
