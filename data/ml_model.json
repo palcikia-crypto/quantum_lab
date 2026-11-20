@@ -1,1 +1,1 @@
-{"updated_at": 1795158223, "samples": 24231, "train_acc": 0.5335, "val_acc": 0.5249, "weights": [-0.0028, 0.0262, -0.0105, -0.1735, -0.0529, -0.0611], "bias": 0.0269, "features": ["z20", "ret5", "ret15", "ret60", "range60", "pos60"], "horizon": "5m", "min_move": 0.08}
+{"updated_at": 1795179267, "samples": 24228, "train_acc": 0.5321, "val_acc": 0.5312, "weights": [-0.0031, 0.082, -0.0447, -0.1727, -0.1039, -0.0062], "bias": 0.0514, "features": ["z20", "ret5", "ret15", "ret60", "range60", "pos60"], "horizon": "5m", "min_move": 0.08}
