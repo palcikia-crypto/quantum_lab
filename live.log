@@ -1,4 +1,3 @@
-[05:48:02]   QUARANTINE XNVDAUSDT|mr_z — сигнал пропущен
 [05:49:04] 🛡 [05:49:04] защита от массового карантина: XNVDAUSDT возвращён в скан
 [05:49:04]   AI-core off BTCUSDT mr_z (серия минусов)
 [05:49:06]   OPEN PEPEUSDT SHORT [mr_z] @ 0.0000 (z=2.02 obi=-0.30) TP=0.35% SL=0.25% tmo=30m
@@ -149,3 +148,4 @@
 [07:35:07] 🛡 [07:35:07] защита от массового карантина: XRPUSDT возвращён в скан
 [07:35:09]   QUARANTINE ZECUSDT|mr_z — сигнал пропущен
 [07:35:10]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-2.18 obi=0.38) TP=0.35% SL=0.25% tmo=30m
+[07:35:10]   OPEN LITUSDT LONG [mr_z] @ 2.6175 (z=-2.03 obi=0.52) TP=0.35% SL=0.25% tmo=30m
