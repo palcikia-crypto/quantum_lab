@@ -1,1 +1,1 @@
-{"updated_at": 1795226021, "stage": "ml_train", "stage_txt": "ML: качаю историю HYPEUSDT (6/6)", "pct": 68, "errors": []}
+{"updated_at": 1795226043, "stage": "ml_train", "stage_txt": "ML: обучение на 24495 сэмплах", "pct": 85, "errors": []}
