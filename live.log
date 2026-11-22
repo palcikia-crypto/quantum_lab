@@ -1,4 +1,3 @@
-[12:24:37] перенесено 199 сделок из web_dashboard — банк непрерывен
 [12:24:37] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
 [12:24:37] universe=BTCUSDT,ETHUSDT,SOLUSDT,ZECUSDT,XRPUSDT,HYPEUSDT,DOGEUSDT,NEARUSDT,UNIUSDT,XNVDAUSDT,OKBUSDT,XMSTRUSDT risk=2%/trade max=3 pos
 [12:24:37] 🛡 [12:24:37] защита от массового карантина: XNVDAUSDT возвращён в скан
@@ -149,3 +148,4 @@
 [14:21:26] 🛡 [14:21:26] защита от массового карантина: ZECUSDT возвращён в скан
 [14:22:29] 🛡 [14:22:29] защита от массового карантина: ZECUSDT возвращён в скан
 [14:23:31] 🛡 [14:23:31] защита от массового карантина: ZECUSDT возвращён в скан
+[14:24:34] 🛡 [14:24:34] защита от массового карантина: ZECUSDT возвращён в скан
