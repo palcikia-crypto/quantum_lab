@@ -1,4 +1,3 @@
-🟢 Сборщик: [07:24:02]   ✅ PEPEUSDT: OBI=-0.186 bid=3.426e-06 ask=3.4267e-06
 [07:24:09] перенесено 198 сделок из web_dashboard — банк непрерывен
 [07:24:09] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
 [07:24:09] universe=BTCUSDT,ETHUSDT,SOLUSDT,ZECUSDT,XNVDAUSDT,XRPUSDT,HYPEUSDT,DOGEUSDT,NEARUSDT,OKBUSDT,UNIUSDT,PEPEUSDT risk=2%/trade max=3 pos
@@ -149,3 +148,4 @@
 [09:19:01] 🛡 [09:19:01] защита от массового карантина: ZECUSDT возвращён в скан
 [09:19:03] live: bank=998.39 юниверс=12 монет
 [09:20:03] 🛡 [09:20:03] защита от массового карантина: SOLUSDT возвращён в скан
+[09:21:06] 🛡 [09:21:06] защита от массового карантина: NEARUSDT возвращён в скан
