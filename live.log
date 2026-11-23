@@ -116,3 +116,4 @@
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [13:14:46]   ✅ PEPEUSDT: OBI=-0.001 bid=3.4415e-06 ask=3.4418e-06
 [13:14:53] перенесено 198 сделок из web_dashboard — банк непрерывен
+[13:14:53] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
