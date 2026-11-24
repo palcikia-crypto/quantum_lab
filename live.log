@@ -1,4 +1,3 @@
-[07:53:56] live: bank=996.67 юниверс=12 монет
 [07:54:56] 🛡 [07:54:56] защита от массового карантина: ZECUSDT возвращён в скан
 [07:55:59] 🛡 [07:55:59] защита от массового карантина: ZECUSDT возвращён в скан
 [07:57:01] 🛡 [07:57:01] защита от массового карантина: ZECUSDT возвращён в скан
@@ -149,3 +148,4 @@
 🟢 Сборщик: [09:43:51]   ✅ OKBUSDT: OBI=0.112 bid=82.38 ask=82.39
 [09:43:58] перенесено 197 сделок из web_dashboard — банк непрерывен
 [09:43:58] === QUANTUM LAB v5.1 STARTED: mr_z + donchian_atr + funding_squeeze + smart quarantine ===
+[09:43:58] universe=BTCUSDT,ETHUSDT,SOLUSDT,ZECUSDT,XNVDAUSDT,XRPUSDT,HYPEUSDT,DOGEUSDT,NEARUSDT,PEPEUSDT,UNIUSDT,OKBUSDT risk=2%/trade max=3 pos
