@@ -127,3 +127,4 @@
 [06:38:28]   OPEN DOGEUSDT SHORT [mr_z] @ 0.0549 (z=2.19 obi=-0.10) TP=0.35% SL=0.25% tmo=30m
 [06:38:30] live: bank=999.13 юниверс=12 монет
 [06:39:31] 🛡 [06:39:31] защита от массового карантина: PEPEUSDT возвращён в скан
+[06:39:33]   OPEN MONUSDT LONG [donchian_atr] @ 0.0105 (break>0.010370 ATR x1.34 obi=0.48) TP=0.80% SL=0.40% tmo=120m
