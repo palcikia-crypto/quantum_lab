@@ -1,4 +1,3 @@
-[23:16:43]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [23:17:46]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [23:19:52]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [23:19:54] live: bank=998.72 юниверс=12 монет
@@ -149,3 +148,4 @@
 [07:48:39]   AI-core off BTCUSDT mr_z (серия минусов)
 [07:49:43]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 [07:49:44]   OPEN WLFIUSDT LONG [mr_z] @ 0.0194 (z=-2.04 obi=0.56) TP=0.35% SL=0.25% tmo=30m
+[07:50:46]   X CLOSED WLFIUSDT LONG mr_z: 0.0194 -> 0.0193 -0.11$ [SL]
