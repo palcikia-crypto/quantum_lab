@@ -1,4 +1,3 @@
-[06:14:55] live: bank=998.79 юниверс=12 монет
 [06:25:00] live: bank=998.79 юниверс=12 монет
 [06:35:06] live: bank=998.79 юниверс=12 монет
 [06:45:12] live: bank=998.79 юниверс=12 монет
@@ -149,3 +148,4 @@
 [13:33:07]   X CLOSED TRUMPUSDT LONG funding_squeeze: 0.7546 -> 0.7495 -0.14$ [SL]
 [13:35:13]   X CLOSED WLFIUSDT LONG funding_squeeze: 0.0197 -> 0.0195 -0.13$ [SL]
 [13:35:13]   V CLOSED HYPEUSDT SHORT mr_z: 63.0330 -> 62.7930 +0.08$ [TP]
+[13:37:21] live: bank=999.82 юниверс=12 монет
