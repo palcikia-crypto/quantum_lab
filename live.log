@@ -1,4 +1,3 @@
-[02:05:54] live: bank=998.68 юниверс=12 монет
 [02:16:01] live: bank=998.68 юниверс=12 монет
 [02:26:07] live: bank=998.68 юниверс=12 монет
 [02:36:14]   X CLOSED XRPUSDT LONG donchian_atr: 0.9546 -> 0.9496 -0.1$ [SL]
@@ -149,3 +148,4 @@
 [09:21:24]   X CLOSED HYPEUSDT SHORT donchian_atr: 63.2520 -> 63.5110 -0.08$ [SL]
 [09:21:24] 🛡 [09:21:24] КАРАНТИН HYPEUSDT|donchian_atr (ур.1, 180 мин): 4 убытков подряд по связке
 [09:26:39]   OPEN WLFIUSDT LONG [funding_squeeze] @ 0.0207 (funding=-0.0754% z=-1.23) TP=0.50% SL=0.35% tmo=240m
+[09:27:41]   V CLOSED WLFIUSDT LONG funding_squeeze: 0.0207 -> 0.0209 +0.12$ [TP]
