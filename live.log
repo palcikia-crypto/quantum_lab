@@ -1,4 +1,3 @@
-[19:51:18]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [19:52:23]   ✅ XSKHYUSDT: OBI=-0.228 bid=117.8 ask=117.82
@@ -149,3 +148,4 @@
 [04:44:04]   OPEN RLUSDUSDT SHORT [mr_z] @ 1.0010 (z=3.00 obi=-0.24) TP=0.35% SL=0.25% tmo=30m
 [04:52:31]   OPEN HYPEUSDT LONG [mr_z] @ 64.1530 (z=-2.00 obi=0.45) TP=0.35% SL=0.25% tmo=30m
 [04:52:32]   OPEN XNVDAUSDT LONG [mr_z] @ 149.3000 (z=-1.90 obi=0.13) TP=0.35% SL=0.25% tmo=30m
+[04:52:32] live: bank=999.04 юниверс=12 монет
