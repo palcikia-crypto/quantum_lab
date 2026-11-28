@@ -1,4 +1,3 @@
-[23:02:06]   X CLOSED BTCUSDT SHORT donchian_atr: 59636.6000 -> 59876.3000 -0.08$ [SL]
 [23:09:26] live: bank=998.72 юниверс=12 монет
 [23:16:42]   T CLOSED RLUSDUSDT SHORT donchian_atr: 1.0008 -> 1.0010 -0.0$ [TIMEOUT]
 [23:16:43]   AI-core off HYPEUSDT donchian_atr (серия минусов)
@@ -149,3 +148,4 @@
 [07:37:08]   OPEN WLFIUSDT LONG [funding_squeeze] @ 0.0200 (funding=-0.3302% z=-1.39) TP=0.50% SL=0.35% tmo=240m
 [07:38:10]   X CLOSED WLFIUSDT LONG funding_squeeze: 0.0200 -> 0.0198 -0.12$ [SL]
 [07:46:35] live: bank=999.18 юниверс=12 монет
+[07:48:39]   AI-core off BTCUSDT mr_z (серия минусов)
