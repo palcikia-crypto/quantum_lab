@@ -1,4 +1,3 @@
-[00:43:45] live: bank=998.78 юниверс=12 монет
 [00:44:49]   OPEN XSOXLUSDT LONG [mr_z] @ 35.7900 (z=-2.76 obi=0.64) TP=0.35% SL=0.25% tmo=30m
 [00:51:08]   OPEN RLUSDUSDT SHORT [donchian_atr] @ 1.0008 (break<1.000900 ATR x1.93 obi=-0.43) TP=0.80% SL=0.40% tmo=120m
 [00:54:18] live: bank=998.78 юниверс=12 монет
@@ -149,3 +148,4 @@
 [08:27:11]   V CLOSED HYPEUSDT LONG mr_z: 63.6600 -> 63.9010 +0.08$ [TP]
 [08:28:15] live: bank=999.23 юниверс=12 монет
 [08:32:24]   OPEN WLFIUSDT LONG [funding_squeeze] @ 0.0191 (funding=-0.1805% z=-1.41) TP=0.50% SL=0.35% tmo=240m
+[08:33:26]   X CLOSED WLFIUSDT LONG funding_squeeze: 0.0191 -> 0.0189 -0.13$ [SL]
