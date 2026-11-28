@@ -1,4 +1,3 @@
-[07:15:46] live: bank=999.10 юниверс=12 монет
 [07:17:48]   X CLOSED XSOXLUSDT LONG donchian_atr: 36.2900 -> 36.1300 -0.09$ [SL]
 [07:26:13] live: bank=999.01 юниверс=12 монет
 [07:27:15] 🛡 [07:27:15] КАРАНТИН GRAMUSDT (ур.3, 360 мин): 4 убытков подряд
@@ -149,3 +148,4 @@
 [14:08:51]   OPEN TRUMPUSDT LONG [funding_squeeze] @ 0.7473 (funding=-0.0347% z=-2.54) TP=0.50% SL=0.35% tmo=240m
 [14:16:56]   X CLOSED TRUMPUSDT LONG funding_squeeze: 0.7473 -> 0.7446 -0.07$ [SL]
 [14:18:00]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
+[14:18:01]   OPEN HYPEUSDT SHORT [mr_z] @ 62.7500 (z=2.15 obi=-0.40) TP=0.35% SL=0.25% tmo=30m
