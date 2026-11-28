@@ -1,4 +1,3 @@
-[21:37:58] live: bank=998.83 юниверс=12 монет
 [21:48:04] live: bank=998.83 юниверс=12 монет
 [21:58:11] live: bank=998.83 юниверс=12 монет
 [22:06:16]   T CLOSED XNVDAUSDT LONG mr_z: 149.9400 -> 149.8500 -0.01$ [TIMEOUT]
@@ -149,3 +148,4 @@
 [07:09:33]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-2.25 obi=0.47) TP=0.35% SL=0.25% tmo=30m
 [07:10:34]   V CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 +0.08$ [TP]
 [07:12:40]   OPEN XSOXLUSDT LONG [donchian_atr] @ 36.2900 (break>36.180000 ATR x1.25 obi=0.22) TP=0.80% SL=0.40% tmo=120m
+[07:15:46] live: bank=999.10 юниверс=12 монет
