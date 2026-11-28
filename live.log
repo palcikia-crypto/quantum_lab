@@ -1,4 +1,3 @@
-[05:01:39]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-1.97 obi=0.22) TP=0.35% SL=0.25% tmo=30m
 [05:02:40] live: bank=998.97 юниверс=12 монет
 [05:06:42]   X CLOSED PEPEUSDT LONG mr_z: 0.0000 -> 0.0000 -0.05$ [SL]
 [05:06:42]   AI-core off BTCUSDT mr_z (серия минусов)
@@ -149,3 +148,4 @@
 [12:44:20]   OPEN PEPEUSDT LONG [mr_z] @ 0.0000 (z=-2.07 obi=0.12) TP=0.35% SL=0.25% tmo=30m
 [12:47:29] live: bank=1000.13 юниверс=12 монет
 [12:57:56] live: bank=1000.13 юниверс=12 монет
+[13:06:17]   OPEN WLFIUSDT SHORT [mr_z] @ 0.0199 (z=2.16 obi=-0.52) TP=0.35% SL=0.25% tmo=30m
