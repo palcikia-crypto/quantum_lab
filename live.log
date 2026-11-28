@@ -1,4 +1,3 @@
-[02:36:16] live: bank=998.58 юниверс=12 монет
 [02:38:18] 🛡 [02:38:18] КАРАНТИН XSOXLUSDT (ур.2, 180 мин): 3 убытков подряд
 [02:46:37] live: bank=998.58 юниверс=12 монет
 [02:51:49]   T CLOSED RLUSDUSDT SHORT donchian_atr: 1.0008 -> 1.0010 -0.0$ [TIMEOUT]
@@ -149,3 +148,4 @@
 [09:30:49]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 [09:30:50] live: bank=999.28 юниверс=12 монет
 [09:31:51]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
+[09:32:54]   T CLOSED XRPUSDT SHORT mr_z: 0.9410 -> 0.9425 -0.03$ [TIMEOUT]
