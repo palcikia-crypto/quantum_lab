@@ -1,1 +1,1 @@
-{"updated_at": 1795851462, "stage": "ml_train", "stage_txt": "ML: качаю историю RLUSDUSDT (6/6)", "pct": 68, "errors": []}
+{"updated_at": 1795851481, "stage": "ml_train", "stage_txt": "ML: обучение на 18064 сэмплах", "pct": 85, "errors": []}
