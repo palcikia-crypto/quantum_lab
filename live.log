@@ -1,4 +1,3 @@
-[22:13:32]   OPEN BTCUSDT SHORT [donchian_atr] @ 59636.6000 (break<59687.500000 ATR x1.33 obi=-0.23) TP=0.80% SL=0.40% tmo=120m
 [22:13:33]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [22:14:35]   OPEN ETHUSDT SHORT [donchian_atr] @ 1657.7100 (break<1658.860000 ATR x1.56 obi=-0.39) TP=0.80% SL=0.40% tmo=120m
 [22:18:37] live: bank=998.80 юниверс=12 монет
@@ -149,3 +148,4 @@
 [07:30:25]   QUARANTINE ETHUSDT|mr_z — сигнал пропущен
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
+🟢 Сборщик: [07:35:55]   ✅ XSOXLUSDT: OBI=0.316 bid=36.2 ask=36.23
