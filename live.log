@@ -1,4 +1,3 @@
-[21:05:34] live: bank=998.85 юниверс=12 монет
 🟢 Воркер стартовал: core/okx_bot_v5.py
 🟢 Запускаю сборщик рыночных данных OKX
 🟢 Сборщик: [21:06:15]   ✅ XSOXLUSDT: OBI=0.714 bid=35.88 ask=35.91
@@ -149,3 +148,4 @@
 [05:44:58]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [05:47:03]   AI-core off HYPEUSDT donchian_atr (серия минусов)
 [05:49:09]   AI-core off HYPEUSDT donchian_atr (серия минусов)
+[05:54:25] live: bank=998.79 юниверс=12 монет
